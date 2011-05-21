@@ -1,0 +1,107 @@
+<!--{eval $page_title='专业技能 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+       <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+        <form action="index.php?do={$do}&view={$view}" method="post"  id="frm_auth" >
+			<div class="backright_d">
+				<dl><dt>专业技能</dt></dl>
+			</div>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+					    <td width="20%" class="t_r">行业分类：</td>
+					   <td colspan="2">
+					   	 <select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);show_skill(this.value);">
+							{loop $indus_p_arr $key $value}
+								<option {if $indus_info[indus_pid]==$value[indus_id]} selected="selected"{/if} value="{$value['indus_id']}">{$value[indus_name]}</option>
+							{/loop}
+							</select> 
+							<select name="slt_indus_id" id="slt_indus_id">
+								{loop $indus_arr $key $value}
+									<option {if $indus_info[indus_id]==$value[indus_id]}selected="selected"{/if}>{$value[indus_name]}</option>
+								{/loop}
+							</select>
+					   </td>
+					   </tr>
+					   <tr>
+					   <td  class="t_r">
+					   	职业技能：
+					   </td>
+					   <td colspan="2" height="130">
+					   	<textarea name="tar_skill_ids" id="tar_skill_ids" rows="8" cols="80">{loop $user_skill_arr $key $value}{if $value[skill_id]}{$value[skill_name]},{/if}{/loop}
+						</textarea>
+						请用关键词描述你的职业技能。如：翻译，网页设计。 职业技能请输入在10项以内。 
+					   </td>
+				      </tr>
+                      <tr>
+					    <td class="t_r">技能列表：</td>
+					  	<td colspan="2" height="130">
+                        <style>
+                        	.ab_l1{border:1px solid #91969A; width:170px; height:208px; float:left; text-align:center;}
+							.ab_l2{width:50px; height:208px; float:left; background:url({SKIN_PATH}/img/skill_arrow.gif) no-repeat center;}
+							.ab_l3{border:1px solid #91969A; width:340px; height:208px; float:left; background:#F0F0F0;}
+							.ab_l3 a{display:block;float:left;white-space:nowrap;margin:2px 4px;text-decoration:underline;}
+						</style>
+                        
+                        <div class="ab_l2">
+							
+						</div>
+                        <div class="ab_l3">
+								<span id="span_sill_1" style="margin-left: 2px; margin-top: 2px; background: none repeat scroll 0% 0% rgb(255, 255, 255); width: 248px;">
+								{loop $skill_arr $key $value}
+									<a style="color: rgb(36, 124, 214);" onclick="inset(this);" href="#inset">{$value[skill_name]}</a>
+								{/loop}
+								</span>
+						</div>
+                      
+                      
+                      
+                        </td>
+				      </tr>
+					  </table>
+                     <div class="mt_10 t_c">
+							<input type="submit" name="sbt_edit" value="立即编辑" class="input_btn3">
+                     </div>
+					
+			  
+			</form>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+    
+ <script type="text/javascript">
+function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+}
+function show_skill(indus_id){
+	$.post("index.php?do={$do}&view={$view}&ac=show_skill",{indus_id:indus_id},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#span_sill_1").html('暂无');
+		}else{
+			$("#span_sill_1").html(str_data);
+		}
+	});   
+}
+
+function inset(skill_name){
+	var str_skill_name = $(skill_name).html()+',';
+	$("#tar_skill_ids").append(str_skill_name);
+}
+</script>
+</div><!--content_E-->
+<div class="clear"></div>
+<script src="resource/js/css.js" type="text/javascript"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<!--{template footer}-->

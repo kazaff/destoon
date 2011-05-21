@@ -1,0 +1,59 @@
+<!--{eval $page_title='发布任务 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<div id="content">
+
+
+	<!--{eval $model_count = count($model_list)}-->
+	<!--{eval $the_m_s = 1;}-->
+	<div class="ab_nemu_L" id="ab_menu">
+	{loop $model_list $model}
+		<a {if $the_m_s==1}class="ab_nemu_L_h"{/if} href="javascript:;"  fd = "{$model['model_id']}"onclick="swaptab('cont','ab_nemu_L_h','',$model_count,<!--{eval echo $the_m_s;}-->)" id="tab_cont_<!--{eval echo $the_m_s++;}-->"><img src="task/$model[model_dir]/task_icon.gif" align="absmiddle" width="36" height="36" />$model['model_name']</a>
+	{/loop}
+	</div>
+	
+	<!--{eval $the_m_s = 1;}-->
+	{loop $model_list $model}
+    <div {if $the_m_s>1}style="display:none;"{/if} class="ab_main_R" id="div_cont_<!--{eval echo $the_m_s++;}-->">
+		<h3 style="margin-left: 15px;">$model['model_name']</h3>
+        <div>
+        	<!--{eval require_once $template_obj->template('task/'.$model['model_dir'].'/tpl/'.$_K['template'].'/release_info');}-->
+        </div>
+        <div class="mt_10"><input id="acp_checkbox_{$model[model_id]}" type="checkbox" checked="checked"/><a href="javascript:;" id="a_xy" onclick="showWindow('agree', 'index.php?do=release&view=agree');">我接受任务发布协议</a>
+        <input class="rele_btn" type="button" value="下一步"  onclick="release($model['model_id'])"></div>
+	</div>
+	
+	{/loop}
+	<div class="clear"></div>
+	
+    <script type="text/javascript">
+    $(function(){
+ 
+        var uid = parseInt("{$uid}") + 0;
+        if (!uid) {
+            showWindow("login", "index.php?do=login&title=用户登录");
+        }
+    })
+    
+        function release(modelid){
+        	var uid = parseInt("$uid")+0;
+        	if (!uid) {
+                showDialog('请先登录!', 'alert', '未登录', '', 1);  
+            }
+        	else if ($("#acp_checkbox_"+modelid).attr("checked")) {
+				url = "index.php?do=release&model_id="+modelid;
+				if(parseInt("$euid")){
+					if(parseInt("$mid")==6){
+						url = "index.php?do=release&model_id="+modelid+"&euid="+parseInt("$euid");
+					}					
+				}
+				
+        		window.location.href = url;
+            }
+            else {
+                showDialog('请接受发布协议!', 'alert', '发布协议未选择', '', 0);
+            }
+        }
+        
+
+    </script>
+    <!--{template footer}-->

@@ -1,0 +1,213 @@
+<!--{eval $page_title='添加案例 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/script_calendar.js"></script>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl>
+				<dt>
+					<div class="x_tit_1">
+						<div>
+							<span  class="now"><a href="index.php?do={$do}&view=case_add" >案例添加</a></span>
+							<span><a href="index.php?do={$do}&view=case_list" >案例管理</a></span> 
+							<span><a href="index.php?do={$do}&view=case_cate" >案例分类</a></span>  
+						</div>
+					</div>
+				</dt>
+				<dd>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+						  <tr>
+							<th colspan="4" style="background-color:#fff;">&nbsp;</th>
+						</tr>
+					    <tr>
+					  	<td colspan="1">所属行业</td>
+						<td colspan="3">
+							<select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);">
+							<option value="-1"> 请选择父行业 </option>
+							{loop $indus_arr $key $value}
+								{if !$value[indus_pid]}
+								<option value="{$value[indus_id]}" {if $indus_f_info[indus_id]==$value[indus_id]}selected="selected"{/if}>{$value[indus_name]}</option>
+								{/if}
+							{/loop}
+							</select> 
+							<select name="slt_indus_id" id="slt_indus_id">
+								{if $indus_s_info}
+									<option value="{$indus_s_info[indus_id]}">{$indus_s_info[indus_name]}</option>
+								{else}
+									<option value="-1">请选择子行业 </option>
+								{/if}
+								
+							</select>
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">案例类型</td>
+						<td colspan="3">
+							<label for='rdo_work_add'><input id="rdo_work_add" name="rdo_case_type" value="1" type="radio" checked="checked" onclick="show_work_list(1);">新加案例</label>
+							<label for='rdo_work_list'><input id="rdo_work_list" name="rdo_case_type" value="2" type="radio" onclick="show_work_list(2);">现有作品</label>
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">名称</td>
+						<td colspan="3">
+							<span style="display:none;" id="div_work_list">
+							{if $work_arr}
+								<select name="slt_work_list" onchange="inset(this.value);">
+									{loop $work_arr $key $value}
+									<option value="{$value[work_title]}">{$value[work_title]}</option>
+									{/loop}
+								</select>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							{else}
+								暂无成功作品
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							{/if}
+							</span>
+							<input type="text" name="txt_case_name" value="{$case_info[case_name]}" id="txt_case_name">如:****** 设计案例
+							
+						</td>
+					  </tr>
+					    <tr>
+					  	<td>
+					  		自定分类
+					  	</td>
+						<td colspan="3">
+					  		<select name="slt_cate_id" id="slt_cate_id" onchange="add_cate(this.value);">
+					  			<option value="x">选择分类</option>
+								{loop $cus_cate_arr $key $value}
+									<option value="{$value[cus_cate_id]}">{$value[cate_name]}</option>
+								{/loop}
+					  			<option value="x">自定义</option>
+					  		</select>
+							<br>
+						
+					  	</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">执行时间</td>
+						<td colspan="3">
+							<input type="text" name="txt_express" onclick="showcalendar(event, this, 0)" value="{if $case_info[express]}<!--{eval echo date('Y-m-d',$case_info[express])}-->{/if}" size="15" maxlength="10">年
+						</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">图片</td>
+						<td colspan="3">
+							{if $case_info[pic]}
+							<img src="{$case_info[pic]}" width="200" height="150">
+							<br>
+							{/if}
+							<input type="file" name="fle_pic">
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">详细说明：</td>
+						<td colspan="3">
+							<textarea  rows="16" name="tar_content"   id="system-create-location" style="width:100%;height:200spx;">{$case_info[content]}</textarea>
+						</td>
+					  </tr>
+					  <tr height="30">
+					  	<td colspan="4" align="center">
+					  		<input type="hidden" name="hdn_case_id" value="{$case_info[case_id]}">
+					  		<input type="submit" name="sbt_edit" value="立即编辑" /></td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+function show_work_list(rdo_id){
+	if(rdo_id==2){
+		$('#div_work_list').show();
+	}else{
+		$('#div_work_list').hide();
+	}
+	
+}
+
+function inset(work_str){
+	$("#txt_case_name").val(work_str);
+}
+
+function add_cate(cate_id){
+	if(cate_id=='x'){
+	  showWindow('cus_cate1','ajax.php?ac=cate_add');
+	}
+}
+function ajax_cate(){
+		v = $("input[name='txt_cate_name']").val();
+		if(v){
+			ajaxget("index.php?do=user&view=case_add&ajax=cus_cate&txt_cate_name="+v,'slt_cate_id');
+		}else{
+			showDialog("分类名称不能为空",'alert','验证提示!','',1);
+		}
+		
+}	
+function show_indus(indus_pid,indus_id){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+		
+		if(indus_id)
+		{
+			$("#slt_indus_pid").val(indus_pid);
+			$("#slt_indus_id").val(indus_id);
+		}
+	});   
+}
+
+var editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id={$task_id}&type=link',upImgUrl:"index.php?do=ajax_upload&task_id={$task_id}",upImgExt:"jpg,jpeg,gif,png"});
+$(function(){
+	 
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+	
+})
+function upload(){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&task_id={$task_id}&type=att',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}else{
+			editor.appendHTML('<a href="'+json.msg.url+'" target="_blank">'+json.msg.localname+'</a>');
+		}
+
+		},
+	error:function(json,status,e){
+		  
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+<!--{template footer}-->

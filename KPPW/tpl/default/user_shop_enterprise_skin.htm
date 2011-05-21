@@ -1,0 +1,108 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="resource/js/jscolor.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<style>
+	.skins-color a {
+	border:1px solid #939598;
+	display:inline;
+	float:left;
+	height:14px;
+	line-height:0;
+	margin:3px 5px 0 0;
+	text-decoration:underline;
+	width:14px;
+	}
+</style>
+<div id="content">
+
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span ><a href="index.php?do={$do}&view=shop_enterprise_tpl" >选择模板</a></span>
+				<span><a href="index.php?do={$do}&view=shop_enterprise_interface" >界面修改</a></span> 
+				<span><a href="index.php?do={$do}&view=shop_enterprise_menu" >菜单编辑</a></span>  
+				<span class="now"><a href="index.php?do={$do}&view=shop_enterprise_skin" >皮肤修改</a></span>  
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					
+					<tr>
+						<td colspan="1" width="20%">
+							店铺主题色
+						</td>
+						<td colspan="3">
+							<div class="skins-color" id="temp1">
+								<a style="background: none repeat scroll 0% 0% rgb(29, 89, 160);" onclick="modifyskin('1');return false;" href="javascript:"></a>
+								<a style="background: none repeat scroll 0% 0% rgb(170, 0, 116);" onclick="modifyskin('2');return false;" href="javascript:"></a>
+								<a style="background: none repeat scroll 0% 0% rgb(183, 190, 205);" onclick="modifyskin('3');return false;" href="javascript:"></a>
+								<a style="background: none repeat scroll 0% 0% rgb(246, 182, 6);" onclick="modifyskin('4');return false;" href="javascript:"></a>
+								<a style="background: none repeat scroll 0% 0% rgb(164, 255, 133);" onclick="modifyskin('5');return false;" href="javascript:"></a>
+								<a style="background: none repeat scroll 0% 0% rgb(106, 106, 106);" onclick="modifyskin('6');return false;" href="javascript:"></a>
+								
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							背景颜色设置：
+						</td>
+						<td colspan="3">
+							<input type="text" class="color {required:false}" name="txt_back_color"  value="{$shop_enterprise_config[background]}" style="background-color:{$shop_enterprise_config[background]}"  id="txt_color_bg">&nbsp;&nbsp;
+							<input type="button" onclick="$('#txt_color_bg').val('');" class="input_btn3" id="btn_color" value="恢复默认"> &nbsp;
+						</td>
+					</tr>
+					<!-- <tr>
+						<td colspan="1">
+							菜单选中颜色：
+						</td>
+						<td colspan="3">
+								<input type="text" class="color" name="txt_menu_color"  value="{$shop_enterprise_config[ac_menu_color]}" style="background-color:{$shop_enterprise_config[ac_menu_color]}"  id="txt_color_menu">&nbsp;&nbsp;
+								<input type="button" onclick="$('#txt_color_menu').val('');" class="input_btn3" id="btn_color" value="恢复默认"> &nbsp;
+						</td>
+					</tr> -->
+					<tr>
+						<td colspan="1">
+							文本字体颜色：
+						</td>
+						<td colspan="3">
+							<input type="text" class="color {required:false}" name="txt_font_color"  value="{$shop_enterprise_config[font_color]}" style="background-color:{$shop_enterprise_config[font_color]}"  id="txt_color_font">&nbsp;&nbsp;
+							<input type="button" onclick="$('#txt_color_font').val('');" class="input_btn3" id="btn_color" value="恢复默认"> &nbsp;
+						</td>
+					</tr>
+					  <tr>
+					  	<td colspan="4" align="center">
+					  	<input type="submit" name="sbt__color" class="input_btn3" id="btn_color" value="确定">
+					  	&nbsp;</td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+function modifyskin(skin_color){
+	$.post("index.php?do={$do}&view={$view}&op=modifyskin",{skin_color:skin_color},function(data){
+		var str_data = data;
+		if(trim(str_data)==1){
+			showDialog('主题色设置成功！', 'notice', '消息提示','',0);
+		}else{
+			showDialog('主题色设置失败！', 'alert', '消息提示','',0);
+		}
+	});   
+	}
+</script>
+<!--{template footer}-->

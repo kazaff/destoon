@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+        <title>main</title>
+    </head>
+    <link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="tpl/js/jquery.js" type="text/javascript">
+    </script>
+    <script src="tpl/js/common.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+    </script>
+    <script>var newitemcount = 0;</script>
+    <body>
+        	<form method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" name="do" value="{$do}">
+            <div class="main">
+            <div class="w_80 m_c">
+                <div id="select1">
+                    <div class="tab_t">
+                        <h3 class="sel" id="tab_cont_1" onclick="swaptab('cont','sel','',3,1)">经验值配置</h3>
+                        <h4></h4>
+                        <h3 id="tab_cont_2" onclick="swaptab('cont','sel','',3,2)">经验值等级规则</h3>
+                        <h4></h4>
+                    </div>
+                    <div class="gut">
+                    
+                    	<div class="{if $m=='config'}block{else}none{/if}" id="div_cont_1">
+                    	<ul>
+                            <li>
+                               <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			                            每日登录：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_login" value="$score_config['login']" class="input_t"/>点，每24小时。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			                            注册：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_register" value="$score_config['register']" class="input_t"/>点，注册即拥有。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			                            上传头像：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_update_pic" value="$score_config['update_pic']" class="input_t"/>点，首次上传时。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			                            完善个人资料：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_edit_userinfo" value="$score_config['edit_userinfo']" class="input_t"/>点，首次更新时。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			                            填写收款地址：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_edit_withdrawinfo" value="$score_config['edit_withdrawinfo']" class="input_t"/>点，首次填写时。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			           VIP升级：
+			                        </td>
+			                        <td>
+			                           	 获得<input type="text" size="5" name="txt_buy_vip" value="$score_config['buy_vip']" class="input_t"/>点，每次购买时。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	在线充值：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_online_pay" value="$score_config['online_pay']" class="input_t"/>点，每次购买时(限制24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	提现：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_withdraw" value="$score_config['withdraw']" class="input_t"/>点，每次成功提现。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	发布任务：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_pub_task" value="$score_config['pub_task']" class="input_t"/>点，每次成功发布。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	查看任务：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_view_task" value="$score_config['view_task']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+								<tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	收藏任务：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_collect_task" value="$score_config['collect_task']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	任务评论：
+			                        </td>
+			                        <td>
+			                           	 获得<input type="text" size="5" name="txt_task_comment" value="$score_config['task_comment']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	任务投票：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_task_apply" value="$score_config['task_apply']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	悬赏投稿：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_task_pubwork" value="$score_config['task_pubwork']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	招标投标：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_task_bid" value="$score_config['task_bid']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	选稿：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_work_accept" value="$score_config['work_accept']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	访问他人空间：
+			                        </td>
+			                        <td>
+			                           	 获得<input type="text" size="5" name="txt_view_space" value="$score_config['view_space']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	互评：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_user_mark" value="$score_config['user_mark']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	访问他人店铺：
+			                        </td>
+			                        <td>
+			                           	获得<input type="text" size="5" name="txt_access_shop" value="$score_config['access_shop']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	购买店铺服务：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_buy_service" value="$score_config['buy_service']" class="input_t"/>点，每次(限24小时只计算1次)。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	发布服务：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_create_service" value="$score_config['create_service']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	服务互评：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_service_comment" value="$score_config['service_comment']" class="input_t"/>点，每次。
+			                        </td>
+			                    </tr>
+			                     <tr>
+			                        <td width="30%" class="bg1 t_r">
+			           	开通店铺：
+			                        </td>
+			                        <td>
+			                            	获得<input type="text" size="5" name="txt_create_shop" value="$score_config['create_shop']" class="input_t"/>点，首次。
+			                        </td>
+			                    </tr>
+			                    <tr>
+			                        <td class="bg1 t_r">
+			                        </td>
+			                    </tr>
+			                </table>
+                            </li>
+                        </ul>
+                    	</div>
+                    	
+                    	<div class="{if $m=='rule'}block{else}none{/if}" id="div_cont_2">
+                    	<br>
+                        
+                        	
+                        	<input type="hidden" value="" id="del_rule_items" name="ruleitem[del]">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+							 <tr>
+					            <th>规则id</th>
+					            <th width="150">经验值</th>
+					            <th>头衔</th>
+					            <th>图标</th>
+					            <th width="230">上传图标</th>
+					            <th>操作</th>
+					          </tr>
+							{loop $score_rule $k $v}
+							<tr id="olditem_{$v[score_rule_id]}">
+								<td>$k</td>
+								<td><input type="text" value="$v['unit_title']" name="ruleitem[old][{$v[score_rule_id]}][unit_title]"></td>
+								<td align="left"><input type="text" size="6" value="$v['max_score']" name="ruleitem[old][{$v[score_rule_id]}][max_score]">{if $score_rule[$k+1]['max_score']} ~~ <!--{eval echo $score_rule[$k+1][max_score];}-->{else}以上{/if}</td>
+								<td align="left">{if {$v[unit_ico]}}<img height="20px;" src="{$_K['siteurl']}/{$v[unit_ico]}">{else}未上传{/if}</td>
+								<td><input type="file" name="ico_{$k}"></td>
+								<td>
+								<a href="index.php?do=rule&view=group_rule&type=score&score_id={$v[score_rule_id]}"><img align="absmiddle" src="tpl/img/ico/edit.png">权限配置</a>
+								<a href="javascript:;" onclick="delrule({$v[score_rule_id]})"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a>
+								</td>
+							</tr>
+							{/loop}
+							<tbody id='newitemlist'>
+							
+							</tbody>
+							
+							</table>
+							
+                        
+						<br>
+                        <button onclick="addrule()" class="input_but" type="button"">增加新规则</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <br>
+                <div style="text-align: center;"><input type="submit" name="submit" value="保存配置" id="submit_save" class="input_but"></div>
+            </div>
+       </div>
+      </form>
+       <script src="../../resource/js/keke.js" type="text/javascript"></script>
+       <script>
+	   function addrule(){
+		   newitemcount++;
+		   var mod = '';
+		   
+		   mod +='<tr id="newitem_'+newitemcount+'">';
+		   mod +='<td>&nbsp;</td>';
+		   mod +='<td><input type="text" name="ruleitem[new]['+newitemcount+'][unit_title]"></td>';
+		   mod +='<td align="left"><input type="text" size="6" name="ruleitem[new]['+newitemcount+'][max_score]"> 以下</td>';
+		   mod +='<td>未上传</td>';
+		   mod +='<td><input type="file" name="icon_'+newitemcount+'"></td>';
+		   mod +='<td><a href="javascript:;" onclick="delnewrule('+newitemcount+')"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>';
+		   mod +='</tr>';
+		   
+       	   $('#newitemlist').html($('#newitemlist').html()+mod);
+	   }
+
+       function delnewrule(nid){
+           $('#newitem_'+nid).remove();
+       }
+       
+       function delrule(sid){
+           var ov = $('#del_rule_items').val(); 
+           if(ov!=''){
+               ov+=',';
+           }
+           ov+=sid;
+           $('#del_rule_items').val(ov);
+           $('#olditem_'+sid).remove();
+           //$('#olditem_'+sid).html(' ');
+           //$('#olditem_'+sid).hide();
+       }
+       </script>
+    </body>
+</html>

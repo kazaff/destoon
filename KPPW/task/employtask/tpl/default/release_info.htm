@@ -1,0 +1,72 @@
+<ul style="border:1px dashed grey;">
+	<li class="red" style="float:left; margin-left:15px;">雇佣任务说明：</li>
+	<li>雇佣任务是您针对指定的威客人才发布任务</li>
+</ul>
+<div style="float:left; width:745px; margin-bottom:15px;">
+	<ul style="float:right; width:500px; margin-top:24px;">
+		<li>经验等级：<!--{eval $exp_value = Func_comm_class::get_experience_level($user_info[experience_value]);echo $exp_value[pic];}--></li>
+		<li>信誉等级：<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($user_info[w_m_credit_value],1);echo $w_m_score_value[pic];}--></li>
+		<li>威客好评率：<!--{eval $user_rate1 = Func_comm_class::get_favorable_comment($user_info[uid],1,1);echo $user_rate1[rate];}--></li>
+		<li>认证：{if $user_info[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+							  {if $user_info[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+							  {if $user_info[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+							  {if $user_info[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+							  {if $user_info[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;
+		</li>
+		<li><a href="index.php?do=space&member_id=$euid" target="_blank" >更多详情</a></li>
+	</ul>
+	<ul style="margin-left: 15px;margin-right:15px; float:left;">
+		<li>头象：<!--{userpic($euid,middle)}--></li>
+		<li class="red">雇佣人：$user_info['username']</li>
+	</ul>
+</div>
+<script>
+ $(function(){
+	var model_id = parseInt("$mid");
+	if(model_id){
+		$("#ab_menu").contents().wrap('雇佣任务').click();
+	}
+	$("#ab_menu a[fd='6']").click(function(){ 
+            
+			euid = parseInt("$euid");
+			if(!euid){
+				showWindow("inputuid","index.php?do=release&ajax=inputuid&model_id={$model[model_id]}",'get',1,{'cover':'1'});
+				$(".rele_btn").attr('disabled','true');
+			}else{
+				$(".rele_btn").removeAttr('disabled');
+			}
+		}).siblings().click(function(){
+			
+			$(".rele_btn").removeAttr('disabled');
+	});
+	
+})
+
+function cancel_inputuid(){
+	hideWindow('inputuid');
+	$(".rele_btn").attr('disabled','true');
+}
+function submit_inputuid(){
+	if(!$("#inputuid").val()){
+		showDialog('请输入用户名或者UID','alert','错误提示');
+		return false;
+	}else{
+		$.getJSON('index.php?do=release&ajax=geteuinfo&model_id={$model[model_id]}&inputuid='+$("#inputuid").val(),function(json){
+			if(json.status&&json.data.uid != parseInt("$uid")){
+				window.location.href="index.php?do=release&euid="+json.data.uid+"&mid=6";
+			}else{
+				showDialog('请输入用户名或者UID不存在','alert','错误提示');
+				return false;
+			}
+		})
+	}
+}
+
+<!--{eval $model_this_index = 0;}-->
+{loop $model_list $m}
+<!--{eval $model_this_index++;}-->
+{if $m['model_id']==$model[model_id]}<!--{eval break;}-->{/if}
+{/loop}
+
+
+</script>

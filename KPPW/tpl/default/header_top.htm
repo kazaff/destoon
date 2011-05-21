@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>{$page_title}</title>
+<meta name="keywords" content="$page_keyword">
+<meta name="description" content="$page_description">
+<meta name="generator" content="客客出品 {KEKE_VERSION}" />
+<meta name="author" content="kekezu" />
+<meta name="copyright" content="powered by kekezu 2010-2018 kekezu Inc." />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="{SKIN_PATH}/css/base.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/jquery.js"></script>
+</head>
+    <body>
+        <div id="append_parent">
+        </div>
+        <div id="ajaxwaitid">
+        </div>
+         
+        <div id="tool" class="w960">
+            <ul id="top_menu">
+                <li class="w50 fl_l">{if $uid}您好，<font color="red"><a href="index.php?do=user" style="color:red;">{$username}！</a></font>&nbsp;&nbsp;&nbsp;<a href="index.php?do=user&view=message_list">{if $messagecount}<img src="{SKIN_PATH}/img/message.gif">&nbsp;短消息({$messagecount})</a>{else}短消息</a>{/if}&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php?do=logout">退出</a>
+					 {else}
+					  您好，欢迎来到{$_K['website_name']}! 　
+					 <a href="index.php?do=login" id="alogin">请登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php?do=register" id="aregister">免费注册</a>
+					 {/if}
+					
+                </li>
+                <li class="w50 fl_r">
+                	<div> 
+                   <h6 class="h6_1">
+                   		<span></span><a href="index.php?do=user" >我的客客 </a> 
+                   </h6>
+                   <p class="p4">
+                   		<!--
+	                   	{if $shop_info}
+						<a href="shop.php?do=shop&shop_id={$shop_info[shop_id]}" target="_blank">我的店铺</a><br>
+						{/if}
+						{loop $model_list $model}
+	                   <a href="index.php?do=user&view=release_task&model_id={$model[model_id]}">我发布的{$model[model_name]}</a><br>
+	                   {/loop}
+						<u></u>
+						{loop $model_list $model}
+						 <a href="index.php?do=user&view=join_task&model_id={$model[model_id]}">我参加的{$model[model_name]}</a><br>
+						 {/loop}
+						<a href="index.php?do=user&view=collect_task">我收藏的任务</a><br>
+						-->
+					  <strong>雇主</strong>
+					  	<span>
+					  		<a href="index.php?do=release">发布悬赏任务</a>
+					  		<a href="index.php?do=release">发布招标任务</a>
+					  		<a href="index.php?do=release">发布雇佣任务</a>
+					  	</span>
+					  <strong class="wk">威客</strong>
+					  	<span>
+					  		<a href="index.php?do=task_list&model_id=1">参加悬赏任务</a>
+					  		<a href="index.php?do=task_list&model_id=2">参加招标任务</a>
+					  		<a href="index.php?do=task_list&model_id=6">参加雇佣任务</a>
+					  		<a href="index.php?do=user&view=collect_task">收藏的任务</a>
+					  		<a href="index.php?do=user&view=studio">我的工作室</a>
+					  	</span>
+					  <strong class="mj">买家</strong>
+					  	<span>
+					  		<a href="index.php?do=user&view=service_list">已发布的需求</a>
+					  		<a href="index.php?do=user&view=buy_service">已买入的服务</a>
+							{if $shop_info}
+							<a href="shop.php?do=shop&shop_id={$shop_info[shop_id]}" target="_blank">我的店铺</a><br>
+							{/if}
+					  	</span>
+				   </p>
+				  
+				   </div>
+                    <i>&nbsp;</i>
+                    <h6 class="h6_3"><a href="index.php?do=release">发布任务</a></h6>
+                    <i>&nbsp;</i>
+                    <h6 class="h6_4"><a href="index.php?do=user&view=service_add">发布商品</a></h6>
+                    <i>&nbsp;</i>
+                    <div>
+					<h6 class="h6_2"><span></span><a href="#"> 网站导航 </a></h6>
+					<p class="p3">
+					<a href="index.php?do=release">任务发布</a>
+					<a href="index.php?do=user&view=cash">在线充值</a><br>
+					{loop $model_list $model}
+					<a href="index.php?do=task_list&model_id={$model[model_id]}">$model[model_name]</a>
+					{/loop}<br>
+				   </p>
+				   </div>
+                    <i>&nbsp;</i>
+                    <h6 class="h6_5"><a href="index.php?do=help">帮助中心</a></h6>
+                    <!-- 
+                    <i>&nbsp;</i>
+                    <h6><a href="#" onClick="setHomepage('{$_K['siteurl']}')">设为首页</a></h6>
+                     -->
+                 	{if $_SESSION['user_info']['group_id']}
+					<i>&nbsp;</i>
+                    <h6><a href="keke">[系统管理]</a></h6>
+					{else}
+					<i>&nbsp;</i>
+                    <h6><a href="#" onClick="addFav('{$_K['website_name']}','{$_K['siteurl']}');">加入收藏</a></h6>
+					{/if}
+                </li>
+            </ul>
+        </div>

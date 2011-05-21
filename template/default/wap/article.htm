@@ -1,0 +1,24 @@
+{template 'header', 'wap'}
+{if $itemid}
+	<strong>{$title}</strong><br/>
+	日期:<small>{$editdate}</small><br/>
+	{if $islink}
+	<a href="{$linkurl}">{$linkurl}</a><br/>
+	{else}
+	{template 'content', 'wap'}<br/>
+	{/if}
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a> <small>{$v[editdate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/>
+{template 'footer', 'wap'}

@@ -1,0 +1,12 @@
+var dt_userid = {$_userid};
+var dt_username = '{$_username}';
+var dt_member = '<img src="{DT_SKIN}image/user.gif" width="24" height="13" align="absmiddle"/>&nbsp; 欢迎，';
+{if $_userid}
+dt_member += '<span class="f_red f_b">{$_truename}</span> ({$MG[groupname]}) | <a href="{$MODULE[2][linkurl]}">商务中心</a> | {if $MG[inbox_limit]>-1}{if $_message}<img src="{$MODULE[2][linkurl]}image/ico_newmessage.gif" width="16" height="12" align="absmiddle" alt=""/> {/if}<a href="{$MODULE[2][linkurl]}message.php">站内信</a>({if $_message}<a href="{$MODULE[2][linkurl]}message.php?action=last"><span class="f_red f_b">{$_message}</span></a>{else}<span class="px11">0</span>{/if}) | {/if}<a href="{$MODULE[2][linkurl]}record.php">{$DT[money_name]}(<span class="px11">{$_money}</span>)</a> | <a href="{$MODULE[2][linkurl]}credits.php">{$DT[credit_name]}(<span class="px11">{$_credit}</span>)</a> | <a href="{$MODULE[2][linkurl]}logout.php">退出</a>';
+{if $_message}
+dt_member += '<embed src="{DT_PATH}file/flash/message.swf" quality="high" type="application/x-shockwave-flash" height="0" width="0"></embed>';
+{/if}
+{else}
+dt_member += '<span class="f_red">客人</span> | <a href="{$MODULE[2][linkurl]}{$DT[file_register]}">免费注册</a> | <a href="{$MODULE[2][linkurl]}{$DT[file_login]}">会员登录</a> | <a href="{$MODULE[2][linkurl]}send.php">忘记密码?</a>';
+{/if}
+try { document.getElementById('destoon_member').innerHTML = dt_member; } catch(e) {}

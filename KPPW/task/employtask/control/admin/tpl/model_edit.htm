@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript" src="../../resource/js/xheditor/xheditor.js"></script>
+<body>
+<div id="append_parent"></div>
+<form method="post"" action="index.php?do=model&view=edit&model_id=$model_id&task_id=$task_id&r_status=$r_status&r_indus_id=$r_indus_id&r_task_id=$r_task_id&r_leftday=$r_leftday&r_lefthour=$r_lefthour" enctype="multipart/form-data">
+<input type="hidden" name="is_submit" value="1"/>
+
+
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑任务</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+      <tr>
+      	<td width="30%" class="bg1 t_r">任务名</td>
+		<td><input type="text" class="input_t" name="txt_task_title" value="$task_info['task_title']" maxlength="20" litit="required:true;len:4-50"  msg="任务名称不能为空，长度限制在4-50" msgArea="msg_task_title" /><b style="color:red"> *</b><span id="msn_task_title"></span></td>
+      </tr>
+	  <tr>
+      	<td width="30%" class="bg1 t_r">任务类型</td>
+		<td>悬赏任务</td>
+      </tr>
+	  <tr>
+      	<td width="30%" class="bg1 t_r">任务状态</td>
+		<td>
+		{if $task_info['task_status']==0}未付款{/if}
+		{if $task_info['task_status']==1}审核中{/if}
+		{if $task_info['task_status']==2}进行中{/if}
+		{if $task_info['task_status']==3}公示中{/if}
+		{if $task_info['task_status']==4}投票中{/if}
+		{if $task_info['task_status']==5}失败的{/if}
+		{if $task_info['task_status']==6}冻结的{/if}
+		{if $task_info['task_status']==7}结束的{/if}
+		{if $task_info['task_status']==10}审核失败的{/if}
+		</td>
+      </tr>
+      <tr>
+        <td class="bg1 t_r">行业：</td>
+        <td><select name="slt_indus_id">
+        <option value="0">顶级</option>
+		<!--{eval echo dafenglei_select(0,0,$task_info[indus_id]);}-->
+		</select>　
+		</td>
+      </tr>
+      <tr>
+        <td class="bg1 t_r" colspan="1">图片上传：</td>
+        <td colspan="3">
+        	<input type="file" name="fle_task_pic" size="50">
+        	{if $task_info[task_pic]}<br><img src="{$_K[siteurl]}/$task_info[task_pic]">{/if}
+		</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">是否置顶：</td>
+        <td><input type="radio" name="rdo_istop" {if $task_info['istop']}checked="checked"{/if} value="1" />是  <input type="radio" name="rdo_istop" {if !$task_info['istop']}checked="checked"{/if} value="0" />否</td>
+      </tr>
+	<tr>
+        <td width="30%" class="bg1 t_r">描述：</td>
+        <td>
+			<div class="field" style="margin-left:-10px;*margin-left:0">
+        	<textarea  rows="18" name="txt_task_desc" id="tar_content"  style="width:80%;">{$task_info['task_desc']}</textarea>
+			</div>
+		</td>
+     </tr>
+
+	    <tr>
+        <td width="30%" class="bg1 t_r">任务附件：</td>
+        <td>
+        	{if $file_list}
+        	{loop $file_list $file}
+    		<a target="_blank" href="../../{$file[file_save_name]}">{$file[file_name]}</a>&nbsp;&nbsp;&nbsp;
+    		{/loop}
+			{else}
+			暂无附件
+			{/if}
+		</td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">发布者：</td>
+        <td><b>{$task_info[username]}</b></td>
+      </tr>
+	 <tr>
+        <td width="30%" class="bg1 t_r">发布时间：</td>
+        <td><input type="text" onclick="showcalendar(event, this, 1)" name="txt_start_time" value="<!--{date('Y-m-d H:i',$task_info[start_time])}-->"  ></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">到期时间：</td>
+        <td><input type="text" onclick="showcalendar(event, this, 1)" name="txt_end_time" value="<!--{date('Y-m-d H:i',$task_info[end_time])}-->"  ></td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">任务金额：</td>
+        <td><input type="text" name="txt_task_cash" value="{$task_info['task_cash']}" limit="required:true;type:float"  msg="错误的金额" msgArea="msg_task_cash"><apan id="msg_task_cash"></apan></td>
+      </tr>
+	  {if $task_info['prom_cash']}
+	  <tr>
+        <td width="30%" class="bg1 t_r">推广金额：</td>
+        <td><input type="text" name="txt_prom_cash" value="{$task_info['prom_cash']}" limit="required:true;type:float"  msg="错误的金额" msgArea="msg_prom_cash"><apan id="msg_prom_cash"></apan></td>
+      </tr>
+	  {/if}
+	  
+	  
+	  {if $task_info['task_status']==6}
+	  <tr>
+	  	<td width="30%" class="bg1 t_r">稿件重置：</td>
+	  	<td>
+	  	
+	  	{loop $work_arr $w}
+	  	<dl style="display: block; width: 98%;border: solid #00aaff 1px;">
+	  	<dt style="width: 28%;float: left;">
+	  	稿件id:$w['work_id']<br>
+	  	投稿者:$w['username']<br>
+	  	 {if $task_info['task_mode']==1}<input type="checkbox" {if $w[work_status]==5}checked="checked"{/if} name="work_status5" value="$w['work_id']">入围<br>{/if}
+	  	{if $task_info['task_mode']==1}<input type="checkbox" {if $w[work_status]==4}checked="checked"{/if} name="work_status4" value="$w['work_id']">中标<br>{/if}
+	  	{if $task_info['task_mode']==3}<input type="checkbox" {if $w[work_status]==6}checked="checked"{/if} name="work_status6" value="$w['work_id']">通过<br>{/if}
+	  	{loop $prize_arr $p}
+	  	{if $task_info['task_mode']==2}<input type="checkbox" {if $w[work_status]==$p[prize]}checked="checked"{/if} name="work_status$p[prize]" value="$w['work_id']">$p[prize]等奖;<br>{/if}
+	  	{/loop}
+	  	</dt>
+	  	<dd style="width: 70%;float: right;overflow:hidden">
+	  	$w['work_desc']
+	  	</dd>
+	  	</dl>
+	  	{/loop}
+	  	<input type="hidden" value="" name="works_status5" id="works_status5">
+	  	<input type="hidden" value="" name="works_status6" id="works_status6">
+	  	<input type="hidden" value="" name="works_status1" id="works_status1">
+	  	<input type="hidden" value="" name="works_status2" id="works_status2">
+	  	<input type="hidden" value="" name="works_status3" id="works_status3">
+	  	</td>
+	  </tr>
+	  {/if}
+	  
+	  
+	   <tr>
+        <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but" onclick="return checkform()"  value="保存编辑"/>
+		{if $task_info[task_status]==1}<input type="button" name="sbt_edit" class="input_but" onclick="window.location.href='index.php?do=model&model_id=$model_id&view=task&op=setstatus1&task_id=$task_id'"  value="通过审核"/>{/if}
+		{if $task_info[task_status]==1}<input type="button" name="sbt_edit" class="input_but" onclick="window.location.href='index.php?do=model&model_id=$model_id&view=task&op=setstatus5&task_id=$task_id'"  value="拒绝审核"/>{/if}
+		{if $task_info[task_status]==6}<input type="button" name="sbt_edit" class="input_but" onclick="window.location.href='index.php?do=model&model_id=$model_id&view=task&op=restore&task_id=$task_id'"  value="解冻任务"/>{/if}
+		{if $task_info[task_status]==2||$task_info[task_status]==3||$task_info[task_status]==4}<input type="button" name="sbt_edit" class="input_but" onclick="window.location.href='index.php?do=model&model_id=$model_id&view=task&op=setstatus6&task_id=$task_id'"  value="冻结任务"/>{/if}
+		{if $task_info[task_status]==0||$task_info[task_status]==5||$task_info[task_status]==7}<input type="button" name="sbt_edit" class="input_but" onclick="window.location.href='index.php?do=model&model_id=$model_id&view=task&op=del&task_id=$task_id'"  value="删除任务"/>{/if}
+       	<input type="button" name="rst_edit" class="input_but"  value="返回列表" onclick="location.href='index.php?do=model&model_id=$model_id&slt_indus_id={$r_indus_id}&status={$r_status}&txt_task_id={$r_task_id}&txt_leftday={$r_leftday}&txt_lefthour={$r_lefthour}';"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+<script src="$_K['site_url']}/control/admin/tpl/js/form_validation_.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var editor = $("#tar_content").xheditor({tools:'simple',internalScript:false,internalStyle:false,upImgUrl:"{$_K['site_url']}/index.php?do=ajax_upload&type=admin&task_id=1",upImgExt:"jpg,jpeg,gif,png"});
+	function checkform(){
+		{if $task_info[task_mode]==1}
+		var work_status5 = ""; 
+		var w5c = 0;  
+		  $('input[name="work_status5"]:checked').each(function(){ 
+			  if(w5c>0){
+				  work_status5+=',';
+			  }
+			  work_status5 += $(this).val();
+			     
+		   w5c++;
+		  });;
+		 $('#works_status5').val(work_status5);
+		 
+		 var work_status4 = ""; 
+		 var w4c = 0;  
+		 $('input[name="work_status4"]:checked').each(function(){ 
+			
+			work_status4 += $(this).val();
+			w4c++;
+		 }); 
+		 if(w4c>1){
+			 alert('只能有一个中标者');
+			 return false;
+		}
+		 {/if}
+
+		{if $task_info[task_mode]==3} 
+		 var work_status6 = ""; 
+		 var w6c = 0;  
+		 $('input[name="work_status6"]:checked').each(function(){ 
+			if(w6c>0){
+				work_status6+=',';
+			}
+			if(w6c>=$task_info[work_count]){
+				 alert('该计件任务的中标上限为'+$task_info[work_count]);
+				 return false;
+			}
+			work_status6 += $(this).val();
+			w6c++;
+		 });
+		 $('#works_status6').val(work_status5);
+		 {/if}
+			 
+		{if $task_info[task_mode]==2}
+		 {loop $prize_arr $p}
+		 var work_status{$p[prize]} = ""; 
+		 var w{$p[prize]}c = 0;
+		 $('input[name="work_status{$p[prize]}"]:checked').each(function(){ 
+				if(w{$p[prize]}c>0){
+					work_status{$p[prize]}+=',';
+				}
+				work_status{$p[prize]} += $(this).val();
+				w{$p[prize]}c++;
+		 });
+		 
+		 if(w{$p[prize]}c>$p[prize_count]){
+			 alert('该奖项的上限人数为'+$p[prize_count]);
+			 return false;
+		 }
+		 
+		 
+		 $('#works_status{$p[prize]}').val(work_status$p[prize]);
+		 
+		 {/loop}
+			 
+		{/if}
+	}
+</script>
+</body>
+</html>

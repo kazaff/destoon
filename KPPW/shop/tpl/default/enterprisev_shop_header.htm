@@ -1,0 +1,134 @@
+<link href="shop/tpl/default/css/skin_v_{if $shop_config['skin_color']}$shop_config['skin_color']{else}1{/if}.css" rel="stylesheet" type="text/css" />
+<link href="shop/tpl/default/css/template_v.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+{if $shop_config['background']}
+body {
+ background:none repeat scroll 0 0 $shop_config['background'];
+}
+{/if}
+{if $shop_config['font_color']}
+.homeContainer .section{
+ color:$shop_config['font_color'];
+}
+.homeContainer .section a{
+ color:$shop_config['font_color'];
+}
+{/if}
+</style>
+<div class="pageWrapper">
+ <div class="header">
+    <div class="logo">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td><span></span></td>
+            <td style="vertical-align: middle;"><h2 id="nameH2">{$shop_info['shop_name']}</h2>
+              <span class="sign">$shop_config['ad_text']</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="topMenu">
+        
+        <img src="shop/tpl/default/img/police_icon.gif">
+        <a href="javascript:" onclick="report();return false;">投诉举报</a>&nbsp;
+       {if $shop_info['uid']==$uid}  
+		<img src="shop/tpl/default/img/add_icon.gif"> 
+		<a href="index.php?do=user&view=shop_enterprise_tpl">店铺管理</a>  
+	   {/if}   
+    </div>
+   <script>
+    function report(){
+       $("#report").show();
+     }
+    function  collapse(){
+        $("#report").hide();
+     }
+    </script>
+	<form action="shop/control/ajax.php?1" method="post" id="frm_report" >
+	  <input type="hidden" name='ajax' value="report">
+	  
+    <div class="jubaoDiv" id="report" style="display:none;">
+      <div class="title">
+      	<strong class="fl">投诉举报</strong>
+        <a href="javascript:" onclick="collapse();return false;" title="关闭" class="close">关闭</a>
+      </div>
+      <div class="container">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td align="right" width="80">店铺名称：</td>
+              <td><span id="nameSpan">{if $shop_info['truename']}{$shop_info['truename']}{else}{$shop_info['username']}{/if}</span></td>
+            </tr>
+            <tr>
+              <td align="right" valign="top">具体内容：</td>
+              <td><textarea id="content" name="content" class="textarea" style="width:320px"></textarea>
+                <p>为方便我们调查，请提供真实、可靠的内容。</p></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btnBar">
+          <input onclick="submitReport()" id="sbt_report" value="提交" type="button">
+          &nbsp;
+          <input onclick="collapse()" value="取消" type="button">
+        </div>
+      </div>
+    </div>
+	</form>
+	<script>
+		function submitReport(){
+			 showWindow('report','frm_report','post','','','collapse()');
+		}
+	</script>
+    <div class="option">
+    	<span id="skinDiv" class="skin" {if $shop_info['uid']!=$uid} style="display:none;"{/if}>
+        <a href="#" title="皮肤6" onclick="modifyskin('6');return false;" class="sink04"></a>
+        <a href="#" title="皮肤5" onclick="modifyskin('5');return false;" class="sink06"></a>
+        <a href="#" title="皮肤4" onclick="modifyskin('4');return false;" class="sink07"></a>
+        <a href="#" title="皮肤3" onclick="modifyskin('3');return false;"  class="sink01"></a>
+        <a href="#" title="皮肤2" onclick="modifyskin('2');return false;" class="sink05"></a>
+        <a href="#" title="皮肤1" onclick="modifyskin('1');return false;" class="sink02"></a>         
+        </span>
+		<script type="text/javascript">
+function modifyskin(skin_color){
+	$.post("index.php?do=user&view=shop_enterprise_skin&op=modifyskin",{skin_color:skin_color},function(data){
+		var str_data = data;
+		if(trim(str_data)==1){
+			showDialog('主题设置成功！', 'notice', '消息提示','refre()',0);
+		}else{
+			showDialog('主题设置失败！', 'alert', '消息提示','refre()',0);
+		}
+	});   
+	}
+function refre(){
+	window.location.reload();
+}
+</script>
+        <span id="enter"><br></span>
+        <span style="float: right;"> 访问量：$shop_info['views']</span>
+     </div>
+  </div>
+  <div class="banner">
+    <div style="border-bottom: 1px solid rgb(255, 255, 255);"><img src="{if $shop_config[banner_img]}$shop_config[banner_img]{else}shop/tpl/default/img/a_5.jpg{/if}"></div>
+  </div>
+  <div id="menu" class="pageLeft" name="menu"  >
+    <dt  {if $view=='index'}class="on"{/if} >
+      <a href="shop.php?do=shop&shop_id=$shop_id" >首页 &gt;&gt;</a> </dt>
+    <dt  {if $view=='aboutus'}class="on"{/if}  >
+   <a href="shop.php?do=shop&view=aboutus&shop_id=$shop_id"  >$shop_meun['menu_1']&gt;&gt;</a>  
+	 </dt>
+    <dt {if $view=='team'}class="on"{/if}  >
+      <a href="shop.php?do=shop&view=team&shop_id=$shop_id" >$shop_meun['menu_2']&gt;&gt;</a>  </dt>
+    <dt {if $view=='service' || $view=='service_info'}class="on"{/if} >
+      <a href="shop.php?do=shop&view=service&shop_id=$shop_id" >$shop_meun['menu_3']&gt;&gt;</a> 
+	  </dt>
+    <dt {if $view=='case'|| $view == 'case_info'}class="on"{/if}  >
+       <a href="shop.php?do=shop&view=case&shop_id=$shop_id" >$shop_meun['menu_4']&gt;&gt;</a>
+	   </dt>
+    <dt {if $view=='contact'}class="on"{/if}  >
+	  <a href="shop.php?do=shop&view=contact&shop_id=$shop_id" >$shop_meun['menu_5']&gt;&gt;</a>
+	  </dt>
+    <dt {if $view=='comment'}class="on"{/if}  >
+       <a  href="shop.php?do=shop&view=comment&shop_id=$shop_id" >客户留言 &gt;&gt;</a></dt>
+  </div>
+

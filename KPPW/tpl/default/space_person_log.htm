@@ -1,0 +1,155 @@
+<!--{template header_space}-->
+<div id="content">
+<br/>
+<div>点击表格中 <font color="#FF6600">红色数字</font> 可打开对应的详细任务记录列表</div>
+<div class="tit_bg960 font14">任务统计</div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c">
+  <tr>
+    <th>&nbsp;</th>
+    <th width="16%">最近一个月</th>
+    <th width="16%">最近三个月</th>
+    <th width="16%">最近六个月</th>
+    <th width="16%">半年前</th>
+    <th width="16%">全部</th>
+  </tr>
+   <tr>
+    <th>我发布的全额任务</th>
+    <td>{if $task_count_1}<a href="index.php?do={$do}&view={$view}&show=1&d=1&member_id={$member_id}">{$task_count_1}</a>{else}{$task_count_1}{/if}</td>
+    <td>{if $task_count_3}<a href="index.php?do={$do}&view={$view}&show=1&d=3&member_id={$member_id}">{$task_count_3}</a>{else}{$task_count_3}{/if}</td>
+    <td>{if $task_count_6}<a href="index.php?do={$do}&view={$view}&show=1&d=6&member_id={$member_id}">{$task_count_6}</a>{else}{$task_count_6}{/if}</td>
+    <td>{if $task_count_half}<a href="index.php?do={$do}&view={$view}&show=1&d=half&member_id={$member_id}">{$task_count_half}</a>{else}{$task_count_half}{/if}</td>
+    <td>{if $task_count_all}<a href="index.php?do={$do}&view={$view}&show=1&d=all&member_id={$member_id}">{$task_count_all}</a>{else}{$task_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <th>参加的全款悬赏任务</th>
+    <td>{if $sign_count_1}<a href="index.php?do={$do}&view={$view}&show=2&d=1&member_id={$member_id}">{$sign_count_1}</a>{else}{$sign_count_1}{/if}</td>
+    <td>{if $sign_count_3}<a href="index.php?do={$do}&view={$view}&show=2&d=3&member_id={$member_id}">{$sign_count_3}</a>{else}{$sign_count_3}{/if}</td>
+    <td>{if $sign_count_6}<a href="index.php?do={$do}&view={$view}&show=2&d=6&member_id={$member_id}">{$sign_count_6}</a>{else}{$sign_count_6}{/if}</td>
+    <td>{if $sign_count_half}<a href="index.php?do={$do}&view={$view}&show=2&d=half&member_id={$member_id}">{$sign_count_half}</a>{else}{$sign_count_half}{/if}</td>
+    <td>{if $sign_count_all}<a href="index.php?do={$do}&view={$view}&show=2&d=all&member_id={$member_id}">{$sign_count_all}</a>{else}{$sign_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <th>中标的全款悬赏任务</th>
+   <td>{if $work_count_1}<a href="index.php?do={$do}&view={$view}&show=3&d=1&member_id={$member_id}">{$work_count_1}</a>{else}{$work_count_1}{/if}</td>
+    <td>{if $work_count_3}<a href="index.php?do={$do}&view={$view}&show=3&d=3&member_id={$member_id}">{$work_count_3}</a>{else}{$work_count_3}{/if}</td>
+    <td>{if $work_count_6}<a href="index.php?do={$do}&view={$view}&show=3&d=6&member_id={$member_id}">{$work_count_6}</a>{else}{$work_count_6}{/if}</td>
+    <td>{if $work_count_half}<a href="index.php?do={$do}&view={$view}&show=3&d=half&member_id={$member_id}">{$work_count_half}</a>{else}{$work_count_half}{/if}</td>
+    <td>{if $work_count_all}<a href="index.php?do={$do}&view={$view}&show=3&d=all&member_id={$member_id}">{$work_count_all}</a>{else}{$work_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <th>入围的全款悬赏任务</th>
+   <td>{if $rw_work_count_1}<a href="index.php?do={$do}&view={$view}&show=4&d=1&member_id={$member_id}">{$rw_work_count_1}</a>{else}{$rw_work_count_1}{/if}</td>
+    <td>{if $rw_work_count_3}<a href="index.php?do={$do}&view={$view}&show=4&d=3&member_id={$member_id}">{$rw_work_count_3}</a>{else}{$rw_work_count_3}{/if}</td>
+    <td>{if $rw_work_count_6}<a href="index.php?do={$do}&view={$view}&show=4&d=6&member_id={$member_id}">{$rw_work_count_6}</a>{else}{$rw_work_count_6}{/if}</td>
+    <td>{if $rw_work_count_half}<a href="index.php?do={$do}&view={$view}&show=4&d=half&member_id={$member_id}">{$rw_work_count_half}</a>{else}{$rw_work_count_half}{/if}</td>
+    <td>{if $rw_work_count_all}<a href="index.php?do={$do}&view={$view}&show=4&d=half&member_id={$member_id}">{$rw_work_count_all}</a>{else}{$rw_work_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <th>参加的订金招标任务</th>
+  <td>{if $bid_count_1}<a href="index.php?do={$do}&view={$view}&show=5&d=1&member_id={$member_id}">{$bid_count_1}</a>{else}{$bid_count_1}{/if}</td>
+    <td>{if $bid_count_3}<a href="index.php?do={$do}&view={$view}&show=5&d=3&member_id={$member_id}">{$bid_count_3}</a>{else}{$bid_count_3}{/if}</td>
+    <td>{if $bid_count_6}<a href="index.php?do={$do}&view={$view}&show=5&d=6&member_id={$member_id}">{$bid_count_6}</a>{else}{$bid_count_6}{/if}</td>
+    <td>{if $bid_count_half}<a href="index.php?do={$do}&view={$view}&show=5&d=half&member_id={$member_id}">{$bid_count_half}</a>{else}{$bid_count_half}{/if}</td>
+    <td>{if $bid_count_all}<a href="index.php?do={$do}&view={$view}&show=5&d=half&member_id={$member_id}">{$bid_count_all}</a>{else}{$bid_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <th>中标的订金招标任务</th>
+   <td>{if $zb_bid_count_1}<a href="index.php?do={$do}&view={$view}&show=6&d=1&member_id={$member_id}">{$zb_bid_count_1}</a>{else}{$zb_bid_count_1}{/if}</td>
+    <td>{if $zb_bid_count_3}<a href="index.php?do={$do}&view={$view}&show=6&d=3&member_id={$member_id}">{$zb_bid_count_3}</a>{else}{$zb_bid_count_3}{/if}</td>
+    <td>{if $zb_bid_count_6}<a href="index.php?do={$do}&view={$view}&show=6&d=6&member_id={$member_id}">{$zb_bid_count_6}</a>{else}{$zb_bid_count_6}{/if}</td>
+    <td>{if $zb_bid_count_half}<a href="index.php?do={$do}&view={$view}&show=6&d=half&member_id={$member_id}">{$zb_bid_count_half}</a>{else}{$zb_bid_count_half}{/if}</td>
+    <td>{if $zb_bid_count_all}<a href="index.php?do={$do}&view={$view}&show=6&d=half&member_id={$member_id}">{$zb_bid_count_all}</a>{else}{$zb_bid_count_all}{/if}</td>
+  </tr>
+  <!--
+    <tr>
+    <th>参加的发帖任务</th>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+      <tr>
+    <th>中标的发帖任务</th>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  -->
+</table>
+
+<br/>
+<!--
+<div class="tit_bg960 font14">商店统计</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c">
+  <tr>
+    <th>&nbsp;</th>
+    <th width="16%">最近一个月</th>
+    <th width="16%">最近三个月</th>
+    <th width="16%">最近六个月</th>
+    <th width="16%">半年前</th>
+    <th width="16%">全部</th>
+  </tr>
+  <tr>
+    <th>发布的全款悬赏任务</th>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <th>发布的订金招标任务</th>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <th>发布的发帖任务</th>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+</table>
+-->
+<br/>
+<div class="tit_bg960 font14">{$html_title}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c">
+  <tr>
+    <th width="54">任务序号</th>
+    <th>任务名称</th>
+    <th>任务分类</th>
+    <th width="92"> 任务金额 </th>
+    <th width="70">查看作品</th>
+    <th> 雇主<!--&nbsp;/&nbsp;信用&nbsp;/&nbsp;认证--> </th>
+  </tr>
+  {loop $task_arr $key $value}
+  <tr>
+    <td align="center" class="f10">{$value[task_id]}</td>
+    <td><a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">{$value[task_title]}</a></td>
+    <td>{$value[indus_name]}</td>
+    <td align="center">
+	{if $value[model_id]==2}￥{$cash_rule_arr[$value[task_cash_coverage]][cove_desc]}{else}￥{$value[task_cash]} 元{/if}
+</td>
+    <td align="center"><a href="index.php?do=task&task_id={$value[task_id]}&view=work#t_work_list" target="_blank">查看作品</a></td>
+    <td nowrap="nowrap">
+    	<a href="http://localhost/kekewitkey/index.php?do=space&member_id={$value[uid]}" target="_blank">{$value[username]}</a>
+		<!--&nbsp;/&nbsp;<a href="#" target="_blank">6</a> &nbsp;/&nbsp; <img src="{SKIN_PATH}/img/mail.gif" /> <img src="{SKIN_PATH}/img/truename.gif" />-->
+	</td>
+  </tr>
+ {/loop}
+  <tr>
+  	<td colspan="3" >&nbsp;</td>
+	<td  colspan="3">{$pages[page]}</td>
+  </tr>
+</table>
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

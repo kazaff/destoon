@@ -1,0 +1,73 @@
+<!--{eval $page_title=$art_info['art_title'].' - '.$_K['html_title'];$page_keyword=$art_info['seo_keyword'].' - '.$_K['seo_keyword'];$page_description=Func_comm_class::cutstr($art_info['content'],50).' - '.$_K['seo_description']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+  <div class="main_news">
+    <div class="topnav"><img src="{SKIN_PATH}/img/homenav.gif" align="absmiddle"/>
+	<a href="index.php">首页</a> > <a href="index.php?do=news_list">新闻列表页</a> >
+			{if $art_cat_info}
+			<a href="index.php?do=news_list&art_cat_id={$art_cat_info[0][art_cat_id]}">{$art_cat_info[0][cat_name]}</a>
+			{/if}</div>
+		 <div class="box739">
+	      <div class="sclisttop2">
+	      	<a href="index.php?do=news_list" class="goback"><img onclick="javascript:history.back();" src="{SKIN_PATH}/img/goback.png" alt="" /></a></div>
+	      <div class="sclistcent">
+	        <div class="textttitle"><span class="ttitle"><!--{eval echo(Func_comm_class::cutstr($art_info[art_title],40));}--></span></br>
+	          <span class="publishtime">[来源：{$art_info[art_source]}] 
+			  发表于：<!--{date('Y-m-d H:i:s',$art_info[pub_time])}--> 
+			  [<a href="#" class="gray" onclick="window.print();" >打印</a>] 浏览{$art_info[views]}次 </span></div>
+	        <p>{$art_info[content]}</p>
+			<b>上一篇:</b>{if $s_art_info}
+			&nbsp;&nbsp;<a href="index.php?do={$do}&art_id={$s_art_info[art_id]}">{$s_art_info[art_title]}</a>
+			{else}没有了{/if}
+			</p>
+			<p>
+			<b>下一篇:</b>{if $x_art_info}
+			&nbsp;&nbsp;<a href="index.php?do={$do}&art_id={$x_art_info[art_id]}">{$x_art_info[art_title]}</a>
+			{else}没有了{/if}
+			</p>
+			{if $xg_news_arr}
+	        <div class="refertext"><span class="refrespan">相关文章</span>
+	          <div class="refertextlist">
+	          	{loop $xg_news_arr $key $value}
+					{if $key<3}
+					<a href="index.php?do={$do}&art_id={$value[art_id]}"><!--{eval echo(Func_comm_class::cutstr($value[art_title],30));}--></a>
+					{/if}
+				{/loop}
+			</div>
+	          <div class="refertextlist">
+	          {loop $xg_news_arr $key $value}
+					{if $key>=3}
+					<a href="index.php?do={$do}&art_id={$value[art_id]}"><!--{eval echo(substr($value[art_title],0,30));}--></a>
+					{/if}
+				{/loop}
+			</div>
+		    </div>
+		    {/if}
+	        <div class="clear"></div>
+			
+	      </div>
+	    </div>
+    <div class="box220">
+			 <dl>
+			 	{if $art_cat_id==2}
+				<dt>{$art_cat_info[0][cat_name]}</dt>
+				{loop $art_arr $keys $values}
+					<dd><a href="index.php?do=news_info&art_id={$values[art_id]}">{$values[art_title]}</a></dd>
+				{/loop}
+				{else}
+		     	<dt>{$art_cat_p_info[0][cat_name]}</dt>
+				{loop $art_cat_c_arr $keys $values}
+					<dd><a href="index.php?do=news_list&art_cat_id={$values[art_cat_id]}">{$values[cat_name]}</a></dd>
+				{/loop}
+				{/if}
+				
+		      </dl>
+    </div>
+    
+  </div><!--main_box_E-->
+</div>
+<!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

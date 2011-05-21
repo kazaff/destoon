@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+<pay_name>支付宝</pay_name>
+<pay_dir>alipayjs</pay_dir>
+<pay_dev>kekezu</pay_dev>
+<descript>支付宝交易，推荐淘宝用户使用。</descript>
+<pay_desc>即时到账接口</pay_desc>
+<pay_status>1</pay_status>
+<img>alipay.gif</img>
+<initparam>account:支付宝帐号;partner:商家合作码;safekey:安全效验码</initparam>
+</root>

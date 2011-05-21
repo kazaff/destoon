@@ -1,0 +1,52 @@
+<!--{template header_top}-->
+<!--{template shop/tpl/default/person_shop_header}-->
+<div class="content">
+    <div class="width_layer">
+    	<div class="left_bar">
+            <!--{template shop/tpl/default/person_left}-->
+        </div>
+         <div class="right_bar">
+        	
+          <div class="boxWrap">
+			<div class="boxHeader">
+				<h2>客户案例</h2>
+				
+			</div>
+			<div class="boxBody">
+
+				
+				<div class="caseList">
+				{loop $case_arr $k $v}	
+                <ul>
+                  <li class='title'>
+                  <a  href="shop.php?do=shop&view=case_info&shop_id=$shop_id&cid={$v['case_id']}">$v['case_name']<img src='shop/tpl/{$_K['template']}/img/edit_icon.gif'/></a></li>
+                    <li class='info dashed'>
+                       <span class='time'>执行时间：{if $v['express']}<!--{eval echo date('Y年-m月',$v['express'])}-->{else}--{/if}</span>
+                       <span class='edit'>发布于(<!--{eval echo date('Y-m-d H:i:s',$v['on_date'])}-->)</span>
+                  </li>
+                    <li class='intro'>
+                     <img src="$v['pic']" onerror="this.src='shop/tpl/{$_K['template']}/img/index_case.jpg'" width="556" >
+					 
+                                
+                    </li>
+                  <li>
+                    <a target='_blank' href='shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$v[case_id]'>点击查看全部>></a>
+                  </li>
+                </ul>
+				{/loop}
+                </div>
+				
+				
+                <div class="pages">{$pages[page]} </div>
+			</div>
+			
+		</div>
+       
+        </div>
+	   <div class="clear"></div>
+    </div>
+</div>
+
+<!--{template shop/tpl/default/person_footer}-->
+
+

@@ -1,0 +1,20 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+
+<hr/>
+<div class="mainbox" style="width:600px;">
+<b>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		{loop $mc_rule $key $value}
+		<tr>
+			<td width="150">任务金额{$value[max_cash]}</td>
+			<td width="150"> &nbsp;&nbsp;&nbsp;<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/>好评+{$value[good]}</td>
+			<td width="150"> &nbsp;&nbsp;&nbsp;<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/>中评+{$value[normal]}</td>
+			<td width="150"> &nbsp;&nbsp;&nbsp;<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/>差评{$value[bad]}</td>
+		</tr>
+		{/loop}
+	</table>
+</b>
+</div>
+
+<!--{template footer}-->

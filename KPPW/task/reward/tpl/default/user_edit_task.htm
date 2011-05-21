@@ -1,0 +1,239 @@
+<!--{template header}-->
+<div class="mainbox" style="width:700px;">
+ <form action="index.php?do={$do}&view=edit_task" id="frm_xs_release" method="post" enctype="*">
+ 	<input type="hidden" name="task_id" value="{$task_info[task_id]}">
+ 	 <table>
+ 	 	<tr>
+ 	 		<td width="10%">&nbsp;</td>
+ 	 		<td width="10%">
+ 	 			<strong>任务分类：</strong>
+				<br>
+ 	 		</td>
+			<td align="left"><select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);" style="width:200px;">
+					<option value="-1"> 请选择父行业 </option>
+					{loop $indus_p_arr $key $value}
+						<option value="{$value[indus_id]}" {if $indus_info[indus_pid]==$value[indus_id]}selected="selected"{/if}>{$value[indus_name]}</option>
+					{/loop}
+				</select> 
+				<select name="slt_indus_id" id="slt_indus_id" style="width:200px;">
+					{if $indus_info}
+						<option value="{$indus_info[indus_id]}">{$indus_info[indus_name]}</option>
+					{else}
+						<option value="">请选择子行业 </option>
+					{/if}
+				</select>
+				<br>
+				<span id="indus_id_msg" class="c999"> (你的任务需要哪一类人才来完成呢)</span>
+ 	 		</td>
+			<td width="10%">
+				&nbsp;
+			</td>
+ 	 	</tr>
+			<tr>
+				<td width="10%">&nbsp;</td>
+ 	 		<td>
+ 	 			<strong>任务标题：</strong>
+ 	 		</td>
+			<td align="left"><input type="text" name="txt_task_title" value="{$task_info[task_title]}" id="txt_task_title" 
+				limit="len:5-50;required:true"
+				msgArea= "task_title_msg"
+				msg="任务标题的长度为5-50,不能为空！"
+				class="input_txt2" size="90" maxlength="50"><br>
+			<span id="task_title_msg" class="c999"> (你想做什么？)</span>
+ 	 		</td>
+			<td>
+				&nbsp;
+			</td>
+ 	 	</tr>
+			<tr>
+				<td width="10%">&nbsp;</td>
+ 	 		<td>
+ 	 			<strong>任务内容：</strong>
+ 	 		</td>
+			<td align="left">
+				<textarea  rows="16" name="tar_content" id="system-create-location"  style="width:100%;height:200px;">{$task_info[task_desc]}</textarea>
+				<br>
+				<span id="tar_content_msg" class="c999"> (你有哪些要求？)</span> <span class="c999">您的要求越清楚，威客会员就更能领会您的意图，做得更好。</span>
+ 	 		</td>
+			<td>
+				&nbsp;
+			</td>
+ 	 	</tr>
+		<tr>
+			<td width="10%">&nbsp;</td>
+			<td>
+				&nbsp;
+			</td>
+			<td>
+				任务要求太多，我写在附件里了<a href="javascript:;" onclick="$('#p_upload').show();"class="c030">点击添加附件</a>
+					<p id="p_upload" style="display:none;">1、<input type="file" name="file_name" ext=".rar,.zip,.doc" onchange="isExtName(this,1)" id="file_name"> <input type="button" id="btn_up" class="input_but" value="上传">
+				<a href="javascript:;" onclick="$('#p_upload').hide()" class="c030">取消</a>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="10%">&nbsp;</td>
+			<td colspan="2">
+				<input class="rele_btn" type="submit" id="sbt_xs" name="sbt_xs" value="编辑任务">
+			</td>
+		</tr>
+ 	 </table>
+    	
+        </form>
+</div>
+
+
+<script type="text/javascript">
+
+function content_valid(){
+	if($("#tar_content").val())
+	{
+		$("tar_content_msg").attr('class','c999');
+		$("#tar_content_msg").html("(你有哪些要求？)");
+		return true;
+	}else{
+		$("#tar_content_msg").css('color','red');
+		$("#tar_content_msg").html("任务需求不能为空！");
+		return false;
+	}
+}
+
+$(function(){
+	
+	$("input[name='txt_prom_cash']").blur(function(){
+		if($(this).val()<=0)
+		{
+			$("#ckb_is_prom").attr("checked",'');
+		}
+		 
+	})
+	$("#slt_task_mode").change(function(){
+		if($(this).val()==1){
+			$("#mulit_mode").hide();
+			$("#jj_mode").hide();
+		}
+		else if($(this).val() ==2){
+			$("#mulit_mode").show();
+			$("#jx_rule li").slice(1).remove();
+			
+			$("#hdn_mulit").val(1);
+			$("#jj_mode").hide();
+		}
+		else{
+			$("#mulit_mode").hide();
+			$("#jj_mode").show();
+		}
+		
+	})
+	
+	
+
+	$("input[type='text']").blur(function(){$(this).attr("class","input_txt2");}).focus(function(){$(this).attr("class","input_txt2_h");})
+	var uid = {$uid}+0;
+	if(!uid)
+	{
+	  window.location.href = "index.php?do=release";
+	}
+		
+	//任务标题
+	$("#txt_task_title").blur(function() {
+	
+	var obj = document.getElementById("txt_task_title");
+	var msgArea = obj.getAttribute("msgArea");
+	if (obj.value != '') {
+		var aa = validElement(obj);
+		if (!aa) {
+			
+			$("#" + msgArea).removeClass('c999');
+			$("#" + msgArea).css("color", "red");
+		} else {
+					$("#" + msgArea).removeClass('c999');
+					$("#" + msgArea).css("color", "green");
+					$("#" + msgArea).html("悬赏任务标题填写正确!");
+					tag = tag+1;
+		}
+	} else {
+		$("#" + msgArea).removeClass('c999');
+		$("#" + msgArea).html("悬赏任务周期不能为空！");
+		$("#" + msgArea).css("color", "red");
+	}
+
+	}).focus(function() {
+		
+		var obj = document.getElementById("txt_task_title");
+		var msgArea = obj.getAttribute("msgArea");
+		$("#" + msgArea).addClass('c999');
+		$("#" + msgArea).css("color", "");
+		$("#" + msgArea).html('(你想做什么？)');
+	})
+	//任务内容
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+})
+
+//在线付款
+function online_pay()
+{
+	$("#hdn_paystatus").val('online');
+	$("#frm_xs_release").submit();
+}
+//立即付款
+function confirm_pay()
+{
+	$("#hdn_paystatus").val('confirm');
+	$("#frm_xs_release").submit();
+}
+//稍后付款
+function wait_pay(){
+	$("#hdn_paystatus").val('wait');
+	$("#frm_xs_release").submit();
+}
+function indus_valid()
+{
+	indus_id = parseInt( $("#slt_indus_id").val());
+		
+		if(indus_id != -1) 
+		{
+			tag = tag+1;
+			return true;
+		}
+		else
+		{
+			$("#indus_id_msg").css("color",'red');
+			$("#indus_id_msg").html("行业分类未选择！");
+			$("#indus_id_msg").focus();
+			return false;
+		}
+}
+function upload(){	
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&task_id=1&type=att',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		editor.appendHTML('<a href="'+json.msg.url+'" target="_blank"><br>附件'+json.msg.localname+'</a>')
+	},
+	error:function(json,status,e){alert(e)}});
+	}
+function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+	
+    
+}
+    </script>
+<!--{template footer}-->

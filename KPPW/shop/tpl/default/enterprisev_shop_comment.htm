@@ -1,0 +1,69 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprisev_shop_header}-->
+<div class="pageRight">
+		<div class="titleNav"><span class="fl">『客户留言』</span><span class="titleIcon"></span></div>
+		<div class="commentBox">
+			<div class="commenting lineBg">
+				<form id="commentform" method="post" action="shop.php?do=shop&view=comment&shop_id=$shop_id&op=comment">
+
+							<div class="commenting dashed2">
+								<p><textarea name="txt_comment" id="txt_comment" class="textarea"></textarea></p>
+
+								<table><tr><td>验证码:</td>
+								<td><span id="promptSpan"><input type="text" size="5" name="code" limit="required:true;len:4"  msg="请填验证码!" msgArea="txt_code" /><img id="secode_img" height="22" onclick="this.src='secode_show.php?sid='+Math.random()" src="secode_show.php?sid=<!--{eval echo md5(uniqid(time()))}-->"></span></td>			
+								<td><input type="button" onclick="submit_comment()" class="commentFb" id="commentButton" value="发表留言"/></td>
+								<td><span id="replySpan"></span>&nbsp; 
+									<span id="ann"><input type="checkbox" id="ckb_hide_user" name="ckb_hide_user" {if !$uid}checked="checked"{/if} />&nbsp;&nbsp;匿名发表</span>
+
+									<img id="loading" style="display:none" src="/images/loading.gif"/>
+								</td></tr></table><br/>
+								(共有<!--{eval echo count($comment_list);}-->条客户留言，店主登录后即可回复)
+							</div>
+				</form>
+				
+			</div>
+			<div class="comments">
+						{if $comment_list}
+						{loop $comment_list $c}
+						<p class='dashed2'>
+							<!--{eval echo nl2br($c['content'])}-->
+							<span>$c['username'] &nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+							</p>
+						{/loop}
+							<div class="pages">{$pages[page]}</div>
+						{else}
+						<br><p>暂无留言</p>
+						{/if}
+			</div>
+			
+			
+			 
+		</div>
+			<!--{template shop/tpl/default/enterprisev_footer}-->
+		<br>
+	</div>
+	<div class="clear"></div>
+</div>
+<script>
+function submit_comment(){
+	
+	{if $uid==$shop_info['uid']}
+		showDialog("您不能给自己留言",'alert','错误提示','',0);return;
+	{/if}
+
+	if(!$('#txt_comment').val()){
+		showDialog("没有留言内容",'alert','错误提示','',0);
+	}
+
+	if('$uid'==''&&!document.getElementById('ckb_hide_user').checked){
+		showDialog("您必须先登录!",'alert','错误提示','',0);
+	}
+
+	$('#commentform').submit();
+
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+{template 'header'}
+<div class="m">
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	<td valign="top" class="left_menu">
+		<ul>
+		<li><a href="{DT_PATH}">网站首页</a></li>
+		<li id="type_resume"><a href="{$MOD[linkurl]}">投递简历</a></li>
+		</ul>
+	</td>
+	<td width="8"> </td>
+	<td valign="top">
+		<div class="left_box">		
+			<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($item[catid], ' &raquo; ')} &raquo; 投递简历</div>
+			<div style="padding:20px;">				
+				<form method="post" action="{$MOD[linkurl]}apply.php" id="dform">
+				<input type="hidden" name="itemid" value="{$itemid}"/>
+				<table cellpadding="8" cellspacing="1" width="100%" bgcolor="#CDDCE4">
+				<tr>
+				<td bgcolor="#FBFCFD" width="120" align="center">选择简历</td>
+				<td bgcolor="#FFFFFF">
+				{loop $lists $k $v}
+				<input type="radio" name="resumeid" value="{$v[itemid]}"{if $k==0} checked{/if}/> <a href="{$v[linkurl]}" target="_blank">{$v[title]}</a><br/>
+				{/loop}
+				</td>
+				</tr>
+				<tr>
+				<td bgcolor="#FBFCFD"> </td>
+				<td bgcolor="#FFFFFF"><input type="submit" name="submit" value=" 确定 " class="btn"/>&nbsp;&nbsp;<input type="button" value=" 返回 " class="btn" onclick="window.location='{$linkurl}';"/></td>
+				</tr>
+				</table>
+				</form>	
+			</div>
+			<br/>
+		</div>
+	</td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript">
+try {
+	$('type_resume').style.backgroundColor = '#CDDCE4';	
+}catch (e){}
+</script>
+{template 'footer'}

@@ -1,0 +1,1 @@
+var DTPath = "/destoon/";var SKPath = "/destoon/skin/default/";var CKPrex = "destoon_";

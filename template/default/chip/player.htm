@@ -1,0 +1,7 @@
+{if $video_p == 1}
+<embed src="{$video_s}" width="{$video_w}" height="{$video_h}" type="application/x-mplayer2" autostart="false" controls="imagewindow,controlpanel,statusbar"></embed>
+{elseif $video_p == 2}
+<embed src="{$video_s}" width="{$video_w}" height="{$video_h}" type="audio/x-pn-realaudio-extend" autostart="false"></embed>
+{else}
+<embed src="{$video_s}" width="{$video_w}" height="{$video_h}" type="application/x-shockwave-flash" extendspage="http://get.adobe.com/flashplayer/" autostart="true" quality="high" allowfullscreen="true"></embed>
+{/if}

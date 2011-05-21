@@ -1,0 +1,18 @@
+<br/>
+<a href="javascript:window.history.back();">返回</a>
+<a href="{$DT_URL}">刷新</a>
+<a href="index.php">WAP首页</a>
+<a href="{DT_PATH}">网页版</a>
+{if !$_userid}<a href="index.php?moduleid=2&amp;action=login">登录</a>{/if}
+<br/>
+{if $_userid}
+欢迎,<strong>{$_username}</strong><br/>
+{$DT[credit_name]}<small>({$_credit})</small> {$DT[money_name]}<small>({$_money})</small> <a href="index.php?moduleid=2&amp;action=charge">充值</a><br/>
+<a href="index.php?moduleid=2&amp;action=message">站内信({if $_message}{$_message}{else}0{/if})</a> <a href="index.php?moduleid=2&amp;action=logout">注销</a><br/>
+{/if}
+{if $moduleid==1 && $DT[telephone]}<br/>客服电话：{$DT[telephone]}<br/>{/if}
+<small>{timetodate($DT_TIME, 'm/d H:i')}</small><br/>
+{if $moduleid==1}<a href="http://wap.destoon.com/" style="text-decoration:none;color:#000000;"><small>Powered by Destoon</small></a>{/if}
+</div>
+</body>
+</html>

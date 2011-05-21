@@ -1,0 +1,155 @@
+<!--{eval $page_title='帮助中心 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/help.css" rel="stylesheet" type="text/css"/>
+<style>
+	input, select, textarea, option {
+   
+    vertical-align:baseline;
+}
+	
+</style>
+ <div id="content">
+ 	<div class="blank8"></div>
+ <div id="help_search">
+  <ul>
+    <li class="help_search_li1"></li>
+    <li class="help_search_li2">
+      <form method="post" action="index.php?do=help_list">
+        <input type="text" class="text"  id="keyword" name="keyword">
+        <input type="submit" value="搜索我的答案" class="help_search_input" id="" name="">
+        <select style="display: none;" id="searchtype" name="searchtype">
+          <option selected="selected" value="titlekeyword">智能模糊搜索</option>
+          <option value="title">仅搜索标题</option>
+        </select>
+      </form>
+    </li>
+    <li class="help_search_li3"></li>
+  </ul>
+</div>
+<div class="blank8"></div>
+<div id="help_menu">
+  <ul>
+    <li class="fl help_menu_now">当前位置：<a href="index.php?do=help">帮助中心</a></li>
+    <!-- <li class="fr help_menu_guzhu">
+    <a href="index.php?do=message&to_uid=1" onclick="showWindow('a_msg', this.href);">我是雇主，我要提问&gt;&gt;</a>&nbsp;|&nbsp;
+	<a href="index.php?do=message&to_uid=1" onclick="showWindow('a_msg', this.href);">我是威客，我要提问&gt;&gt;</a>
+	</li> -->
+  </ul>
+</div>
+<div class="blank9"></div>
+<div id="help_main">
+  <!-- help left start -->
+  <div id="help_left">
+    <!-- left menu -->
+    <div id="help_left_first">
+      <div class="help_left_content2">
+        <h3>流程演示</h3>
+        <!-- help class start -->
+        <dl>
+        {loop $art_arr $key $value}
+			 <dt><a href="index.php?do=help_info&art_id={$value[art_id]}">{$value[art_title]}</a></dt>
+		{/loop}
+        </dl>
+        <!-- help class end -->
+      </div>
+    </div>
+    <!-- clear both -->
+    <div class="blank8"></div>
+    <!-- hot help -->
+    <div id="hothelp">
+      <ul class="hothelphead">
+        <li class="fl hothelptitle">热点问题</li>
+        <li class="fr"><!-- <a class="hothelpmore" target="_blank" href="">更多&gt;&gt;</a> --></li>
+      </ul>
+      <ul class="hothelplist">
+      	{loop $commend_list $commend}
+        <li>
+        <a href="index.php?do=help_info&art_id={$commend['art_id']}" title="{$commend['art_title']}" target="_blank">{$commend['art_title']}</a>
+        </li>
+        {/loop}
+      </ul>
+    </div>
+    <div class="blank8"></div>
+    <!-- left other -->
+    <div>
+      <ul class="help_left_other_ul cb">
+        <li class="help_left_other_header">客户服务</li>
+      </ul>
+    <!--{tag 帮助中心_客户服务}-->
+      <div class="help_left_footer"></div>
+    </div>
+  </div>
+  <!-- help left end -->
+  <!-- help right start -->
+  <div id="help_right">
+    <!-- help class start -->
+    <div id="help_right_content1">
+      <ul class="help_right_content1_header">
+        <li class="help_right_li_header">知识分类</li>
+      </ul>
+      <div id="help_right_content1_class">
+        <ul>
+        {loop $art_p_cat_arr $keys $values}
+         <div>
+           <li style="height: 76px;">
+          	<a class="help_class_span1" href="index.php?do=help_list&art_cat_pid={$values[art_cat_id]}">{$values[cat_name]}</a>
+			<span class="help_class_span2">
+	          	<!--{eval $c = count($art_c_cat_arr)}-->
+				{loop $art_c_cat_arr $key $value}
+				    
+		          	{if $value[art_cat_pid]==$values[art_cat_id]}
+		          		<a href="index.php?do=help_list&art_cat_id={$value[art_cat_id]}">{$value[cat_name]}</a>
+						{if $key%3==0}
+							<br>
+						{else}
+							&nbsp;|&nbsp;
+						{/if}
+					{/if}
+				{/loop}
+			</span>
+			</li>
+         </div>
+		 {/loop}
+        
+        </ul>
+        <div class="blank1"></div>
+      </div>
+    </div>
+    <!-- help class end -->
+    <div class="blank10"></div>
+    <!-- help changjian start -->
+    <div id="help_com">
+      <ul class="help_right_content1_header">
+        <li class="help_right_li_header1">常见疑问</li>
+      </ul>
+      <div id="help_com_problem">
+        <ul>
+          {loop $art_now_arr $key $value}
+          <li><a href="index.php?do=help_info&art_id={$value[art_id]}">{$value[art_title]}</a></li>
+		  {/loop}
+        </ul>
+        <div class="blank1"></div>
+      </div>
+    </div>
+    <!-- help changjian end -->
+    <div class="blank10"></div>
+    <!-- taskcn secretary -->
+    <!--
+    <div id="secretary">
+      <div class="fl">
+        <ul>
+          <li class="secretaryimg"><img alt="客户服务" src="{SKIN_PATH}/img/help/yijian.gif"></li>
+          <li class="tac">意见与建议</li>
+        </ul>
+      </div>
+       <div id="secretary_p">
+        <p>亲爱的用户：<br>
+          “欢迎来到{$basic_config[website_name]}！{$basic_config[website_name]}致力于给用户提供最方便有效、最全面细致的用户平台。欢迎您把浏览网站时遇到的问题或者好的想法记录下来提供给我们，我们的服务团队会在第一时间进行反馈和改进。”</p>
+        <div class="help_index_suggest"><a href="index.php?do=message&to_uid=1" onclick="showWindow('a_msg', this.href);">留下您的意见与建议&gt;&gt;</a></div>
+      </div> 
+    </div>-->
+  </div>
+  <!-- help right end -->
+</div>
+<div class="blank10"></div>
+</div>
+ <!--{template footer}-->

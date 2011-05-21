@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<body>
+<form method="post" action="index.php?do={$do}&view={$view}" id="frm_cat_edit" enctype="multipart/form-data">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="view" value="{$view}">
+
+<input type="hidden" name="hdn_ad_id" value="{$ad_info[ad_id]}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑广告</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+      <tr>
+        <td class="bg1 t_r">广告类型：</td>
+        <td>
+        <select name="slt_ad_type">
+        	<option value="2" {if $ad_info[ad_type]==2}selected="selected"{/if}>图片广告</option>
+			<option value="1" {if $ad_info[ad_type]==1}selected="selected"{/if}>flash广告</option>
+			<option value="3" {if $ad_info[ad_type]==3}selected="selected"{/if}>文字广告</option>
+		</select>
+		</td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">广告名称：</td>
+        <td>
+        <input type="text" class="input_t" name="txt_ad_name" value="{$ad_info[ad_name]}" maxlength="20">
+        (同广告组请用相同广告名）
+        </td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">广告链接地址：</td>
+        <td><input type="text" class="input_t" name="txt_ad_url" value="{$ad_info[ad_url]}"</td>
+        
+      </tr>
+	   <!-- <tr>
+        <td width="30%" class="bg1 t_r">金额：</td>
+        <td><input type="text" class="input_t" name="txt_ad_cash" value="{$ad_info[ad_cash]}" maxlength="20"  class="input_t" onkeyup="clearstr(this)"/></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">购买者：</td>
+        <td><input type="text" class="input_t" name="txt_username" value="{$ad_info[username]}" maxlength="20"  class="input_t" /></td>
+      </tr>
+       <tr>
+        <td class="bg1 t_r">展示时间：</td>
+        <td><input type="text" class="input_t" name="txt_ad_day" value="{$ad_day}" maxlength="100"    class="input_t" onkeyup="clearstr(this)"/>天</td>
+      </tr>-->
+	    <tr>
+        <td width="30%" class="bg1 t_r">上传文件：</td>
+        <td>
+        	<input type="file" class="input_t" name="fle_ad_file" maxlength="100"  class="input_t"/>
+			<input type="hidden" name="hdn_ad_file" value="{$ad_info[ad_file]}">
+			<br>
+			{if $ad_info[ad_file]}
+			<a href="{$_K['siteurl']}/$ad_info[ad_file]" target="_blank">点击查看</a>
+        	{/if}
+			</td>
+      </tr>
+      <tr>
+        <td width="30%" class="bg1 t_r">宽度：</td>
+        <td><input type="text" class="input_t" name="txt_width" value="{$ad_info[width]}" maxlength="20" </td>
+      </tr>
+      <tr>
+        <td width="30%" class="bg1 t_r">高度：</td>
+        <td><input type="text" class="input_t" name="txt_height" value="{$ad_info[height]}" maxlength="20" </td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">广告内容：</td>
+        <td>
+        	<textarea name="tar_ad_content" cols="30" rows="4">{$ad_info[ad_content]}</textarea>(文字广告时填写)
+		</td>
+      </tr>
+      <tr>
+        <td width="30%" class="bg1 t_r">排序：</td>
+        <td><input type="text" class="input_t" name="txt_listorder" value="{$ad_info[listorder]}" maxlength="6" onkeyup="clearstr(this)"/> </td>
+      </tr>
+	   <tr>
+         <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/>
+       	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script src="tpl/js/form_validation_.js" type="text/javascript"></script>
+</body>
+</html>

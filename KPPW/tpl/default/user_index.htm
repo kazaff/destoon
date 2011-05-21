@@ -1,0 +1,186 @@
+<!--{eval $page_title='个人信息 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+        <div class="index520">
+            <div class="personalmsg">
+                <span class="img"><!--{userpic($uid,small)}--></span>
+                <strong>你好，$username &nbsp;&nbsp;
+				  {if $user_info[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+				  {if $user_info[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+				  {if $user_info[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $user_info[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $user_info[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;  		  
+					
+				</strong>
+                <p>您有<a href="index.php?do=user&view=message_list"><i>$messagecount</i></a>条未读站内短信！ <a href="index.php?do=user&view=message_list">立即查看</a></p>
+                <span>{if $shop_info['shop_id']}<a target="_blank" href="shop.php?do=shop&shop_id={$shop_info['shop_id']}" style="right: 80px">[店铺首页]</a>  {/if}<a href="index.php?do=space&member_id={$uid}">[空间首页]</a></span>
+                <div><b>我的账户：</b>&nbsp;&nbsp;<span class="ml_20">现金 <font color="#FF7700">￥<!--{eval printf("%10.2f",$user_info[balance])}--></font> 元</span>{if $basic_config[credit_is_allow]==1}，<span class="ml_20">代金券<font color="#FF7700"> <!--{eval printf("%10.2f",$user_info[credit])}--></font> 元</span>{/if}。<a href="index.php?do=user&view=cash" style="color:red;text-decoration:underline;">立即充值</a></div>
+            </div>
+            <div class="perbox520">
+                <div class="ltop">
+                    <h3>基本信息 </h3>
+                </div>
+                <div class="lctr">
+                   
+                   <div class="rightgut">
+                   		<ul>
+                   		<li>
+                   			<table width="480" height="110" border="0" cellspacing="0" cellpadding="0">
+							  <tr>
+								<td width="24%">用户头衔：<!--{eval $exp_value = Func_comm_class::get_experience_level($user_info[experience_value]);echo $exp_value[title];}--></td>
+							    <td>经验等级：<!--{eval echo $exp_value[pic];}-->&nbsp;&nbsp;经 验 值：{$user_info['experience_value']}</td>
+							  </tr>
+							  <tr><td height="5"></td></tr>
+							   <tr>
+							    <td colspan="2">威客信誉等级：<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($user_info[w_m_credit_value],1);echo $w_m_score_value[pic];}-->&nbsp;&nbsp;&nbsp;
+							    雇主信誉等级：<!--{eval $g_m_score_value = Func_comm_class::get_mark_level($user_info['g_m_credit_value'],2);echo $g_m_score_value[pic];}--></td>
+							  </tr>
+							  <tr><td height="5"></td></tr>
+							  <tr>
+							    <td>威客好评率：<!--{eval $user_rate = Func_comm_class::get_favorable_comment($uid,1,1);echo $user_rate[rate];}--></td>
+							    <td><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"> 好评数：<!--{eval echo $user_rate[good];}-->&nbsp;
+						      	<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"> 中评数：<!--{eval echo $user_rate[middle];}-->&nbsp;
+								<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"> 差评数：<!--{eval echo $user_rate[bad];}--></td>
+							  </tr>
+							   <tr>
+							    <td>雇主好评率：<!--{eval $user_rate = Func_comm_class::get_favorable_comment($uid,1,1);echo $user_rate[rate];}--></td>
+							    <td><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"> 好评数：<!--{eval echo $user_rate[good];}-->&nbsp;
+						      	<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"> 中评数：<!--{eval echo $user_rate[middle];}-->&nbsp;
+								<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"> 差评数：<!--{eval echo $user_rate[bad];}--></td>
+							  </tr>
+							</table>
+                   		</li>
+                   		
+                   		{if !$shop_config[shop_is_close]}
+						<li><hr style="width:495px;height:1px;over-flow:hiddle;"/></li>
+						<li><strong>店铺信息</strong> </li>
+						<li>
+							<table width="480" height="30" border="0" cellspacing="0" cellpadding="0">
+							  {if !$shop_info}
+							  <tr>
+								<td>您还没有开通店铺,<a href="index.php?do=user&view=create_shop">马上开通</a></td>
+							  </tr>
+							  {else}
+							  <tr>
+								<td width="33%">
+								店铺名称：$shop_info['shop_name'] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：<!--{date('Y-m-d H:i:s',$shop_name[on_time])}--><br>
+								店铺类型：{if $shop_info['shop_type']==1}个人店铺{else}企业店铺{/if}&nbsp;&nbsp;<a href="index.php?do=user&view=service_add">发布商品</a> <a href="index.php?do=user&view=case_list">管理案例</a><br>
+								
+								</td>
+							  </tr>
+							  {/if}
+							</table>
+						</li>
+						{/if}
+						
+                        <li><hr style="width:495px;height:1px;over-flow:hiddle;"/></li>
+						<li><strong>认证信息</strong> </li>
+						<li>
+							<table width="480" height="70" border="0" cellspacing="0" cellpadding="0">
+							  <tr>
+								<td width="50%">身份认证：{if $user_info[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle"><font color="red">已认证</font>{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" align="absmiddle">未认证，<a href="index.php?do=user&view=auth">立即认证</a>{/if}</td>
+							    <td>V I P认证：{if $user_info[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle"><font color="red">已认证</font>{else}<img src="{SKIN_PATH}/img/untruename.gif" align="absmiddle">未认证，<a href="index.php?do=user&view=auth">立即认证</a>{/if}</td>
+							  </tr>
+							  <tr>
+							    <td>企业认证：{if $user_info[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle"><font color="red">已认证</font>{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" align="absmiddle">未认证，<a href="index.php?do=user&view=auth">立即认证</a>{/if}</td>
+							    <td>邮件认证：{if $user_info[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle"><font color="red">已认证</font>{else}<img src="{SKIN_PATH}/img/unmail.gif" align="absmiddle">未认证，<a href="index.php?do=user&view=auth">立即认证</a>{/if}</td>
+						      </tr>
+							  <tr>
+							    <td>银行认证：{if $user_info[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle"><font color="red">已认证</font>{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" align="absmiddle">未认证，<a href="index.php?do=user&view=auth">立即认证</a>{/if}</td>
+							    <td></td>
+						      </tr>
+							</table>
+						</li>
+						<li><hr style="width:495px;height:1px;over-flow:hiddle;"/></li>
+						<li>{if $nopay_task}您有 <a href="index.php?do=user&view=nopay"> <span class="red">$nopay_task</span></a> 个未付款任务。<a href="index.php?do=user&view=nopay">查看</a></li>{/if}</li>
+						<li>所属行业：<span class="c03a" id="user_indus_name">$indus_arr[$indus_arr[$user_info[indus_id]][indus_pid]][indus_name],$indus_arr[$user_info[indus_id]][indus_name]</span>,<a href="javascript:;" onclick="showWindow('indes_select','index.php?do=user&view=choose_indus');">点击修改</a></li>
+                        <li>职业技能：<span class="c03a">{loop $user_skill_arr $key $value}{if $key==0}{$value[skill_name]}{else},{$value[skill_name]}{/if}{/loop}</span>,<a href="index.php?do=user&view=skill">点击修改</a></li>
+						<li>{if $user_info['isvip']&&$user_info['vip_end_time']>time('now()')}
+                        	当前等级：<span class="red">vip会员</span> <span class="c999">(您的vip资格到期时间：<!--{date('Y-m-d H:i:s',$user_info[vip_end_time])}-->)</span>
+                        {else}
+                        	您现在的等级是普通会员, <a href="index.php?do=user&view=auth_vip">立即充值vip</a>.
+                        {/if}</li>
+                        </ul>
+                   </div>
+                </div>
+                <div class="lbom">
+                </div>
+            </div>
+            <div class="perbox520">
+                <div class="ltop">
+                	<h3>动态信息 </h3>
+                </div>
+                <div class="lctr">
+                	<div class="leftnav"style="height:210px;overflow:hidden;">
+					<h4 id="tab_feed_1" class="now" onmouseover="swaptab('feed','now','',2,1)">个人动态 </h4>
+					<h4 id="tab_feed_2" onmouseover="swaptab('feed','now','',2,2)">全站动态 </h4>
+                	</div>
+                   <div class="rightgut" id="div_feed_1" style="float:left;">
+                   		<ul>
+                   		<!--{loadfeed(9,0,$uid,0,user_index,0,0)}-->
+                        </ul>
+                   </div>
+				   <div class="rightgut" id="div_feed_2" style="display:none;float:left;">
+						<ul >
+                   		<!--{loadfeed(9,0,0,0,user_index,user_index_all,60)}-->
+                        </ul>
+                   </div>
+                </div>
+                <div class="lbom"></div>
+            </div>
+            
+            
+            
+        </div>
+        <div class="index210">
+            <div class="perbox210">
+                <h3>统计信息</h3>
+                <ul>
+                	<li>注册时间：<!--{date('Y-m-d',$user_info[reg_time])}--></li>
+               		<li>发布任务：<span class="red">$user_info[pub_num]</span> 条</li>
+               		<li>参与任务：<span class="red">$user_info[take_num]</span> 次</li>
+               		<li>提名次数：<span class="red">$user_info[nominate_num]</span> 次</li>
+               		<li>中标次数：<span class="red">$user_info[accepted_num]</span> 次</li>
+                </ul>
+                <div class="btm"></div>
+            </div>
+			<div class="perbox210">
+                <h3>网站公告</h3>
+                <ul>
+                	<!--{tag 个人中心网站公告}-->
+               
+                </ul>
+                <div class="btm"></div>
+            </div>
+            <div class="perbox210">
+                <h3>帮助中心</h3>
+                <ul>
+                	<!--{tag 个人中心帮助中心}-->
+                  
+                </ul>
+                <div class="btm"></div>
+            </div>
+            
+            <div class="topM"></div>
+        </div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+    {if !$user_info[indus_id]}
+    <script>
+    $(function(){
+    	showWindow('indes_select','index.php?do=user&view=choose_indus');
+            })
+    
+    </script>
+    {/if}
+
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

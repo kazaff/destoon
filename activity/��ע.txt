@@ -1,0 +1,13 @@
+修改了：
+	member.class.php的第85行
+
+	include/fields.func.php的fields_show()函数
+	include/fields.func.php的fields_check()函数（第32行）	
+
+	admin/template/fields_add.tpl.php
+	admin/template/fields_edit.tpl.php
+
+	活动模块里的index.php首行加上：header('location: ../');
+
+问题：
+	swf_flv类型字段附件上传自动删除问题

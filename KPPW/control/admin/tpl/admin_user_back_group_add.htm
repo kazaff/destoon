@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>添加用户组</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<style>
+	.tab_m dl{display:block;width:100%}
+	.tab_m dt{float:left;width:10%;}
+	.tab_m dd{float:right;width:90%;}
+	.tab_m ul{padding-top:2px;}
+	.tab_m li{height:16px;line-height:16px;display:inline;}
+</style>
+<body>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">{if $editgid}编辑用户组{else}添加用户组{/if}</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do=user&type=back&op=add&view=group&editgid={$editgid}" method="post">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">组名：</td>
+        <td><input type="text" value="{$groupinfo_arr['groupname']}" name="txt_groupname" maxlength="50" limit="required:true" msg="组名不能为空" msgArea="txt_groupname_msg"  class="input_t"/><b style="color:red"> *</b><span id="txt_groupname_msg"></span></td>
+      </tr>
+	  <tr>
+	  	<td width="30%" class="bg1 t_r" valign="top">权限：</td>
+		<td>
+			{loop $menuset_arr['menu'] $meunname $meun}
+			<b>{$menu_arr[$meunname]}</b><br>
+			<div style="display:block;width:100%">
+			{loop $meun $submenuname}
+			<dl><dt>$submenuname[name]:</dt><dd>
+				<ul>
+				{loop $submenuname[items] $resource}
+				<li><input type="checkbox" {if in_array($resource[resource_id],$grouprole_arr)}checked="checked"{/if} name="chb_resource[]" value="{$resource[resource_id]}">$resource[resource_name]</li>
+				{/loop}
+				</ul>
+				</dd>
+			</dl>
+			{/loop}
+			</div>
+			{/loop}
+		</td>
+	  </tr>
+	 
+	 <input type="hidden" name="is_submit" value="1"/>
+	  
+    </table>
+	
+	<p class="t_c mt_10"><input type="submit" name="sbt_edit" class="input_but" value="{if $editgid}编辑{else}添加{/if}"/> </p>
+ </form>
+ 	<br/>
+    </div>
+</body>
+</html>

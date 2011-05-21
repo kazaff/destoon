@@ -1,0 +1,37 @@
+
+		 
+<!--{if $_GET[inajax]}-->
+    
+<!--{template header_ajax}-->
+    <h3 class="flb"><em>{$title}</em><span><a href="javascript:;" class="flbc" onclick="hideWindow('$_GET[handlekey]');" title="close">关闭</a></span></h3>
+		<div class="c altw">
+			<div class="$alerttype">$content</div>
+		</div>
+<!--{template footer_ajax}-->
+
+<!--{else}-->
+    <!--{eval $page_title = $title." - ".$_K['html_title'];}-->
+	<!--{template header}-->
+	<script language="JavaScript">
+		window.history.forward(1);
+	function jump(){
+		{if $url}
+			window.location.href='{$url}';
+		{else}
+			history.go(-1);
+		{/if}
+		}
+		<!--{if $time}-->
+		setTimeout('jump()',1000*($time)); //指定1秒刷新一次
+		<!--{/if}-->
+	</script>
+	<div id="content">
+	    <div class="{if $msgtype=='info'}tip_s{else}tip_f{/if}">
+	    	<b>提示信息 {$title}</b><br/>
+			{$content}
+			<br>&nbsp;<a href="{$url}" style="text-decoration:underline;">如果页面没有响应，请点击这里刷新&nbsp; </a>
+	    </div>
+	</div><!--content_E-->
+	<div class="clear"></div>
+	<!--{template footer}-->
+<!--{/if}-->

@@ -1,0 +1,81 @@
+ <div class="boxWrap">
+                <div class="boxHeader">
+                    <h2>个人形象</h2>
+                </div>
+                <div class="boxBody">
+                    <ul class="myInfo">
+                        <li class="face" id="ctl00_profileLi">{if $shop_info['shop_type']==1||!$shop_logo}<!--{userpic($shop_info[uid],middle)}-->{else}<img src="$shop_logo">{/if}</li>
+                        <li class="btns">
+                            <a class="leaveWord fl" href="shop.php?do=shop&view=comment&shop_id=$shop_id">在线留言</a>
+                            <a class="sendMsg fr" href="index.php?do=message&to_uid={$shop_info['uid']}" onclick="{if $uid}{if $uid!=$shop_info['uid']}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if};">发站内信</a>
+                        </li>
+                        <li class="info">
+                            <p>姓&nbsp; 名：{if $shop_info['truename']}$shop_info['truename']{else}$shop_info['username']{/if}</p>
+                            <p>职&nbsp; 位：{$shop_info[job]}</p>
+                            <p>所在地：{$shop_info['city']}</p>
+                            <p>从业年限：
+                            {if !$shop_info['work_year']}一年以下{/if}
+                            {if $shop_info['work_year']==1}一年{/if}
+                            {if $shop_info['work_year']==2}两年{/if}
+                            {if $shop_info['work_year']==3}三年{/if}
+                            {if $shop_info['work_year']==4}四年{/if}
+                            {if $shop_info['work_year']==5}五年以上{/if}
+                            {if $shop_info['work_year']==6}十年以上{/if}
+                            </p>
+                            <!-- <p>服务保障：<a href="#" target="_blank"><i title="诚信保障" class="bz-icon cxbz"></i></a></p> -->
+                            <p>服务范围：
+							{loop $service_range $value}
+							<a href="javascript:;">$shop_indus[$value]['indus_name']</a>
+							{/loop} 
+							</p>
+                        </li>
+                        <li class="intro">
+                            <div class="titleNav">
+                            <strong class="fl">个人简介：</strong>
+                            <span class="fr">
+                                <a class="more" onclick="shift();return false;" href="javascript:">
+                                    <span id="shiftSpan">详细</span>
+                                </a>
+                            </span>
+                            </div>
+                            <div id="brief" class="content">&nbsp; &nbsp; {$shop_info['summary']}</div>
+                            <div style="display: none;" id="briefall" class="content all">&nbsp; &nbsp; {$shop_info['summary']}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="boxWrap">
+                <div class="boxHeader">
+                    <h2>商品分类</h2>
+                    
+                </div>
+                <div class="boxBody">
+                    <ul class="serviceSort">
+                       {loop $shop_pindus $k $v}
+					    <li><a href="shop.php?do=shop&view=service&shop_id=$shop_id&cate_id=$v['cus_cate_id']" target="_blank">$v['cate_name']</a></li>
+                       {/loop}
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="boxWrap">
+                <div class="boxHeader">
+                    <h2>友情链接</h2>
+                    
+                </div>
+                <div class="boxBody">
+                    <ul class="links">
+                    	{loop $link_arr $v}
+                        <li><a href="$v['link_url']" target="_blank">$v['link_name']</a></li>
+						{/loop}
+                    </ul>
+                </div>
+            </div>
+			
+			<script type="text/javascript">
+				function shift(){
+					$("#brief").toggle();
+					$("#briefall").toggle();
+				}
+			</script>

@@ -1,0 +1,25 @@
+</td>
+{if $side_pos==1}
+<td width="10"></td>
+<td width="{$side_width}" valign="top" id="side">{template 'side', $template}</td>
+{/if}
+</tr>
+</table>
+</div>
+<div class="m">
+	<div class="foot" id="foot">
+		<div>
+			<a href="{$COM[linkurl]}">网站首页</a>
+			{loop $MENU $k $v}
+			&nbsp; | &nbsp;<a href="{$v[linkurl]}">{$v[name]}</a>
+			{/loop}
+			&nbsp; | &nbsp;<a href="{$MODULE[2][linkurl]}">管理入口</a>
+			<br/>
+			&copy;{timetodate($DT_TIME, 'Y')} {$COM[company]} 版权所有&nbsp;&nbsp;&nbsp;技术支持：<a href="{DT_PATH}" target="_blank">{$DT[sitename]}</a>{if $show_stats}&nbsp;&nbsp;&nbsp;&nbsp;访问量：{$COM[hits]}{/if}{if $COM[icp]}<br/><a href="http://www.miibeian.gov.cn" target="_blank">{$COM[icp]}</a>{/if}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">$('position').innerHTML = $('pos_show').innerHTML;</script>
+{template 'stats', 'chip'}
+</body>
+</html>

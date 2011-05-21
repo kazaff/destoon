@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset={DT_CHARSET}"/>
+<title>{if $seo_title}{$seo_title}{else}{if $head_title}{$head_title}{$DT[seo_delimiter]}{/if}{$DT[sitename]}{/if}</title>
+<meta name="keywords" content="{$head_keywords}"/>
+<meta name="description" content="{$head_description}"/>
+<meta name="generator" content="Destoon B2B,www.destoon.com"/>
+<meta http-equiv="x-ua-compatible" content="ie=7"/>
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}style.css"/>
+{if $moduleid>4}<link rel="stylesheet" type="text/css" href="{DT_SKIN}{$module}.css"/>{/if}
+<link rel="shortcut icon" href="{DT_PATH}favicon.ico"/>
+<link rel="bookmark" href="{DT_PATH}favicon.ico"/>
+{if !DT_DEBUG}<script type="text/javascript">window.onerror= function(){return true;}</script>{/if}
+<script type="text/javascript" src="{DT_PATH}lang/{DT_LANG}/lang.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/config.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/common.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/page.js"></script>
+</head>
+<body>
+<div class="top">
+	<div class="top_div">
+		<div class="f_r" id="destoon_member"></div>
+		<div><a href="{DT_PATH}" class="f_red">网站首页</a> | <script type="text/javascript">addFav('收藏本页');</script> | <a href="{$MOD[linkurl]}">{$MOD[name]}首页</a></div>
+	</div>
+</div>
+<div class="m b5">&nbsp;</div>
+{php $searchid = $moduleid;}

@@ -1,0 +1,47 @@
+<!--{template header_ajax}-->
+{if $ajax == "jointask_log"}
+<div id="log_menu">
+<ol>
+	<li>报名参加的任务数:{$user_info['take_num']}</li><br>
+	<li>入围次数:{$user_info['nominate_num']}</li><br>
+	<li>成功中标数:{$user_info['accepted_num']}</li><br>
+	<li><a href="index.php?do=space&member_id=$mid">查看更多内容</a></li>
+</ol>
+</div> 
+{elseif $ajax == "jointask"}
+<div id="join_menu" >
+<ol>
+	{if $task_arr}
+	{loop $task_arr $v}
+	<li class="join_menu1"><span>￥$v['task_cash']</span><a href="index.php?do=task&task_id={$v['task_id']}">$v['task_title']</a></li>
+	{/loop}
+	{else}
+	<li><span>暂无</span></li>
+	{/if}
+</ol>
+</div>
+{elseif $ajax == "sale_log"}
+<div id="join_menu">
+<ol>
+	<li>卖出的服务:$sale_service</li><br>
+	<li>卖出的商品:$sale_good</li><br>
+	<li class="join_menu2"><a href="index.php?do=space&member_id=$mid">查看更多内容</a></li>
+</ol>
+</div>
+{elseif $ajax == "sale_info"}
+<div id="join_menu">
+<ol>
+	{if $service_arr}
+	
+	{loop $service_arr $v}
+	<li class="join_menu1"><span>￥$v['price']/$v['unite_price']</span><a href="shop.php?do=service_info&sid={$v['service_id']}">$v['title']</a></li>
+	{/loop}
+	{else}
+	<li><span>暂无</span></li>
+	{/if}
+</ol>
+</div>
+{/if}
+<!--{template footer_ajax}-->
+
+

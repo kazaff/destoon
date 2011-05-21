@@ -1,0 +1,53 @@
+{template 'header'}
+<div class="m">
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	<td valign="top" class="left_menu">
+		<ul>
+		<li><a href="{DT_PATH}">网站首页</a></li>
+		<li id="type_0"><a href="./">广告中心</a></li>
+		{loop $TYPE $k $v}
+		{if $k}<li id="type_{$k}"><a href="{rewrite('index.php?typeid='.$k)}">{$v}</a></li>{/if}
+		{/loop}
+		</ul>
+	</td>
+	<td width="8"> </td>
+	<td valign="top">
+		<div class="left_box">		
+			<div class="pos"><span class="f_r"><a href="{$MODULE[2][linkurl]}ad.php">[我的广告]</a></span>当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="./">广告中心</a></div>
+			<div class="b15">&nbsp;</div>
+			<table cellpadding="6" cellspacing="1" width="96%" align="center" bgcolor="#E3EEF5">
+			<tr bgcolor="#F1F7FC">
+			<th>编号</th>
+			<th>广告位名称</th>
+			{if !$typeid}<th>广告类型</th>{/if}
+			<th>规格(px)</th>
+			<th title="({$DT[money_unit]}/月)">价格</th>
+			<th title="({$DT[money_unit]}/月)">单位</th>
+			{if $MOD[ad_buy]}<th>预定</th>{/if}
+			</tr>
+			{loop $ads $k $v}
+			<tr align="center" bgcolor="#FFFFFF" title="{$v[introduce]}">
+			<td>A{$v[pid]}</td>
+			<td><a href="{rewrite('index.php?pid='.$v['pid'])}" title="效果预览">{$v[name]}</a></td>
+			{if !$typeid}<td><a href="{rewrite('index.php?typeid='.$v['typeid'])}">{$v[typename]}</a></td>{/if}
+			<td class="f_gray">{$v[width]} x {$v[height]}</td>
+			<td class="f_orange f_b">{if $v[price]}{$v[price]}{else}面议{/if}</td>
+			<td>{$unit}</td>
+			{if $MOD[ad_buy]}
+			<td><a href="{rewrite('index.php?action=buy&pid='.$v['pid'])}"><img src="{DT_SKIN}image/buy.gif" alt="订购"/></a></td>
+			{/if}
+			</tr>
+			{/loop}
+			</table>
+			<div class="pages">{$pages}</div>
+			<div class="b10">&nbsp;</div>
+		</div>
+	</td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript">
+try {$('type_{$typeid}').style.backgroundColor = '#CDDCE4';}catch (e){}
+</script>
+{template 'footer'}

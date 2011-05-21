@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']" />
+<title></title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+<body>
+<div class="main">
+	<div class="v_search">使用方法：</div>
+    <div class="v_show">1:如如果需要整合其他的用户系统，可以安装适当的版本号插件进行整合。</div>
+    <div class="v_show">2:如果需要更换整合的用户系统，直接安装目标插件即可完成整合，同时自动卸载上一次整合插件。</div>
+    <div class="v_show">3:如果不需要整合任何用户系统，可直接卸载。</div>
+    <div class="v_search">Ucenter用户整合</div>
+	<div id="change">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="30%">名称</th>
+            <th width="20%">版本</th>
+            <th width="30%">作者</th>
+            <th>操作</th>
+          </tr>
+          <tr>
+            <td>{if $basic_config['user_intergration']==2}<b>Ucenter(已安装)</b>{else}Ucenter{/if}</td>
+            <td>1.5</td>
+            <td><a href="javascript:;">kekezu官方</a></td>
+            <td><a href="index.php?do=config&view=integration&type=uc">安装</a> {if $basic_config['user_intergration']==2}<a href="index.php?do=config&view=integration&setting=del">卸载</a>{/if}</td>
+          </tr>
+          
+          
+        </table>
+	</div>
+  <script src="js/css.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>

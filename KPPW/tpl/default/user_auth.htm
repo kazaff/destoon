@@ -1,0 +1,78 @@
+<!--{eval $page_title='认证中心 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			{loop $auth_item_arr $key $value}
+			{if $value[auth_open]==1}
+			<div class="backright_d {if $key!=0}mt_10{/if}">
+				<dl><dt><img src="data/uploads/ico/{$value[auth_small_ico]}" title="{$value[auth_title]}" align="absmiddle"> {$value[auth_title]}</dt></dl>
+			</div>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line2 t_c">
+						<tr height="30" bgcolor="#9BD0EF">
+							<td width="25%"><b class="c03a">类型</b></td>
+							<td width="42%"><b class="c03a">作用</b></td>
+							<td width="13%"><b class="c03a">费用</b></td>
+							<td width="24%"><b class="c03a">状态</b>&nbsp;&nbsp;[{$value[auth_day]}]个工作日完成</td>
+						</tr>
+						<tr height="100">
+							<td><img src="data/uploads/ico/{$value[auth_big_ico]}" title="{$value[auth_title]}" align="absmiddle"><b class="font14 c03a"> {$value[auth_title]}</b></td>
+							<td width="30%" align="left">{$value[auth_desc]}</td>
+							<td>认证费用{$user_info[realname_auth]}{$value[auth_id]}：<font color="red">{if $value[auth_cash]}<b>{$value[auth_cash]}元</b>{else}免费{/if}</font></font></td>
+							<td>
+								{if $user_info[realname_auth]==1&&$value[auth_id]==1}
+								<font color="red"><b>{$value[auth_title]}已通过</b></font>
+								{elseif $user_info[bank_auth]==1&&$value[auth_id]==2}
+								<font color="red"><b>{$value[auth_title]}已通过</b></font>
+								{elseif $user_info[enterprise_auth]==1&&$value[auth_id]==3}
+								<font color="red"><b>{$value[auth_title]}已通过</b></font>
+								{elseif $user_info[email_auth]==1&&$value[auth_id]==4}
+								<font color="red"><b>{$value[auth_title]}已通过</b></font>
+								{else}
+									
+										未认证 
+										&nbsp;&nbsp;&nbsp;&nbsp; <a href="index.php?do=user&view={if $value[auth_id]==1}auth_realname{elseif $value[auth_id]==2}auth_bank{elseif $value[auth_id]==3}auth_enterprise{elseif $value[auth_id]==4}auth_email{else}{/if}&auth_id={$value[auth_id]}"><font color="red">立即认证</font></a>
+									
+								{/if}
+							</td>
+						</tr>
+				</table>
+				{/if}
+			{/loop}
+			<div class="backright_d mt_10">
+				<dl><dt><img src="data/uploads/ico/small_5.gif" title="VIP会员认证" align="absmiddle">VIP会员认证</dt></dl>
+			</div>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line2 t_c">
+						<tr height="30" bgcolor="#9BD0EF">
+							<td width="25%"><b class="c03a">类型</b></td>
+							<td width="42%"><b class="c03a">作用</b></td>
+							<td width="13%"><b class="c03a">费用</b></td>
+							<td width="24%"><b class="c03a">状态</b>&nbsp;&nbsp;</td>
+						</tr>
+						<tr height="100">
+							<td><img src="data/uploads/ico/big_5.gif" title="VIP会员认证" align="absmiddle"><b class="font14 c03a">VIP会员认证</b></td>
+							<td width="30%" align="left">VIP会员认证</td>
+							<td>
+								认证费用：<a href="index.php?do=user&view=auth_vip">查看</a>
+							</td>
+							<td>
+								{if $user_info[isvip]==1}
+								<font color="red"><b>VIP会员认证已通过</b></font>
+								{else}
+								未认证 
+								&nbsp;&nbsp;&nbsp;&nbsp; <a href="index.php?do=user&view=auth_vip"><font color="red">立即认证</font></a>
+								{/if}
+							</td>
+						</tr>
+				</table>
+			
+			
+        <div class="clear"></div>
+    </div><!--backright_E-->
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript" src="resource/js/script_calendar.js"></script>
+<!--{template footer}-->

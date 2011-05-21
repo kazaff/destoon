@@ -1,0 +1,239 @@
+<!--{eval $page_title='我发布的悬赏任务 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+<div id="content">
+    <div class="mainbox">
+        <!--{template user_side}-->
+        <div class="backright">
+            <div class="backright_d">
+                <dl>
+                    <dt>
+                        我发布的悬赏任务
+                    </dt>
+                    <dd style="padding:10px;border:1px solid #bdd7ef;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+                            <tr>
+                                <td align="left">
+                                    <form method="index.php">
+                                        <input type="hidden" name="do" value="{$do}"><input type="hidden" name="view" value="{$view}">任务状态：
+                                        <select name="slt_task_status" style="width:100px;">
+                                            <option value="">请选择状态</option>
+                                            {loop $reward_status_arr $key $value}<option value="{$key}">{$value}</option>
+                                            {/loop}
+                                        </select>
+                                        标题：<input type="text" name="txt_task_title" maxlength="30" size="10">金额范围：
+                                        <select style="width:100px;" name="slt_cash_cove" onchange="frm_tender_list.submit();">
+                                            <option value=''>请选择金额</option>
+                                            {loop $reward_cove_arr $key $value}<option value="{$key}" {$if $slt_cash_cove=={$key}}selected{/if}>{$value} </option>
+                                            {/loop}
+                                        </select>
+                                        时间：<input type="text" name="txt_start_time" onclick="showcalendar(event, this, 0)" size="10">-<input type="text" name="txt_end_time" onclick="showcalendar(event, this, 0)" size="10"><input type="submit" name="sbt_search" value="查询">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+                            <tr>
+                                <th>
+                                    任务编号
+                                </th>
+                                <th>
+                                    任务标题
+                                </th>
+                                <th>
+                                    任务金额
+                                </th>
+                                <th>
+                                    发布时间
+                                </th>
+                                <th>
+                                    结束时间
+                                </th>
+                                <th>
+                                    中标模式
+                                </th>
+                                <th>
+                                    状态
+                                </th>
+                                <th>
+                                    操作
+                                </th>
+              
+                            </tr>
+                            {loop $task_arr $key $value}
+                            <tr>
+                                <td>
+                                    {$value[task_id]}
+                                </td>
+                                <td align="left" title="{$value[task_title]}">
+									<a href="index.php?do=task&task_id={$value[task_id]}" target="_blank"><!--{eval echo(Func_comm_class::cutstr($value[task_title],30));}--></a>
+                                </td>
+                                <td>
+                                    ￥{$value[task_cash]}
+                                </td>
+                                <td>
+                                    <!--{date('Y-m-d',$value[start_time])}-->
+                                </td>
+                                <td>
+                                    <!--{date('Y-m-d',$value[end_time])}-->
+                                </td>
+                                <td>
+                                    {if $value[task_mode]==1}
+                                    单人中标
+                                    {elseif $value[task_mode]==2}
+                                    多人中标
+                                    {elseif $value[task_mode]==3}
+                                    计件中标
+                                    {else}
+                                    {/if}
+                                </td>
+                                <td>
+                                    {$reward_status_arr[$value[task_status]]}
+                                </td>
+                                <td>
+                                    <a href="index.php?do=task&task_id={$value[task_id]}" class="c030" title="查看" target="_blank"><img src="{SKIN_PATH}/img/ico/search.png">查看</a>
+                                    {if !$value['task_status']}<a href="javascript:;" id="edit_reward_{$value[task_id]}" onclick="edit_task($value['task_id'],$value['task_status'])" class="c030" title="编辑"><img src="{SKIN_PATH}/img/ico/edit.png">编辑</a>{/if}
+									{if $reward_status_arr[$value[task_status]]=='任务未付款'}
+									<!--{eval $task_day = ($value[end_time]-$value[start_time])/(3600*24);}-->
+									<a href="javascript:;" id="$value[task_id]" onclick="confirm_pay_now($value[task_id],'$value[task_title]',$value[task_cash],$value[task_mode],$value[prom_count],$task_day)" style="color:red;"><img src="{SKIN_PATH}/img/ico/yen.png">立即付款</a>
+                                    <a href="javascript:;" id="del_link_{$value[task_id]}" onclick="showDialog('您确定要删除收藏夹中的任务吗?', 'confirm', '删除收藏任务','del_task($value[task_id]);',1)" style="color:red;"><img src="{SKIN_PATH}/img/ico/cancel.gif">删除</a>
+                                    {/if}
+                                    
+                                </td>
+                            </tr>{/loop}
+                        </table>
+                        <div class="Npage">
+                            <div class="fl_r">
+                                {$pages[page]}
+                            </div>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <!--backright_E-->
+    </div>
+    <!--mainbox_E-->
+    <br/>
+</div>
+<!--content_E-->
+<div class="clear">
+</div>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<script src="resource/js/ajaxfileupload.js" type="text/javascript"></script>
+<script type="text/javascript" src="resource/js/script_calendar.js"></script>
+<script type="text/javascript">
+
+    function confirm_pay_now(task_id, task_title, task_cash, task_mode, prom_count, task_day){
+		
+        var u_balance = parseFloat('$user_info[balance]');
+        var u_credit = parseFloat('$user_info[credit]');
+        switch (task_mode) {
+            case 1:
+                mode_str = '单人中标模式';
+                break;
+            case 2:
+                mode_str = '多人中标模式';
+                break;
+            default:
+                mode_str = '计件中标模式';
+        }
+        {if $_K['charset'] == 'UTF-8'}
+		mode_str = encodeURI(mode_str);
+		task_title = encodeURI(task_title);
+		{/if}
+        var url = 'index.php?do=user&view=release_task&model_id={$model_id}&ajax=show_confirm&task_id=' + task_id + '&task_title=' + task_title + '&task_cash=' + task_cash + '&task_mode=' + mode_str + '&prom_count=' + prom_count;
+        url += '&task_day=' + task_day;
+		
+        showWindow('confirm', url, 'get', 1, {
+            'fade': 0,
+            'cover': 1
+        });
+
+    }
+    
+    function edit_task(tid, s){
+        if (s != 0) {
+            showDialog('操作无效，任务当前状态不可编辑!', 'alert', '操作失败提示', '', 0);return false;
+        }
+        else {
+			
+            showWindow('edit_reward', 'index.php?do=user&view=edit_task&task_id='+tid, 'get', 1,{'cover':1},'initedit()');
+		     
+			return false;
+			
+        }
+    }
+	function confirm_pay(task_id, task_title, task_cash, task_mode, prom_count, task_day){
+		alert(1);
+        var u_balance = parseFloat('$user_info[balance]');
+        var u_credit = parseFloat('$user_info[credit]');
+        switch (task_mode) {
+            case 1:
+                mode_str = '单人中标模式';
+                break;
+            case 2:
+                mode_str = '多人中标模式';
+                break;
+            default:
+                mode_str = '计件中标模式';
+        }
+        {if $_K['charset'] == 'UTF-8'}
+		mode_str = encodeURI(mode_str);
+		task_title = encodeURI(task_title);
+		{/if}
+        var url = 'index.php?do=user&view=release_task&model_id={$model_id}&ajax=show_confirm&task_id=' + task_id + '&task_title=' + task_title + '&task_cash=' + task_cash + '&task_mode=' + mode_str + '&prom_count=' + prom_count;
+        url += '&task_day=' + task_day;
+		alert(url);
+        showWindow('confirm', url, 'get', 1, {
+            'fade': 0,
+            'cover': 1
+        });
+
+    }
+
+    function del_task(tid){
+        location.href="index.php?do={$do}&view=edit_task&op=del&task_id="+tid;
+    }
+    
+    function online_pay(o_id, m){
+        hideWindow('confirm');
+        window.location.href = 'index.php?do=user&view=cash&type=task&obj_id=' + o_id + '&cash=' + m;
+    }
+    
+    function confirm_pay_1(o,t,p,d){
+		hideWindow('confirm');
+        var url = "index.php?do=user&view=release_task&ajax=pay&model_id=$model_id";
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            async: false,
+            data: "task_cash=" + t+'&task_id='+o+'&prom_count='+p+'&task_day='+d,
+            dataType: "json",
+            error: function(json){
+                showDialog('系统繁忙，请稍后再试...','alert','错误提示','',0);
+            },
+            success: function(json){
+                if (json.status) {
+					$("#"+o).html(json.data.status);
+                    $("#"+o).attr('onclick','');
+					showDialog(json.msg,'notice','信息提示','',0);
+                }
+                else {
+                    showDialog(json.msg,'notice','操作提示','',0);
+			    }
+            }
+        });
+    }
+
+function initedit(){
+		editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id={$task_id}&type=link',upImgUrl:"index.php?do=ajax_upload&task_id={$task_id}",upImgExt:"jpg,jpeg,gif,png"});
+	}
+</script>
+
+<!--{template footer}-->

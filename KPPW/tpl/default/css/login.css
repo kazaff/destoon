@@ -1,0 +1,37 @@
+.mainbox{ margin-top:10px;}
+.b960_t2 { background:url(../img/splinev30.png) 0 0; width:960px; height:28px;}
+.b960_c2 { border-left:#c3dbf1 1px solid; border-right:#c3dbf1 1px solid; zoom:1; position:relative;}
+.b960_b2 {background:url(../img/splinev30.png) 0 -30px; width:960px; height:5px; overflow:hidden;}
+
+.login_t { background:url(../img/flagv30.png) 0 0 no-repeat; padding-left:40px; line-height:24px; color:#3f3f3f; margin-left:16px;}
+.login_t3 { background:url(../img/flagv30.png) 0 0 no-repeat; padding-left:40px; line-height:24px; color:#3f3f3f; margin-left:26px;}
+.login_l { margin-top:15px; float:left; width:540px; overflow:hidden;}
+.login_l2 { margin-top:15px; float:left;}
+.loginv30 td { padding:5px; }
+.t { text-align:right; padding-right:15px; vertical-align:top; line-height:30px; width:170px; color:#3f3f3f;}
+.login_inp { background:url(../img/inputtype1.png) no-repeat; width:200px; height:28px;}
+.login_inp input { border:#fff 1px solid; width:190px; height:15px; font-size:14px; color:#8b8b8b; margin:6px 2px 0 2px;}
+.login_inp2 { background:url(../img/inputtype2.png) no-repeat; width:90px; height:28px; position:relative; margin-bottom:5px}
+.login_inp2 input { border:#fff 1px solid; width:85px; height:15px; font-size:14px; color:#8b8b8b; margin:6px 2px 0 2px;}
+.login_inp2 img { position:absolute; left:100px; top:-1px}
+.login_inp2 .changeimg { position:absolute; left:180px; top:5px; width:85px;}
+.login_sub { background:url(../img/s_btn.png); width:100px; height:32px; line-height:32px; border:none; font-size:14px; color:#15377e; cursor:pointer; font-weight:bold;}
+.alert { color:#8b8b8b; width:240px; }
+.alert .s1 { background:url(../img/icov30.png) 0 3px no-repeat; padding-left:20px; padding-top:3px }
+.alert .s2 { background:url(../img/tipsicon1.gif) 0 4px no-repeat; padding-left:20px; padding-top:3px}
+.alert .s3 { background:url(../img/icov30.png) 0 -57px no-repeat; padding-left:20px; padding-top:3px}
+.active { background:url(../img/loginbg.png) no-repeat; padding-left:180px; color:#8b8b8b; margin-left:40px; margin-top:10px;}
+.active p strong { color:#f66a1e;}
+.enter { background:url(../img/enterbg.png) no-repeat; padding-left:180px; color:#8b8b8b; margin-left:40px; margin-top:10px;}
+.t2 { font-size:14px; vertical-align:top; line-height:30px; width:45px; color:#3f3f3f;}
+.login_sub2 { background:url(../img/l_btn.png); width:105px; height:32px; line-height:32px; border:none; font-size:14px; color:#ff4c00; cursor:pointer; font-weight:bold;}
+.server2 { border-left:#bebebe 1px dashed; float:left; padding-left:35px; margin-top:20px; }
+.server2 p { font-weight:bold; font-size:14px;}
+.server2 dl { padding-left:60px; margin:10px 0; width:260px; height:50px;}
+.server2 .d01{ background:url(../img/dlbg01.jpg) left no-repeat;}
+.server2 .d02{ background:url(../img/dlbg02.jpg) left no-repeat;}
+.server2 .d03{ background:url(../img/dlbg03.jpg) left no-repeat;}
+.server2 dt { font-weight:normal;}
+.server2 dd,.server li { color:#8b8b8b;}
+.server2 ul { margin:10px 0; width:260px;}
+.pl_20{ padding-left:20px;}

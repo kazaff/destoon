@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>用户管理</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+
+<body>
+<div class="main">
+	
+	<div class="v_search" style="padding-left:10px;">
+		     显示条数：
+		<select onchange="window.location.href=this.value" name="slt_page_size">
+			<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=10&slt_static=$slt_static" {if $slt_page_size=='10'}selected="selected"{/if}>每页显示10</option>
+			<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=20&slt_static=$slt_static" {if $slt_page_size=='20'}selected="selected"{/if}>每页显示20</option>
+			<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=30&slt_static=$slt_static" {if $slt_page_size=='30'}selected="selected"{/if}>每页显示30</option>
+		</select>
+		
+		审核状态：<select onchange="window.location.href=this.value" name="slt_is_auth" style="width:60px;">
+      		<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=$slt_page_size" {if !$slt_is_auth}selected="selected"{/if}> 全部 </option>
+			<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=$slt_page_size&slt_is_auth=1" {if $slt_is_auth=='1'}selected="selected"{/if}> 未审核 </option>
+			<option  value="index.php?do=user&type=front&op=apply&page=$page&slt_page_size=$slt_page_size&slt_is_auth=2" {if $slt_is_auth=='2'}selected="selected"{/if}> 已审核 </option>
+		</select>
+	
+    </div>
+ 	
+  <div id="change">
+  <form method="get" action="index.php" id="frm_user_search">
+<input type="hidden" name="do" value="user">
+<input type="hidden" name="type" value="front">
+<input type="hidden" name="op" value="apply">
+<input type="hidden" name="slt_page_size" value="$slt_page_size">
+<input type="hidden" name="slt_is_auth" value="$slt_is_auth">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="15%" align="left">UID</th>
+            <th width="15%" class="motif">用户名</th>
+			<th width="10%" class="motif">认证名</th>
+			<th width="10%" >认证状态</th>
+			<th width="20%" >申请时间</th>
+			<th width="15%">查看</th>
+			<th width="20%">认证操作</th>
+			
+          </tr>
+		{loop $userlist_arr $key $value}
+        <tr>
+            <td align="left"><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$value[uid]}"> {$value[uid]}</td>
+            <td class="motif"><a href="javascript:void(0)" >{$value[username]}</a></td>
+            <td>&nbsp;{$value['authname']}</td>
+			<td>{if $value[is_auth]==2}已认证{else}未认证{/if}</td>
+			<td><!--{date('Y-m-d',$value['auth_time'])}--></td>
+			<td>
+				<a href="index.php?do=user&type=front&op=apply&authuid={$value['uid']}"><img src="tpl/img/ico/search.png" align="absmiddle"/>查看</a> 
+			</td>
+			<td>
+				{if $value[is_auth]==1}<a href="index.php?do=user&type=front&op=allowapply&authuid={$value['uid']}"><img src="tpl/img/ico/success.gif" align="absmiddle"/>通过认证</a>{/if} 
+				<a href="index.php?do=user&type=front&op=dennyapply&authuid={$value['uid']}">{if $value[is_auth]==1}<img src="tpl/img/ico/cancel.gif" align="absmiddle"/>拒绝认证{else}<img src="tpl/img/ico/close.gif" align="absmiddle"/>注销认证{/if}</a>
+			</td>
+          </tr>
+		 {/loop}
+		  <th colspan="3" align="left"><input type="checkbox" id="checkbox" onclick="checkall()"> 
+			全选　
+			<input type="submit" name="sbt_action" value="批量通过认证" class="input_but" />
+			<input type="submit" name="sbt_action" value="批量取消认证" class="input_but" />
+			</th>
+          <th colspan="5">
+				<div class="page">
+					{$pages[page]}
+				</div>
+			</th>
+        </table>
+	</div>
+    </div>
+
+<script>
+	function showpl(){
+		$('#sbt_del').show();
+		$('#slt_action').show();
+	}
+</script>
+</body>
+</html>

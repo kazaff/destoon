@@ -1,0 +1,44 @@
+{template 'header'}
+<div class="m">
+<div class="m_l f_l">
+	<div class="left_box">
+		<div class="pos">{if $caturl && $page==1}<span class="f_r"><a href="{$caturl}">更多..</a>&nbsp;&nbsp;&nbsp;</span>{/if}当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')}</div>
+		{if $childcat && $page==1}
+			<div class="childlist">		<!--{tag("moduleid=$moduleid&condition=status=3&catid=$catid&pagesize=".$MOD[page_child]."&datetype=5&target=_blank&order=".$MOD[order]."&fields=".$MOD[fields]."&template=list-child")}-->
+			</div>
+			{loop $childcat $i $c}
+			<div class="left_head"><span class="f_r"><a href="{$MOD[linkurl]}{$c[linkurl]}">更多..</a>&nbsp;&nbsp;</span>&raquo; {$c[catname]}</div>
+			<div class="childlist"><!--{tag("moduleid=$moduleid&condition=status=3&catid=".$c[catid]."&pagesize=".$MOD[page_child]."&datetype=5&target=_blank&order=".$MOD[order]."&fields=".$MOD[fields]."&template=list-child")}--></div>
+			{/loop}
+		{else}
+			<div class="catlist"><!--{tag("moduleid=$moduleid&condition=status=3&catid=$catid&pagesize=".$MOD[pagesize]."&page=$page&showpage=1&update=1&datetype=5&target=_blank&order=".$MOD[order]."&fields=".$MOD[fields]."&template=list-cat&cols=5")}--></div>
+		{/if}
+	</div>
+</div>
+<div class="m_n f_l">&nbsp;</div>
+<div class="m_r f_l">
+	<div class="box_head_1"><div><strong>按分类浏览</strong></div></div>
+	<div class="box_body">
+	<table width="100%" cellpadding="3">
+	{loop $maincat $k $v}
+	{if $k%2==0}<tr>{/if}
+	<td{if $v[catid]==$catid} class="f_b"{/if}><a href="{$MOD[linkurl]}{$v[linkurl]}">{set_style($v[catname],$v[style])}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+	{if $k%2==1}</tr>{/if}
+	{/loop}
+	</table>
+	</div>
+	<div class="b10 c_b">&nbsp;</div>
+	<div class="box_head_1"><div><strong>本周关注排行</strong></div></div>
+	<div class="box_body">
+		<div class="rank_list">
+			<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=$moduleid and status=3 and updatetime>$today_endtime-86400*7&pagesize=10&order=week_search desc&key=week_search&template=list-search_rank", -2)}-->
+		</div>
+	</div>
+	<div class="b10 c_b"> </div>
+	<div class="box_head_1"><div><strong>点击排行</strong></div></div>
+	<div class="box_body">
+	<div class="rank_list"><!--{tag("moduleid=$moduleid&condition=status=3 and addtime>$today_endtime-30*86400&catid=$catid&order=hits desc&pagesize=10&target=_blank", -2)}--></div>
+	</div>
+</div>
+</div>
+{template 'footer'}

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>银行认证详细</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+
+<body>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">银行认证详细</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do={$do}&view={$view}" method="post">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">用户名：</td>
+        <td>$bank_info[username]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">支付类型：</td>
+        <td>
+        	{if $bank_info[pay_type]==1}
+			在线支付
+			{else}
+			线下支付
+			{/if}
+		</td>
+      </tr>
+	  {if $bank_info[pay_type]==1}
+	    <tr>
+        <td width="30%" class="bg1 t_r">支付工具：</td>
+        <td>{$pay_tool_arr[$bank_info[online_pay_tool]]}</td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">支付账号：</td>
+        <td>{$bank_info[online_pay_account]}</td>
+      </tr>
+	  {else}
+	    <tr>
+        <td width="30%" class="bg1 t_r">银行名称：</td>
+        <td>{$bank_name_arr[$bank_info[bank_name]]}</td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">开户行所在地：</td>
+        <td>$bank_info[deposit_area]</td>
+      </tr>
+	     <tr>
+        <td width="30%" class="bg1 t_r">开户行名称：</td>
+        <td>{$bank_info[deposit_name]}</td>
+      </tr>
+	     <tr>
+        <td width="30%" class="bg1 t_r">银行账号：</td>
+        <td>{$bank_info[bank_account]}</td>
+      </tr>
+	  {/if}
+	   <tr>
+        <td width="30%" class="bg1 t_r">费用：</td>
+        <td><font color="#ff7700">￥{$bank_info[cash]}元</font></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">管理员打款金额：</td>
+        <td>
+        	{if $bank_info[pay_to_user_cash]}
+			<font color="#ff7700">￥{$bank_info[pay_to_user_cash]}元</font>
+			[打款时间：<!--{date('Y-m-d H:i:s',$bank_info[pay_time])}-->]
+			{else}
+			<input type="text" name="txt_pay_to_user_cash">元
+			<input type="hidden" name="hdn_bank_a_id" value="{$bank_info[bank_a_id]}">
+			<input type="submit" name="sbt_pay_to_user" class="input_but" value="给用户打款"/>
+			{/if}
+		</td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">用户收款金额：</td>
+        <td><font color="#ff7700">￥{$bank_info[user_get_cash]}元</font></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">有效期：</td>
+        <td>
+        	{if $bank_info[start_time]==$bank_info[end_time]}
+			终生有效
+			{else}
+			<!--{date('Y-m-d',$bank_info[start_time])}-->至<!--{date('Y-m-d',$bank_info[end_time])}-->
+			{/if}
+		</td>
+      </tr>
+	  <tr>
+	  	<td width="30%"></td>
+	  	<td>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" name="sbt_edit" class="input_but" value="返回上一步" onclick="javascript:history.go(-1);" >
+		<!--<input type="button" name="sbt_edit" class="input_but" value="通过认证" onclick="window.location.href='index.php?do={$do}&view={$view}&ac=pass&bank_a_id={$bank_info['bank_a_id']}'"/>-->&nbsp;&nbsp;&nbsp;&nbsp;
+		<!--<input type="button" name="sbt_edit" class="input_but" value="认证失败" onclick="window.location.href='index.php?do={$do}&view={$view}&ac=not_pass&bank_a_id={$bank_info['bank_a_id']}'"/>--></td>
+	  </tr>
+    </table>
+ </form>
+ 	<br/>
+    </div>
+</body>
+</html>

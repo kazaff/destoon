@@ -1,0 +1,182 @@
+<!--{eval $page_title = '人才库 - '.$_K['html_title']}--><!--{template header}-->
+<style type="text/css">
+#join_menu ol li span{display:inline;color:red;}
+#log_menu {text-align:left;}
+#log_menu a{text-indent:-14px;}
+#join_menu {text-align:left;}
+.join_menu2 a{text-indent:-14px;}
+.join_menu1{float:left;clear:both;text-align:left;}
+.join_menu1 a{display:inline;}
+.p_pop a:hover{border-color: #FFFFFF;background:none;}
+</style>
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<div id="content">
+  <div class="rcss"> 
+    <div class="rcss_bg">
+    	<ul class="ul1">
+			<li>指定威客完成任务</li>
+			<li>如果发了任务</li>
+			<li>浏览人才店铺</li>
+		</ul>
+		<ul>
+			<li><a href="index.php?do=release?mid=6">直接雇佣人才</a></li>
+			<li><a href="index.php?do=talent_list">邀请人才参加任务</a></li>
+			<li><a href="shop.php">购买服务或商品</a></li>
+		</ul>
+    </div>
+    <div class="task_info_bg"><div class="rcss_info">
+    	<form action="index.php" method="get">
+    	<input type="hidden" name="do" value="talent_list">
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0"> 
+        <tr> 
+          <td width="26%" height="38"><strong>用户名称</strong>：
+            <label> 
+            <input name="txt_search_title" type="text" class="input_txt" id="tit" size="23" maxlength="30"  /> 
+            </label></td> 
+          <td width="24%">
+          		<strong>用户ID</strong>：
+            <input type="text" name="txt_search_id" class="input_txt" size="23" maxlength="30" />
+          </td> 
+          <td colspan="2">
+			<strong>认证项目</strong>：
+			<label for="ckb_vip_auth"><input type="checkbox" name="ckb_vip_auth" id="ckb_vip_auth" value="1">VIP认证</label>
+			<label for="ckb_realname_auth"><input type="checkbox" name="ckb_realname_auth" id="ckb_realname_auth" value="1">身份证认证</label>
+			<label for="ckb_email_auth"><input type="checkbox" name="ckb_email_auth" id="ckb_email_auth" value="1">邮箱认证</label>
+			<label for="ckb_bank_auth"><input type="checkbox" name="ckb_bank_auth" id="ckb_bank_auth" value="1">银行卡认证</label>
+			<label for="ckb_enterprise_auth"><input type="checkbox" name="ckb_enterprise_auth" id="ckb_enterprise_auth" value="1">企业认证</label>
+		  </td>
+			
+     </tr> 
+        <tr> 
+          <td height="38">
+			<strong>所属行业</strong>：
+            <label> 
+            <select name="slt_indus_pid" class="input_slt" id="fl" style="width:150px"> 
+              <option value="">全部</option> 
+			  {loop $indus_p_arr $key $value}
+			  	<option value="{$value[indus_id]}">{$value['indus_name']}</option>
+			  {/loop}
+			  
+            </select> 
+            </label></td> 
+          <td><strong>所在地</strong>：
+		  <script type="text/javascript">
+			<!--
+			showprovince('slt_province', 'slt_city','$user_info[residency][0]');
+			showcity('slt_city', '$user_info[residency][1]', 'slt_province', '');
+			//-->
+			</script>
+		  </td> 
+          <td width="25%"><strong>排序方式</strong>：
+            <select name="slt_order" class="input_slt" id="px" style="width:144px">
+              <option value="">选择排序方式</option>
+              <option value="1">注册时间 从后到先</option> 
+              <option value="2">注册时间 从先到后</option> 
+              <option value="3">信誉等级 从低到高</option> 
+              <option value="4">信誉等级 从高到低</option> 
+              <option value="5">经验等级 从低到高</option> 
+              <option value="6">经验等级 从高到低</option> 
+			  <option value="7">威客好评 从少到多</option> 
+			  <option value="8">威客好评 从多到少</option> 
+			  <option value="9">店铺好评 从少到多</option> 
+			  <option value="10">店铺好评 从多到少</option> 
+             </select>
+			</td> 
+          <td width="33%" align="center">
+          	<input name="sbt_search" type="submit" class="input_btn" value="搜 索" /> 
+            <input name="chongz" type="reset" class="input_btn" value="重 置"  />
+          </td> 
+          </tr> 
+      </table>
+	  </form>
+    </div></div><!--task_info_bg_E-->
+   </div> 
+    
+    <div class="task_con_tit">
+    	<dl><dt class="font14">人才列表</dt><dd></dd></dl>
+    </div>
+    <div class="task_info_bg"><div class="task_info">
+		<dl class="task_adv">
+		<dt>
+			<table width="100%">
+				<tr>
+					<td align="left">
+						<a><span class="font14 f52">用户信息</span></a>
+					</td>
+					<td align="left">
+						<a><span class="font14 f52">威客信息</span></a>
+					</td>
+					<td align="left">
+						<a><span class="font14 f52">商城信息</span></a>
+					</td>
+					<td align="left">
+						<a><span class="font14 f52">用户体系</span></a>
+					</td>
+					<td>
+						<a><span class="font14 f52">操作</span></a>
+					</td>
+				</tr>
+			</table>
+		</dt>
+    	<dd>
+			<table width="100%">
+				{loop $talent_arr $key $value}
+				<tr>
+					<td width="20%" align="left">
+						<p><a href="index.php?do=space&member_id={$value[uid]}"><!--{userpic($value[uid],middle)}--></a></p>
+						<p><strong>用户名</strong>：<a target="_blank" href="index.php?do=space&member_id={$value[uid]}" >{$value['username']}</a></p>
+						<p><strong>所在地</strong>：{$value['residency']}</p>
+					</td>
+					<td width="24%" align="left">
+						<p><strong>威客类型</strong>：{if $value[studio_id]}威客工作室{else}个人威客{/if}</p>
+						<p><strong>技能列表</strong>：</p>
+						<p title="{$value[summary]}"><strong>个人简介</strong>：<!--{eval echo(Func_comm_class::cutstr($value[summary],30));}--></p>
+						<p><span><img src="{SKIN_PATH}/img/ico/edit.png">
+						<a href=index.php?do=$do&ajax=jointask_log&mid={$value[uid]} onmouseover="ajaxmenu(this,250,'1','2','43');return false;" onclick="return false;">任务参与记录</a>
+						</span>&nbsp;&nbsp;
+						<span><img src="{SKIN_PATH}/img/ico/copy.gif"><a href=index.php?do=$do&ajax=jointask&mid={$value[uid]} onmouseover="ajaxmenu(this,250,'1','2','43');return false;" onclick="return false;">最近参与的任务</a></span></p>
+					</td>
+					<td width="24%" align="left">
+						<p><strong>店铺类型</strong>：{if $value[shop_type]==2}企业店铺{elseif $value[shop_type]==1}个人店铺{else}未开通{/if}</p>
+						<p><strong>对应职位</strong>：{$value[job]}</p>
+						<p title="{$value[aboutus]}"><strong>店铺简介</strong>：<!--{eval echo(Func_comm_class::cutstr($value[aboutus],60));}--></p>
+						<p>
+						<span><img src="{SKIN_PATH}/img/ico/edit.png"><a href=index.php?do=$do&ajax=sale_log&mid={$value[uid]} onmouseover="ajaxmenu(this,250,'1','2','43');return false;" onclick="return false;">店铺交易记录</a></span>&nbsp;&nbsp;
+						<span><img src="{SKIN_PATH}/img/ico/copy.gif"><a href=index.php?do=$do&ajax=sale_info&mid={$value[uid]} onmouseover="ajaxmenu(this,250,'1','2','43');return false;" onclick="return false;">最近卖出的服务</a></span></p>
+						
+					</td>
+					<td width="20%" align="left">
+						
+						<p><strong>经验等级</strong>：	<!--{eval $exp_value = Func_comm_class::get_experience_level($value[experience_value]);echo $exp_value[pic];}--></p>
+						<p><strong>信誉等级</strong>：	<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($value[w_m_credit_value],1);echo $w_m_score_value[pic];}--></p>
+						<p><strong>威客好评率</strong>：	<!--{eval $user_rate1 = Func_comm_class::get_favorable_comment($value[uid],1,1);echo $user_rate1[rate];}--></p>
+						<p><strong>店铺好评率</strong>：	<!--{eval $user_rate2 = Func_comm_class::get_favorable_comment($value[uid],2,1);echo $user_rate2[rate];}-->	</p>
+						<p><strong>认证</strong>： {if $value[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+						  {if $value[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+						  {if $value[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+						  {if $value[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+						  {if $value[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;
+						  </p>
+					</td>
+					<td width="12%" align="center">
+						<p><strong><a target=blank href=http://wpa.qq.com/msgrd?V=1&Uin={if $value[qq]}{$value[qq]}{else}0{/if}&Site=$_K['siteurl']&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=11:{if $value[qq]}{$value[qq]}{else}0{/if}:2 alt="有事Q我"></a></strong></p>
+						{if $model_list[6]['model_status']==1}<p><strong><a href="index.php?do=release&euid=$value['uid']&mid=$model_list[6]['model_id']">直接雇佣</a></strong></p>{/if}
+						{if $value['shop_id']}<p><strong><a href="shop.php?do=shop&shop_id=$value['shop_id']" target="_blank">查看店铺</a></strong></p>{/if}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5"><hr></td>
+				</tr>
+				{/loop}
+				<tr>
+					<td colspan="5">{$pages[page]}</td>
+				</tr>
+			</table>
+		</dd>
+	</dl>
+    </div></div><!--task_info_bg_E-->
+</div><!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

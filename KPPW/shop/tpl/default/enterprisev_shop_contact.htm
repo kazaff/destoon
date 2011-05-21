@@ -1,0 +1,31 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprisev_shop_header}-->
+
+<div class="pageRight">
+		<div class="titleNav"><span class="fl">『联系我们』</span><span class="titleIcon"></span></div>
+		<div class="contactUs">
+			<p class="lineBg">
+				·电 &nbsp;话：$shop_info['phone']<br>
+				·手 &nbsp;机：$shop_info['mobile']<br>
+				·Q &nbsp;Q：$shop_info['qq']<br>
+				·E-mail：<a href="mailto:$shop_info['email']">$shop_info['email']</a><br>
+				·地 &nbsp;址：$shop_info['address']<br>
+				·联系人：{if $shop_info['truename']}$shop_info['truename']{else}$shop_info['username']{/if}<br>
+				<br>
+			</p>
+		  <p><br>
+            <a href="shop.php?do=shop&view=comment&shop_id=$shop_id"><img src="shop/tpl/default/img/btn_ly.gif"></a>
+            <a href="index.php?do=message&to_uid={$shop_info['uid']}" onclick="{if $uid}{if $uid!=$shop_info['uid']}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if};" href="javascript:;"><img src="shop/tpl/default/img/btn_msg.gif"></a>
+		</p>
+		</div>
+		 <!--{template shop/tpl/default/enterprisev_footer}-->
+		<br>
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>
+
+
+

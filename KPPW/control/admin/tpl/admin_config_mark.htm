@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+        <title>main</title>
+    </head>
+    <link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="tpl/js/jquery.js" type="text/javascript">
+    </script>
+    <script src="tpl/js/common.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+    </script>
+    <script>var newitemcount = 0;var newconfigcount=0</script>
+    <body>
+        	<form method="post" action="" enctype="multipart/form-data">
+            <input type="hidden" name="do" value="{$do}">
+            <div class="main">
+            <div class="w_80 m_c">
+                <div id="select1">
+                    <div class="tab_t">
+                        <h3 class="sel" id="tab_cont_1" onclick="swaptab('cont','sel','',3,1)">信誉值配置</h3>
+                        <h4></h4>
+                        <h3 id="tab_cont_2" onclick="swaptab('cont','sel','',3,2)">信誉值等级规则</h3>
+                        <h4></h4>
+                    </div>
+                    <div class="gut">
+                    	<div class="v_search">	
+                    	 互评开启于:
+                    		<input name="rdo_mark_start_status" {if $basic_config[mark_start_status]==1}checked="checked"{/if} type="radio" value="1">中标时
+                    		<input name="rdo_mark_start_status" {if $basic_config[mark_start_status]==2}checked="checked"{/if} type="radio" value="2">公示期
+                    		<input name="rdo_mark_start_status" {if $basic_config[mark_start_status]==3}checked="checked"{/if} type="radio" value="3">结束时
+                    		
+                        	自动评价于<input name="txt_auto_mark_time" type="text" value="$basic_config[auto_mark_time]">天后(0不自动)
+                        	<input name="rdo_auto_mark_status" {if $basic_config[auto_mark_status]==1}checked="checked"{/if} type="radio" value="1">好
+                        	<input name="rdo_auto_mark_status" {if $basic_config[auto_mark_status]==2}checked="checked"{/if} type="radio" value="2">中
+                        	<input name="rdo_auto_mark_status" {if $basic_config[auto_mark_status]==3}checked="checked"{/if} type="radio" value="3">差
+                    	</div>
+                    	<div class="{if $m=='config'}block{else}none{/if}" id="div_cont_1">
+                    	 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+
+							 
+							
+							 <tr>
+					            <th>规则id</th>
+					            <th>金额</th>
+					            <th>好评获得</th>
+					            <th>中评获得</th>
+					            <th>差评获得</th>
+					            <th>操作</th>
+					          </tr>
+					          {loop $mc_rule $k $v}
+					          <tr id="oldconfigitem_{$v[mark_config_id]}">
+					          	<td>{$k}</td>
+					          	<td align="left"><input type="text" size="6" value="$v['max_cash']" name="configitem[old][{$v[mark_config_id]}][max_cash]"> {if $mc_rule[$k+1][max_cash]}~~ <!--{eval echo $mc_rule[$k+1][max_cash]}-->{else}以上{/if}</td>
+					          	<td ><input type="text" size="6" value="$v['good']" name="configitem[old][{$v[mark_config_id]}][good]"></td>
+					          	<td><input type="text" size="6" value="$v['normal']" name="configitem[old][{$v[mark_config_id]}][normal]"></td>
+					          	<td ><input type="text" size="6" value="$v['bad']" name="configitem[old][{$v[mark_config_id]}][bad]"></td>
+					          	<td><a href="javascript:;" onclick="delconfigrule({$v[mark_config_id]})"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>
+					          </tr>
+					          {/loop}
+					          
+                    		
+                        	
+                            <tbody id='newconfiglist'>
+                        	</tbody>
+                            
+                        </table>
+                       
+                        
+                        <button onclick="addconfigrule()" class="input_but" type="button"">增加新规则</button>
+                    	</div>
+                    	
+                    	<div class="{if $m=='rule'}block{else}none{/if}" id="div_cont_2">
+                        <input type="hidden" value="" id="del_rule_items" name="ruleitem[del]">
+                            
+                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+							 <tr>
+					            <th>规则id</th>
+					            <th>信誉值低于</th>
+					            <th width="260">卖家图标</th>
+					            <th width="260">买家图标</th>
+					            <th>操作</th>
+					          </tr>
+							{loop $mark_rule $k $v}
+							<tr id="olditem_{$v[mark_rule_id]}">
+								<td>$k</td>
+								<td align="left"><input type="text" size="6" value="$v['max_mark']" name="ruleitem[old][{$v[mark_rule_id]}][max_mark]">{if $mark_rule[$k+1][max_mark]} ~~ <!--{eval echo $mark_rule[$k+1][max_mark];}-->{else}以上{/if}</td>
+								<td align="right">{if {$v[g_ico]}}<img src="{$_K['siteurl']}/{$v[g_ico]}">{else}未上传{/if} <input size=8 type="file" name="gico_{$v[mark_rule_id]}"></td>
+								<td align="right">{if {$v[m_ico]}}<img src="{$_K['siteurl']}/{$v[m_ico]}">{else}未上传{/if} <input size=8 type="file" name="mico_{$v[mark_rule_id]}"></td>
+								<td><a href="javascript:;" onclick="delrule({$v[mark_rule_id]})"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>
+							</tr>
+							{/loop}
+							<tbody id='newitemlist'>
+							
+							</tbody>
+							
+							</table>   
+    
+                        <button onclick="addrule()" class="input_but" type="button"">增加新规则</button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <br>
+                <div style="text-align: center;"><input type="submit" name="submit" value="保存配置" id="submit_save" class="input_but"></div>
+            </div>
+       </div>
+      </form>
+       <script src="../../resource/js/keke.js" type="text/javascript"></script>
+       <script>
+       function addrule(){
+		   newitemcount++;
+		   var mod = '';
+		   
+		   mod +='<tr id="newitem_'+newitemcount+'">';
+		   mod +='<td>&nbsp;</td>';
+		   mod +='<td align="left"><input type="text" size="6" name="ruleitem[new]['+newitemcount+'][max_mark]">以下 </td>';
+		   mod +='<td align="right">未上传  <input type="file" size=8 name="gicon_'+newitemcount+'"></td>';
+		   mod +='<td align="right">未上传  <input type="file" size=8 name="micon_'+newitemcount+'"></td>';
+		   mod +='<td><a href="javascript:;" onclick="delnewrule('+newitemcount+')"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>';
+		   mod +='</tr>';
+		   
+       	   $('#newitemlist').html($('#newitemlist').html()+mod);
+	   }
+
+       function delnewrule(nid){
+           $('#newitem_'+nid).remove();
+       }
+       
+       function delrule(sid){
+           var ov = $('#del_rule_items').val(); 
+           if(ov!=''){
+               ov+=',';
+           }
+           ov+=sid;
+           $('#del_rule_items').val(ov);
+           $('#olditem_'+sid).remove();
+       }
+       
+
+       function addconfigrule(){
+    	   newconfigcount++;
+    	   var mod = '';
+			mod +='<tr id="newconfig_'+newconfigcount+'">';
+    	    mod +='<td></td>';
+			mod +='<td align="left"><input type="text" size="6" name="configitem[new]['+newconfigcount+'][max_cash]">以下 </td>';
+			mod +='<td ><input type="text" size="6" name="configitem[new]['+newconfigcount+'][good]"></td>';
+			mod +='<td ><input type="text" size="6" name="configitem[new]['+newconfigcount+'][normal]"></td>';
+			mod +='<td ><input type="text" size="6" name="configitem[new]['+newconfigcount+'][bad]"></td>';
+			mod +='<td><a href="javascript:;" onclick="delnewconfigrule('+newconfigcount+')"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>';
+			mod +='</tr>';
+    	   
+       	   $('#newconfiglist').html($('#newconfiglist').html()+mod);
+	   }
+
+       function delnewconfigrule(nid){
+           $('#newconfig_'+nid).remove();
+       }
+       
+       function delconfigrule(sid){
+           var ov = $('#del_config_items').val(); 
+           if(ov!=''){
+               ov+=',';
+           }
+           ov+=sid;
+           $('#del_config_items').val(ov);
+           $('#oldconfigitem_'+sid).remove();
+           //$('#olditem_'+sid).html(' ');
+           //$('#olditem_'+sid).hide();
+       }
+       
+       </script>
+    </body>
+</html>

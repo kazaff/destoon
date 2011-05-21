@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js"></script>
+        <script type="text/javascript" src="tpl/js/Css.js"></script>
+		 <script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+        <title>站内短信配置</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                        	短信发送配置管理
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form name="frm_config_msg" action="#" method="post">
+                <input type="hidden" name="hdn_msg_config_id" value="{$msg_cofig_id}">
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td width="30%" class="bg1 t_r" >
+                            	注册用户消息提示：
+                        </td>
+                        <td>
+                          <label for="rdo_reg_isnotice_1"><input type="radio" name="rdo_reg_isnotice" id="rdo_reg_isnotice_1" {if $reg_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						  <label for="rdo_reg_isnotice_2"><input type="radio" name="rdo_reg_isnotice" id="rdo_reg_isnotice_2" {if $reg_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						 <label for="rdo_reg_isnotice_3"><input type="radio" name="rdo_reg_isnotice" id="rdo_reg_isnotice_3" {if $reg_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						 <label for="rdo_reg_isnotice_4"><input type="radio" name="rdo_reg_isnotice" id="rdo_reg_isnotice_4" {if $reg_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						 <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=reg_isnotice'"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            	任务发布成功消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_task_pub_isnotice_1"><input type="radio" name="rdo_task_pub_isnotice" id="rdo_task_pub_isnotice_1" {if $task_pub_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						  <label for="rdo_task_pub_isnotice_2"><input type="radio" name="rdo_task_pub_isnotice" id="rdo_task_pub_isnotice_2" {if $task_pub_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						   <label for="rdo_task_pub_isnotice_3"><input type="radio" name="rdo_task_pub_isnotice" id="rdo_task_pub_isnotice_3" {if $task_pub_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						  <label for="rdo_task_pub_isnotice_4"><input type="radio" name="rdo_task_pub_isnotice" id="rdo_task_pub_isnotice_4" {if $task_pub_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						  <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=task_pub_isnotice'"/>
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                           	 任务中标消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_tender_isnotice_1"><input type="radio" name="rdo_tender_isnotice" id="rdo_tender_isnotice_1" {if $tender_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						  <label for="rdo_tender_isnotice_2"><input type="radio" name="rdo_tender_isnotice" id="rdo_tender_isnotice_2" {if $tender_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						  <label for="rdo_tender_isnotice_3"><input type="radio" name="rdo_tender_isnotice" id="rdo_tender_isnotice_3" {if $tender_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						  <label for="rdo_tender_isnotice_4"><input type="radio" name="rdo_tender_isnotice" id="rdo_tender_isnotice_4" {if $tender_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						  <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=tender_isnotice'"/>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            	支付成功消息提示：
+                        </td>
+                        <td>
+                           <label for="rdo_pay_success_isnotice_1"><input type="radio" name="rdo_pay_success_isnotice" id="rdo_pay_success_isnotice_1" {if $pay_success_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						   <label for="rdo_pay_success_isnotice_2"><input type="radio" name="rdo_pay_success_isnotice" id="rdo_pay_success_isnotice_2" {if $pay_success_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						   <label for="rdo_pay_success_isnotice_3"><input type="radio" name="rdo_pay_success_isnotice" id="rdo_pay_success_isnotice_3" {if $pay_success_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						   <label for="rdo_pay_success_isnotice_4"><input type="radio" name="rdo_pay_success_isnotice" id="rdo_pay_success_isnotice_4" {if $pay_success_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						   <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=pay_success_isnotice'"/>
+                        </td>
+                    </tr>
+                    <tr>
+                         <td width="30%" class="bg1 t_r" >
+                            	审核通过消息提示：
+                        </td>
+                        <td>
+                           <label for="rdo_task_auth_success_isnotice_1"><input type="radio" name="rdo_task_auth_success_isnotice" id="rdo_task_auth_success_isnotice_1" {if $task_auth_success_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						   <label for="rdo_task_auth_success_isnotice_2"><input type="radio" name="rdo_task_auth_success_isnotice" id="rdo_task_auth_success_isnotice_2" {if $task_auth_success_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						   <label for="rdo_task_auth_success_isnotice_3"><input type="radio" name="rdo_task_auth_success_isnotice" id="rdo_task_auth_success_isnotice_3" {if $task_auth_success_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						   <label for="rdo_task_auth_success_isnotice_4"><input type="radio" name="rdo_task_auth_success_isnotice" id="rdo_task_auth_success_isnotice_4" {if $task_auth_success_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						   <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=task_auth_success_isnotice'"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                           	审核失败消息提示：
+                        </td>
+                        <td>
+                        	<label for="rdo_task_auth_fail_isnotice_1"><input type="radio" name="rdo_task_auth_fail_isnotice" id="rdo_task_auth_fail_isnotice_1" {if $task_auth_fail_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+							<label for="rdo_task_auth_fail_isnotice_2"><input type="radio" name="rdo_task_auth_fail_isnotice" id="rdo_task_auth_fail_isnotice_2" {if $task_auth_fail_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+							<label for="rdo_task_auth_fail_isnotice_3"><input type="radio" name="rdo_task_auth_fail_isnotice" id="rdo_task_auth_fail_isnotice_3" {if $task_auth_fail_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+							<label for="rdo_task_auth_fail_isnotice_4"><input type="radio" name="rdo_task_auth_fail_isnotice" id="rdo_task_auth_fail_isnotice_4" {if $task_auth_fail_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=task_auth_fail_isnotice'"/>
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                           	团队认证成功消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_user_auth_success_isnotice_1"><input type="radio" name="rdo_user_auth_success_isnotice" id="rdo_user_auth_success_isnotice_1" {if $user_auth_success_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						    <label for="rdo_user_auth_success_isnotice_2"><input type="radio" name="rdo_user_auth_success_isnotice" id="rdo_user_auth_success_isnotice_2" {if $user_auth_success_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+							<label for="rdo_user_auth_success_isnotice_3"><input type="radio" name="rdo_user_auth_success_isnotice" id="rdo_user_auth_success_isnotice_3" {if $user_auth_success_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						    <label for="rdo_user_auth_success_isnotice_4"><input type="radio" name="rdo_user_auth_success_isnotice" id="rdo_user_auth_success_isnotice_4" {if $user_auth_success_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=user_auth_success_isnotice'"/>
+                        </td>
+                    </tr>
+					 <tr>
+                        <td width="30%" class="bg1 t_r" >
+                           	团队认证失败消息提示：
+                        </td>
+                        <td>
+                          <label for="rdo_user_auth_fail_isnotice_1"><input type="radio" name="rdo_user_auth_fail_isnotice" id="rdo_user_auth_fail_isnotice_1" {if $user_auth_fail_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						  <label for="rdo_user_auth_fail_isnotice_2"><input type="radio" name="rdo_user_auth_fail_isnotice" id="rdo_user_auth_fail_isnotice_2" {if $user_auth_fail_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						  <label for="rdo_user_auth_fail_isnotice_3"><input type="radio" name="rdo_user_auth_fail_isnotice" id="rdo_user_auth_fail_isnotice_3" {if $user_auth_fail_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						  <label for="rdo_user_auth_fail_isnotice_4"><input type="radio" name="rdo_user_auth_fail_isnotice" id="rdo_user_auth_fail_isnotice_4" {if $user_auth_fail_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+						  <input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=user_auth_fail_isnotice'"/>
+                        </td>
+                    </tr>
+
+					 <tr>
+                        <td class="bg1 t_r">
+                            	提现成功消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_draw_isnotice_1"><input type="radio" name="rdo_draw_isnotice" id="rdo_draw_isnotice_1" {if $draw_success_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						    <label for="rdo_draw_isnotice_2"><input type="radio" name="rdo_draw_isnotice" id="rdo_draw_isnotice_2" {if $draw_success_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+							<label for="rdo_draw_isnotice_3"><input type="radio" name="rdo_draw_isnotice" id="rdo_draw_isnotice_3" {if $draw_success_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						    <label for="rdo_draw_isnotice_4"><input type="radio" name="rdo_draw_isnotice" id="rdo_draw_isnotice_4" {if $draw_success_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=draw_success_isnotice'"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                           	 用户冻结消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_freeze_isnotice_1"><input type="radio" name="rdo_freeze_isnotice" id="rdo_freeze_isnotice_1" {if $freeze_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						    <label for="rdo_freeze_isnotice_2"><input type="radio" name="rdo_freeze_isnotice" id="rdo_freeze_isnotice_2" {if $freeze_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+							<label for="rdo_freeze_isnotice_3"><input type="radio" name="rdo_freeze_isnotice" id="rdo_freeze_isnotice_3" {if $freeze_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						    <label for="rdo_freeze_isnotice_4"><input type="radio" name="rdo_freeze_isnotice" id="rdo_freeze_isnotice_4" {if $freeze_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=freeze_isnotice'"/>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            	任务冻结消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_task_freeze_isnotice_1"><input type="radio" name="rdo_task_freeze_isnotice" id="rdo_task_freeze_isnotice_1" {if $task_freeze_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						    <label for="rdo_task_freeze_isnotice_2"><input type="radio" name="rdo_task_freeze_isnotice" id="rdo_task_freeze_isnotice_2" {if $task_freeze_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+							<label for="rdo_task_freeze_isnotice_3"><input type="radio" name="rdo_task_freeze_isnotice" id="rdo_task_freeze_isnotice_3" {if $task_freeze_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						    <label for="rdo_task_freeze_isnotice_4"><input type="radio" name="rdo_task_freeze_isnotice" id="rdo_task_freeze_isnotice_4" {if $task_freeze_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=task_freeze_isnotice'"/>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            	更新密码消息提示：
+                        </td>
+                        <td>
+                            <label for="rdo_update_password_isnotice_1"><input type="radio" name="rdo_update_password_isnotice" id="rdo_update_password_isnotice_1" {if $update_password_isnotice ==1} checked="checked" {/if} value="1">关闭</label>
+						    <label for="rdo_update_password_isnotice_2"><input type="radio" name="rdo_update_password_isnotice" id="rdo_update_password_isnotice_2" {if $update_password_isnotice ==2} checked="checked" {/if} value="2">发送站内短信</label>
+						    <label for="rdo_update_password_isnotice_3"><input type="radio" name="rdo_update_password_isnotice" id="rdo_update_password_isnotice_3" {if $update_password_isnotice ==3} checked="checked" {/if} value="3">发送邮件</label>
+						    <label for="rdo_update_password_isnotice_4"><input type="radio" name="rdo_update_password_isnotice" id="rdo_update_password_isnotice_4" {if $update_password_isnotice ==4} checked="checked" {/if} value="4">发送站内短信和邮件</label>
+							<input type="button" class="input_but"  value="编辑模板" onclick="window.location.href='index.php?do=config&view=msgtpl&slt_msg_temp_type=update_password_isnotice'"/>
+                        </td>
+                    </tr>
+                   
+                    <tr>
+			        <td width="30%" class="bg1 t_r" >
+					<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/></td>
+			        <td >
+			        	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+			        </td>
+			      </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

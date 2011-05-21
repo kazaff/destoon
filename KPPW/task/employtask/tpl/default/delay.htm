@@ -1,0 +1,82 @@
+<!--{template header}-->
+<div class="c altw">
+<form action="index.php?do=task_op&op=taskdelay&task_id=$task_id" method="post" id="delay_form">
+	<table>
+		<tr>
+			<td align="right" width="30%">帐户余额:</td>
+			<td align="left">
+				现金 $user_info[balance]
+				{if $basic_config[credit_is_allow]==1}代金券$user_info[credit]{/if}
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="30%">延长天数:</td>
+			<td align="left">
+				<select name="slt_day">
+				{loop $day_arr $i}
+				<option {if $i==$reward_config['adjourn_day']}selected="selected"{/if} value="$i">{$i}天</option>
+				{/loop}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" width="30%">追加金额:</td>
+			<td align="left">
+				<input name="txt_delay_cash" id="txt_delay_cash" value="$min_cash">
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" value="1" name="is_submit">
+</form>
+</div>
+<p class="o pns">
+	<input type="button" name="sbt_delay" value="确定" onclick="validdelay()" class="pn pnc">
+	<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('taskdelay')">
+	
+</p>
+<script>
+function validdelay(){
+	var costcash = $('#txt_delay_cash').val();
+	if(costcash<$min_cash){
+		showDialog('加价金额不能低于$min_cash', 'alert', '操作失败提示','',0);
+		return false;
+	}
+	var mycash = $user_info['balance'];
+	var mycredit = $user_info['credit'];
+	var msg = "会从您的帐户中扣除";
+	
+	{if $basic_config[credit_is_allow]==1}
+	if(mycredit<=costcash)
+	{
+		msg = msg+mycredit+"元代金券";
+		
+	}
+	else{
+		msg = costcash+"元代金券";
+	}
+	costcash = costcash-mycredit;
+	{/if}
+
+	if(costcash>0)
+	{
+		if(costcash<=mycash)
+		{
+			msg = msg+costcash+"元现金";
+		}
+		else
+		{
+			msg = "您的余额不足，需要在线支付"+(costcash-mycash)+"元";
+		}
+		
+	}
+	showDialog(msg, 'confirm', '消息提示','submitdelay()',0);
+	hideWindow('taskdelay');
+}
+
+function submitdelay(){
+	document.getElementById('delay_form').submit();
+}
+
+</script>
+
+<!--{template footer}-->

@@ -1,0 +1,65 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<div class="mainbox" style="width:550px;">
+<form action="index.php?do=mark&mark_type=$mark_type" method="post" onsubmit="return check_mark()">
+	  <input type="hidden" name="task_id" value="{$task_id}">
+	  <input type="hidden" name="obj_id" value="{$obj_id}">
+	  <input type="hidden" name="work_id" value="{$work_id}">
+	  <input type="hidden" name="user_type" value="{$user_type}">
+	  <input type="hidden" name="task_type" value="{$task_type}">
+	  <input type="hidden" name="to_uid" value="{$to_uid}">
+	  <input type="hidden" name="formhash" id="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+	   <table width="450" border="0" cellspacing="0" cellpadding="0" class="pj_table">
+          <tr>
+            <th width="100">&nbsp;</th>
+            <th width="150">好评</th>
+            <th width="150">中评</th>
+            <th width="150">差评</th>
+          </tr>
+          <tr>
+            <td align="right">评价：</td>
+            <td><input type="radio" name="rdo_mark" id="rdo_mark1" checked="checked" value="1" />
+              <img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/></td>
+            <td><input type="radio"  name="rdo_mark" value="2" />
+              <img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle" /></td>
+            <td><input type="radio"  name="rdo_mark" value="3" />
+              <img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle" /></td>
+          </tr>
+          <tr>
+            <td align="right">理由：</td>
+            <td colspan="3"><textarea name="tar_mark_content" id="tar_mark_content"  cols="60" rows="4"></textarea></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><span class="t_c">
+              <input type="submit" class="task_btn" name="sbt_mark"  value="确认评价"/>
+            </span></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+</form>
+	<br>
+</div>
+<script>
+ function check_mark(){
+
+	if(document.getElementById("rdo_mark1").checked){
+		
+	}
+	else{
+		if(!document.getElementById('tar_mark_content').value)
+		{
+			showDialog('非好评必须输入评论内容', 'alert', '操作失败提示','',0);
+			return false;
+		}
+	}
+	
+
+	 
+		
+ }
+</script>
+<!--{template footer}-->

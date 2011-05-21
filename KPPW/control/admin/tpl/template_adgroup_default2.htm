@@ -1,0 +1,12 @@
+<ul class="slider2" id="idSlider2">
+    {loop $datalist $key $value}
+		<li><a href="{$value[ad_url]}"><img border="0" src="{$value[ad_file]}" width="243" height="150" /></a></li> 
+	{/loop}
+</ul>
+<ul class="num2" id="idNum2">
+	
+   {loop $datalist $key $value}
+		<li {if $key==0}class="on"{/if}><!--{eval echo $key += 1;}--></li> 
+   {/loop}
+
+</ul>

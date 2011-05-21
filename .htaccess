@@ -1,0 +1,18 @@
+# Destoon B2B Rewrite Rules
+ErrorDocument 404 /404.php
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(.*)\.(asp|aspx|asa|asax|dll|jsp|cgi|fcgi|pl)(.*)$ /404.php
+RewriteRule ^(.*)-htm-(.*)$ $1.php?$2
+RewriteRule ^(.*)/show-([0-9]+)([\-])?([0-9]+)?\.html$ $1/show.php?itemid=$2&page=$4
+RewriteRule ^(.*)/list-([0-9]+)([\-])?([0-9]+)?\.html$ $1/list.php?catid=$2&page=$4
+RewriteRule ^(.*)/show/([0-9]+)/([0-9]+)?([/])?$ $1/show.php?itemid=$2&page=$3
+RewriteRule ^(.*)/list/([0-9]+)/([0-9]+)?([/])?$ $1/list.php?catid=$2&page=$3
+RewriteRule ^(.*)/([a-z]+)/(.*)\.shtml$ $1/$2/index.php?rewrite=$3
+RewriteRule ^(com)/([a-z0-9_]+)/([a-z]+)/(.*)\.html$ index.php?homepage=$2&rewrite=$4
+RewriteRule ^(com)/([a-z0-9_]+)/([a-z]+)([/])?$ index.php?homepage=$2
+RewriteRule ^(com)/([a-z0-9_]+)([/])?$ index.php?homepage=$2
+# Apache .conf Rules (Replace line 12 & line 13 & line 14)
+#RewriteRule ^(.*)/com/([a-z0-9_]+)/([a-z]+)/(.*)\.html$ $1/company/$3/index.php?homepage=$2&rewrite=$4
+#RewriteRule ^(.*)/com/([a-z0-9_]+)/([a-z]+)([/])?$ $1/company/$3/index.php?homepage=$2
+#RewriteRule ^(.*)/com/([a-z0-9_]+)([/])?$ $1/company/index.php?homepage=$2

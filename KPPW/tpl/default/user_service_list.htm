@@ -1,0 +1,62 @@
+<!--{eval $page_title='管理商品 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+       <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+				<dl>
+				<dt>
+					<div class="x_tit_1">
+						<div>
+							<span><a href="index.php?do={$do}&view=service_add"  >添加商品</a></span>
+							<span class="now"><a href="index.php?do={$do}&view=service_list" >管理商品</a></span> 
+							<span><a href="index.php?do={$do}&view=service_cate" >添加分类</a></span>  
+						</div>
+					</div>
+				</dt>
+				<dd>
+				<form action="index.php?do={$do}&view={$view}" method="post"  id="frm_s_add" enctype="multipart/form-data" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+						<tr>
+							<th colspan="5" style="background-color:#fff;">&nbsp;</th>
+						</tr>
+						<tr>
+							<th>商品标题</th>
+							<th>类目归属</th>
+							<th>商品报价</th>
+							<th>预计工期</th>
+							<th>相关操作</th>
+						</tr>
+						{loop $service_arr $key $value}
+							<tr>
+								<td>{$value['title']}</td>
+								<td>{$value['cate_name']}</td>
+								<td>{$value[price]}/{$value[unite_price]}</td>
+								<td>{$value[service_time]}/{$value[unit_time]}</td>
+								<td width="150"><a target="_blank" href="shop.php?do=service_info&sid={$value[service_id]}"><img src="{SKIN_PATH}/img/ico/search.png" align="absmiddle"/>查看</a>&nbsp;
+								<a href="index.php?do={$do}&view=service_add&service_id={$value[service_id]}"><img src="{SKIN_PATH}/img/ico/edit.png" align="absmiddle"/>编辑</a>&nbsp;
+								<a href="index.php?do={$do}&view={$view}&ac=del&service_id={$value[service_id]}"><img src="{SKIN_PATH}/img/ico/delete.gif" align="absmiddle"/>删除</a></td>
+							</tr>
+						{/loop}
+						<tr>
+							<td colspan="5">&nbsp;</td>
+						</tr>
+					</table>
+			</form>
+			</dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script src="resource/js/css.js" type="text/javascript"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<!--{template footer}-->

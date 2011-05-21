@@ -1,0 +1,25 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">
+	<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">转到</a></div>
+	<div style="width:600px;margin:auto;padding:25px 30px 25px 0;">
+	<input type="text" size="50" id="url" value="{$url}" style="padding:3px;border:#7D96C4 1px solid;font-weight:bold;"/> <img src="image/goto.gif" onclick="go_to();" align="absmiddle" class="c_p" title="转到"/>
+	</div>
+	{if $action}
+	<div style="width:600px;margin:auto;padding:10px 15px 10px 15px;background:#FFF5D8;line-height:200%;">
+	一封验证邮件已经发送至您的电子邮箱 <strong>{$email}</strong>，请注意查收<br/>
+	</div>
+	{/if}
+	<br/><br/>
+	</div>
+</div>
+<script type="text/javascript">
+function go_to() {
+	if($('url').value.indexOf('://') == -1 || $('url').value.length < 12) {
+		alert('请填写正确的URL');
+		return false;
+	}
+	Go($('url').value);
+}
+</script>
+{template 'footer'}

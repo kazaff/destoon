@@ -1,0 +1,122 @@
+<!--{eval $page_title='在线充值 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+
+	    {if !isset($ajax)}
+<div id="content">
+     
+	    <div class="mainbox">
+	      <!--{template user_side}-->   
+        <div class="backright">
+			<div class="backright_d">
+				<dl>
+					<dt>充值</dt>
+				<dd>
+					<br/>
+					
+					<form action="" method="post"  enctype="application/x-www-form-urlencoded">
+	                <table width="100%" height="360" border="0" cellspacing="0" cellpadding="0" class="td_p10 mt_10 font14n">
+                      <tr>
+						<td colspan="2">请输入充值金额：
+						<input type="txt" maxlength="8" id="txt_cash_in" value="$cash" onkeyup="clearstr(this)" limit="type:int;required:true;len:1-8" msg="金额的长度为1-8!" msgArea="txt_cash_in_msg" class="input_txt2" size="30"/> 元 <span id="txt_cash_in_msg">（不支持小数，最低{$pay_arr[recharge_min]} 元）</span></td>
+				      </tr>
+					  <tr><td colspan="2">&nbsp</td></tr>
+                      <tr>
+						<th colspan="2" class="font14">请选择支付方式：</th>
+					  </tr>
+					 {loop $payment_list $pay}
+					  {if $pay[pay_status]}
+					  <tr>
+						<td width="1%"><input type="radio" checked name="rdo_pay" value="$pay[pay_dir]"></td>
+						<td width="99%"><img src="payment/{$pay[pay_dir]}/{$pay[img]}" align="absmiddle"> {$pay[descript]}</td>
+					  </tr>
+					  {/if}
+					  {/loop}
+                     <tr>
+						<td colspan="2"><br/><input type="button" name="btn_pay" value="去付款" class="rele_btn"></td>
+				      </tr>
+					</table>
+					</form>
+					
+					
+			  </dd></dl>
+			
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+       {else}
+	   <div>
+					<br/>
+					
+	 
+
+                    
+					  
+					 
+                      
+	{/if}
+    
+</div><!--content_E-->
+ <div class="clear"></div>
+ <script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+ <script type="text/javascript">
+ 	$(function(){
+		var uid = parseInt("{$uid}")+0;
+        var min_charge = parseFloat("$pay_arr[recharge_min]")+0;
+		if(!uid){
+        	  showWindow("login","index.php?do=login",'get',1,{'cover':1}); 
+        }
+		$("#txt_cash_in").blur(function(){
+			   
+				var obj = document.getElementById("txt_cash_in");
+			    var msgArea = obj.getAttribute('msgArea');
+				if($(this).val()>0){
+					var aa = validElement(obj);
+					if (!aa) {
+						$("#"+msgArea).css("color", "red");
+						 
+					}else if(parseFloat(obj.value)<min_charge){
+						$("#"+msgArea).css("color", "red");
+						$("#"+msgArea).html('充值金额最低不得少于'+min_charge+'元!');
+						obj.focus();
+					}else{
+						$("#"+msgArea).css('color','green');
+						$("#"+msgArea).html('金额输入正确!');
+						}
+				}else{
+					$("#"+msgArea).css("color", "red");
+					$("#"+msgArea).html('充值金额不能为空!');
+					obj.focus();
+					 
+				}
+			}).focus(function(){
+				var obj = document.getElementById("txt_cash_in");
+			    var msgArea = obj.getAttribute('msgArea');
+				$("#"+msgArea).css('color','');
+				$("#"+msgArea).html('（不支持小数，最低 {$pay_arr[recharge_min]} 元）');
+			})
+		$("input[name='btn_pay']").click(function(){
+			var pay_m = $('input[name="rdo_pay"]:checked').val();
+			if($("#txt_cash_in").val()<{$pay_arr[recharge_min]}){
+				showDialog("充值金额最低不得少于{$pay_arr[recharge_min]}元！",'alert','错误提示');
+			}else if($("#txt_cash_in").val()>0){
+				var url = 'index.php?do=user&view=cash&ajax=confirm&cash='+$("#txt_cash_in").val()+'&pay_m='+pay_m;
+				url+= '&type=$order_type&obj_id=$obj_id';
+				showWindow('cash_in',url,'get',1,{'fade':0,'cover':1});
+			
+			}else{
+				document.getElementById("txt_cash_in").focus();
+				showDialog("金额输入有误！",'alert','错误提示');
+			}
+		})
+		
+	})
+	
+
+ 	
+	
+	
+ </script>
+<!--{template footer}-->

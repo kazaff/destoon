@@ -1,0 +1,159 @@
+<!--{eval $page_title = '威客商城 - '.$_K['html_title']}-->
+<!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/shop.css" rel="stylesheet" type="text/css"/>
+<div id="content">
+    <div class="main_left">
+        <div class="main_d_task">
+            <div class="main_d_task_tit">
+                <h4>威客商店</h4>
+            </div>
+            <dl>
+            <dd class="main_d_task_gut">
+            	<form action="">
+            	<input type="hidden" name="do" value="$do">
+                <div class="main_d_task_sort">
+	                <ul>
+		                <li><strong>服务类型：</strong>
+		                <select name="slt_service_type" style="width:120px;">
+		                	<option {if !$slt_service_type}selected="selected"{/if} value="0">不限</option>
+		                	<option {if $slt_service_type==1}selected="selected"{/if} value="1">服务</option>
+		                	<option {if $slt_service_type==2}selected="selected"{/if} value="2">作品</option>
+		                </select>　　
+		                <strong>交付方式：</strong>
+						    <input type="radio" name="rdo_submit_method" value="0" {if !$rdo_submit_method}checked="checked"{/if} />不限 
+						    <input type="radio" name="rdo_submit_method" value="1" {if $rdo_submit_method==1}checked="checked"{/if}/>站外交付     
+						    <input type="radio" name="rdo_submit_method" value="3" {if $rdo_submit_method==3}checked="checked"{/if}/>文件下载
+		    			</li>
+		                <li style="margin-top:5px;">
+			                <strong>发布时间：</strong>
+			                <select style="width:120px;" name="slt_pubtime">
+			                <option value="0" {if !$slt_pubtime}selected="selected"{/if}>不限</option>
+			                <option value="1" {if $slt_pubtime==1}selected="selected"{/if}>近一天</option>
+			                <option value="3" {if $slt_pubtime==3}selected="selected"{/if}>近三天</option>
+			                <option value="7" {if $slt_pubtime==7}selected="selected"{/if}>近一周</option>
+			                <option value="30" {if $slt_pubtime==30}selected="selected"{/if}>近一月</option>
+			                </select>　　
+			                <strong>关 键 词：</strong>
+			                <input name="txt_keyword" value="$txt_keyword" type="text" class="task_txt" size="40"/> 
+			                <input type="submit" value="搜索" class="task_sub input_btn"/>
+		                </li>
+	                </ul>
+                </div>
+                </form>
+                <dl>
+                <dd class="post_task_tab_dt"><h3 class="post_task_tab_now">服务列表</h3></dd>
+                <dd class="main_d_task_list">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="task_table t_l">
+                  <tr>
+                    <th width="30"></th>
+                    <th width="120">卖家</th>
+                    <th width="250">名称描述</th>
+                    <th width="200">价格</th>
+                    <th width="250">基本参数</th>
+                  </tr>
+                    
+                 
+                 {loop $service_list $k $v}
+				   <tr class="" onmouseover="this.className='list_hover'" onmouseout="this.className=''" height="120">
+                    <td style="color: black;" class="left"><!--{eval echo ($page-1)*10+$k+1}--></td>
+                    <td><a href="shop.php?do=service_info&sid={$v[service_id]}" target="_blank"><img src="{if $v['pic']}$v['pic']{else}shop/tpl/default/img/def_service.jpg{/if}" onerror="this.src='shop/tpl/default/img/def_service.jpg'" width="80" class="mtb_5 img_p2"></a></td>
+                    <td><a href="shop.php?do=service_info&sid={$v[service_id]}" target="_blank" class="font14">{$v['title']}</a><br/>
+                    <a href="index.php?do=space&member_id=$v[uid]" class="user01" target="_blank">{if $v['truename']}$v['truename']{else}$v['username']{/if}</a> {$v[job]}{if $v['realname_auth']}[已认证]{/if}<br/>
+                    <a href="shop.php?do=shop&view=comment&shop_id=$v['shop_id']" title="店铺留言"><img src="shop/tpl/default/img/btn_ly.gif"/></a>
+                    <a href="index.php?do=message&to_uid=$v['uid']" onclick="{if $uid}{if $uid!=$shop_info['uid']}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if};" title="站内短信"><img src="shop/tpl/default/img/btn_msg.gif"/></a>
+                    <td><em>￥$v['price']元</em></td>
+                    <td class="right">
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_1.gif" align="absmiddle"/> 信 用 值：$v['w_m_credit_value']<br/>
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_2.gif" align="absmiddle"/> 从业资历：{if !$v['work_year']}一年以下{/if}
+                            {if $v['work_year']==1}一年{/if}
+                            {if $v['work_year']==2}两年{/if}
+                            {if $v['work_year']==3}三年{/if}
+                            {if $v['work_year']==4}四年{/if}
+                            {if $v['work_year']==5}五年以上{/if}
+                            {if $v['work_year']==6}十年以上{/if}<br/>
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_3.gif" align="absmiddle"/> 所在地：$v['address']<br/>
+                    </td>
+                    </tr>
+				 
+				 
+				 
+				 
+				 
+				 
+				 
+                  <!--<tr height="120">
+                    <td style="color: black;"><!--{eval echo ($page-1)*10+$k+1}--></td>
+                    <td><a href="shop.php?do=service_info&sid={$v[service_id]}" target="_blank"><img src="{if $v['pic']}$v['pic']{else}shop/tpl/default/img/def_service.jpg{/if}" onerror="this.src='shop/tpl/default/img/def_service.jpg'" width="80" class="mtb_5 img_p2"></a></td>
+                    <td><a href="shop.php?do=service_info&sid={$v[service_id]}" target="_blank" class="font14">{$v['title']}</a><br/>
+                    <a href="index.php?do=space&member_id=$v[uid]" target="_blank">{if $v['truename']}$v['truename']{else}$v['username']{/if}</a> {$v[job]}{if $v['realname_auth']}[已认证]{/if}<br/>
+                    <a href="shop.php?do=shop&view=comment&shop_id=$v['shop_id']" title="店铺留言"><img src="{SKIN_PATH}/img/shop/ab_img1.gif"/></a>
+                    <a href="index.php?do=message&to_uid=$v['uid']" onclick="{if $uid}{if $uid!=$shop_info['uid']}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if};" title="站内短信"><img src="{SKIN_PATH}/img/shop/ab_img1.gif"/></a>
+                    </td>
+                    <td>
+                    <a href="shop.php?do=service_list&indus_id={$indus_arr[$v[shop_indus]][indus_pid]}" target="_blank">{$indus_arr[$indus_arr[$v[shop_indus]][indus_pid]][indus_name]}</a><br/>
+                    <a href="shop.php?do=service_list&indus_id={$indus_arr[$v[shop_indus]][indus_id]}" target="_blank">{$indus_arr[$v[shop_indus]][indus_name]}</a>
+                    </td>
+                    <td>{if $v['shop_type']==1}个人{else}企业{/if}</td>
+                    <td><em>￥$v['price']</em></td>
+                    <td>
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_1.gif" align="absmiddle"/> 信 用 值：$v['w_m_credit_value']<br/>
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_2.gif" align="absmiddle"/> 从业资历：{if !$v['work_year']}一年以下{/if}
+                            {if $v['work_year']==1}一年{/if}
+                            {if $v['work_year']==2}两年{/if}
+                            {if $v['work_year']==3}三年{/if}
+                            {if $v['work_year']==4}四年{/if}
+                            {if $v['work_year']==5}五年以上{/if}
+                            {if $v['work_year']==6}十年以上{/if}<br/>
+                    <img src="{SKIN_PATH}/img/shop/ab_ico_3.gif" align="absmiddle"/> 所在地：$v['address']<br/>
+                    </td>
+                  </tr>-->
+                  
+                  {/loop}
+                
+                  </tr>
+                </table>
+                
+              </dd></dl>
+              <div class="Npage">
+                   <div class="pages">{$pages[page]}</div>
+              </div>
+            </dd>
+                
+            </dl>
+        </div><!--main_d_task_E-->
+        
+        <div class="clear"></div>
+        
+        
+    </div><!--main_left_E-->
+    
+    
+    <div class="main_right">
+    	<div class="mb_10"><a href="index.php?do=release"><img src="{SKIN_PATH}/img/reward.png"/></a></div>
+        {loop $model_list $model}
+        <!--{eval break;}-->
+        {/loop}
+        <div class="mb_10"><a href="index.php?do=task_list&model_id=$model['model_id']"><img src="{SKIN_PATH}/img/earn.png"/></a></div>
+  		<div class="main_d_r">
+        	<dl><dt class="main_d_r_tit font14">商品分类</dt>
+            <dd class="main_d_r_tag">
+            	{loop $indus_index_arr[0] $key $values}
+					<h4 class="font14">{$values[indus_name]} </h4>
+					{loop $indus_index_arr[$key] $k $v}
+						{if $v[indus_pid]==$values[indus_id]}	
+						<a href="shop.php?do=service_list&indus_id={$v[indus_id]}">{$v[indus_name]}</a>
+						{/if}
+					{/loop}
+				{/loop}  
+            </dd></dl>
+        </div>
+        
+        
+
+  </div><!--main_right_E-->
+    
+</form>
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

@@ -1,0 +1,54 @@
+{template 'header', $module}
+<form method="post" action="{$MOD[linkurl]}renew.php" onsubmit="return check();">
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl">服务费用</td>
+<td class="tr"><strong class="f_red">{$MG[fee]}</strong>{$DT[money_unit]}/年</td>
+</tr>
+<tr>
+<td class="tl">到期时间</td>
+<td class="tr">{$todate} ({$havedays}天剩余)</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 续费年限</td>
+<td class="tr">
+<select name="year" id="year" onchange="$('payment').innerHTML = this.value*{$MG[fee]}+'{$DT[money_unit]}';">
+<option value="1">1年</option>
+<option value="2">2年</option>
+<option value="3">3年</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="tl">账户余额</td>
+<td class="tr f_b f_blue">{$_money}{$DT[money_unit]}</td>
+</tr>
+<tr>
+<td class="tl">应付总额</td>
+<td class="tr f_b f_red" id="payment">{$MG[fee]}{$DT[money_unit]}</td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 支付密码</td>
+<td class="tr">{template 'password', 'chip'}</td>
+</tr>
+<tr>
+<td class="tl"> </td>
+<td class="tr" height="50"><input type="submit" name="submit" value=" 确 定 " class="btn"/></td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+function check() {
+	if($('year').value*{$MG[fee]} > {$_money}) {
+		if(confirm('账户余额不足，是否现在充值？')) window.location = '{$MOD[linkurl]}charge.php?action=pay';
+		return false;
+	}
+	if($('password').value.length < 6) {
+		alert('请填写支付密码');
+		$('password').focus();
+		return false;
+	}
+	return confirm('确定要续费'+$('year').value+'年吗？');
+}
+</script>
+{template 'footer', $module}

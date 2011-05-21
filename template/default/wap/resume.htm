@@ -1,0 +1,27 @@
+{template 'header', 'wap'}
+<a href="index.php?moduleid={$moduleid}&amp;resume=1"><strong>求职简历</strong></a> <a href="index.php?moduleid={$moduleid}">招聘信息</a><br/>
+{if $itemid}
+	<strong>{$title}</strong><br/>
+	日期:<small>{$editdate}</small><br/>
+	{if $page==1}
+	<strong>联系方式</strong><br/>
+	{template 'content', 'wap'}
+	<strong>自我鉴定</strong><br/>
+	{/if}
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}&amp;resume=1">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}&amp;resume=1">{$v[title]}</a> <a href="index.php?moduleid={$moduleid}&amp;areaid={$v[areaid]}&amp;resume=1">({$v[area]})</a> [{$EDUCATION[$v[education]]}] <small>{$v[editdate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<input type="hidden" name="resume" value="1"/>
+<a href="index.php?moduleid={$moduleid}&amp;resume=1">简历</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/> 
+{template 'footer', 'wap'}

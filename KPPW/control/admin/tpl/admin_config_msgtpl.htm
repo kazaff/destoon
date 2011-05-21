@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/Css.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/form_and_validation.js">
+        </script>
+        <title>短信模板配置</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                        短信邮件模板配置管理
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form name="frm_config_msg" action="index.php?do=config&view=msgtpl" method="post">
+                <input type="hidden" name="hdn_msg_temp_id" id="hdn_msg_temp_id" value="">
+                <table width="96%" height="" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                            短信邮件类型：
+                        </td>
+                        <td>
+                            <select name="slt_msg_temp_type" id="slt_msg_temp_type" style="width:150px">
+                                <option value="-1">请选择模板类型</option>
+                                <option {if $slt_msg_temp_type=='reg_isnotice'}selected="selected"{/if} value="reg_isnotice">注册用户消息提示</option>
+                                <option {if $slt_msg_temp_type=='task_pub_isnotice'}selected="selected"{/if} value="task_pub_isnotice">任务发布成功消息提示</option>
+                                <option {if $slt_msg_temp_type=='tender_isnotice'}selected="selected"{/if} value="tender_isnotice">任务中标消息提示</option>
+                                <option {if $slt_msg_temp_type=='pay_success_isnotice'}selected="selected"{/if} value="pay_success_isnotice">支付成功消息提示</option>
+                                <option {if $slt_msg_temp_type=='task_auth_success_isnotice'}selected="selected"{/if} value="task_auth_success_isnotice">审核通过消息提示</option>
+                                <option {if $slt_msg_temp_type=='task_auth_fail_isnotice'}selected="selected"{/if} value="task_auth_fail_isnotice">审核失败消息提示</option>
+                                <option {if $slt_msg_temp_type=='user_auth_success_isnotice'}selected="selected"{/if} value="user_auth_success_isnotice">身份认证成功消息提示</option>
+                                <option {if $slt_msg_temp_type=='user_auth_fail_isnotice'}selected="selected"{/if} value="user_auth_fail_isnotice">身份认证失败消息提示</option>
+                                <option {if $slt_msg_temp_type=='draw_success_isnotice'}selected="selected"{/if} value="draw_success_isnotice">提现成功消息提示</option>
+                                <option {if $slt_msg_temp_type=='freeze_isnotice'}selected="selected"{/if} value="freeze_isnotice">用户冻结消息提示</option>
+                                <option {if $slt_msg_temp_type=='task_freeze_isnotice'}selected="selected"{/if} value="task_freeze_isnotice">任务冻结消息提示</option>
+                                <option {if $slt_msg_temp_type=='update_password_isnotice'}selected="selected"{/if} value="update_password_isnotice">更新密码消息提示</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            短信邮件内容：
+                        </td>
+                        <td>
+                            <div class="field" style="margin-left:-10px;*margin-left:0">
+                                <textarea rows="10" name="tar_msg_temp_content" id="system-create-location" class="f-textarea editor" style="width:80%;">
+                                $msg_tpl
+								</textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                           
+                        </td>
+                        <td>
+                        	 <input type="submit" name="sbt_edit" class="input_but" value="保存编辑"/>
+                            <input type="reset" name="rst_edit" class="input_but" value="返回上一页" onclick="history.go(-1);"/>
+							<span id="list"></span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <script type="text/javascript" src="tpl/js/xheditor/xheditor.js">
+        </script>
+        <script type="text/javascript">
+            $(function(){
+                $("#slt_msg_temp_type").change(function(){
+                    var selectValue = $(this).val();
+                    if (selectValue!='-1') {
+						var url = "index.php?do=config&view=msgtpl";
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+							cache: false,
+							async: false,
+                            data: "msg_temp_id="+selectValue,
+                            dataType: "json",
+                            error: function(json){
+								$('#system-create-location').val('');
+								$("#hdn_msg_temp_id").val('');
+								$('#list').html('查询结果为空，请稍后再试...');
+								
+                            },
+                            success: function(json){
+                                if (json.status == 0) {
+                                    $('#list').html('模板内容为空!');
+                                }
+                                else {
+									$('#list').html('');
+									$('#system-create-location').val(json.data.msg_temp_content);
+									$("#hdn_msg_temp_id").val(json.data.msg_temp_type);
+                                }
+                            }
+                        });
+                    }
+					else
+					{
+						alert("请选择模板!");
+						$('#system-create-location').val('');
+						return false;
+					}
+                })
+            })
+        </script>
+    </body>
+</html>

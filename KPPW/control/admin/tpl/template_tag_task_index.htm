@@ -1,0 +1,4 @@
+{loop $datalist $key $value}
+<li><span class="f60" style="width:120px; float:left;display:block;">￥ $value['cash']元</span> <a href="$value[url]">$value['title']</a><span style="float:right;margin-right:15px;">周期：<!--{date('Y-m-d',$value['starttime'])}--> —— <!--{date('Y-m-d',$value['endtime'])}--></span></li>
+{/loop}
+$where

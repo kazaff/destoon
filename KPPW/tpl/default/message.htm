@@ -1,0 +1,32 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+
+<div class="mainbox" style="width:400px;height:250px;">
+<form action="index.php?do=message" method="post">
+	<table>
+		<tr>
+			<td>
+				标题:
+			</td>
+			<td>
+				<input type="text" name="txt_title" size="50" maxlength="30" value="$txt_title">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="hidden" name="hdn_pid" value="{$pid}">
+			<input type="hidden" name="hdn_to_uid" value="{$to_uid}">
+			<input type="hidden" name="hdn_task_id" value="{$task_id}">
+        	<textarea  rows="16" name="tar_content"  style="width:90%;height:160px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="sbt_msg" value="确定" class="pn pnc">
+				<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('a_msg');"></td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+<!--{template footer}-->

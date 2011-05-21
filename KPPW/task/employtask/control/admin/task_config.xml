@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+
+   <model_id>6</model_id>
+   <model_code>employtask</model_code>
+   <model_name>雇佣任务</model_name>
+   <model_dir>employtask</model_dir>
+   <model_dev>kekezu</model_dev>
+   <model_status>1</model_status>		
+   
+   
+    <xs_is_close></xs_is_close>
+	<audit_cash>200.2</audit_cash>
+	<is_auto_adjourn></is_auto_adjourn>
+	<adjourn_day></adjourn_day>
+	<is_open_prom></is_open_prom>
+	<vip_task_istop>2</vip_task_istop>
+	<vip_work_istop>2</vip_work_istop>
+	<vip_hidden_work>2</vip_hidden_work>
+	<vip_recommend>2</vip_recommend>
+	<deduct_scale>20</deduct_scale>
+	<defeated_money>2</defeated_money>
+	<is_comment>2</is_comment>
+	<task_min_cash>100.3</task_min_cash>
+	<vote_limit_time></vote_limit_time>
+	<show_limit_time></show_limit_time>
+	<reg_vote_limit_time></reg_vote_limit_time>
+	<on_time>1292554161</on_time>
+ 
+</root>

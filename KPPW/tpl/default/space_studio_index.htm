@@ -1,0 +1,110 @@
+<!--{template header_space}-->
+<div id="content">
+<div class="mainbox">
+      <div class="backleft">
+      	<div class="s_logo t_c">
+            	<p><img src="{$studio_info[logo]}" width="176" height="112" align="absMiddle" class="img"></p>
+                <p class="font14 mt_10">{$studio_info[title]}工作室</p>
+                <p>创始人：<a href="index.php?do=space&member_id={$studio_info[uid]}"><font color="red">{$studio_info[username]}</font></a></p>
+            </div>
+            <div class="ltop">
+			</div>
+            <div class="lctr ab_sub_nav">
+                   <a href="index.php?do=space&view=studio_index&member_id={$member_id}" class="now">基本资料</a>
+                   <a href="index.php?do=space&view=studio_zb_task&member_id={$member_id}">中标的任务</a>
+                   <a href="index.php?do=space&view=studio_fb_task&member_id={$member_id}">发布的任务</a>
+                   <a href="index.php?do=space&view=studio_mark&member_id={$member_id}">信誉详情</a>   
+            </div>
+            <div class="lbtm"></div>
+        </div><!--backleft_E-->
+        
+        <div class="backright backright1">
+			<div class="backright_d">
+				<dl><dt>工作室基本资料</dt></dl>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30" height="280">
+  <tbody>
+    <tr>
+      <th width="15%" align="right">工作室名称：</th>
+      <td width="35%">{$studio_info[title]}</td>
+      <th width="15%" align="right">成立时间：</th>
+      <td><!--{date('Y-m-d H:i:s',$studio_info[on_date])}--></td>
+    </tr>
+    <tr>
+      <th align="right">创建者：</th>
+      <td>{$studio_info[username]}</td>
+      <th align="right">联系电话：</th>
+      <td>{$studio_info[phone]}</td>
+    </tr>
+    <tr>
+      <th align="right">所在地区：</th>
+      <td>{$studio_info[area]}</td>
+      <th align="right">E-mail地址：</th>
+      <td>{$studio_info[email]}</td>
+    </tr>
+    <tr>
+      <th align="right">详细地址</th>
+      <td>{$studio_info[address]}</td>
+      <th align="right">传真：</th>
+      <td>{$studio_info[fax]}</td>
+    </tr>
+    <tr>
+      <th align="right">邮编：</th>
+      <td>{$studio_info[postcode]}</td>
+      <th align="right">加入工作室：</th>
+      <td>
+      	<input type="button" value="申请加入" class="input_btn3" id="join" onclick="{if !$uid}showDialog('操作无效，您还没有登录!', 'alert', '操作失败提示','',0);{else}{if $user_info[studio_id]}showDialog('操作无效，您已经加入过工作室!', 'alert', '操作失败提示','',0);{else}showWindow('join','index.php?do={$do}&view={$view}&show=join&member_id={$member_id}'){/if}{/if}" />
+	</td>
+    </tr>
+    <tr>
+      <th align="right">工作室简介：</th>
+      <td colspan="3">{$studio_info[aboutus]}</td>
+    </tr>
+  </tbody>
+</table>
+			</div>
+			<br>
+			<div class="backright_d">
+				<dl><dt>成员列表</dt></dl>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30">
+  <tbody>
+	 <tr>  
+		 	<th>用户ID</th>
+		  	<th>用户名</th>
+			<th>认证</th>
+            <th>威客信誉 </th>
+			<th>加入时间</th>
+            <th>权限</th>
+		  </tr>
+		   {loop $studio_member_arr $key $value}
+			  	<tr>
+			  		<td>{$value[uid]}</td>
+			  		<td><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></td>
+					<td>
+					  {if $value[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+					  {if $value[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+					  {if $value[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+					  {if $value[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+					  {if $value[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;  		  
+					</td>
+					<td>
+						<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($value['w_m_credit_value'],2);echo $w_m_score_value[pic];}-->
+					</td>
+					<td><!--{date('Y-m-d H:i:s',$value[on_date])}--></td>
+					<td>{if $studio_info[uid]==$value[uid]}
+						<font color="red">创始人</font>
+						{else}
+						成员
+						{/if}
+					</td>
+			  	</tr>
+			  {/loop}
+		  	</tbody>
+	</table>
+	</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E-->
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

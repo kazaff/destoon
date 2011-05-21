@@ -1,0 +1,69 @@
+<!--{template header}-->
+    <div class="window " id="panelWindow">
+	<div>
+         
+		<ul>
+		{loop $user_arr $key $value}
+		<li style="width:45%;float:left;padding-left:5%;">
+			  <label for="ckb_$value[uid]">
+			  	<input type="checkbox" id="ckb_$value[uid]" value="$value[uid]" name='ckb_user'>
+				<span>$value[username]</span>
+			 </label>
+		</li>	
+		{/loop}
+		</ul>
+		<div class="clear"></div>  
+		<p class="mt_10 t_c" style="margin-bottom:10px;">
+			<input type="button" class="input_btn3" id="btn_wait_pay" onclick="invite_go();" value="邀请TA们"/> 
+			<input type="button" class= "input_btn3" id="btn_all" onclick="ckb_all()" value="全 选">
+			<input type="button" class="input_btn3" value="关 闭" onclick="hideWindow('$handlekey')"/>
+		</p>
+     </div>
+    </div>
+<script type="text/javascript">
+	
+
+	function invite_go(){
+		var ckb_str='';
+		var usernames = '';
+		$("input[name='ckb_user']").each(function(){
+		   ckb_str += $(this).attr('checked')==true?$(this).val()!= {$uid} ?$(this).val()+',':'':'';
+		   usernames += $(this).attr('checked')==true?$(this).val()!= {$uid} ?$(this).next().html()+',':'':'';
+		})
+		ckb_str = ckb_str.substring(0,ckb_str.lastIndexOf(','));
+		usernames = usernames.substring(0,usernames.lastIndexOf(','));
+		if(ckb_str.length)
+		{
+			var model_id = parseInt('$model_id');
+			var url = "index.php?do=release&ajax=sms&model_id="+model_id;
+			$.ajax( {
+				type : "POST",
+				url : url,
+				cache : false,
+				async : false,
+				data : "uids=" + ckb_str+"&task_id={$task_id}&task_title="+encodeURI('{$task_title}')+"&usernames="+encodeURI(usernames),
+				dataType : "json",
+				error : function(json) {
+					showDialog('系统繁忙，请稍后再试!', 'alert', '错误提示','',1);
+				},
+				success : function(json) {
+					if (json.status == 0) {
+				        showDialog('邀请失败，请稍后再试!', 'alert', '错误提示','',1);
+					} else {
+						showDialog('邀请成功!', 'notice', '提示信息','',1);
+						var tt = setTimeout(function(){hideWindow('$handlekey')},3000);
+						window.location.href="index.php?do=user";
+					}
+				}
+			});
+			
+		}
+	}
+	function ckb_all()
+	{
+		$("input[name='ckb_user']").each(function(){
+			if($(this).attr('checked')== false)$(this).attr('checked',true);
+		})
+	}
+</script>
+<!--{template footer}--> 

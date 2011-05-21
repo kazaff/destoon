@@ -1,0 +1,36 @@
+{template 'header', 'wap'}
+{if $userid}
+	<strong>{$company}</strong><br/>
+	{if $vip}级别:{VIP} {$vip}<br/>{/if}
+	{if $page==1}
+		{if $regyear}成立时间:{$regyear}<br/>{/if}
+		{if $capital}注册资本:{$capital} {$regunit}<br/>{/if}
+		{if $mode}经营模式:{$mode}<br/>{/if}		
+		<strong>联系方式</strong><br/>
+		{if $could_contact}
+			{if $telephone}电话:{$telephone}<br/>{/if}
+			{if $fax}传真:{$fax}<br/>{/if}
+			{if $address}地址:{$address}<br/>{/if}
+			{if $postcode}邮编:{$postcode}<br/>{/if}
+			{if $mail}邮件:{$mail}<br/>{/if}
+		{else}
+		无权查看，请升级<br/>
+		{/if}
+		<strong>公司介绍</strong><br/>
+	{/if}
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;userid={$v[userid]}">{$v[company]}</a> <a href="index.php?moduleid={$moduleid}&amp;areaid={$v[areaid]}">({$v[area]})</a>{if $v[vip]} <small>{VIP} {$v[vip]}</small>{/if}<br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/>
+{template 'footer', 'wap'}

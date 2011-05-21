@@ -1,0 +1,148 @@
+<!--{eval $page_title ='搜索 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+    
+    <div class="main_left">
+        <div class="main_d_task">
+            <div class="main_d_task_tit">
+                <h4>搜索结果</h4>
+				<span class="c030">
+					{if $html_indus}
+					{$html_indus}
+					{else}
+                	搜索{if $html_result} "
+					<b class="red">{$html_result}</b>"
+					{/if} 
+					共有 <b class="red">{$count}</b> 个结果
+					{/if}
+				</span>
+            </div>
+            <dl>
+            	<form action="index.php" method="get" name="frm_search_list" id="frm_search_list">
+            		<input type="hidden" name="do" value="search_list">
+            		<input type="hidden" name="view" value="{$view}">
+            		<input type="hidden" name="model_id" value="$model_id">
+					<input type="hidden" name="indus_id" value="{$indus_id}">
+					<input type="hidden" name="page_size" value="{$page_size}">
+            <dd class="main_d_task_gut">
+                 <div class="main_d_task_sort">
+                	<strong>排序方式：</strong>
+					
+					{if $slt_order=='2'}
+					<a href="index.php?do=search_list&view={$view}&slt_cash_cove={$slt_cash_cove}&page_size={$page_size}&slt_order=1&is_prom={$is_prom}">悬赏价格↓</a>
+					{else}
+					<a href="index.php?do=search_list&view={$view}&slt_cash_cove={$slt_cash_cove}&page_size={$page_size}&slt_order=2&is_prom={$is_prom}">悬赏价格↑</a>
+					{/if}
+					
+					{if $slt_order=='4'}
+					<a href="index.php?do=search_list&view={$view}&slt_cash_cove={$slt_cash_cove}&page_size={$page_size}&slt_order=3&is_prom={$is_prom}">剩余时间↓</a> 
+					{else}
+					<a href="index.php?do=search_list&view={$view}&slt_cash_cove={$slt_cash_cove}&page_size={$page_size}&slt_order=4&is_prom={$is_prom}">剩余时间↑</a>
+					{/if}
+					任务金额排序：
+					<select style="width:180px;" name="slt_order" onchange="frm_search_list.submit();">
+						<option value=''>默认排序</option>
+						<option value="6" {if $slt_order=='6'}selected="selected"{/if}>价格 从高到低</option>
+						<option value="5" {if $slt_order=='5'}selected="selected"{/if}>价格 从低到高</option>
+						<option value="4" {if $slt_order=='4'}selected="selected"{/if}>剩余时间 从多到少</option>
+						<option value="3" {if $slt_order=='3'}selected="selected"{/if}>剩余时间 从少到多</option>
+					</select>　
+				
+					 条数:
+					 <a href="index.php?do=search_list&page_size=20&view={$view}&slt_cash_cove={$slt_cash_cove}&slt_order={$slt_order}&is_prom={$is_prom}">20</a>
+					 <a href="index.php?do=search_list&page_size=40&view={$view}&slt_cash_cove={$slt_cash_cove}&slt_order={$slt_order}&is_prom={$is_prom}">40</a>
+					 <a href="index.php?do=search_list&page_size=80&view={$view}&slt_cash_cove={$slt_cash_cove}&slt_order={$slt_order}&is_prom={$is_prom}">80</a></div>
+					 <br>
+              <dl>
+                <dd class="main_d_task_list search_list_tab">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="task_table t_l">
+                  <tr>
+                    <th width="100">类型/编号</th>
+                    <th>任务标题</th>
+                    <th width="80" class="t_c">金额</th>
+                    <th width="150">任务时间</th>
+                  </tr>
+				  
+				  {loop $task_arr $key $value}
+                  <tr>
+                    <td>
+                    {$model_list[$value[model_id]][model_name]}
+					<p>编号：{$value[task_id]}</p></td>
+                    <td><a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">
+						<!--{eval echo(Func_comm_class::cutstr($value[task_title],40));}-->
+						{if $value[isvip]==1}
+							&nbsp;<img src="{SKIN_PATH}/img/vip2.gif" align="absmiddle"/>
+						{/if}
+						{if $value[istop]==1}
+							&nbsp;<img src="{SKIN_PATH}/img/jian.gif" align="absmiddle"/>
+						{/if}
+						{if $value[is_prom]==1}
+							&nbsp;<img src="{SKIN_PATH}/img/guang.gif" align="absmiddle"/>
+						{/if}
+						</a></td>
+                    <td class="t_c">
+                    	<em>
+                    		{if in_array($value[task_mode],array(1,2,3))}
+							￥{$value[task_cash]}
+							{else}
+							￥{$tender_cash_rule[$value[task_cash_coverage]][cove_desc]}
+							{/if}
+						</em>
+					</td>
+                    <td>
+                    	<!--{date('Y-m-d',$value[start_time])}--> — <!--{date('Y-m-d',$value[end_time])}--><p>
+                    		进行中 剩余时间: 
+							<b class="red">{$t[remaining_time]}</b> </p>
+							</td>
+                  </tr>
+				  {/loop}
+				  
+                 
+                </table>
+                
+              </dd></dl>
+              <div class="Npage">
+              	{$pages[page]}
+              	<!--
+                    <span>1 / 10 页</span>
+                    <span><<上一页</span>
+                    <a href="#" class="Nnow">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a>
+                    <span>下一页>></span>-->
+              </div>
+            </dd>
+                
+            </dl>
+        </div><!--main_d_task_E-->
+        
+        <div class="clear"></div>
+        
+        
+    </div><!--main_left_E-->
+    
+    <div class="main_right">
+    	<div class="mb_10"><a href="index.php?do=release"><img src="{SKIN_PATH}/img/reward.png"/></a></div>
+        <div class="mb_10"><a href="index.php?do=task_list&model_id=2"><img src="{SKIN_PATH}/img/earn.png"/></a></div>
+  		<div class="main_d_r">
+        	<dl><dt class="main_d_r_tit font14">任务分类</dt>
+            <dd class="main_d_r_tag">
+            	{loop $indus_p_arr $key $values}
+					<h4 class="font14">{$values[indus_name]} </h4>
+					{loop $indus_c_arr $key $value}
+						{if $value[indus_pid]==$values[indus_id]}
+						<a href="index.php?do={$do}&indus_id={$value[indus_id]}">{$value[indus_name]}</a>
+						{/if}
+					{/loop}
+				{/loop}  
+            </dd></dl>
+        </div>
+        
+        
+
+  </div><!--main_right_E-->
+    
+</form>
+</div><!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

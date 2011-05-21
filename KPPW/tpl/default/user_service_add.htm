@@ -1,0 +1,566 @@
+<!--{eval $page_title='发布商品 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+ 
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+				<dl>
+				<dt>
+					<div class="x_tit_1">
+						<div>
+							<span {if $op=='info'||!$op}class="now"{/if}><a href="index.php?do={$do}&view=service_add"  >添加商品</a></span>
+							<span {if $op=='desc'}class="now"{/if}><a href="index.php?do={$do}&view=service_list" >管理商品</a></span> 
+							<span {if $op=='contact'}class="now"{/if}><a href="index.php?do={$do}&view=service_cate" >添加分类</a></span>  
+						</div>
+					</div>
+				</dt>
+				<dd>
+				 <form action="index.php?do={$do}&view={$view}" method="post"  id="frm_s_add" enctype="multipart/form-data" >
+					<input type="hidden" id="indus_name" name="indus_name">
+					<input type="hidden" id="indus_pid" name="indus_pid" value="$indus_arr[$service_info['indus_id']]['indus_pid']"> 
+					<input type="hidden" id="hdn_indus_id" name="hdn_indus_id" value="$service_info['indus_id']" >
+					<input type="hidden" name="formhash" id="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+					
+                      <tr>
+					    <td colspan="4" style="padding:10px;">
+						 <style>
+                        	.ab_l1{border:1px solid #91969A; width:170px; height:208px; float:left; text-align:center;overflow-y:scroll;overflow-x:hidden;}
+							.ab_l2{width:50px; height:208px; float:left; background:url({SKIN_PATH}/img/skill_arrow.gif) no-repeat center;}
+							.ab_l3{border:1px solid #91969A; width:240px; height:208px; float:left; background:#f9fafb;}
+							.ab_l3 a{display:block;float:left;white-space:nowrap;margin:2px 4px;text-decoration:underline;}
+							.selected {background:#FF8A00;color:#fff}
+						</style>
+						<div>
+							
+						</div>
+                       <!-- <div class="ab_l1" id="ab_l1">
+					    	{loop $s_service_arr $value}
+							<div   value="{$value[indus_id]}"  style=" padding: 0pt 5px; cursor: pointer; margin: 0pt; width: 160px; background: none repeat scroll 0% 0% transparent; color: rgb(153, 153, 153);">{$value['indus_name']}</div>
+							{/loop}
+						</div>
+                        <div class="ab_l2">
+						</div>
+                        <div class="ab_l3">
+							<span id="span_sill_1" style="margin-left: 2px; margin-top: 2px; background: none repeat scroll 0% 0% rgb(255, 255, 255); width: 248px;">
+							{loop $t_service_arr $value}
+								<a style="color: rgb(36, 124, 214);" onclick="inset(this);" href="#inset">{$value[skill_name]}</a>
+							{/loop}
+							</span>
+						</div>-->
+						
+                        </td>
+				      </tr>
+					  <tr>
+					  	<td colspan="4">
+					  		您当前选择的是：<span id="span_indus">{if $service_info['indus_id']}{$indus_arr[$indus_arr[$service_info['indus_id']][indus_pid]][indus_name]}>{$indus_arr[$service_info['indus_id']]['indus_name']}{/if}</span>
+					  	</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">类型</td>
+					  	{if $fw_allow_rule<0}
+					  	<td colspan="3">
+					  	<label for='rdo_product'><input id="rdo_product" name="rdo_service_type" value="2" type="radio" checked="checked">作品  您所在的用户组不能发布服务</label>
+					  	</td>
+					  	{else}
+						<td colspan="3">
+							<label for='rdo_service'><input id="rdo_service" onclick="if(this.checked){$('#submit_method_tr').hide();$('#need_hours_tr').show();$('#rdo_service_span').show();$('#rdo_product_span').hide();}else{$('#submit_method_tr').show();$('#need_hours_tr').hide();$('#rdo_service_span').hide();$('#rdo_product_span').show();}" name="rdo_service_type" value="1" type="radio" {if $service_info[service_type]!=2}checked="checked"{/if}>服务</label>
+							<label for='rdo_product'><input id="rdo_product" onclick="if(this.checked){$('#submit_method_tr').show();$('#need_hours_tr').hide();$('#rdo_product_span').show();$('#rdo_service_span').hide();}else{$('#submit_method_tr').hide();$('#need_hours_tr').show();$('#rdo_product_span').hide();$('#rdo_service_span').show()}" name="rdo_service_type" value="2" type="radio" {if $service_info[service_type]==2}checked="checked"{/if}>作品</label>
+							 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="rdo_service_span" style="color: gray;">适合创意型服务类交易，如提供建站服务、咨询服务等</span>
+							<span style="color: gray;display: none;" id="rdo_product_span">适合创意型商品类交易，如出售程序源码、设计作品等</span>
+						</td>
+						{/if}
+					  </tr>
+					    <tr id="submit_method_tr" {if $fw_allow_rule>=0}style="display:none;"{/if}>
+					  	<td colspan="1">交付方式</td>
+						<td colspan="3">
+							<select name="slt_submit_method" id="slt_submit_method"  onchange="submit_method(this)">
+								<option value="1" {if $service_info[submit_method]==1}selected="selected"{/if}>站外交付</option>
+								<option value="3" {if $service_info[submit_method]==3}selected="selected"{/if}>文件下载</option>
+								<!-- <option value="2" {if $service_info[submit_method]==2}selected="selected"{/if}>视频交付</option>  -->
+							</select>
+							<span id="slt_submit_method_1_desc">作品采用站外另行联系交付方式，如邮件发送、IM传输等</span>
+							<span id="slt_submit_method_3_desc" style="display: none;">作品采用直接站内下载交付</span>
+							<input type="hidden" name="upload_file" id="upload_file">
+							<input type="hidden" name="hdn_submit_method" id="hdn_submit_method">
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">名称</td>
+						<td colspan="3">
+							<input type="text" id="txt_service_name" name="txt_service_name" value="{$service_info[title]}" limit="len:2-50;required:true" msgArea="msg_service_name"  msg="<font color = 'red'>商品名称不能为空!</font>">
+							<span id="msg_service_name" class="c999" style="padding-left:10px;">商品的名称？</span>
+						</td>
+					  </tr>
+					  <tr>
+					  	<td>
+					  		商品分类
+					  	</td>
+						<td colspan="3">
+					  		
+								<select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);">
+									<option value="-1"> 请选择分类 </option>
+									{loop $s_service_arr $value}
+								{if !$value[indus_pid]}<option value="{$value['indus_id']}">{$value[indus_name]}</option>
+								{/loop}
+								</select> 
+								<select name="slt_indus_id" id="slt_indus_id" onchange="indus_valid()">
+										<option value="-1">请选择子行业 </option>
+								</select>
+								<span id="indus_id_msg"></span>
+							<br>
+							
+					  	</td>
+					  </tr>
+					    <tr>
+					  	<td>
+					  		自定分类
+					  	</td>
+						<td colspan="3">
+					  		<select name="slt_cate_id" id='slt_cate_id' onchange="add_cate(this.value);">
+					  			<option value=''>请选择</option>
+								{loop $cus_cate_arr $key $value}
+									<option value="{$value[cus_cate_id]}" {if $service_info[cus_cate_id]==$value[cus_cate_id]}selected="selected"{/if}>{$value[cate_name]}</option>
+								{/loop}
+					  			<option value="x">自定义</option>
+					  		</select>
+							<br>
+							
+					  	</td>
+					  </tr>
+					  <tr>
+					  
+					  	<td colspan="1">报价</td>
+						<td colspan="3">
+							<input type="text" id="txt_price" name="txt_price" size="8" value="{$service_info[price]}" limit="type:float;required:true" msgArea="msg_txt_price"  msg="<font color = 'red'>价格不能为空</font>">元/单位：<input type="text" name="txt_unit_price" size="8" value="{$service_info[unite_price]}">&nbsp;&nbsp;&nbsp;<span id="msg_txt_price" style="padding-left:10px;">如：80元/平方，250元/张 (单位可选填)</span>
+							
+						</td>
+					  </tr>
+					   <tr id="need_hours_tr">
+					  	<td colspan="1">预计工时</td>
+						<td colspan="3">
+							<input type="text" name="txt_service_time" size="8" value="{$service_info[service_time]}">
+							<select name="slt_unit_time">
+								<option {if $service_info[unit_time]=='小时'}selected="selected"{/if}>小时</option>
+								<option {if $service_info[unit_time]=='天'}selected="selected"{/if}>天</option>
+								<option {if $service_info[unit_time]=='个月'}selected="selected"{/if}>个月</option>
+							</select> 完成订单需要花费的时间，非服务类型商品可留空。
+						</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">图片</td>
+						<td colspan="3">
+							{if $service_info[pic]}
+							<img src="{$service_info[pic]}" width="200">
+							<br>
+							{/if}
+							<input type="file" name="fle_pic"> (gif,jpeg,jpg, png) 文件大小不超<!--{eval echo ini_get('post_max_size')}-->
+						</td>
+					  </tr>
+					  <!-- <tr>
+					  	<td colspan="1">广告图</td>
+						<td colspan="3">
+							<div id="hidden_ad_pic_div" style="{if !$service_info[ad_pic]}display: none;{/if}">
+							<img id="hidden_ad_pic_img" src="{$service_info[ad_pic]}" width="200" >
+							</div>
+							
+							<input type="file" id="filedataad" ext=".jpg,.gif,.png,.jpeg,.bmp" name="filedataad">&nbsp;&nbsp;<input type="button" id="sbt_upload_fle" name="sbt_upload_fle" value="上传">
+							<input type="hidden" id="hidden_ad_pic" name="ad_pic" value="">
+							<br>用于商城首页展示，请上传大小为500*200的图片文件，<a href="javascript:;" onclick="zoom('','')">查看预览</a>。
+						</td>
+					  </tr> -->
+					   <tr>
+					  	<td colspan="1">适合对象</td>
+						<td colspan="3">
+							<input type="text" name="txt_obj_name" value="{$service_info[obj_name]}">
+						</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">所限地区</td>
+						<td colspan="3">
+							<script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','{$service_info[area_range][0]}');
+							showcity('slt_city', '{$service_info[area_range][1]}', 'slt_province', '');
+							//-->
+							</script>
+						</td>
+					  </tr>
+					    <tr>
+					  	<td colspan="1">关键字</td>
+						<td colspan="3">
+							<input type="text" name="txt_key_word" value="{$service_info[key_word]}">
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">详细说明：</td>
+						<td colspan="3">
+							<textarea  rows="16" name="tar_content"   id="system-create-location" style="width:100%;height:200spx;">{$service_info[content]}</textarea>
+						</td>
+					  </tr>
+					  <tr height="30">
+					  	<td colspan="4" align="center">
+					  		<input type="hidden" name="hdn_service_id" value="{$service_info[service_id]}">
+					  		<input type="button" onclick="submit_service()" name="sbt_edit" value="立即发布" />
+					  	</td>
+					  </tr>
+					  </table>
+					  </form>
+					   </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+  	</div><!--mainbox_E--><br/>
+
+<script type="text/javascript">
+
+
+function indus_valid()
+{
+	indus_id = parseInt( $("#slt_indus_id").val());
+		
+		if(indus_id != -1) 
+		{
+			 
+			$("#indus_id_msg").css("color",'green');
+			$("#indus_id_msg").html("商品分类已选择！");
+			return true;
+		}
+		else
+		{
+			$("#indus_id_msg").css("color",'red');
+			$("#indus_id_msg").html("商品分类未选择！");
+			$("#indus_id_msg").focus();
+			return false;
+		}
+}
+function submit_service(){
+
+	
+	
+	
+	
+	indus_valid();
+	if($("#slt_submit_method").val()==2 || $("#slt_submit_method").val()==3){
+		if(!$("#upload_file").val()){
+			showDialog("文件没有上传",'alert','验证提示！','',1);
+			
+			return false;
+		}
+	}
+	if(checkForm(document.getElementById('frm_s_add'),1)){
+		$('#frm_s_add').submit();
+	}
+	else{
+		showDialog("输入的信息有误",'alert','验证提示!','',1);
+		return false;
+	}
+}
+
+function add_cate(cate_id){
+	if(cate_id=='x'){
+	  showWindow('cus_cate1','ajax.php?ac=cate_add');
+	}
+}
+function ajax_cate(){
+		v = $("input[name='txt_cate_name']").val();
+		if(v){
+			ajaxget("index.php?do=user&view=service_add&ajax=cus_cate&txt_cate_name="+v,'slt_cate_id');
+			hideWindow('cus_cate1');
+		}else{
+			showDialog("分类名称不能为空",'alert','验证提示!','',1);
+		}
+		
+}
+function save_file(){
+	file_name  = $("#hidFileID").val();
+	if(file_name == "The uploaded file exceeds the upload_max_filesize directive in php.ini."){
+		hideWindow('upload');
+		
+		$("#upload_file").after("<strong>"+"<button onclick=\"showWindow('upload','ajax.php?ac=submit_file&type='+m,'get','','',vedio2)\")>重新上传</button>"+"</strong>");
+		showDialog("文件大小超过服务器限制，请重新上传",'alert',"错误提示！",1);
+		return false;
+	}
+	if(file_name){
+		$("#upload_file").val(file_name);
+		$("#slt_submit_method option").attr('disabled','disabled');
+		$("#upload_file").after("<a href=\""+file_name+"\" style=\"color:gray\">"+file_name+"</a>");
+		hideWindow('upload');
+	}else
+	{
+		alert('未上传或上传失败,可能文件大小超过服务器限制');return false;
+		//showDialog("文件上传后才可以提交",'alert',"错误提示！",1);
+	}
+	clearInterval(formChecker);
+}
+function cancel_file(){
+	hideWindow('upload');
+	clearInterval(formChecker);
+}
+function submit_method(obj){
+
+	$('#slt_submit_method_1_desc').hide();
+	$('#slt_submit_method_3_desc').hide();
+	$('#slt_submit_method_'+$("#slt_submit_method").val()+'_desc').show();
+	 
+	m = $(obj).val();
+	$("#hdn_submit_method").val(m);
+	if(m==3){
+	/*showWindow('upload','ajax.php?ac=submit_file&type='+m,'get','','',vedio);
+		return;
+	}else if(m==3){*/
+		showWindow('upload','ajax.php?ac=submit_file&type='+m,'get','','',vedio2);
+		return;
+	}
+	
+} 
+function inset(obj){
+	    $("#span_indus").html("<strong>"+$("#indus_name").val()+">"+$(obj).html()+"<strong>");
+	    $("#hdn_indus_id").val($obj.attr('value'));
+		$("#span_indus").after(" <input type=\"hidden\" name=\"hdn_indus_id\" value=\""+$(obj).attr('value')+"\">");
+}
+function mout(obj){
+	$(obj).css({background:'none',color:'#999'});
+}
+function mover(obj){
+	$(obj).css({background:'#FF8A00',color:'#fff'});
+}
+
+$(function(){
+
+	var editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id=0&type=link',upImgUrl:"index.php?do=ajax_upload&task_id=0",upImgExt:"jpg,jpeg,gif,png"});
+
+	$("#fctr1_upload>span>a").click(function(){
+		
+		clearInterval(formChecker);
+		})
+	$("#ab_l1>div").click(function(){
+		indus_pid = $(this).attr('value');
+		$("#indus_pid").val(indus_pid);
+		mover($(this));
+		$("#indus_name").val($(this).html());
+		$(this).siblings().css({background:'none',color:'#999'});
+		
+		$.post("index.php?do={$do}&view={$view}&op=show_s_service",{indus_pid:indus_pid},function(data){
+			var str_data = data;
+			if(trim(str_data)==''){
+				$("#span_sill_1").html(' 暂无服务项');
+			}else{
+				$("#span_sill_1").html(str_data);
+			}
+		}); 
+	})
+
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+
+	var fil_up_obj1 = document.getElementById("filedataad"); 
+	$("#sbt_upload_fle").click(function(){
+		
+		if(isExtName(fil_up_obj1,1))
+			{
+				upload2(500,200);
+			}
+			else
+			{
+				return false;			
+			}
+		})
+
+	
+		$("#txt_service_name").blur(function() {
+		var obj = document.getElementById("txt_service_name");
+		var msgArea = obj.getAttribute("msgArea");
+		if (obj.value != '') {
+			var aa = validElement(obj);
+			if (!aa) {
+				
+				$("#" + msgArea).removeClass('');
+				$("#" + msgArea).css("color", "red");
+			} else {
+						$("#" + msgArea).removeClass('c999');
+						$("#" + msgArea).css("color", "green");
+						$("#" + msgArea).html("商品名称填写正确!");
+						 
+			}
+		} else {
+			$("#" + msgArea).removeClass('c999');
+			$("#" + msgArea).html("商品的名称必须填写！");
+			$("#" + msgArea).css("color", "red");
+		}
+		}).focus(function() {
+			
+			var obj = document.getElementById("txt_service_name");
+			var msgArea = obj.getAttribute("msgArea");
+			$("#" + msgArea).addClass('');
+			$("#" + msgArea).css("color", "");
+			$("#" + msgArea).html('(你想做什么？)');
+		})
+
+		$("#txt_price").blur(function() {
+			var obj = document.getElementById("txt_price");
+			var msgArea = obj.getAttribute("msgArea");
+			if (obj.value != '') {
+				var aa = validElement(obj);
+				if (!aa) {
+					
+					$("#" + msgArea).removeClass('');
+					$("#" + msgArea).css("color", "red");
+				} else {
+							$("#" + msgArea).removeClass();
+							$("#" + msgArea).css("color", "green");
+							$("#" + msgArea).html("");
+							 
+				}
+			} else {
+				$("#" + msgArea).removeClass();
+				$("#" + msgArea).html("商品的价格必须填写！");
+				$("#" + msgArea).css("color", "red");
+			}
+			}).focus(function() {
+				
+				var obj = document.getElementById("txt_price");
+				var msgArea = obj.getAttribute("msgArea");
+				$("#" + msgArea).addClass('');
+				$("#" + msgArea).css("color", "");
+				$("#" + msgArea).html('(80元/平方，250元/张 (单位可选填))');
+			})
+
+	
+	
+})
+function upload(){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&task_id={$task_id}&type=att',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}else{
+			editor.appendHTML('<a href="'+json.msg.url+'" target="_blank">'+json.msg.localname+'</a>');
+		}
+
+		},
+	error:function(json,status,e){
+		  
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+function upload2(img_width,img_height){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&type=att&img_width='+img_width+'&img_height='+img_height+'&file_name=filedataad',
+	fileElementId:'filedataad',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog(decodeURI(json.err), 'alert', '错误提示','',0);
+		}else{
+			 $("#hidden_ad_pic").val(json.msg.up_file);
+			 $("#hidden_ad_pic_div").show();
+			 document.getElementById("hidden_ad_pic_img").src = json.msg.up_file;
+		}
+		},
+	 error:function(json,status,e){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+
+<script src="resource/js/swfupload/swfupload.js" type="text/javascript" ></script>
+<script src="resource/js/swfupload/fileprogress.js" type="text/javascript" ></script>
+<script src="resource/js/swfupload/handlers.js" type="text/javascript" ></script>
+<script type="text/javascript">
+
+		var swfu1;
+    
+	 function vedio2() {
+		 		swfu1 = new SWFUpload({
+				upload_url: "index.php?do=ajax_upload&file_name=file_name&file_type=big&file_name=file_name",
+				file_post_name: "file_name",
+
+				// Flash file settings
+				file_size_limit : "50MB",
+				file_types : "*.doc;*.rar;*.txt;*.zip",			// or you could use something like: "*.doc;*.wpd;*.pdf",
+				file_types_description : "All Files",
+				file_upload_limit : "0",
+				file_queue_limit : "1",
+
+				// Event handler settings
+				swfupload_loaded_handler : swfUploadLoaded,
+				
+				file_dialog_start_handler: fileDialogStart,
+				file_queued_handler : fileQueued,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				
+				//upload_start_handler : uploadStart,	// I could do some client/JavaScript validation here, but I don't need to.
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+
+				// Button Settings
+				button_image_url : "resource/js/swfupload/XPButtonUploadText_61x22.png",
+				button_placeholder_id : "spanButtonPlaceholder",
+				button_width: 61,
+				button_height: 22,
+				
+				// Flash Settings
+				flash_url : "resource/js/swfupload/swfupload.swf",
+
+				custom_settings : {
+					progress_target : "fsUploadProgress",
+					upload_successful : false
+				},
+				
+				// Debug settings
+				debug: false
+			});
+
+		}
+function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+	
+    
+}
+</script>
+</div><!--content_E-->
+
+
+
+<div class="clear"></div>
+<script src="resource/js/css.js" type="text/javascript"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+ 
+<!--{template footer}-->
+ 

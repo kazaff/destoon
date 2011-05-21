@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>编辑主题</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+
+<body>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑主题</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do={$do}&view={$view}" method="post" enctype="multipart/form-data">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+			  <td class="t_r">主题类型：</td>
+			    <td>
+			    	<select name="slt_banner_type" onchange="show_indus(this.value);">
+			    		<option value="2" {if $banner_info[banner_type]==2}selected="selected"{/if}>企业店铺</option>
+			    		<option value="1" {if $banner_info[banner_type]==1}selected="selected"{/if}>个人店铺</option>
+			    	</select>
+			    </td>
+			  </tr>
+			
+			   <tr id="tr_indus"   {if $banner_info[banner_type]==1} style="display:none;"{/if}>
+			    <td class="t_r">所属分类：</td>
+		        <td>
+		       	<select name="slt_indus_id">
+		       		{loop $indus_arr $key $value}
+						<option value="{$value[indus_id]}" {if $value[indus_id]==$banner_info[indus_id]}selected="selected"{/if}>{$value[indus_name]}</option>
+					{/loop}
+		       	</select>
+		        </td>
+			  </tr>
+			 
+			   <tr>
+			    <td class="t_r">主题名称：</td>
+			    <td><input type="text" name="txt_img_name" value="{$banner_info[img_name]}"></td>
+		      </tr>
+			   <tr>
+			    <td class="t_r">主题图片：</td>
+		        <td>
+		        {if $banner_info[img_file]}
+				<img src="{$_K[siteurl]}/{$banner_info[img_file]}" width="160" height="50">
+				<br>
+				{/if}
+				<input type="file" name="fle_pic">
+		        </td>
+			  </tr>
+			 
+	  <tr>
+	  	<td width="30%"></td>
+	  	<td>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="hidden" name="hdn_banner_id" value="{$banner_info[banner_id]}">
+		<input type="submit" name="sbt_edit" class="input_but" value="立即编辑" />&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" name="sbt_gobank" class="input_but" value="返回上一步" onclick="javascript:history.go(-1);" >
+		</td>
+	  </tr>
+    </table>
+ </form>
+ 	<br/>
+    </div>
+<script type="text/javascript">
+	function show_indus(banner_type){
+		if(banner_type==1){
+			$("#tr_indus").hide();
+		}else{
+			$("#tr_indus").show();
+		}
+		
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+{template 'header',$module}
+{if $action == 'email'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="?action={$action}"><span>1、发送认证信</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="?action={$action}"><span>2、接收认证信</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab2"><a href="?action={$action}"><span>3、通过认证</span></a></td>
+</tr>
+</table>
+</div>
+<form method="post" action="{$MOD[linkurl]}validate.php" onsubmit="return check();" id="dform">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellpadding="6" cellspacing="1" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 您的Email</td>
+<td class="tr"><input type="text" size="30" name="email" id="email" value="{$user[email]}"/> <span id="demail" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 验证码</td>
+<td class="tr">{template 'captcha', 'chip'} <span id="dcaptcha" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl">提示信息</td>
+<td class="tr">提交后，系统将发送一封验证邮件至您的Email，请接收邮件完成认证</td>
+</tr>
+</tbody>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 下一步 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+function check() {
+	if($('email').value.length < 7) {
+		Dmsg('请填写Email', 'email');
+		return false;
+	}
+	if(!is_captcha($('captcha').value)) {
+		Dmsg('请填写正确的验证码', 'captcha');
+		return false;
+	}
+	return true;
+}
+</script>
+{elseif $action == 'vemail'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="{$MOD[linkurl]}"><span>邮件认证</span></a></td>
+</tr>
+</table>
+</div>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">邮件地址</td>
+<td class="tr"><strong>{$_email}</strong> <a href="{$MOD[linkurl]}send.php?action=email" class="t">[修改]</a></td>
+</tr>
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_green">已认证</td>
+</tr>
+</table>
+{elseif $action == 'mobile'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="?action={$action}"><span>1、发送认证码</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="?action={$action}&code=1"><span>2、接收认证码</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab2"><a href="?action={$action}"><span>3、通过验证</span></a></td>
+</tr>
+</table>
+</div>
+{if isset($code)}
+<form method="post" action="{$MOD[linkurl]}validate.php" onsubmit="return check();" id="dform">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellpadding="6" cellspacing="1" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 认证码</td>
+<td class="tr"><input type="text" size="10" name="auth" id="auth"/> <span id="dauth" class="f_red"></span> 请输入你收到的短信认证码</td>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" value=" 下一步 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 重 发 " class="btn" onclick="Go('?action={$action}');"/></td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+$('Tab0').className = 'tab';
+$('Tab1').className = 'tab_on';
+function check() {
+	if($('auth').value.length < 6) {
+		Dmsg('请填写认证码', 'auth');
+		return false;
+	}
+	return true;
+}
+</script>
+{else}
+<form method="post" action="{$MOD[linkurl]}validate.php" onsubmit="return check();" id="dform">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellpadding="6" cellspacing="1" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 您的手机号码</td>
+<td class="tr"><input type="text" size="30" name="mobile" id="mobile" value="{$user[mobile]}"/> <span id="dmobile" class="f_red"></span></td>
+</tr>
+{if $fee}
+<tr>
+<td class="tl">接收短信收费</td>
+<td class="tr"><span class="f_b f_red">{$fee}</span> {$DT[money_unit]}</td>
+</tr>
+<tr>
+<td class="tl">帐户余额</td>
+<td class="tr"><span class="f_b f_blue">{$_money}</span> {$DT[money_unit]} {if $fee>$_money}&nbsp;<span class="f_red">余额不足</span>&nbsp;{/if} <a href="{$MODULE[2][linkurl]}charge.php?action=pay" class="t" target="_blank">[充值]</a></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 支付密码</td>
+<td class="tr">{template 'password', 'chip'} <span id="dpassword" class="f_red"></span></td>
+</tr>
+{/if}
+<tr>
+<td class="tl">提示信息</td>
+<td class="tr">提交后，系统将发送一条短信至您的手机号码，请注意接收</td>
+</tr>
+</tbody>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit"  name="submit" value=" 下一步 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+function check() {
+	if($('mobile').value.length < 7) {
+		Dmsg('请填写手机号码', 'mobile');
+		return false;
+	}
+{if $fee}
+	if($('password').value.length < 6) {
+		Dmsg('请填写支付密码', 'password');
+		return false;
+	}
+{/if}
+	return true;
+}
+</script>
+{/if}
+{elseif $action == 'vmobile'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="{$MOD[linkurl]}"><span>手机认证</span></a></td>
+</tr>
+</table>
+</div>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">手机号码</td>
+<td class="tr"><strong>{$user[mobile]}</strong> <a href="{$MOD[linkurl]}send.php?action=mobile" class="t">[修改]</a></td>
+</tr>
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_green">已认证</td>
+</tr>
+</table>
+{elseif $action == 'truename'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="?action={$action}"><span>1、提交证件</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="?action={$action}"><span>2、通过认证</span></a></td>
+</tr>
+</table>
+</div>
+<form method="post" action="{$MOD[linkurl]}validate.php" onsubmit="return check();" id="dform">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellpadding="6" cellspacing="1" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 真实姓名</td>
+<td class="tr"><input type="text" size="10" name="truename" id="truename" value="{$user[truename]}"/> <span id="dtruename" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 证件图片</td>
+<td class="tr"><input name="thumb" id="thumb" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb').value, true);" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb').value='';" class="t">[删除]</a>
+<span id="dthumb" class="f_red"></span>
+</td>
+</tr>
+<tr>
+<td class="tl">证件图片</td>
+<td class="tr"><input name="thumb1" id="thumb1" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb1').value, true, 'thumb1');" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb1').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb1').value='';" class="t">[删除]</a></td>
+</tr>
+<tr>
+<td class="tl">证件图片</td>
+<td class="tr"><input name="thumb2" id="thumb2" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb2').value, true, 'thumb2');" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb2').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb2').value='';" class="t">[删除]</a></td>
+</tr>
+<tr>
+<td class="tl">认证说明</td>
+<td class="tr lh18">
+请上传个人有效证件（身份证或护照等）电子版本，以便网站核实认证<br/>
+证件上的姓名必须与填写的真实姓名一致<br/>
+最少需要上传1张，最多可上传3张
+</td>
+</tr>
+</tbody>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+{if $MOD[vfax]}
+<br/>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">传真认证</td>
+<td class="tr">
+您可以传真有效证件至 {$MOD[vfax]} 进行认证，复印件上需注明会员名
+</td>
+</tr>
+</table>
+{/if}
+<script type="text/javascript">
+function check() {
+	if($('truename').value.length < 2) {
+		Dmsg('请填写真实姓名', 'truename');
+		return false;
+	}
+	if($('thumb').value.length < 15) {
+		Dmsg('请上传证件图片', 'thumb');
+		return false;
+	}
+	return true;
+}
+</script>
+{elseif $action == 'vtruename'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="{$MOD[linkurl]}"><span>实名认证</span></a></td>
+</tr>
+</table>
+</div>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">真实姓名</td>
+<td class="tr f_b">{$user[truename]}</td>
+</tr>
+{if $user[vtruename] || $v[status] == 3}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_green">已认证</td>
+</tr>
+{else}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_red">审核中</td>
+</tr>
+{/if}
+</table>
+{elseif $action == 'company'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="?action={$action}"><span>1、提交证件</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="?action={$action}"><span>2、通过认证</span></a></td>
+</tr>
+</table>
+</div>
+<form method="post" action="{$MOD[linkurl]}validate.php" onsubmit="return check();" id="dform">
+<input type="hidden" name="action" value="{$action}"/>
+<table cellpadding="6" cellspacing="1" class="tb">
+<tr>
+<td class="tl"><span class="f_red">*</span> 公司名</td>
+<td class="tr"><input type="text" size="60" name="company" id="company" value="{$user[company]}"/> <span id="dcompany" class="f_red"></span></td>
+</tr>
+<tr>
+<td class="tl"><span class="f_red">*</span> 证件图片</td>
+<td class="tr"><input name="thumb" id="thumb" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb').value, true);" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb').value='';" class="t">[删除]</a>
+<span id="dthumb" class="f_red"></span>
+</td>
+</tr>
+<tr>
+<td class="tl">证件图片</td>
+<td class="tr"><input name="thumb1" id="thumb1" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb1').value, true, 'thumb1');" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb1').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb1').value='';" class="t">[删除]</a></td>
+</tr>
+<tr>
+<td class="tl">证件图片</td>
+<td class="tr"><input name="thumb2" id="thumb2" type="text" size="60" readonly/>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="Dthumb({$moduleid},0,0, $('thumb2').value, true, 'thumb2');" class="t">[上传]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="_preview($('thumb2').value);" class="t">[预览]</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="$('thumb2').value='';" class="t">[删除]</a></td>
+</tr>
+<tr>
+<td class="tl">认证说明</td>
+<td class="tr lh18">
+请上传公司有效证件（营业执照或组织机构代码证等）电子版本，以便网站核实认证<br/>
+证件上的公司名称必须与填写的公司名称一致<br/>
+最少需要上传1张，最多可上传3张
+</td>
+</tr>
+</tbody>
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 确 定 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 返 回 " class="btn" onclick="history.back(-1);"/></td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+{if $MOD[vfax]}
+<br/>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">传真认证</td>
+<td class="tr">
+您可以传真有效证件至 {$MOD[vfax]} 进行认证，复印件上需注明会员名
+</td>
+</tr>
+</table>
+{/if}
+<script type="text/javascript">
+function check() {
+	if($('company').value.length < 2) {
+		Dmsg('请填写公司名', 'company');
+		return false;
+	}
+	if($('thumb').value.length < 15) {
+		Dmsg('请上传证件图片', 'thumb');
+		return false;
+	}
+	return true;
+}
+</script>
+{elseif $action == 'vcompany'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="{$MOD[linkurl]}"><span>公司认证</span></a></td>
+</tr>
+</table>
+</div>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">公司名</td>
+<td class="tr f_b">{$user[company]}</td>
+</tr>
+{if $user[vcompany] || $v[status] == 3}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_green">已认证</td>
+</tr>
+{else}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_red">审核中</td>
+</tr>
+{/if}
+</table>
+{elseif $action == 'bank'}
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab_on" id="Tab0"><a href="?action={$action}"><span>银行帐号验证</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="{$MOD[linkurl]}cash.php?action=setting"><span>银行帐号设置</span></a></td>
+</tr>
+</table>
+</div>
+<table cellpadding="10" cellspacing="1" class="tb">
+<tr>
+<td class="tl">收款方式</td>
+<td class="tr">{if $user[bank]}{$user[bank]}{else}未设置{/if}</td>
+</tr>
+<tr>
+<td class="tl">收款帐号</td>
+<td class="tr">{if $user[account]}{$user[account]}{else}未设置{/if}</td>
+</tr>
+<tr>
+<td class="tl">收款人</td>
+<td class="tr">{$user[truename]}</td>
+</tr>
+{if $user[vbank]}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_green">已认证</td>
+</tr>
+{else}
+<tr>
+<td class="tl">认证状态</td>
+<td class="tr f_gray">未认证</td>
+</tr>
+<tr>
+<td class="tl">认证说明</td>
+<td class="tr f_red">银行帐号在申请提现后，由网站进行认证</td>
+</tr>
+{/if}
+</table>
+{/if}
+{template 'footer',$module}

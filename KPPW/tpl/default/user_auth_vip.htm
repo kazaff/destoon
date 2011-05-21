@@ -1,0 +1,93 @@
+<!--{eval $page_title='VIP认证 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+				<dl><dt>账户信息</dt>
+				<dd>
+					<form action="index.php?do=user&view=auth_vip" id="vip_from" method="post">
+					<h3 style="margin:20px;">账户余额:<span class="red">  $user_info['balance'] </span>元{if $user_info[credit]&&$basic_config[credit_is_allow]==1},代金券<span class="red">$user_info[credit]</span>元{/if}。</h3>
+					
+					<ul style="margin-left: 20px;">
+					{loop $vip_rule_arr $i $r}
+					<h3><input name="rdo_vip_rule" {if $i}checked="checked"{/if} type="radio" value="$r[vip_rule_id]"> 充值 $r[vip_day] 天需要 $r[vip_cash] 元 </h3>
+					{/loop}
+					</ul>
+					<INPUT style="margin-left: 35px;margin-top: 10px;" class="rele_btn" type="submit" onclick="return buyit()" value="立即购买">
+					<input type="hidden" value="1" name="is_submit">
+					</form>
+					
+					<script type="text/javascript">
+					function buyit()
+					{
+						var t = $('input[name="rdo_vip_rule"]:checked').val();
+						var cost = 0;
+						{loop $vip_rule_arr $i $r}
+						if(t==$i){
+							cost = $r[vip_cash]
+						}
+						{/loop}
+						var ubalance = $user_info[balance];
+						{if $basic_config[credit_is_allow]==1}
+						var ucredit = $user_info[credit];
+						if(ucredit>=cost)
+						{
+							showDialog('将从您的代金券中扣除'+cost+'元，确认？', 'confirm', '确认付款','paycallback()',0);
+						}
+						else{/if} if(ucredit+ubalance>=cost)
+						{
+							showDialog('将从您的现金中扣除'+(cost-ucredit)+'元{if $basic_config[credit_is_allow]==1&&$user_info[credit]}，代金券中扣除'+ucredit+'点{/if}，确认？', 'confirm', '确认付款','paycallback()',0);
+						}
+						else{
+							showDialog('您的余额不足，您还需要在线支付'+(cost-ucredit-ubalance)+'元，是否在线支付？', 'confirm', '确认付款','paycallback()',0);
+						}
+						return false;
+					}
+
+					function paycallback()
+					{
+						$('#vip_from').submit();
+					}
+					</script>
+                    <style>
+                    	.tab_line td,.tab_line th{border-color:#bdd7ef;}
+                    	.tab_line th{background:#edf4f9;}
+                    </style>
+					<br><br>
+					<h4>购买记录</h4>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c">
+					  <tr>
+						<th>购买时间</th>
+                        <th>到期时间延长至</th>
+                        <th>购买天数</th>
+                        <th>扣除现金</th>
+                        {if $basic_config[credit_is_allow]==1}<th>扣除代金券</th>{/if}
+					  </tr>
+					  {loop $vip_history_arr $value}
+                      <tr>
+						<td><!--{date('Y-m-d H:i:s',$value[start_time])}--></td>
+					    <td><!--{date('Y-m-d H:i:s',$value[end_time])}--></td>
+                        <td>$value[day]</td>
+                        <td>{if $value[cash_cost]}$value[cash_cost]{else}0.00{/if}</td>
+                        {if $basic_config[credit_is_allow]==1}<td>$value[credit_cost]</td>{/if}
+					  </tr>
+					  {/loop}
+					</table>
+                    
+                   	</div>
+                  
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+    
+    
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

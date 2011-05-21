@@ -1,0 +1,26 @@
+<?php
+  class Keke_witkey_shop_tpl_pconfig_class{
+        var $_db;
+        var $_tablename;
+	    var $_dbop;
+	    	 var $_pconfig_id; //主键		 var $_ad_text;		 var $_banner_img;		 var $_banner_id;		 var $_background;		 var $_font_color;		 var $_uid;		 var $_shop_id;		 var $_on_time;
+	    var $_replace=0; //insert into or replace into ?
+	    var $_where;     //查，改，删条件
+	     function  keke_witkey_shop_tpl_pconfig_class(){ //构造方法			 $this->_db = new db_factory ( );			 $this->_dbop = $this->_db->create(DBTYPE);			 $this->_tablename = TABLEPRE."witkey_shop_tpl_pconfig";		 }
+	    		function getPconfig_id(){			 return $this->_pconfig_id ;		}		function getAd_text(){			 return $this->_ad_text ;		}		function getBanner_img(){			 return $this->_banner_img ;		}		function getBanner_id(){			 return $this->_banner_id ;		}		function getBackground(){			 return $this->_background ;		}		function getFont_color(){			 return $this->_font_color ;		}		function getUid(){			 return $this->_uid ;		}		function getShop_id(){			 return $this->_shop_id ;		}		function getOn_time(){			 return $this->_on_time ;		}		function getWhere(){			 return $this->_where ;		}
+	    		function setPconfig_id($value){			 $this->_pconfig_id = $value;		}		function setAd_text($value){			 $this->_ad_text = $value;		}		function setBanner_img($value){			 $this->_banner_img = $value;		}		function setBanner_id($value){			 $this->_banner_id = $value;		}		function setBackground($value){			 $this->_background = $value;		}		function setFont_color($value){			 $this->_font_color = $value;		}		function setUid($value){			 $this->_uid = $value;		}		function setShop_id($value){			 $this->_shop_id = $value;		}		function setOn_time($value){			 $this->_on_time = $value;		}		function setWhere($value){			 $this->_where = $value;		}
+    	   public  function __set($property_name, $value) {
+		 		$this->$property_name = $value;
+			}
+			public function __get($property_name) {
+				if (isset ( $this->$property_name )) {
+					return $this->$property_name;
+				} else {
+					return null;
+				}
+			}
+	    /**		 * 表keke_witkey_shop_tpl_pconfig创建或新增一条记录		 * @return 返回新增ID		 */		function create_keke_witkey_shop_tpl_pconfig(){		 		 $data =  array();					if(!is_null($this->_pconfig_id)){				 $data['pconfig_id']=$this->_pconfig_id;			}			if(!is_null($this->_ad_text)){				 $data['ad_text']=$this->_ad_text;			}			if(!is_null($this->_banner_img)){				 $data['banner_img']=$this->_banner_img;			}			if(!is_null($this->_banner_id)){				 $data['banner_id']=$this->_banner_id;			}			if(!is_null($this->_background)){				 $data['background']=$this->_background;			}			if(!is_null($this->_font_color)){				 $data['font_color']=$this->_font_color;			}			if(!is_null($this->_uid)){				 $data['uid']=$this->_uid;			}			if(!is_null($this->_shop_id)){				 $data['shop_id']=$this->_shop_id;			}			if(!is_null($this->_on_time)){				 $data['on_time']=$this->_on_time;			}			 return $this->_pconfig_id = $this->_db->inserttable($this->_tablename,$data,1,$this->_replace);		 }
+	    /**		 * 编辑表keke_witkey_shop_tpl_pconfig的一个条记录		 * @return 返回影响的行数		 */		function edit_keke_witkey_shop_tpl_pconfig(){		 		 $data =  array();					if(!is_null($this->_pconfig_id)){				 $data['pconfig_id']=$this->_pconfig_id;			}			if(!is_null($this->_ad_text)){				 $data['ad_text']=$this->_ad_text;			}			if(!is_null($this->_banner_img)){				 $data['banner_img']=$this->_banner_img;			}			if(!is_null($this->_banner_id)){				 $data['banner_id']=$this->_banner_id;			}			if(!is_null($this->_background)){				 $data['background']=$this->_background;			}			if(!is_null($this->_font_color)){				 $data['font_color']=$this->_font_color;			}			if(!is_null($this->_uid)){				 $data['uid']=$this->_uid;			}			if(!is_null($this->_shop_id)){				 $data['shop_id']=$this->_shop_id;			}			if(!is_null($this->_on_time)){				 $data['on_time']=$this->_on_time;			}			if($this->_where){				 return $this->_db->updatetable($this->_tablename,$data,$this->getWhere());			 }			 else{				 $where = array('pconfig_id' => $this->_pconfig_id);				 return $this->_db->updatetable($this->_tablename,$data,$where);			}		 }
+	    /**		 * 查询表keke_witkey_shop_tpl_pconfig,当有条件时返回有条件的ROW，否则返所有记录		 * @return 返回一个(array)关联数组		 */		function query_keke_witkey_shop_tpl_pconfig(){			 if($this->_where){				 $sql = "select * from $this->_tablename where ".$this->_where;			 }			 else{				 $sql = "select * from $this->_tablename";			 }			 $this->_where = "";			 return $this->_dbop->query($sql);		 }		function count_keke_witkey_shop_tpl_pconfig(){			 if($this->_where){				 $sql = "select count(*) as count from $this->_tablename where ".$this->_where;			 }			 else{				 $sql = "select count(*) as count from $this->_tablename";			 }			 $this->_where = "";			 return $this->_dbop->getCount($sql);		 }		function del_keke_witkey_shop_tpl_pconfig(){			 if($this->_where){				 $sql = "delete from $this->_tablename where ".$this->_where;			 }			 else{				 $sql = "delete from $this->_tablename where pconfig_id = $this->_pconfig_id ";			 }			 $this->_where = "";			 return $this->_dbop->execute($sql);		 }
+   }
+ ?>

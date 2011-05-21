@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head> 
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script src="tpl/js/css.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	function del(id){
+		var id = id;
+		if(confirm('确定要删除？')==true){
+			document.location.href='index.php?do=article&ac=del&art_id='+id+'&type={$type}';
+		}
+	}
+</script>
+<body>
+<form method="get" action="index.php" id="frm_art_search">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="type" value="{$type}">
+<div class="main">
+	<div class="v_search">
+		条数：
+		<select name="slt_page_size">
+			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>每页显示10</option>
+			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>每页显示20</option>
+			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>每页显示30</option>
+		</select>
+      　分类：<select name="slt_cat_id">
+			{loop $cat_arr_list $v}
+				$v
+			{/loop}
+		</select>　
+	显示:
+		<select name="slt_is_show" style="width:80px;">
+			<option value=""> 所有 </option>
+      		<option value="1" {if $slt_is_show=='1'}selected="selected"{/if}> 正常状态 </option>
+			<option value="2" {if $slt_is_show=='2'}selected="selected"{/if}> 回收站 </option>
+		</select>
+	
+		编号：
+		<input type="text" class="input_t" size="8" name="txt_id" value="{$txt_id}" onkeyup="clearstr(this);">　标题：<input type="text" size="10" class="input_t" name='txt_title' value="{$txt_title}">　作者：<input type="text" class="input_t" size="10" name="txt_author" value="{$txt_author}" onkeyup="clearspecial(this);">
+		<input type="submit" name="sbt_search" value="查询" class="input_but"/>
+    </div>
+  <div id="change">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="8%" align="left">ID( <a href="index.php?do=article&ord=1"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=article&ord=2"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="10%">分类</th>
+            <th width="27%">标题</th>
+			<th width="10%">状态</th>
+			<th width="10%">发布者</th>
+            <th width="17%">发布时间( <a href="index.php?do=article&ord=3"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=article&ord=4"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="6%">查看</th>
+			<th width="6%">编辑</th>
+			<th width="6%">删除</th>
+          </tr>
+		{loop $art_arr $key $value}
+        <tr>
+            <td align="left"><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$value[art_id]}"> {$value[art_id]}</td>
+            <td>{$cat_arr[$value[art_cat_id]][cat_name]}</td>
+            <td class="motif"><a href="index.php?do=edit_article&art_id={$value[art_id]}&type=$type" >
+			<!--{eval echo(Func_comm_class::cutstr($value[art_title],50));}-->
+			{if $value[is_recommend]==1}<font color="red">[荐]</font>{/if}
+			{if $value[art_pic]}<font color="red">[图]</font>{/if}
+			{if $value[is_delineas]==1}<font color="red">[幻]</font>{/if}
+			
+			</a></td>
+            <td>{if $value[is_show]==1}<font color="red">正常显示</font>{else}回收站{/if}</td>
+			<td>{$value[username]}</td>
+            <td><!--{date('Y-m-d H:i:s',$value['pub_time'])}--></td>
+            <td><a href="{if type==single}../../index.php?do=footer&art_id={$value[art_id]}{else}../../index.php?do=news_info&art_id={$value[art_id]}{/if}" target="_blank"><img src="tpl/img/ico/search.png" align="absmiddle"/> 查看</a> </td>
+			<td><a href="index.php?do=edit_article&art_id={$value[art_id]}&type={$type}" ><img src="tpl/img/ico/edit.png" align="absmiddle"/> 编辑</a> </td>
+			<td><a href="#" onclick="del({$value[art_id]});"><img src="tpl/img/ico/delete.gif" align="absmiddle"/> 删除</a></td>
+          </tr>
+		 {/loop}
+          <tr>
+            <th colspan="5" align="left"><label for="checkbox"><input type="checkbox" id="checkbox" onclick="checkall();">  
+			全选
+			<input type="submit" name="sbt_action" value="放入回收站" class="input_but" />
+			<input type="submit" name="sbt_action" value="恢复文章" class="input_but" />
+			<input type="submit" name="sbt_action" value="批量删除" class="input_but" />
+			
+			&nbsp;&nbsp;&nbsp;<input type="button" name="sbt_add" value="添加文章" class="input_but"  onclick="document.location.href='index.php?do=edit_article&type={$type}'"/>
+			</th>
+			<th colspan="6">
+				<div class="page">
+					{$pages[page]}
+				</div>
+			</th>
+          </tr>
+        </table>
+	</div>
+
+    </div>
+</form>
+
+</body>
+</html>

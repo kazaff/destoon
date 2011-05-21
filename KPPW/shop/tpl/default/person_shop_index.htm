@@ -1,0 +1,74 @@
+<!--{eval $page_title='店铺首页 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/person_shop_header}-->
+
+<div class="content">
+    <div class="width_layer">
+    	<div class="left_bar">
+            <!--{template shop/tpl/default/person_left}-->
+        </div>
+        <div class="right_bar">
+        	
+          <div class="boxWrap">
+			<div class="boxHeader">
+            <span class="fr" id="pubService"><a href="shop.php?do=shop&view=service&shop_id=$shop_id">更多报价&gt;&gt;</a></span>
+				<h2>服务与商品</h2>
+				
+			</div>
+			<div class="boxBody">
+				<ul class="serviceList">
+                     {loop $service_arr $k $v}
+					 <li>
+                        <div class="pic2">
+                            <a href="shop.php?do=service_info&sid=$v['service_id']" target="_blank"><img  onerror="this.src='shop/tpl/default/img/def_service.jpg'" src="$v['pic']"></a> 
+					   </div>
+                            <span class="caption">
+                            <a href="shop.php?do=service_info&sid=$v['service_id']" target="_blank">{$v['title']}</a></span>
+                            <strong class="price">{$v[price]}元/{$v['unite_price']}</strong>
+                     </li>
+  					{/loop}
+ 
+                    </ul>
+                </div>
+            </div>
+        
+        	<div class="boxWrap">
+			<div class="boxHeader">
+            	<span id="pubCase" class="fr"><a href='shop.php?do=shop&view=case&shop_id=$shop_id'>更多案例>></a></span>
+				<h2>客户案例</h2>
+				
+			</div>
+			<div class="boxBody">
+
+				
+				<div class="caseList">
+				{loop $case_arr $k $v}	
+                <ul>
+                  <li class='title'>
+                  $v['case_name']<img src='shop/tpl/default/img/edit_icon.gif'/></li>
+                    <li class='info dashed'>
+                        <span class='time'>执行时间：<!--{eval echo date('Y年-m月',$v['express'])}--></span>
+                        <span class='edit'>发布于(<!--{eval echo date('Y-m-d H:i:s',$v['on_date'])}-->)</span>
+                  </li>
+                    <li class='intro'>
+                       <img src="$v['pic']" onerror="this.src='shop/tpl/default/img/index_case.jpg'" width="556" >
+                    </li>
+                  <li>
+                    <a target='_blank' href='shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$v[case_id]'>点击查看全部>></a>
+                  </li>
+                </ul>
+				{/loop}
+                </div>
+			</div>
+
+		</div>
+
+        
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!--{template shop/tpl/default/person_footer}-->
+
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>工作室详细</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+
+<body>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">工作室详细</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do={$do}&view={$view}" method="post">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+						<td class="t_r">工作室名称：</td>
+					    <td>{$studio_info[title]}</td>
+					  </tr>
+                      <tr>
+						<td class="t_r">邀请成员：</td>
+					    <td>{$studio_info[members]}</td>
+					  </tr>
+					   <tr>
+						<td class="t_r">所在地区：</td>
+					    <td>
+					    	{$studio_info[area]}
+						</td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">详细地址：</td>
+				        <td>
+				        {$studio_info[address]}
+				        </td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">邮政编码：</td>
+				        <td>
+				        {$studio_info[postcode]}
+				        </td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">固定电话：</td>
+					    <td>{$studio_info[phone]}</td>
+				      </tr>
+					   <tr>
+					    <td class="t_r">E-mail：</td>
+				        <td>
+				        {$studio_info[email]}
+				        </td>
+					  </tr>
+					  <tr>
+					    <td class="t_r">传真号码：</td>
+					    <td>{$studio_info[fax]}</td>
+				      </tr>
+					   <tr>
+					    <td class="t_r">工作室介绍：</td>
+				        <td>{$studio_info[aboutus]}</td>
+					  </tr>
+					  <tr>
+						<td width="150" class="t_r">工作室Logo：</td>
+					    <td>
+					    <img src="../../{$studio_info[logo]}" width="120px;"  height="120px;">
+					    </td>
+					  </tr>
+					   <tr>
+						<td width="150" class="t_r">自定义banner：</td>
+					    <td>
+					   	<img src="../../{$studio_info[banner_pic]}" width="500px;" height="120px;">
+					    </td>
+					  </tr>
+	  <tr>
+	  	<td width="30%"></td>
+	  	<td>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" name="sbt_edit" class="input_but" value="通过审核" onclick="window.location.href='index.php?do={$do}&view=list&ac=pass&studio_id={$studio_info[studio_id]}'"/>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" name="sbt_edit" class="input_but" value="返回上一步" onclick="javascript:history.go(-1);" >
+		<!--<input type="button" name="sbt_edit" class="input_but" value="认证失败" onclick="window.location.href='index.php?do={$do}&view={$view}&ac=not_pass&bank_a_id={$bank_info['bank_a_id']}'"/>--></td>
+	  </tr>
+    </table>
+ </form>
+ 	<br/>
+    </div>
+</body>
+</html>

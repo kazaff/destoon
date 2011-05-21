@@ -1,0 +1,40 @@
+{template 'header', 'wap'}
+<a href="index.php?moduleid={$moduleid}"><strong>招聘信息</strong></a> <a href="index.php?moduleid={$moduleid}&resume=1">求职简历</a><br/>
+{if $itemid}
+	<strong>{$title}</strong><br/>
+	{if $page==1}
+	日期:<small>{$editdate}</small><br/>
+	{if !$username}<span style="color:red;">非会员信息</span><br/>{/if}
+	{if $vip}{VIP}:{$vip}级<br/>{/if}
+	行业:{$CATEGORY[$parentid][catname]}<br/>
+	职位:{$CATEGORY[$catid][catname]}<br/>
+	部门:{$department}<br/>
+	人数:{if $total}{$total}人{else}若干{/if}<br/>
+	地区:{area_pos($areaid, '')}<br/>
+	性质:{$TYPE[$type]}<br/>
+	性别:{$GENDER[$gender]}<br/>
+	婚姻:{$MARRIAGE[$marriage]}<br/>
+	学历:{$EDUCATION[$education]}<br/>
+	经验:{if $experience}{$experience}年以上{else}不限{/if}<br/>
+	年龄:{if $minage && $maxage}{$minage}-{$maxage}岁{elseif $minage}{$minage}岁以上{elseif $maxage}{$maxage}岁以内{else}不限年龄{/if}<br/>
+	待遇:{if $minsalary && $maxsalary}{$minsalary}-{$maxsalary}{$DT[money_unit]}/月{elseif $minsalary}{$minsalary}{$DT[money_unit]}/月以上{elseif $maxsalary}{$maxsalary}{$DT[money_unit]}/月以内{else}面议{/if}<br/>
+	<strong>联系方式</strong><br/>
+	{template 'contact', 'wap'}
+	<strong>详细介绍</strong><br/>
+	{/if}
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a> <a href="index.php?moduleid={$moduleid}&amp;areaid={$v[areaid]}">({$v[area]})</a>{if $v[vip]} {VIP}{$v[vip]}{/if} <small>{$v[editdate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">招聘</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/> 
+{template 'footer', 'wap'}

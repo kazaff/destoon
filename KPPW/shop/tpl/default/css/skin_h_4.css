@@ -1,0 +1,157 @@
+
+body {
+	text-align: left;
+	background:#FFFAEA;
+}
+a {
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+input,textarea{
+	border:1px solid #ccc;
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:20px;
+}
+.header {
+	color:#000;
+	background:#8F0763 url(../img/skin_1_4/top_nav_bg.gif) repeat-x left bottom;
+}
+.logo h2 {
+	color:#000;
+}
+.topMenu a {
+	color:#000;
+}
+.topMenu a:hover {
+	color:#eee;
+}
+.menuWrapper {
+	background:#7E680E;
+}
+.menu a {
+	color:#fff;
+}
+.menu a:hover, .menu a.on {
+	background:#7E680E url(../img/skin_1_4/menu_a.gif) no-repeat left 0;
+	color:#fff;
+}
+.menu a span{} 
+.menu a:hover span,.menu a.on span {
+	background:url(../img/skin_1_4/menu_a.gif) no-repeat right 0
+}
+.footer {
+	color:#fff;
+	background:#7E680E;
+}
+.footer .copyRight {
+}
+.footer .linkFwbao {
+}
+.homeContainer{
+	background:#67550D;
+}
+.homeContainer .section {
+	border:1px solid #E6AC00;
+	color:#333;
+	background:#F9F0CD;
+}
+.homeContainer .section a {
+	color:#c90;
+}
+.homeContainer .section a:hover {
+
+}
+.homeContainer .titleNav, .pageName {
+	border-bottom:1px solid #E6AC00;
+	background:#c90 url(../img/skin_1_4/title_icon.gif) no-repeat 5px;
+	color:#000;
+	display:block;
+}
+.homeContainer .titleNav a.more {
+	color:#000;
+}
+.corner {
+	
+}
+.subContainer {
+	border:1px solid #E6AC00;
+}
+.pagePositon {
+	background:#eee;
+}
+a.putNew {
+	background:#c90;
+	color:#fff;
+}
+a.putNew:hover {
+	color:#000;
+	background:#fc0;
+	text-decoration:none
+}
+.pageName {
+	
+}
+.lineBg {
+	border-bottom:1px dashed #c90;
+}
+.lineBg2 {
+	border-bottom:2px solid #c90;
+}
+.pageLeft a {
+	color:#c90;
+	display:block;
+	padding:2px 5px;
+}
+.pageLeft a:hover {
+	background:#333;
+	text-decoration:none;
+	color:#000;
+}
+.pageRight {
+	border-left:1px solid #E6AC00;
+}
+.rightContent {
+	color:#666;
+}
+.rightContent a {
+	color:#c90;
+}
+.rightContent a:hover {
+
+}
+.teamMembers li.pic img {
+	border:1px solid #eee;
+}
+.teamMembers li.pic a:hover img{
+	border:1px solid #c90;
+}
+.teamMembers li.info {
+	color:#333;
+}
+.serviceList li.title, .serviceList li .price {
+	color:#000;
+}
+.serviceList li .price a {
+	font-size:13px;
+	color:#c90;
+	text-decoration:underline;
+}
+.commentBox .title {
+	color:#000;
+}
+.pages a {
+	color:#000;
+	background:#c90;
+	
+}
+.pages a:hover {
+	background:#fc0;
+	color:#000;
+}
+.pages a.on {
+	background:#fc0;
+	font-weight:bold;
+	color:#000;
+}

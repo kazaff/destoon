@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset={$CFG[charset]}"/>
+<title>{$head_title}{$DT[seo_delimiter]}{$DT[sitename]}</title>
+<link rel="stylesheet" type="text/css" href="{DT_PATH}admin/image/style.css"/>
+<link rel="shortcut icon" href="{DT_PATH}favicon.ico"/>
+<link rel="bookmark" href="{DT_PATH}favicon.ico"/>
+<meta name="robots" content="noindex,nofollow"/>
+{if !DT_DEBUG}<script type="text/javascript">window.onerror= function(){return true;}</script>{/if}
+<script type="text/javascript" src="{DT_PATH}lang/{DT_LANG}/lang.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/config.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/common.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/admin.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/member.js"></script>
+</head>
+<body>
+{if $action == 'item'}
+<form action="?">
+<div class="tt">{$MODULE[$mid][name]}搜索</div>
+<input type="hidden" name="action" value="{$action}"/>
+<input type="hidden" name="from" value="{$from}"/>
+<input type="hidden" name="mid" value="{$mid}"/>
+<table cellpadding="2" cellspacing="1" class="tb">
+<tr>
+<td>
+<input type="text" size="60" name="kw" id="kw" value="{$kw}" title="关键词"/>&nbsp;
+<input type="submit" value="搜 索" class="btn"/>&nbsp;
+<input type="button" value="重 置" class="btn" onclick="window.location='?action={$action}&mid={$mid}&from={$from}';"/>
+</td>
+</tr>
+</table>
+</form>
+<div class="tt">{$MODULE[$mid][name]}列表</div>
+<table cellpadding="2" cellspacing="1" class="tb">
+<tr>
+<th>ID</th>
+<th width="14"> </th>
+{if $mid == 4}
+<th>公 司</th>
+{else}
+<th>标 题</th>
+<th width="120">添加时间</th>
+<th>浏览</th>
+{/if}
+<th width="60">选择</th>
+</tr>
+{loop $lists $k $v}
+<tr onmouseover="this.className='on';" onmouseout="this.className='';" align="center">
+<td>{$v[itemid]}</td>
+<td>{if $v[level]}<img src="{DT_PATH}admin/image/level_{$v[level]}.gif" title="{$v[level]}级" alt=""/>{/if}</td>
+<td align="left"><a href="{$v[linkurl]}" target="_blank">{$v[title]}</a>{if $v[thumb]} <a href="javascript:_preview('{$v[thumb]}');"><img src="{DT_PATH}admin/image/img.gif" width="10" height="10" title="标题图,点击预览" alt=""/></a>{/if}</td>
+{if $mid > 4}
+<td class="px11">{$v[adddate]}</td>
+<td class="px11">{$v[hits]}</td>
+{/if}
+<td>
+<div class="dsn">
+<div id="introduce_{$v[itemid]}">{$v[introduce]}</div>
+</div>
+<a href="javascript:S('{$v[itemid]}','{$v[alt]}','{$v[linkurl]}','{$v[thumb]}','{$v[level]}','{$v[style]}');" class="t">[选择]</a>
+</td>
+</tr>
+{/loop}
+</table>
+<div class="pages">{$pages}</div>
+<script type="text/javascript">
+function S(itemid, title, linkurl, thumb, introduce, level, style) {
+	try {
+		{if $from == 'special'}
+		parent.$('title').value=title;
+		parent.$('linkurl').value=linkurl;
+		parent.$('thumb').value=thumb;
+		parent.$('introduce').value=$('introduce_'+itemid).innerHTML;
+		parent.select_op('level', level);		
+		parent.color_select(style);
+		{else}
+		parent.$('key_id').value=itemid;
+		{/if}
+	} catch(e) {}
+	try {parent.cDialog();} catch(e) {}
+}
+$('kw').focus();
+var new_top = Number(parent.$('Dtop').style.top.replace('px', ''));
+if(new_top > 100) new_top -= 50;
+try{parent.$('Dtop').style.top=new_top+'px';}catch(e){}
+</script>
+<br/>
+{else}
+<form action="?">
+<div class="tt">{$MODULE[$mid][name]}搜索</div>
+<input type="hidden" name="mid" value="{$mid}"/>
+<input type="hidden" name="action" value="{$action}"/>
+<input type="hidden" name="from" value="{$from}"/>
+<input type="hidden" name="fid" value="{$fid}"/>
+<table cellpadding="2" cellspacing="1" class="tb">
+<tr>
+<td>
+<input type="text" size="60" name="kw" id="kw" value="{$kw}" title="关键词"/>&nbsp;
+<input type="submit" value="搜 索" class="btn"/>&nbsp;
+<input type="button" value="返 回" class="btn" onclick="window.location='?from={$from}&fid={$fid}';"/>&nbsp;
+<input type="button" value="关 闭" class="btn" onclick="window.close();"/>
+</td>
+</tr>
+</table>
+</form>
+<style>
+.photo {width:120px;float:left;text-align:center;padding:10px;}
+.photo_img {padding:3px;border:#CCCCCC 1px solid;margin:0 0 5px 0;background:#FFFFFF;cursor:pointer;}
+</style>
+{if $itemid}
+<script type="text/javascript">
+function S(t, m, l) {
+	try {
+	{if $from == 'album'}
+	window.opener.getAlbum(t, '{$fid}');
+	{else}
+	window.opener.SetUrl(l);window.opener.GetE("frmUpload").reset();
+	{/if}
+	} catch(e) {}
+	window.close();
+}
+</script>
+<div class="tt">{$item[title]}</div>
+<div>
+{loop $lists $k $v}
+<div class="photo" title="{$v[introduce]}">
+<img src="{$v[thumb]}" width="100" title="点击选择" onclick="S('{$v[thumb]}','{$v[middle]}','{$v[large]}');" class="photo_img"/>
+<a href="{$v[large]}" target="_blank" class="t"><img src="{SKIN_PATH}image/zoomin.gif"/></a>&nbsp;&nbsp;
+<a href="{$v[middle]}" target="_blank" class="t"><img src="{SKIN_PATH}image/zoomout.gif"/></a>
+</div>
+{/loop}
+<div class="c_b"></div>
+</div>
+{else}
+<div class="tt">{$MODULE[$mid][name]}列表</div>
+<div>
+{loop $lists $k $v}
+<div class="photo">
+<a href="?itemid={$v[itemid]}&from={$from}&fid={$fid}"><img src="{$v[thumb]}" width="120" title="{$v[title]}"/></a>
+<span class="f_gray">{$v[items]} 张图片</span>
+</a>
+</div>
+{/loop}
+</div>
+{/if}
+<div class="pages">{$pages}</div>
+{/if}
+</body>
+</html>

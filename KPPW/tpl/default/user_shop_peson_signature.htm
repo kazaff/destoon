@@ -1,0 +1,85 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<!-- 
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span ><a href="index.php?do={$do}&view=case_add" >主题选择</a></span>
+				<span><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+				<span  class="now"><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+				<span><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>  
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					   
+					   <tr>
+					  	<td colspan="1">店铺个性签名：</td>
+						<td colspan="3">
+							<input type="text" name="tar_content" value="{$shop_person_config[ad_text]}" />
+							
+						</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="4" align="center">
+					  		<input type="submit" name="sbt_edit" value="立即编辑" class="input_btn3"></td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			  -->
+			  <dl>
+			  	<div class="msg_box">
+				   	<dt>
+						<div class="x_tit_1">
+							<div>
+								<span><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+								<span  class="now"><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+								<span><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>
+							</div>
+						</div>
+					</dt>
+					<dd>
+						<form method="post" enctype="multipart/form-data">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+							<tr>
+								<th colspan="4" style="background-color:#fff;">&nbsp;</th>
+							</tr>
+							<tr>
+							  	<td colspan="1">店铺个性签名：</td>
+								<td colspan="3">
+									<input type="text" name="tar_content" value="{$shop_person_config[ad_text]}" />
+									
+								</td>
+						 	</tr>
+							<tr height="30">
+							  	<td colspan="4" align="center">
+							  	<input type="submit" name="sbt_edit" value="立即编辑" ></td>
+							</tr>
+						</table>
+					</form>
+					</dd>
+				</div>
+			  </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+
+</script>
+<!--{template footer}-->

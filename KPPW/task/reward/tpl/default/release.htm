@@ -1,0 +1,557 @@
+<!--{eval $page_title = '发布任务 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<div id="content">
+    <form action="index.php?do=release&model_id=$model_id" id="frm_xs_release" method="post" enctype="*">
+    	<input type="hidden" name="hdn_maxday" id="hdn_maxday">
+		<input type="hidden" name="hdn_paystatus" id="hdn_paystatus">
+		<input type="hidden" name="hdn_mulit" id="hdn_mulit">
+		<input type="hidden" name="formhash" id="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+    <div class="task_info_bg"><div class="task_info release">
+   	  	<div class="release_l">
+        <p class="p_tit">
+        <strong>任务金额：</strong>
+		<input type="text" name="txt_task_cash" id="txt_task_cash" class="input_txt2" size="10" 
+		limit="type:float;required:true;between:{$xs_config[task_min_cash]}"
+		msg="任务最小金额不能低于{$xs_config[task_min_cash]}"
+		msgArea="task_cash_msg"
+		maxlength="6"> 元
+		<span id="task_cash_msg" class="c999"> (你想悬赏多少钱呢？任务悬赏金额最小为{$xs_config[task_min_cash]}元)</span>
+		<br>
+		  <span class="c999" style="padding-left:70px;"> {$xs_config[audit_cash]}元及以上的任务无须审核，直接发布成功！</span>
+		</p>
+		
+        <p class="p_tit"><strong>任务周期：</strong>
+		<input type="text" name="txt_task_day" id="txt_task_day" class="input_txt2" size="10" 
+		msgArea="task_day_msg"
+		msg="任务周期不能为空!"
+		onkeyup="clearstr(this);"
+		limit="type:int;required:true"
+		maxlength="3"
+		
+		> 天
+		<span id="task_day_msg" class="c999"> (你希望多长时间完成这个任务呢？)</span>
+		<a href="javascript:;" onclick="showDialog('{$day_rul_str}', 'notice', '任务时间规则','',0);return false">[?]</a></p>
+        <p class="p_tit"><strong>任务分类：</strong>
+		
+		<select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);">
+			<option value="-1"> 请选择父行业 </option>
+			{loop $indus_p_arr $key $value}
+				<option value="{$value[indus_id]}">{$value[indus_name]}</option>
+			{/loop}
+		</select> 
+		<select name="slt_indus_id" id="slt_indus_id" onchange="indus_valid()">
+				<option value="-1">请选择子行业 </option>
+		</select>
+		<span id="indus_id_msg" class="c999"> (你的任务需要哪一类人才来完成呢)</span>
+		</p>
+		<p class="p_tit"><strong>所在地区：</strong>
+		<script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','');
+							showcity('slt_city', '', 'slt_province', '');
+							//-->
+		</script>
+		<span id="address_msg" class="c999"> (如果您不需要限定威客所在城市，请留空。)</span>
+		</p>
+        <p class="p_tit"><strong>任务标题：</strong></span>
+		<input type="text" name="txt_task_title" id="txt_task_title" 
+		limit="len:5-50;required:true"
+		msgArea= "task_title_msg"
+		msg="任务标题的长度为5-50,不能为空！"
+		class="input_txt2" size="88" maxlength="50"><br>
+		<span id="task_title_msg" class="c999" style="padding-left:70px;"> (你想做什么？)</span></p>
+        <p class="p_tit"><strong>任务内容</strong><span id="tar_content_msg" class="c999"> (你有哪些要求？)</span> <span class="c999">您的要求越清楚， 威客会员就更能领会您的意图，做得更好。</span></p>
+        <p>
+        	<textarea  rows="16" name="tar_content" id="tar_content"  style="width:100%;height:200px;"></textarea>
+		</p>
+        <p>任务要求太多，我写在附件里了<a href="javascript:;" onclick="$('#p_upload').show();"class="c030">点击添加附件</a><span class="c999">（允许上传附件格式：rar,zip,doc）</span></p>
+        <p>(附件容量最大不超过{$upload_size},否则，请<a href="http://www.3adisk.com/" target="_blank" class="c030">使用网盘上传</a>后粘贴链接到任务要求即可。)</p>
+        
+		
+		
+		<p id="p_upload" style="display:none;">
+		<span id="div_att_file"></span><br>
+		<input type="hidden" name="hdn_att_file" id="hdn_att_file">
+		1、<input type="file" name="file_name" ext=".rar,.zip,.doc,.xls,.jpg,.pdf" onchange="isExtName(this,1)" id="file_name"> 
+		<input type="button" id="btn_up" class="input_but" value="上传">
+		<a href="javascript:;" onclick="$('#p_upload').hide()" class="c030">取消</a>
+		
+		</p>
+        
+		<p class="p_tit">
+        <fieldset><legend><span class="font14">高级选项</span><span class="c999">(可根据您的需要进行选择)</span></legend>
+		<strong>中标模式：</strong>
+		<select name="slt_task_mode" id="slt_task_mode">
+			<option value="1">单人中标</option>
+			<option value="2">多人中标</option>
+			<option value="3">计件中标</option>
+		</select>
+	</span><br/>
+	<div id="mulit_mode" style="display:none;">
+        你的赏金怎样进行分配，也影响到稿件质量 <a href="javascript:;" id="add_jx" class="c030">增加奖项</a><span>&nbsp;&nbsp;&nbsp;(最多只能设定三个奖项)</span><br/>
+		<ul id="jx_rule" style="list-style:none">
+			<li> <span id="span_1">1</span> 等奖 <input type="text" name="txt_pople_1" limit="required:true;len:1-3;type:int" msg="人数不能为空，长度1-3" msgArea="txt_pople_msg_1" onkeyup="clearstr(this);" class="input_txt2" size="10"> 人，平分赏金的 <input type="text" name="txt_avg_money_1" limit="required:true;len:1-5;type:int" msg="赏金不正确，长度为1-5" msgArea="txt_avg_money_msg_1" onkeyup="clearstr(this);" class="input_txt2" size="10"> 元 <span id="txt_pople_msg_1" style="color:red"> </span><span id="txt_avg_money_msg_1" style="color:red"> </span> </li>
+		</ul>
+        
+        <a href="javascript:;" id="del_jx" class="c030">取消奖项</a><br/>
+   </div>     
+		
+		<br>
+		<p id="jj_mode" style="display:none;">
+		我想要 <input type="text" class="input_txt2" name="gj_num" id="gj_num" onkeyup="clearstr(this);" size="10"> 个稿件， 每个 <input type="text" id="gj_money" name="gj_money" class="input_txt2" size="10"> 元 
+        </p>
+		<br>
+		<!--{if $xs_config['is_open_prom']==1}-->
+		<p>
+			<label for="ckb_is_prom">
+			<input type="checkbox" id="ckb_is_prom" name="ckb_is_prom" value="1"/>
+		
+		<strong>我想让大家推广我的任务</strong></label>，支付的推广金额
+		<input type="text" name="txt_prom_cash" id="txt_prom_cash" class="input_txt2" maxlength="5"  onkeyup="clearstr(this);" size="5">
+		元</p>
+		<p>&nbsp;(任务悬赏推广可以帮您带来更多的承接者参与)</p>
+		<!--{/if}-->
+        </fieldset></p>
+        <br/>
+		
+        <p class="t_c">
+        	<input class="rele_btn" type="button" id="sbt_xs" name="sbt_xs" value="发布任务">
+		</p>
+        <br/>
+        </div><!--release_l_E-->
+        </form>
+        <div class="release_r"><img src="{SKIN_PATH}/img/process_img1.gif"/></div>
+        
+    </div></div> <!--task_info2_bg_E-->
+	</div>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<script src="resource/js/ajaxfileupload.js" type="text/javascript"></script>
+<script type="text/javascript" >
+$(function(){
+	$("#ajaxwaitid").ajaxStart(function(){
+		 $(this).html('请稍候...').show();
+	})
+	$("#ajaxwaitid").ajaxStop(function(){
+		$(this).hide();
+	})
+	
+})
+var tag = 0;
+//计件任务的金额判断
+
+function jj_task_valid()
+{
+	var num = parseInt($("#gj_num").val());
+	var money = parseFloat($("#gj_money").val());
+	var task_cash = parseFloat($("#txt_task_cash").val());
+	if(parseInt(num*money) != task_cash)
+	{
+		showDialog("稿件数*单价不等于任务的悬赏金额!",'alert','错误提示','',0);
+		return false;
+	}
+	else
+	{
+		tag = tag+1;
+		return true;
+	}
+}
+//多人任务金额判断
+function mulit_task_valid(){
+	var i = parseInt($("#jx_rule li:last-child span").html());
+	var money = 0;
+	var task_cash = parseFloat($("#txt_task_cash").val());
+	for(k=1;k<=i;k++){
+		if( !isNaN( parseFloat($("input[name='txt_avg_money_"+k+"']").val() ) ) ){
+	    	money += parseFloat($("input[name='txt_avg_money_"+k+"']").val());
+		}
+	}
+
+	if(isNaN(task_cash)){
+		showDialog("您没有输入任务悬赏额",'alert','错误提示','',0);
+		return;
+	}
+
+	if(task_cash != money)	{
+		showDialog("赏金总额"+money+"元不等于任务悬赏额"+task_cash+"元!",'alert','错误提示','',0);
+		return false;
+	}
+	else{
+		tag = tag+1;
+		return true;
+	}
+} 
+function content_valid(){
+	if($("#tar_content").val())
+	{
+		$("tar_content_msg").attr('class','c999');
+		$("#tar_content_msg").html("(你有哪些要求？)");
+		return true;
+	}else{
+		$("#tar_content_msg").css('color','red');
+		$("#tar_content_msg").html("任务需求不能为空！");
+		return false;
+	}
+	
+}
+function day_valid(){
+	var obj = document.getElementById("txt_task_day");
+	var msgArea = obj.getAttribute("msgArea");
+	var maxday = parseInt($("#hdn_maxday").val());
+	if(obj.value)
+	{
+		if(parseInt(maxday)>0)
+		{
+			if(obj.value > maxday)
+			 {
+				$("#" + msgArea).css("color", "red");
+				$("#" + msgArea).html($("#txt_task_cash").val()+"元悬赏任务的最大天数不能超过"+maxday+"天");
+				return false;
+			}
+			else
+			{
+			     $("#" + msgArea).css("color", "green");
+				 $("#" + msgArea).html("悬赏任务周期填写正确!");
+				 return true;
+	        }
+		}
+	}
+	else
+	{
+		return validElement(obj);
+	}
+}  	
+		
+var editor = $("#tar_content").xheditor({tools:'simple',internalScript:false,internalStyle:false,upLinkUrl:'index.php?do=ajax_upload&task_id=1&type=link',upImgUrl:"index.php?do=ajax_upload&task_id=1",upImgExt:"jpg,jpeg,gif,png"});
+$(function(){
+	
+	$("input[name='txt_prom_cash']").blur(function(){
+		if($(this).val()<=0)
+		{
+			$("#ckb_is_prom").attr("checked",'');
+		}
+		 
+	})
+	
+	$('#gj_num').change(function(){
+		
+		var task_cash = parseFloat($('#txt_task_cash').val());
+		var gj_num = parseInt($('#gj_num').val());
+		var s_price = task_cash/gj_num;
+		if(isFloat(s_price)){
+			$('#gj_money').val(s_price);
+		}
+	});
+	
+	$("#slt_task_mode").change(function(){
+		if($(this).val()==1){
+			$("#mulit_mode").hide();
+			$("#jj_mode").hide();
+		}
+		else if($(this).val() ==2){
+			$("#mulit_mode").show();
+			$("#jx_rule li").slice(1).remove();
+			
+			$("#hdn_mulit").val(1);
+			$("#jj_mode").hide();
+		}
+		else{
+			$("#mulit_mode").hide();
+			$("#jj_mode").show();
+		}
+		
+	})
+	
+	
+	$("#add_jx").click(function(){
+		var i = parseInt($("#jx_rule li:last-child span").html());
+		if(i<3)
+		{
+		var k = eval(i+1);
+		var rule_option = '<li> <span id="span_'+k+'">'+k+'</span> 等奖 <input type="text" name="txt_pople_'+k+'" limit="required:true;len:1-3;type:int" msg="人数不能为空，长度1-3" msgArea="txt_pople_msg_'+k+'" onkeyup="clearstr(this);" class="input_txt2" size="10"> 人，平分赏金的 <input type="text" name="txt_avg_money_'+k+'" limit="required:true;len:1-5;type:int" msg="赏金不正确，长度为1-5" msgArea="txt_avg_money_msg_'+k+'" class="input_txt2" size="10"> 元 <span id="txt_pople_msg_'+k+'" style="color:red"> </span><span id="txt_avg_money_msg_'+k+'" style="color:red"> </span> </li>';
+		$("#jx_rule").append(rule_option);
+		$("#hdn_mulit").val(k);
+		}
+	})
+	$("#del_jx").click(function(){
+		var i = parseInt($("#jx_rule li:last-child span").html());
+		$("#hdn_mulit").val(i-1);
+          if (i != 1) {
+                $("#jx_rule li:last-child").remove();
+				
+            }
+            else {
+             showDialog("第一条奖项不能被删除！",'notice','错误提示！','','1');
+          }
+	})
+	$("input[type='text']").blur(function(){$(this).attr("class","input_txt2");}).focus(function(){$(this).attr("class","input_txt2_h");})
+	$("#txt_task_cash").blur(function() {
+		var obj = document.getElementById("txt_task_cash");
+		var msgArea = obj.getAttribute("msgArea");
+		if (obj.value != '') {
+			var aa = validElement(obj);
+			if (!aa) {
+				
+				$("#" + msgArea).removeClass('c999');
+				$("#" + msgArea).css("color", "red");
+			} else {
+				
+				$("#" + msgArea).removeClass('c999');
+				$("#" + msgArea).css("color", "green");
+				var url = "index.php?do=release&model_id=$model_id&ajax=getmaxday";
+				$.ajax( {
+					type : "POST",
+					url : url,
+					cache : false,
+					async : false,
+					data : "task_cash=" + obj.value,
+					dataType : "json",
+					error : function(json) {
+						$("#" + msgArea).css("color", "red");
+						$("#" + msgArea).html('系统繁忙，请稍后再试...');
+						tag = tag+0;
+
+					},
+					success : function(json) {
+						if (json.status) {
+							$("#" + msgArea).html('任务金额填写正确！');
+							$("#txt_task_day").val(json.msg);
+							$("#hdn_maxday").val(json.msg);
+							
+							tag = tag+1;
+						}else
+						{
+							$("#" + msgArea).css("color", "red");
+							$("#" + msgArea).html(json.msg);
+							tag = tag+0;
+						}
+					}
+				});
+			}
+		} else {
+			$("#" + msgArea).removeClass('c999');
+			$("#" + msgArea).html("悬赏任务金额不能为空！");
+			$("#" + msgArea).css("color", "red");
+		}
+
+	}).focus(function() {
+		var obj = document.getElementById("txt_task_cash");
+		var msgArea = obj.getAttribute("msgArea");
+		$("#" + msgArea).addClass('c999');
+		$("#" + msgArea).css("color", "");
+		$("#" + msgArea).html('(你想悬赏多少钱呢？任务悬赏金额最小为{$xs_config[task_min_cash]}元)');
+	});
+	//任务周期
+	$("#txt_task_day").blur(function() {
+		
+		var obj = document.getElementById("txt_task_day");
+		var msgArea = obj.getAttribute("msgArea");
+		if (obj.value != '') {
+			var aa = validElement(obj);
+			if (!aa) {
+				$("#" + msgArea).removeClass('c999');
+				$("#" + msgArea).css("color", "red");
+			} else {
+				$("#" + msgArea).removeClass('c999');
+				var maxday = parseInt($("#hdn_maxday").val());
+				if(parseInt(maxday)>0)
+				{
+					if(obj.value > maxday)
+					{
+						$("#" + msgArea).css("color", "red");
+						$("#" + msgArea).html($("#txt_task_cash").val()+"元悬赏任务的最大天数不能超过"+maxday+"天");
+					}
+					else
+					{
+						$("#" + msgArea).css("color", "green");
+						$("#" + msgArea).html("悬赏任务周期填写正确!");
+						
+					}
+				}
+							
+			}
+		} else {
+			$("#" + msgArea).removeClass('c999');
+			$("#" + msgArea).html("悬赏任务周期不能为空！");
+			$("#" + msgArea).css("color", "red");
+		}
+
+	}).focus(function() {
+		
+		var obj = document.getElementById("txt_task_day");
+		var msgArea = obj.getAttribute("msgArea");
+		$("#" + msgArea).addClass('c999');
+		$("#" + msgArea).css("color", "");
+		$("#" + msgArea).html('(你希望多长时间完成这个任务呢？)');
+	})
+	
+		//任务标题
+		$("#txt_task_title").blur(function() {
+		
+		var obj = document.getElementById("txt_task_title");
+		var msgArea = obj.getAttribute("msgArea");
+		if (obj.value != '') {
+			var aa = validElement(obj);
+			if (!aa) {
+				
+				$("#" + msgArea).removeClass('c999');
+				$("#" + msgArea).css("color", "red");
+			} else {
+						$("#" + msgArea).removeClass('c999');
+						$("#" + msgArea).css("color", "green");
+						$("#" + msgArea).html("悬赏任务标题填写正确!");
+						tag = tag+1;
+			}
+		} else {
+			$("#" + msgArea).removeClass('c999');
+			$("#" + msgArea).html("悬赏任务周期不能为空！");
+			$("#" + msgArea).css("color", "red");
+		}
+
+	}).focus(function() {
+		
+		var obj = document.getElementById("txt_task_title");
+		var msgArea = obj.getAttribute("msgArea");
+		$("#" + msgArea).addClass('c999');
+		$("#" + msgArea).css("color", "");
+		$("#" + msgArea).html('(你想做什么？)');
+	})
+	//任务内容
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+	 
+	$("input[name='sbt_xs']").click(function(){
+		{if $reward_config['is_open_prom']}
+		if(document.getElementById('ckb_is_prom').checked&&$('#txt_prom_cash').val()<1){
+			showDialog('您没有填写推广金额', 'alert', '错误提示','',0)
+			return false;
+		}
+		{/if}
+		
+		//任务模式验证
+		var flag =true;
+		var mode = parseInt($("#slt_task_mode").val());
+		var mode_str = '单人模式';
+		switch(mode) {
+	     case 2:
+	       flag = mulit_task_valid();
+		   mode_str = '多人模式';
+		 break;
+	     case 3: 
+		   flag = jj_task_valid();
+		   mode_str = '计件模式';
+		 break;
+		}
+		
+		
+		 task_cash = validElement(document.getElementById("txt_task_cash"));
+         task_title = validElement(document.getElementById("txt_task_title"));
+		 task_cash_val = $("#txt_task_cash").val();
+		 task_day_val = $("#txt_task_day").val();
+		 task_title_val = $("#txt_task_title").val();
+		 {if $_K['charset'] == 'UTF-8'}
+		 mode_str = encodeURI(mode_str);
+		 task_title_val = encodeURI(task_title_val);
+		 {/if}
+		 task_prom_val = $("#ckb_is_prom").attr("checked")==true?$("#txt_prom_cash").val():0;
+		 
+		if((indus_valid() && content_valid()&& flag && task_cash && day_valid() && task_title))
+		{
+			var url =  'index.php?do=release&model_id=$model_id&ajax=confirm&task_cash_val='+task_cash_val+'&task_day_val='+task_day_val+'&task_title_val='+task_title_val+'&task_prom_val='+task_prom_val+'&mode_str='+mode_str;
+			showWindow('xs_confirm',url,'get',1,{'fade':0,'cover':1});
+			
+		}
+		else
+		{
+			return false;
+		}
+	})
+	
+
+	
+	
+})
+//在线付款
+function online_pay()
+{
+	$("#hdn_paystatus").val('online');
+	$("#frm_xs_release").submit();
+}
+//立即付款
+function confirm_pay()
+{
+	$("#hdn_paystatus").val('confirm');
+	$("#frm_xs_release").submit();
+}
+//稍后付款
+function wait_pay(){
+	$("#hdn_paystatus").val('wait');
+	$("#frm_xs_release").submit();
+}
+function indus_valid()
+{
+	indus_id = parseInt( $("#slt_indus_id").val());
+		
+		if(indus_id != -1) 
+		{
+			tag = tag+1;
+			$("#indus_id_msg").css("color",'green');
+			$("#indus_id_msg").html("行业分类已选择！");
+			return true;
+		}
+		else
+		{
+			$("#indus_id_msg").css("color",'red');
+			$("#indus_id_msg").html("行业分类未选择！");
+			$("#indus_id_msg").focus();
+			return false;
+		}
+}
+function upload(){	
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&task_id=1&type=att&file_name=file_name',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		$("#div_att_file").html($("#div_att_file").html()+"&nbsp;"+'<a fd='+json.fid+' id=a_att_'+json.fid+' href="'+json.msg.url+'" target="_blank">附件'+json.msg.localname+'</a>&nbsp;<a href="javascript:;" onclick="del_att(this,'+json.fid+')" ><img alt="删除" src="resource/img/ico/delete.gif"></a>');
+		var hf = $("#hdn_att_file").val();
+		var str = hf?hf+',':hf+'';
+		$("#hdn_att_file").val(str+json.fid);
+		 
+	},
+	error:function(json,status,e){alert(e)}});
+	}
+function del_att(obj,id){
+	$(obj).remove();
+	$("#a_att_"+id).remove();
+	var ids = $("#hdn_att_file").val();
+	var v =ids.replace(id,'');
+    $("#hdn_att_file").val(v);	
+	url = "index.php?do=$do&model_id=$model_id&ajax=del_att&fid="+id;
+	$.getJSON(url);
+
+	
+}
+function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+	
+    
+}
+</script>
+    <!--{template footer}-->

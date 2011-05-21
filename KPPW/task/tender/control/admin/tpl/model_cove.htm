@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<body>
+<form method="get" action="index.php" id="frm_cat_edit">
+<input type="hidden" name="do" value="model">
+<input type="hidden" name="model_id" value="$model_id">
+<input type="hidden" name="view" value="cove">
+
+<input type="hidden" name="hdn_cove_id" value="{$cove_id}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑招标区间</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">招标区间：</td>
+        <td>
+        	<input type="text" class="input_t" name="txt_start_cove" value="{$cove_info[start_cove]}" maxlength="20" size="5" class="input_t" onkeyup="clearstr(this)"/>元——<input type="text" class="input_t" name="txt_end_cove" value="{$cove_info[end_cove]}" maxlength="20"  class="input_t" size="5" onkeyup="clearstr(this)"/>元
+			</td>
+      </tr>
+	  {if $cove_info[cove_desc]}
+	   <tr>
+        <td width="30%" class="bg1 t_r">区间描述：</td>
+        <td>{$cove_info[cove_desc]}</td>
+      </tr>
+	  {/if}
+	  {if $cove_info[on_time]}
+      <tr>
+        <td class="bg1 t_r">上次修改时间：</td>
+        <td><!--{date('Y-m-d H:i:s',$cove_info[on_time])}--></td>
+      </tr>
+	  {/if}
+	   <tr>
+        <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/>
+       	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script src="tpl/js/form_validation_.js" type="text/javascript"></script>
+</body>
+</html>

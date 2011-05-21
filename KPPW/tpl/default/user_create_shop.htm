@@ -1,0 +1,150 @@
+<!--{eval $page_title='创建店铺 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+			<form action="index.php?do={$do}&view={$view}" method="post" enctype="multipart/form-data" >
+				<dl><dt>开通店铺</dt>
+				<dd style="overflow: hidden;">
+					{if !$shop_type}
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+							<tr>
+								<td width="50%" align="center" style="padding:10px;">
+									
+									<p><strong>个人店铺</strong>（免费开通）</p>
+									<p><img src="{SKIN_PATH}/img/iconshop_1.gif"></p>
+									<p>全方位展示,打造个人服务品牌;强大后台支撑,轻松建立个性店铺;方便客户精确搜索、查找浏览;适合自由职业者、在职者等个人用户.</p>
+									<p><input type="button" class="rele_btn" value="立即开通" onclick="location.href='index.php?do={$do}&view={$view}&shop_type=1'"></p>
+								</td>
+								<td align="center">
+									<p><strong>团队店铺</strong>（免费开通）</p>
+									<p><img src="{SKIN_PATH}/img/iconshop_2.gif"></p>
+									<p>企业级站点,树立团队品牌形象;全方位展示,精确体现服务价值;置身大商圈,免费获更多得客户;适合企业、多人工作室等团队用户.</p>
+									<p><input type="button" class="rele_btn" value="立即开通" onclick="location.href='index.php?do={$do}&view={$view}&shop_type=2'"></p>
+								</td>
+							</tr>
+							
+						</table>
+					{else}	
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+					   <!-- <tr>
+					    <td class="t_r">联系人：</td>
+					    <td><input type="text" name="txt_linkman" value="{$shop_info[shop_info]}" class="input_txt2" maxlength="30"/></td>
+				      </tr> -->
+					    <tr>
+					    <td class="t_r">{if $shop_type==1}店铺{else}团队{/if}名称：
+						<input type="hidden" name="shop_type" value="{$shop_type}">
+						</td>
+					    <td><input type="text" name="txt_shop_name" value="{$shop_info[shop_info]}" class="input_txt2" maxlength="30"/></td>
+				      </tr>
+					   <tr>
+					    <td class="t_r">{if $shop_type==1}店铺{else}团队{/if}行业：</td>
+				        <td>
+				        	<select name="slt_indus_pid" id="slt_indus_pid" onchange="show_s_service(this.value);">
+							<option value="-1"> 请选择行业 </option>
+							{loop $service_index_arr[0] $key $value}
+								{if !$value[indus_pid]}
+								<option value="{$value[indus_id]}">{$value[indus_name]}</option>
+								{/if}
+							{/loop}
+							</select> 
+				        </td>
+					  </tr>
+					  
+					   <tr>
+					    <td class="t_r">所在地：</td>
+				        <td>
+				        	<script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','');
+							showcity('slt_city', '', 'slt_province', '');
+							//-->
+							</script>
+						</td>
+					  </tr>
+					
+					  </tr>
+					   <tr>
+					    <td class="t_r">服务范围：</td>
+				        <td>
+				        	(您最多只能选择1个大类和5个小类 )
+				        	<dl style="width:450px;">
+				        		<dd id="dd_s_service">
+				        		</dd>
+								<dd>
+									<ul style="width:240px;" id="li_t_service">
+					        			
+					        		</ul>
+								</dd>
+				        	</dl>
+						</td>
+					  </tr>
+					  <tr>
+				      	<td class="t_r">从业年限：</td>
+				      	<td>
+				      	<select name="slt_work_year">
+				      	<option selected="selected" value="0">一年以下</option>
+				      	<option value="1">一年</option>
+				      	<option value="2" >两年</option>
+				      	<option value="3">三年</option>
+				      	<option value="4">四年</option>
+				      	<option value="5">五年以上</option>
+				      	<option value="6">十年以上</option>
+				      	</select>
+				      	</td>
+				      </tr> 
+					  {if $shop_type==1}
+					  <tr>
+					    <td class="t_r">对应职位：</td>
+					    <td><input type="text" name="txt_job" value="{$shop_info[txt_job]}" class="input_txt2" maxlength="30"/></td>
+				      </tr>
+					  {/if}
+					</table>
+                  <div class="t_c mt_10"><input type="submit" name="sbt_shop" value="立即开通" class="rele_btn"></div>
+				  {/if}
+			  </dd></dl>
+			</div>
+			</form>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    <div style="clear:both;"></div>
+	<script type="text/javascript">
+	function show_s_service(indus_pid){
+		$.post("index.php?do={$do}&view={$view}&op=show_s_service",{indus_pid:indus_pid},function(data){
+			var str_data = data;
+			if(trim(str_data)==''){
+				$("#dd_s_service").html(' 暂无服务项');
+			}else{
+				$("#dd_s_service").html(str_data);
+			}
+			$("#li_t_service").html('&nbsp;');
+		});   
+	}
+	function show_t_service(indus_pid){
+		
+		$.post("index.php?do={$do}&view={$view}&op=show_t_service",{indus_pid:indus_pid},function(data){
+			var str_data2 = data;
+			if(trim(str_data2)==''){
+				//$("#li_t_service").html(' 暂无服务项 ');
+			}else{
+				$("#li_t_service").html($("#li_t_service").html()+str_data2);
+			}
+		});   
+	}
+	function kill_t_service(indus_pid){
+		
+		$("#li_t_service_item_"+indus_pid+"t").remove();
+		$("#li_t_service_item_"+indus_pid+"b").remove();
+	}
+	</script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+</div>
+<!--content_E-->
+<!--{template footer}-->

@@ -1,0 +1,311 @@
+<!--{eval $page_title='工作室 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+			<form action="index.php?do={$do}&view={$view}&op={$op}" method="post" enctype="multipart/form-data" >
+				<dl>
+				<dt>
+					<div class="x_tit_1">
+						<div>
+							<span {if $op=='index'} class="now"{/if}><a href="index.php?do={$do}&view={$view}" >工作室首页</a></span>
+							{if $studio_info[studio_status]==1}
+							<span {if $op=='create' || !isset($op)} class="now"{/if}  ><a href="index.php?do={$do}&view={$view}&op=create">编辑工作室</a></span>
+							<span {if  $op=='member'} class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=member" >成员管理</a></span> 
+							<span {if $op=='apply'} class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=apply" >申请记录</a></span>
+							{if $uid==$studio_info[uid]}
+								<span {if $op=='invite'} class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=invite" >邀请记录</a></span>
+								<input type="button" value="邀请加入" class="rele_btn" id="invite" onclick="showWindow('invite','index.php?do={$do}&view={$view}&show=invite');">
+							{/if}
+							{else}
+							
+							<span {if $op=='create' || !isset($op)} class="now"{/if}  ><a href="index.php?do={$do}&view={$view}&op=create">{if  $studio_info}编辑{else}创建{/if}工作室</a></span>
+							<span {if $op=='invite'} class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=invite" >受邀记录</a></span>
+							{/if}   
+						</div>
+					</div>
+				</dt>
+				<dd style="overflow: hidden;">
+				<input type="hidden" name="hdn_studio_id" value={$studio_info[studio_id]}>
+					{if $op == 'index'}
+					<style>
+					.studio_index_m{
+						min-height: 350px;
+					}
+					*html .studio_index_m{_height: 350px;}
+					*+html .studio_index_m{height: expression(this.height < 350 ? '350px': true); max-width: 350px;}
+					
+					</style>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+						<tr>
+							<td align="left">
+								<div class="studio_index_m" >
+								
+								<table style="width: 733px" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list" style="margin-top: 10px;margin-bottom: 10px;">
+									<tr>
+										<td align="left">
+											{if !$studio_info}
+											您还未<a href="index.php?do=user&view=studio&op=create" style="color: #ff7700">创建</a>或加入工作室，拥有工作室，可以让您在威客任务中更具竞争力，您可以选择加入以下工作室。
+											{elseif !$studio_info['studio_status']}
+											您现在的工作室是{$studio_info['title']},于<!--{date('Y-m-d',$studio_info['on_date'])}-->申请创建,请等待管理员审核,或<a href="index.php?do=user&view=studio&op=leave" style="color: #ff7700">取消创建</a>;
+											{else}
+											您现在的工作室是{$studio_info['title']}，您可以 <a href="index.php?do=user&view=studio&op=leave" style="color: #ff7700">{if $uid==$studio_info['uid']}解散工作室{else}退出工作室{/if}</a>
+											{/if}
+										</td>
+									</tr>
+								</table>
+								
+								
+								{if !$studio_info}
+								
+								<table width="100%" style="width: 733px;" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+								  <tr>
+									<th>工作室</th>
+			                        <th>人数</th>
+			                        <th>创建者</th>
+									 <th>地区</th>
+			                        <th>创建时间</th>
+			                        <th>操作</th>
+								  </tr>
+								  {loop $new_created_list $value}
+			                      <tr>
+									<td>{$value[title]}</td>
+								    <td align="left" title="{$value[task_title]}">
+								    	{$value[members]}
+									</td>
+			                        <td>{$value[username]}</td>
+									<td>$value[address]</td>
+			                        <td><!--{date('Y-m-d',$value[on_date])}--></td>
+			                        <td>
+			                        	<a target="_blank" href="index.php?do=space&view=studio_index&member_id=$value[uid]">查看</a> 
+			                        	<a href="javascript:;" onclick="showWindow('join','index.php?do=space&view=studio_index&show=join&member_id=$value[uid]')">申请加入</a>
+									</td>
+			                       </tr>
+								  {/loop}
+								</table>
+								{else}
+								<table width="100%" style="width: 733px;" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+								  <tr>
+									<th>编号</th>
+			                        <th>标题</th>
+			                        <th>更新时间</th>
+								  </tr>
+								  {loop $feed_list $value}
+			                      <tr>
+									<td>{$value[feed_id]}</td>
+								    <td align="left"">
+								    	{$value[title]}
+									</td>
+			                        <td><!--{date('Y-m-d',$value[feed_time])}--></td>
+			                       </tr>
+								  {/loop}
+								</table>
+								{/if}
+								
+								</div>
+							</td>
+						</tr>
+					</table>
+                 	{/if}
+				
+				
+					{if $op=='create'}
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+					  <tr>
+					  	<td colspan="2">{if $studio_info&&!$studio_info['studio_status']}您的工作室尚未通过审核,请耐心等待。{/if}&nbsp;</td>
+					  </tr>
+					  
+					  <tr>
+						<td class="t_r">工作室名称：</td>
+					    <td><input type="text" name="studio_name" value="{$studio_info[title]}" class="input_txt2">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+					  </tr>
+					   <tr>
+						<td class="t_r">所在地区：</td>
+					    <td>
+					    	<script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','{$studio_info[area][0]}');
+							showcity('slt_city', '{$studio_info[area][1]}', 'slt_province', '');
+							//-->
+							</script>
+						</td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">详细地址：</td>
+				        <td>
+				        <input type="txt" name="txt_address" value="{$studio_info[address]}" class="input_txt2"/>
+				        </td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">邮政编码：</td>
+				        <td>
+				        <input type="txt" name="txt_postcode" value="{$studio_info[postcode]}" class="input_txt2"/>
+				        </td>
+					  </tr>
+					   <tr>
+					    <td class="t_r">固定电话：</td>
+					    <td><input type="txt" name="txt_phone" value="{$studio_info[phone]}" class="input_txt2"/></td>
+				      </tr>
+					   <tr>
+					    <td class="t_r">E-mail：</td>
+				        <td>
+				        <input type="txt" name="txt_email" value="{$studio_info[email]}" class="input_txt2"/>
+				        </td>
+					  </tr>
+					  <tr>
+					    <td class="t_r">传真号码：</td>
+					    <td><input type="txt" name="txt_fax" value="{$studio_info[fax]}" class="input_txt2"/></td>
+				      </tr>
+					   <tr>
+					    <td class="t_r">工作室介绍：</td>
+				        <td><textarea rows="7" cols="70" name="tar_desc">{$studio_info[aboutus]}</textarea><br>您的工作室介绍直接影响雇主对您的工作室的第一印象，请慎重对待</td>
+					  </tr>
+					  <tr>
+						<td width="150" class="t_r">工作室Logo：</td>
+					    <td>
+					    {if {$studio_info[logo]}}
+					    <br>
+					    <img src="{$studio_info[logo]}" width="176px;"  height="112px;">
+						{/if}
+					    <br>
+					    <input type="file" id="studio_logo" name="fle_studio_logo" ext=".jpg,.jpeg,.gif">只允许上传.jpg,.jpeg,.gif格式,最佳尺寸176*112
+					    </td>
+					  </tr>
+					   <tr>
+						<td width="150" class="t_r">自定义banner：</td>
+					    <td>
+					    {if $studio_info[banner_pic]}
+					    <br>
+					   	<img src="{$studio_info[banner_pic]}" width="500px;" height="120px;">
+						{/if}
+					    <br>
+					    <input type="file" id="studio_banner" name="fle_studio_banner" ext=".jpg,.jpeg,.gif">只允许上传.jpg,.jpeg,.gif格式
+					    </td>
+					  </tr>
+					</table>
+                  <div class="t_c mt_10"><input type="submit" name="sbt_edit" value="{if !$studio_info}立即创建{else}立即编辑{/if}" class="rele_btn"></div>
+		{/if}
+		{if $op=='member'}
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+			 <tr>
+				<td colspan="6">&nbsp;</td>
+			 </tr>
+			 <tr>  
+			 	<th>用户ID</th>
+			  	<th>用户名</th>
+				<th>认证</th>
+                <th>威客信誉 </th>
+				<th>加入时间</th>
+                <th>操作</th>
+			  </tr>
+			  {loop $studio_member_arr $key $value}
+			  	<tr>
+			  		<td>{$value[uid]}</td>
+			  		<td><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></td>
+					<td>
+					  {if $value[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+					  {if $value[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+					  {if $value[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+					  {if $value[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+					  {if $value[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;  		  
+					</td>
+					<td>
+						<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($value['w_m_credit_value'],2);echo $w_m_score_value[pic];}-->
+					</td>
+					<td><!--{date('Y-m-d H:i:s',$value[on_date])}--></td>
+					<td>{if $studio_info[uid]==$value[uid]}
+						创始人
+						{else}
+						<a href="index.php?do={$do}&view={$view}&op={$op}&ac=del&w_uid={$value[w_uid]}" onclick="return confirm('您确认要踢出成员吗？');"><img src="{SKIN_PATH}/img/ico/delete.gif">踢出</a>
+						{/if}
+					</td>
+			  	</tr>
+			  {/loop}
+		</table>
+		{/if}
+		{if $op=='apply'}
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+			 <tr>
+				<td colspan="7">&nbsp;</td>
+			 </tr>
+			 <tr>  
+			 	<th>用户ID</th>
+			  	<th>用户名</th>
+				<th>类型</th>
+				<th>申请描述</th>
+				<th>时间</th>
+				<th>状态 </th>
+                <th>操作</th>
+			  </tr>
+			  {loop $studio_apply_arr $key $value}
+			  	<tr>
+			  		<td>{$value[uid]}</td>
+			  		<td><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></td>
+					<td>{if $value[apply_type]==1}申请{elseif $value[apply_type]==2}邀请{/if}</td>
+					<td>{$value[content]}</td>
+					<td><!--{date('Y-m-d H:i:s',$value[on_date])}--></td>
+					<td>{if $value[apply_status]==1}<font color="green">通过</font>{else}未通过{/if}</td>
+					<td>
+						{if $studio_info[uid]==$value[uid]}
+						创始人
+						{else}
+						<a href="index.php?do={$do}&view={$view}&op={$op}&ac=apply&apply_id={$value[apply_id]}" onclick="{if $value[apply_status]==1}alert('已通过审核，请勿重复操作！');return false;{else}return confirm('您审核通过吗？');{/if}"><img src="{SKIN_PATH}/img/ico/apply.gif">审核</a>
+						{/if}
+					</td>
+			  	</tr>
+			  {/loop}
+		</table>
+		{/if}
+		{if $op=='invite'}
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+			 <tr>
+				<td colspan="7">&nbsp;</td>
+			 </tr>
+			 <tr>  
+			 	<th>用户ID</th>
+			  	<th>用户名</th>
+				<th>类型</th>
+				<th>邀请描述</th>
+				<th>时间</th>
+				<th>状态 </th>
+                <th>操作</th>
+			  </tr>
+			  {loop $studio_apply_arr $key $value}
+			  	<tr>
+			  		<td>{$value[uid]}</td>
+			  		<td><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></td>
+					<td>{if $value[apply_type]==1}申请{elseif $value[apply_type]==2}邀请{/if}</td>
+					<td>{$value[content]}</td>
+					<td><!--{date('Y-m-d H:i:s',$value[on_date])}--></td>
+					<td>{if $value[apply_status]==1}<font color="green">通过</font>{else}未通过{/if}</td>
+					<td>
+						{if $studio_info[uid]==$uid}
+						创始人
+						{else}
+						<a href="index.php?do={$do}&view={$view}&op={$op}&ac=invite&apply_id={$value[apply_id]}" onclick="{if $value[apply_status]==1}alert('已通过审核，请勿重复操作！');return false;{else}return confirm('您同意加入吗？');{/if}"><img src="{SKIN_PATH}/img/ico/apply.gif">同意</a>
+						{/if}
+					</td>
+			  	</tr>
+			  {/loop}
+		</table>
+		{/if}
+		  </dd></dl>
+		</div>
+		</form>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+<div style="clear:both;"></div>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+</div>
+<!--content_E-->
+<!--{template footer}-->

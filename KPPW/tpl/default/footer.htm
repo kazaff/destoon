@@ -1,0 +1,27 @@
+<!--{if $inajax}-->
+<!--{template footer_ajax}-->
+<!--{else}-->
+<script src="resource/js/keke.js" type="text/javascript"></script>
+<div id="footer">
+	<div class="foot_tag"><a href="#top" class="foot_top"></a><a href="index.php" class="foot_home"></a></div>
+    <ul><li class="fnav">
+    	<a href="index.php?do=footer&art_id=1128">关于我们</a>
+		| <a href="index.php?do=footer&art_id=1129">免责声明</a>
+		| <a href="index.php?do=footer&art_id=1130">支付方式</a> 
+		| <a href="index.php?do=footer&art_id=1131">联系方式</a> 
+		| <a href="index.php?do=footer&view=customerservice">客服中心</a> 
+		| <a href="javascript:void(0);" id="map" onclick="showWindow('map','index.php?do=map');">网站地图</a></li>
+	<li>Powered by <b><font color="blue"><a href="http://www.kekezu.com" target="_blank">{P_NAME}{KEKE_VERSION}</a></font></b>  &copy;2010 </li>
+	<li>服务热线：{$_K[phone]}(呼叫中心技术支持) </li>
+	<li>公司名称：{$_K[company]},地址：{$_K[address]},邮编：{$_K[postcode]}
+    <li> {$_K[filing]}&nbsp;&nbsp;&nbsp;{$_K[stats_code]}</li></ul>
+</div><!--footer_E-->
+{if $exec_time_traver}
+<script>
+$.get('js.php?op=time');
+</script>
+{/if}
+
+</body>
+</html>
+<!--{/if}-->

@@ -1,0 +1,116 @@
+{template 'header'}
+<div class="m">
+<div class="m_l_1 f_l">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; <a href="{$MOD[linkurl]}price.php">价格</a></div>
+
+		<div style="padding:10px 0 15px 0;">
+			<form action="{$MOD[linkurl]}price.php" id="fsearch">
+			<table cellpadding="3" cellspacing="3">
+			<tr>
+			<td width="80" align="right">产品名称：</td>
+			<td colspan="3"><input type="text" size="60" name="kw" value="{$kw}" class="pd3"/></td>
+			</tr>
+			<tr>
+			<td width="80" align="right">搜索选项：</td>
+			<td colspan="3">
+			<input type="radio" name="mode" value="0"{if $mode==0} checked{/if}/> 模糊
+			<input type="radio" name="mode" value="1"{if $mode==1} checked{/if}/> 精准
+			<input type="checkbox" name="thumb" id="thumb" value="1"{if $thumb} checked{/if}/> 有图
+			<input type="checkbox" name="vip" id="vip" value="1"{if $vip} checked{/if}/> {VIP}
+			</td>
+			</tr>
+			<tr>
+			<td align="right">更新日期：</td>
+			<td>{dcalendar('fromdate', $fromdate, '')} 至 {dcalendar('todate', $todate, '')}</td>
+			<td align="right">所属行业：</td>
+			<td>{ajax_category_select('catid', '不限行业', $catid, 5)}</td>
+			</tr>
+			<tr>
+			<td align="right">单价范围：</td>
+			<td>
+			<input type="text" size="10" name="minprice" value="{$minprice}"/> ~ <input type="text" size="10" name="maxprice" value="{$maxprice}"/>
+			</td>
+			<td align="right">所在地区：</td>
+			<td>{ajax_area_select('areaid', '不限地区', $areaid)}</td>
+			</tr>
+			<tr>
+			<td></td>
+			<td colspan="3">
+			<input type="image" src="{DT_SKIN}image/btn_search.gif"/>&nbsp;&nbsp;
+			<a href="{$MOD[linkurl]}price.php"><img src="{DT_SKIN}image/btn_reset_search.gif"/></a>	
+			</td>
+			</tr>
+			</table>
+			</form>
+		</div>
+		{if $tags}
+		<div style="padding:20px;border-top:#AACCEE 1px solid;">
+		<table cellpadding="6" cellspacing="1" width="100%" bgcolor="#C5D7ED">
+		<tr align="center" bgcolor="#F1F7FC">
+		<td><strong>品名</strong></td>
+		<td><strong>型号</strong></td>
+		<td><strong>规格</strong></td>
+		<td><strong>品牌</strong></td>
+		<td><strong>价格</strong></td>
+		<td><strong>更新时间</strong></td>
+		<td><strong>产地</strong></td>
+		<td><strong>公司</strong></td>
+		</tr>
+		{loop $tags $t}
+		<tr align="center" bgcolor="#FFFFFF">
+		<td><a href="{$t[linkurl]}" title="{$t[title]}" target="_blank">{$t[tag]}</a></td>
+		<td>{if $t[model]}{$t[model]}{else}-{/if}</td>
+		<td>{if $t[standard]}{$t[standard]}{else}-{/if}</td>
+		<td>{if $t[brand]}{$t[brand]}{else}-{/if}</td>
+		<td class="f_orange">{$t[price]}{$DT[money_unit]}/{$t[unit]}</td> 
+		<td class="px11">{timetodate($t[edittime], 5)}</td>
+		<td>{area_pos($t[areaid], '', 2)}</td>
+		<td><a href="{userurl($t[username])}" target="_blank">{$t[company]}</a></td>
+		</tr>
+		{/loop}
+		</table>
+		</div>
+		{if $pages}<div class="pages">{$pages}</div>{/if}
+		{else}
+		{template 'noresult', 'message'}
+		{/if}
+	</div>
+</div>
+<div class="m_n f_l">&nbsp;</div>
+<div class="m_r_1 f_l">
+	{if $kw}
+	<div class="box_head_1"><div><strong>相关搜索</strong></div></div>
+	<div class="box_body">
+		<div class="sch_site">
+			<ul>
+			{loop $MODULE $mod}{if $mod[moduleid]>3 && $mod[moduleid]!=$moduleid && !$mod[islink]}<li><a href="{$mod[linkurl]}{rewrite('search.php?kw='.urlencode($kw))}">在 <span class="f_red">{$mod[name]}</span> 找 {$kw}</a></li>{/if}{/loop}
+			</ul>
+		</div>
+		<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=-$moduleid and status=3 and word!='$kw' and keyword like '%$keyword%'&pagesize=10&order=total_search desc&template=list-search_relate&file=price", -2)}-->
+	</div>
+	<div class="b10">&nbsp;</div>
+	{/if}
+	<div class="box_head_1"><div><strong>今日搜索排行</strong></div></div>
+	<div class="box_body">
+		<div class="rank_list">
+			<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=-$moduleid and status=3 and updatetime>$today_endtime-86400&pagesize=10&order=today_search desc&key=today_search&template=list-search_rank&file=price", -2)}-->
+		</div>		
+	</div>
+	<div class="b10">&nbsp;</div>
+	<div class="box_head_1"><div><strong>本周搜索排行</strong></div></div>
+	<div class="box_body">
+		<div class="rank_list">
+			<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=-$moduleid and status=3 and updatetime>$today_endtime-86400*7&pagesize=10&order=week_search desc&key=week_search&template=list-search_rank&file=price", -2)}-->
+		</div>		
+	</div>
+	<div class="b10">&nbsp;</div>
+	<div class="box_head_1"><div><strong>本月搜索排行</strong></div></div>
+	<div class="box_body">
+		<div class="rank_list">
+			<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=-$moduleid and status=3 and updatetime>$today_endtime-86400*30&pagesize=10&order=month_search desc&key=month_search&template=list-search_rank&file=price", -2)}-->
+		</div>		
+	</div>
+</div>
+</div>
+{template 'footer'}

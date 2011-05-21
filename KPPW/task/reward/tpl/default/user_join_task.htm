@@ -1,0 +1,96 @@
+<!--{eval $page_title='我参加的悬赏任务 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+        
+        <div class="backright">
+			<div class="backright_d">
+				<dl><dt>我参与的悬赏任务</dt>
+				<dd style="padding:10px;border:1px solid #bdd7ef;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+						<tr>
+							<td align="left">
+								<form method="index.php">
+									<input type="hidden" name="do" value="{$do}">
+									<input type="hidden" name="view" value="{$view}">
+								任务状态：
+								<select name="slt_task_status" style="width:100px;">
+									<option value="">请选择状态</option>
+									{loop $reward_status_arr $key $value}
+										<option value="{$key}">{$value}</option>
+									{/loop}
+								</select>
+								标题：
+								<input type="text" name="txt_task_title" maxlength="30" size="10">
+								金额范围：
+								<select  style="width:100px;" name="slt_cash_cove" onchange="frm_tender_list.submit();">
+								 <option value=''>请选择金额</option>
+								 	{loop $reward_cove_arr $key $value}
+										<option value="{$key}" {$if $slt_cash_cove=={$key}}selected{/if}>{$value}</option>
+									{/loop}
+								 </select>
+								时间：
+								<input type="text" name="txt_start_time" onclick="showcalendar(event, this, 0)" size="10">
+								-
+								<input type="text" name="txt_end_time" onclick="showcalendar(event, this, 0)" size="10">
+								<input type="submit"  name="sbt_search" value="查询" >
+								</form>
+							</td>
+						</tr>
+					</table>
+					<br>
+		     		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+					  <tr>
+						<th>任务编号</th>
+                        <th>任务标题</th>
+                        <th>任务金额</th>
+						 <th>发布时间</th>
+                        <th>结束时间</th>
+                        <th>中标模式</th>
+                        <th>状态</th>
+                        <th>查看</th>
+					  </tr>
+					  {loop $task_arr $key $value}
+                      <tr>
+						<td>{$value[task_id]}</td>
+					    <td align="left" title="{$value[task_title]}">
+					    	<!--{eval echo(Func_comm_class::cutstr($value[task_title],30));}-->
+						</td>
+                        <td>￥{$value[task_cash]}</td>
+						<td><!--{date('Y-m-d',$value[start_time])}--></td>
+                        <td><!--{date('Y-m-d',$value[end_time])}--></td>
+                        <td>
+                        	{if $value[task_mode]==1}
+							单人中标
+							{elseif $value[task_mode]==2}
+							多人中标
+							{elseif $value[task_mode]==3}
+							计件中标
+							{else}
+							{/if}
+						</td>
+                        <td>
+                        {$reward_status_arr[$value[task_status]]}
+						</td>
+                        <td><a target="_blank" href="index.php?do=task&task_id={$value[task_id]}" class="c030" title="查看"><img src="{SKIN_PATH}/img/ico/search.png"></a></td>
+					  </tr>
+					  {/loop}
+					</table>
+                   	 <div class="Npage"><div class="fl_r">
+	              	{$pages[page]}</div>
+	              	</div>
+                  
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript" src="resource/js/script_calendar.js"></script>
+<!--{template footer}-->

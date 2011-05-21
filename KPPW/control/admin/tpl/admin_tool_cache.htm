@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<body>
+<form method="get" action="index.php" id="frm_cat_edit">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="view" value="{$view}">
+
+<input type="hidden" name="hdn_skill_id" value="{$skill_info[skill_id]}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">缓存更新</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+    	   <tr>
+            <td align="left" class="bg1" colspan="3" >
+                <strong>缓存更新</strong>
+            </td>
+           
+        </tr>
+		 <tr>
+            <td class="bg1 t_r">
+             &nbsp;请选择&nbsp;：
+            </td>
+            <td>
+               <label for="ckb_tpl_cache">
+               		<input checked="checked" type="checkbox" id="ckb_tpl_cache" name="ckb_tpl_cache" value="1"> <b>更新模板文件缓存</b>
+               </label>
+			     <br>	
+模板文件缓存
+
+当你通过FTP上传或者在线编辑等操作修改了站点模板后，如果显示页面没有及时显示出修改后的效果，你可以通过手工模板缓存操作进行立即更新
+            </td>
+        </tr>
+        <tr>
+            <td class="bg1 t_r" width="10%">
+              &nbsp;
+			  <br>
+            </td>
+            <td>
+               <label for="ckb_obj_cache">
+               		<input checked="checked" type="checkbox" id="ckb_obj_cache" name="ckb_obj_cache" value="1"> <b>更新对象文件缓存</b>
+               </label>
+			 <br>
+			 对象文件缓存包括系统配置缓存，模块数据缓存等等
+			 站点开启模块数据缓存功能后，站点区块显示数据（如最新文章、最新分类等区块数据）都将进行缓存，以大大提高站点访问速度，降低服务器负载
+			 对象文件缓存缓存一般情况下都会在后台修改设定后自动更新，一般不需要手工更新。如果站点运行过程中出现错误，你可以尝试更新本缓存
+            </td>
+        </tr>
+		
+		<tr>
+        <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="立即更新缓存"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script src="tpl/js/form_validation_.js" type="text/javascript"></script>
+</body>
+</html>

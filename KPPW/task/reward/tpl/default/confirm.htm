@@ -1,0 +1,30 @@
+<!--{template header}-->
+<div class="window" id="panelWindow">
+	<div class="info">
+            <p><strong>任务名称：</strong>$task_title_val</p>
+            <p><strong>任务金额：</strong><span class="red"> <!--{eval printf('%10.2f',$task_cash_val)}--> </span>元</p>
+			<p><strong>任务周期：</strong> $task_day_val 天</p>
+			{if $task_prom_val}
+			<p><strong>任务推广费：</strong><span class='red'> <!--{eval printf('%10.2f',$task_prom_val)}--> </span>元</p>
+			{/if}
+			<p><strong>任务中标模式：</strong>$mode_str</p>
+			<p><strong>服 务 费：</strong><span class="red"> <!--{eval printf('%10.2f',$service_cash)}--> </span>元</p>
+            <p><strong>帐户余额：</strong><!--{eval printf('%10.2f',$user_info['balance'])}--></>元 {if $basic_config['credit_is_allow']==1}  您的代金券：<!--{eval printf('%10.2f',$user_info['credit'])}-->元{/if}</p>
+			<p>
+			<!--{eval $user_info['credit']=$basic_config['credit_is_allow']==1?$user_info['credit']:0;}-->
+			<!--{if ($user_info['balance']+$user_info['credit'])<($task_prom_val+$task_cash_val)}-->
+			您需要在线支付：<span class='red'> <!--{eval printf("%10.2f",($task_prom_val+$task_cash_val)-($user_info['balance']+$user_info['credit']))}--> </span>元
+			</p>
+            <p class="mt_10">
+			<input type="button" class="input_btn3" id="btn_online_pay" onclick="online_pay();" value="在线付款"/>
+			<!--{else}-->
+			<input type="button" class="input_btn3" id="btn_confirm_pay" onclick="confirm_pay();" value="确认付款"/>
+			<!--{/if}-->
+			
+			<input type="button" class="input_btn3" id="btn_wait_pay" onclick="wait_pay();" value="稍后付款"/> 
+			<input type="button" class="input_btn3" value="重新填写" onclick="hideWindow('$handlekey')"/>
+		</p>
+        </div>
+        
+    </div>
+<!--{template footer}-->

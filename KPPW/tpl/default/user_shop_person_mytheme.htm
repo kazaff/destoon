@@ -1,0 +1,199 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<script type="text/javascript" src="resource/js/jscolor.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+
+    <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<!-- 
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span ><a href="index.php?do={$do}&view=shop_person_theme" >主题选择</a></span>
+				<span class="now"><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+				<span><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+				<span><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>  
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					<tr>
+						<td colspan="1" height="40">
+							店铺主题图片：
+						</td>
+						<td colspan="3">
+							{if $shop_banner}<img border="0" width="530" src="$shop_banner">{/if}<br>
+							<input type="file" id="file_name" ext=".jpg,.gif,.png,.jpeg,.bmp" name="file_name">&nbsp;&nbsp;<input type="button" class="input_btn3" id="sbt_upload_fle" name="sbt_upload_fle" value="上传">&nbsp;&nbsp;<input type="button" id="sbt_default_pic" name="sbt_default_pic" value="恢复默认图片" class="input_btn3">
+							<br>
+							图片大小必须为950x150像素，且最大尺寸限制为200KB。
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							背景颜色设置：
+						</td>
+						<td colspan="3">
+							<input type="text" id="txt_back_color" class="color" name="txt_back_color" style="background-color:{$shop_person_config[background]}"  value="{$shop_person_config[background]}"  >&nbsp;&nbsp;<input type="button" id="sbt_bgcolor" name="sbt_bgcolor" class="input_btn3" id="btn_color" value="确定"> &nbsp;对于默认模版，背景颜色设置无效。
+						
+						</td>
+					</tr>
+				</table>
+				
+				</form>
+			  </dd></dl>
+			   -->
+			   <dl>
+			   <div class="msg_box">
+			   	<dt>
+					<div class="x_tit_1">
+						<div>
+							<span class="now"><a href="index.php?do={$do}&view=shop_person_mytheme">自定义主题</a></span> 
+							<span><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+							<span><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>  
+						</div>
+					</div>
+				</dt>
+				<dd>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+					 <tr>
+						<th colspan="4" style="background-color:#fff;">&nbsp;</th>
+					</tr>
+					<tr>
+						<td colspan="1" height="40">
+							店铺主题图片：
+						</td>
+						<td colspan="3">
+							{if $shop_banner}<img border="0" width="530" src="$shop_banner">{/if}<br>
+							<input type="file" id="file_name" ext=".jpg,.gif,.png,.jpeg,.bmp" name="file_name">&nbsp;&nbsp;<input type="button"  id="sbt_upload_fle" name="sbt_upload_fle" value="上传">&nbsp;&nbsp;<input type="button" id="sbt_default_pic" name="sbt_default_pic" value="恢复默认图片">
+							<br>
+							图片大小必须为950x150像素，且最大尺寸限制为200KB。
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							背景颜色设置：
+						</td>
+						<td colspan="3">
+							<input type="text" id="txt_back_color" class="color {required:false}" name="txt_back_color" style="background-color:{$shop_person_config[background]}"  value="{$shop_person_config[background]}"  >&nbsp;&nbsp;<input type="button" id="sbt_bgcolor" name="sbt_bgcolor"value="确定"> &nbsp;对于默认模版，背景颜色设置无效。
+						
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							字体颜色设置：
+						</td>
+						<td colspan="3">
+							<input type="text" id="txt_font_color" class="color {required:false}" name="rdo_font_color" style="background-color:{$shop_person_config[font_color]}"  value="{$shop_person_config[font_color]}"  >&nbsp;&nbsp;<input type="button" id="sbt_font_color" name="sbt_font_color" value="确定"> &nbsp;对于默认模版，背景颜色设置无效。
+						
+						</td>
+					</tr>
+				</table>
+				
+				</form>
+			  </dd>
+			  </div>
+			  </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+
+
+<script type="text/javascript">
+
+
+$(function(){
+	 
+	var fil_up_obj = document.getElementById("file_name"); 
+	
+	$("#sbt_upload_fle").click(function(){
+	if(isExtName(fil_up_obj,1))
+		{
+			upload(950,150);
+		}
+		else
+		{
+			return false;			
+		}
+	})
+	//恢复默认图片
+	$("#sbt_default_pic").click(function(){
+		$.getJSON("index.php?do=user&view=shop_person_mytheme&ajax=sbt_default_pic",function(json){
+			if(json.status ==1){
+				showDialog("恢复默认图片成功！",'notice','信息提示','',1);
+			}else{
+				showDialog("恢复默认图片失败！",'alert','信息提示','',1);
+			}
+		})
+	})
+	//字体颜色sbt_font_color
+	$("#sbt_font_color").click(function(){
+		var f_color = $("#txt_font_color").val();
+		$.getJSON("index.php?do=user&view=shop_person_mytheme&ajax=sbt_font_color&rdo_font_color="+f_color,function(json){
+			if(json.status ==1){
+				showDialog("字体颜色设置成功！",'notice','信息提示','',1);
+			}else{
+				showDialog("字体颜色设置失败！",'alert','信息提示','',1);
+			}
+		})
+	})
+	//背景颜色
+	$("#sbt_bgcolor").click(function(){
+		var b_color = $("#txt_back_color").val();
+		
+		   i = b_color.toString().indexOf("#");
+		   if(i==0){
+			b_color = b_color.toString().substr(1,b_color.toString().length);
+		   }
+		   $.getJSON("index.php?do=user&view=shop_person_mytheme&ajax=sbt_bgcolor&txt_back_color="+b_color,function(json){
+				if(json.status ==1){
+					showDialog("背景颜色设置成功！",'notice','信息提示','',1);
+				}else{
+					showDialog("背景颜色设置失败！",'alert','信息提示','',1);
+				}
+			})	
+		
+	})
+	
+})
+function upload(img_width,img_height){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&task_id={$task_id}&type=att&image&file_name=file_name&img_width='+img_width+'&img_height='+img_height,
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog(decodeURI(json.err), 'alert', '错误提示','',0);
+		}else{
+			 
+			$.getJSON("index.php?do=user&view=shop_person_mytheme&ajax=sbt_upload_fle&file_path="+json.msg.up_file,function(json){
+				if(json.status==1){
+			      showDialog('上传成功','notice','信息提示！','',1);		
+				}
+				else{
+					showDialog('更新数据库失败！','alert','错误提示','',1);
+				}
+			});
+		}
+		},
+	 error:function(json,status,e){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+<!--{template footer}-->

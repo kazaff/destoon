@@ -1,0 +1,23 @@
+<!--{template header}-->
+
+<div class="mainbox" style="width:200px;">
+<form action="index.php?do=task_op&op=tasksign" method="post">
+	<table>
+		<tr>
+			<td>
+			<input type="hidden" name="obj_id" value="{$task_id}">
+			<input type="hidden" name="task_id" value="{$task_id}">
+			<input type="hidden" name="comment_type" value="{$comment_type}">
+			您确定要在此次任务中报名？
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" name="sbt_sign" value="确定" class="pn pnc">
+				<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('a_comment{$comment_type}')"></td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+<!--{template footer}-->

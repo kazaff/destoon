@@ -1,0 +1,78 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprise_shop_header}-->
+<div class="subContainer">
+	<div class="pagePositon">
+		<div class="pageName">
+            <span class="fl">作品案例</span>
+            <span class="corner"></span>
+            <span class="fr">&gt;&gt;</span>
+        </div>
+		{if $uid==$shop_info['uid']}
+		<a class="putNew" id="publish" href="index.php?do=user&view=case_add">发布新案例</a>
+		{/if}
+	</div>
+	<div class="pageLeft">
+		<ul>
+        	<li></li>
+        </ul>
+	</div>
+	<div class="pageRight">
+    <div class="rightContent serviceList">
+        {if $case_arr}
+      {loop $case_arr $k $v}	
+	  <ul class="lineBg2" style="float:left;" >
+      	<li style="float:left;width:600px;" class="title">● $v['case_name']</li>
+        <li style="float:left;width:600px;margin-left:0px;padding-left:15px;" class="info lineBg">
+        	<span class="price">执行时间：{if $v['express']}<!--{eval echo date('Y年-m月',$v['express'])}-->{else}--{/if}</span>
+            <span class="edit">
+            	<img src="shop/{SKIN_PATH}/img/edit_icon.gif"> 发布于(<!--{eval echo date('Y-m-d H:i:s',$v['on_date'])}-->) 
+            </span>
+        </li>
+        <li style="float:left;width:600px;" class="intro">
+        	<p class="detail" style="display:block;">
+        		<img src="$v['pic']" /><br />
+            	$v['content']            
+			</p>
+        	<br>
+          <p class="linkMore"  ><a href="shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$v[case_id]">点击查看全部&gt;&gt;</a></p>
+         </li>
+      </ul>
+	  <br>
+      <div class="pages">{$pages[page]}</div>
+      {/loop}
+	  {else}
+	   <p>暂无作品案例</p>
+	  {/if}
+        
+      </div>
+  </div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+	function show(obj){
+	    $(obj).prev().prev().slideToggle();	
+	}
+</script>
+<script>
+function submit_comment(){
+	
+	{if $uid==$shop_info['uid']}
+		showDialog("您不能对自己的案例留言",'alert','错误提示','',0);return;
+	{/if}
+
+	if(!$('#txt_comment').val()){
+		showDialog("没有留言内容",'alert','错误提示','',0);
+	}
+
+	if('$uid'==''&&!document.getElementById('ckb_hide_user').checked){
+		showDialog("您必须先登录!",'alert','错误提示','',0);
+	}
+
+	$('#commentform').submit();
+
+}
+</script>
+<!--{template shop/tpl/default/enterprise_footer}-->
+
+

@@ -1,0 +1,79 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/jquery.js"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script src="resource/js/ajaxfileupload.js" type="text/javascript"></script>
+<div class="mainbox" style="width:450px;">
+<form action="index.php?do=task_op&op=taskwork" method="post">
+	<table>
+		<tr>
+			<td>
+			<input type="hidden" name="task_id" value="{$task_id}">
+			<input type="hidden" name="obj_id" value="{$task_id}">
+			<input type="hidden" name="comment_type" value="{$comment_type}">
+        	<textarea  rows="16" name="tar_content"   id="system-create-location" style="width:100%;height:200spx;"></textarea>
+			</td>
+		</tr>
+		<tr>
+		  <td align="left">
+		 	<input type="file" name="file_name" ext=".rar,.zip,.doc" onchange="isExtName(this,1)" id="file_name"> <input type="button" id="btn_up" value="上传稿件">(稿件格式：rar,zip,doc <{$basic_config['max_size']}M)
+		  </td>	
+		</tr>
+		<tr>
+		  <td align="left">
+			{if $isvip ==1}
+		    <label for="ckb_hidework"><input type="checkbox" name="ckb_hidework" id="ckb_hidework">隐藏交搞</label>
+			{/if}
+		  </td>	
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" name="sbt_work" value="确定"  class="pn pnc">
+				<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('a_comment{$comment_type}')">
+				<br/>
+			</td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+<script type="text/javascript">
+//var editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id={$task_id}&type=link',upImgUrl:"index.php?do=ajax_upload&task_id={$task_id}",upImgExt:"jpg,jpeg,gif,png"});
+$(function(){
+	 
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+	
+})
+function upload(){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&type=att',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}else{
+			editor.appendHTML('<a href="'+json.msg.url+'" target="_blank">'+json.msg.localname+'</a>');
+		}
+
+		},
+	error:function(json,status,e){
+		  
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+<!--{template footer}-->

@@ -1,0 +1,55 @@
+{template 'header'}
+<div class="m">
+<div class="m_l f_l">
+	<div class="left_box">
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 正文</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r"><img src="{DT_SKIN}image/zoomin.gif" width="16" height="16" alt="放大字体" class="c_p" onclick="fontZoom('+');"/>&nbsp;&nbsp;<img src="{DT_SKIN}image/zoomout.gif" width="16" height="16"  alt="缩小字体" class="c_p" onclick="fontZoom('-');"/></span>
+		发布日期：{$adddate}
+		&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span>	
+		</div>
+		<div class="pd20" id="content">{template 'content', 'chip'}</div>
+		{if $pages}<div class="pages">{$pages}</div>{/if}
+		<br/>
+		<div class="t_c"><strong class="f_red">特别提示：</strong>本信息由相关企业自行提供，真实性未证实，仅供参考。请谨慎采用，风险自负。</span></div>
+		<br/><br/>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/>
+		<input type="hidden" name="title" value="{$title}"/>
+		<input type="hidden" name="linkurl" value="{$linkurl}"/>
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <script type="text/javascript">addFav('加入收藏');</script> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<br/>
+		{template 'comment', 'chip'}
+		<br/>
+	</div>
+</div>
+<div class="m_n f_l">&nbsp;</div>
+<div class="m_r f_l">
+	<div class="box_head_1"><div><strong>相关{$MOD[name]}</strong></div></div>
+	<div class="box_body li_dot">
+	{if $pid}
+	<!--{tag("moduleid=$moduleid&condition=status=3 and pid=$pid&pagesize=8&order=".$MOD[order], -2)}-->
+	{else}	<!--{tag("moduleid=$moduleid&condition=status=3&catid=$catid&pagesize=8&order=".$MOD[order], -2)}-->
+	{/if}
+	</div>
+	<div class="b10 c_b"> </div>
+	<div class="box_head_1"><div><strong>推荐{$MOD[name]}</strong></div></div>
+	<div class="box_body li_dot">	<!--{tag("moduleid=$moduleid&condition=status=3 and level=1&catid=$catid&order=".$MOD[order]."&pagesize=10")}-->
+	</div>
+	<div class="b10 c_b"> </div>
+	<div class="box_head_1"><div><strong>点击排行</strong></div></div>
+	<div class="box_body">
+		<div class="rank_list"><!--{tag("moduleid=$moduleid&condition=status=3 and addtime>$today_endtime-30*86400&catid=$catid&order=hits desc&pagesize=10", -2)}--></div>
+	</div>
+</div>
+</div>
+{template 'zoom', 'chip'}
+{template 'footer'}

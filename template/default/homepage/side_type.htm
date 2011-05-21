@@ -1,0 +1,16 @@
+{if $file != 'sell' || ($file == 'sell' && $itemid)}
+<div class="side_head"><div><span class="f_r"><a href="{userurl($username, 'file=sell', $domain)}"><img src="{$MODULE[4][linkurl]}image/more.gif" title="更多"/></a></span><strong>{$side_name[$HS]}</strong></div></div>
+<div class="side_body">
+<!--{php $tags=tag("table=type&condition=item='product-".$userid."'&pagesize=".$side_num[$HS]."&order=listorder asc,typeid desc&template=null");}-->
+<ul>
+{if $tags}
+<li id="type_0"><a href="{userurl($username, 'file=sell', $domain)}">全部分类</a></li>
+{loop $tags $t}
+<li id="type_{$t[typeid]}"><a href="{userurl($username, 'file=sell&typeid='.$t['typeid'], $domain)}" title="{$t[typename]}">{set_style($t[typename], $t[style])}</a></li>
+{/loop}
+{else}
+<li>暂无分类</li>
+{/if}
+</ul>
+</div>
+{/if}

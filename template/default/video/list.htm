@@ -1,0 +1,10 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">
+		<div class="pos">{if $caturl && $page==1}<span class="f_r"><a href="{$caturl}">更多..</a>&nbsp;&nbsp;&nbsp;</span>{/if}当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')}</div>
+		<div class="pd10">
+		<div class="thumb"><!--{tag("moduleid=$moduleid&condition=status=3&catid=$catid&length=20&pagesize=".$MOD[pagesize]."&page=$page&showpage=1&update=1&order=".$MOD[order]."&fields=".$MOD[fields]."&datetype=3&width=120&height=90&cols=6&template=list-video&target=_blank")}--></div>
+		</div>
+	</div>
+</div>
+{template 'footer'}

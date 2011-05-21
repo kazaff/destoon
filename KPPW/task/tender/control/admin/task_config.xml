@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+
+   <model_id>2</model_id>
+   <model_code>tender</model_code>
+   <model_name>招标任务</model_name>
+   <model_dir>tender</model_dir>
+   <model_dev>kekezu</model_dev>
+   <model_status>1</model_status>	
+
+ 
+</root>

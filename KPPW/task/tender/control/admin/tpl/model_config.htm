@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="tpl/js/jquery.js"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+<title>招标配置表</title>
+</head>
+<body>
+<div class="main">
+            <div class="w_80 m_c">
+                <div id="select1">
+                    <div class="tab_t">
+                        <h3 class="sel" id="tab_cont_1" onclick="swaptab('cont','sel','',3,1)">招标配置管理</h3>
+                        <h4></h4>
+                        <h3 id="tab_cont_2" onclick="swaptab('cont','sel','',3,2)">招标任务权限配置</h3>
+                        <h4></h4>
+                    </div>
+                    <div class="gut">
+                    <div class="{if $op=='config'||!$op}block{else}none{/if}" id="div_cont_1">
+                    	<ul>
+                            <li>
+   			<form name="frm_config_pay" action="#" method="post">
+                <input type="hidden" name="hdn_zb_config_id" value="{$config_tender_info[zb_config_id]}">
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td align="left" class="bg1" colspan="2" >
+                            <strong>招标配置</strong>
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            是否开启招标模式：
+                        </td>
+                        <td>
+                           <label for="rdo_open">
+                           		<input type="radio" id="rdo_open" name="rdo_is_open_zb" value="1" {if $config_tender_info[is_open_zb]=='1'}checked="checked"{/if}>开启
+                           </label>
+						     <label for="rdo_close">
+                           		<input type="radio" id="rdo_close" name="rdo_is_open_zb" value="2" {if $config_tender_info[is_open_zb]!=='1'}checked="checked"{/if}>关闭
+                           </label>
+						   (默认为开启)
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                            招标服务费：
+                        </td>
+                        <td>
+                            <input type="text" size="20"  name="txt_zb_fees" value="{$config_tender_info[zb_fees]}" maxlength="100" limit="type:float;len:2-100" msg="招标服务费不正确，长度2-100" msgArea="zb_fees_msg" class="input_t"/>元<b style="color:red">*</b>
+                            <span id="zb_fees_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            招标持续时间：
+                        </td>
+                        <td>
+                            <input type="text" size="20" name="txt_zb_max_time" value="{$config_tender_info[zb_max_time]}" onkeyup="clearstr(this);" limit="len:2-100" msg="招标持续时间不正确，长度2-100" msgArea="zb_max_time_msg" maxlength="100" class="input_t"/>天<b style="color:red">*</b>
+                            <span id="zb_max_time_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                           招标任务是否需要审核：
+                        </td>
+                        <td>
+                            <input type="checkbox" name="ckb_zb_audit" value="1" {if $config_tender_info[zb_audit]==1}checked="checked"{/if}>(勾选招标任务需要审核)
+                        </td>
+                    </tr>
+                    <tr>
+                         <td class="bg1" colspan="2" >
+                            <strong>VIP特权</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                           	VIP招标任务是否置顶：
+                        </td>
+                        <td>
+                          <input type="checkbox" name="ckb_vip_task_istop" value="1" {if $config_tender_info[vip_task_istop]==1}checked="checked"{/if}>(勾选为VIP招标任务置顶)
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                           	VIP投标是否置顶：
+                        </td>
+                        <td> 
+                            <input type="checkbox" name="ckb_vip_sign_istop" value="1" {if $config_tender_info[vip_sign_istop]==1}checked="checked"{/if}>(勾选为VIP投标置顶)
+                        </td>
+                    </tr>
+					 {if $config_tender_info[on_time]}
+				      <tr>
+				        <td class="bg1 t_r">上次修改时间：</td>
+				        <td><!--{date('Y-m-d H:i:s',$config_tender_info[on_time])}--></td>
+				      </tr>
+					  {/if}
+                    </tr>
+                   <tr>
+						<td  class="bg1" colspan="2" align="left"> <strong>招标区间设置</strong></td>
+					</tr>
+					{loop $cove_arr $key $value}
+					<tr>
+						<td class="bg1">&nbsp;</td>
+						<td>{$value[cove_desc]}
+						<a href="index.php?do=model&model_id=$model_id&view=cove&cove_id={$value['cash_rule_id']}"><img src="tpl/img/ico/edit.png" align="absmiddle"/>编辑</a>
+						<a href="index.php?do=model&model_id=$model_id&view=cove&ac=del&cove_id={$value['cash_rule_id']}" onclick="return confirm('确认要删除吗');"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除</a>
+						{if $key+1==$cove_count}
+						&nbsp;&nbsp;&nbsp;
+						<a href="index.php?do=model&model_id=$model_id&view=cove"><img src="tpl/img/ico/add.gif" align="absmiddle"/>添加</a>
+						{/if}
+						</td>
+					</tr>
+					{/loop}
+                    <tr>
+			        <td width="30%" class="bg1 t_r" >
+					<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/></td>
+			        <td >
+			        	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+			        </td>
+			      </tr>
+                </table>
+            </form>
+                            </li>
+                        </ul>
+                    	</div>
+                    	
+                    	<div class="{if $op=='rule'}block{else}none{/if}" id="div_cont_2">
+                    		<table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    		<tr>
+								<th width="15%" class="bg1" colspan="1">用户组：</th>
+								{loop $task_rule_menu_t $k $rule}
+								<th class="bg1">$rule[0]</th>
+								{/loop}
+								<th>编辑</th>
+							</tr>
+							{loop $score_rule $score}
+							<tr>
+								<td>$score[unit_title]</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]>0}$rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]次{elseif $rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=score&score_id={$score[score_rule_id]}&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							{/loop}
+							<tr><td class="bg1" colspan="<!--{eval echo count($task_rule_menu['shop'])+2;}-->"><b>特殊会员组</b></td></tr>
+							<tr>
+								<td>vip用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][vip]>0}$rule_list[$k.'_'.$model_id][vip]次{elseif $rule_list[$k.'_'.$model_id][vip]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=vip&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+                    		<tr>
+								<td>实名认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][realname]>0}$rule_list[$k.'_'.$model_id][realname]次{elseif $rule_list[$k.'_'.$model_id][realname]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=realname&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>企业认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][enterprise]>0}$rule_list[$k.'_'.$model_id][enterprise]次{elseif $rule_list[$k.'_'.$model_id][enterprise]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=enterprise&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>email认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][email]>0}$rule_list[$k.'_'.$model_id][email]次{elseif $rule_list[$k.'_'.$model_id][email]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=email&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>银行认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][bank]>0}$rule_list[$k.'_'.$model_id][bank]次{elseif $rule_list[$k.'_'.$model_id][bank]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=bank&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+                    		</table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <br>
+            </div>
+       </div>
+    	<script src="../../resource/js/keke.js" type="text/javascript"></script>
+
+    </body>
+</html>

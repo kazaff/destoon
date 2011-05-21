@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>会员管理</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+
+<body>
+<form method="get" action="index.php" id="frm_user_search">
+<input type="hidden" name="do" value="user">
+<input type="hidden" name="type" value="front">
+<input type="hidden" name="ord" value="{$ord}">
+<div class="main">
+	
+	<div class="v_search">
+		     显示条数：
+		<select name="slt_page_size">
+			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>每页显示10</option>
+			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>每页显示20</option>
+			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>每页显示30</option>
+		</select>
+		
+		
+		用户id：<input type="text" class="input_t" size="4" name="txt_uid" value="{$txt_uid}" onkeyup="clearstr(this);">　
+		用户名：<input type="text" class="input_t" name='txt_username' value="{$txt_username}" onkeyup="clearspecial(this);">　
+		是否vip：<input type="checkbox" name="ckb_isvip" {if $ckb_isvip}checked=checked{/if} value=1>　
+		用户状态：<select name="slt_static" style="width:60px;">
+      		<option value="0" {if !$slt_static}selected="selected"{/if}> 全部 </option>
+			<option value="1" {if $slt_static=='1'}selected="selected"{/if}> 正常 </option>
+			<option value="2" {if $slt_static=='2'}selected="selected"{/if}> 禁用 </option>
+		</select>
+		
+		<input type="submit" name="sbt_search" value="查询" class="input_but" onmouseover="this.className='input_but_over'" onmouseout="this.className='input_but'"/>
+      
+	
+    </div>
+	
+ 	
+  <div id="change">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th align="left">UID( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=1"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=2"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="100" class="motif">用户名</th>
+			<th >用户组</th>
+			<th>用户状态</th>
+			<th>是否vip</th>
+			<th >注册时间</th>
+			<th>注册ip</th>
+			<th >积分( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=3"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=4"><img src="tpl/img/m_down.gif" /></a> )</th>
+			<th >余额( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=5"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=6"><img src="tpl/img/m_down.gif" /></a> )</th>
+			<th>编辑</th>
+			<th>设置</th>
+			<th>禁用/启用</th>
+			<th>删除</th>
+          </tr>
+		{loop $userlist_arr $key $value}
+        <tr>
+            <td align="left"><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$value[uid]}"> {$value[uid]}</td>
+            <td class="motif"><a href="javascript:void(0)" >{$value[username]}</a></td>
+            <td>$grouplist_arr[$value[group_id]][groupname]</td>
+			<td>{if $value[status]!=2}正常{else}禁用{/if}</td>
+			<td>{if $value[isvip]}是{else}否{/if}</td>
+			<td><!--{date('Y-m-d',$value['reg_time'])}--></td>
+            <td>{$value[reg_ip]}</td>
+            <td>{$value[credit]}</td>
+			<td>{$value[balance]}</td>
+			<td><a href="index.php?do=user&type=front&op=add&edituid={$value['uid']}"><img src="tpl/img/ico/edit.png" align="absmiddle"/>编辑</a> </td>
+			<td><a href="index.php?do=user&type=back&view=user&op=setrole&edituid={$value['uid']}"><img src="tpl/img/ico/set.png" align="absmiddle"/>权限设置</a></td>
+			<td>{if $value[status]!=2}<a href="index.php?do=user&type=front&op=disable&edituid={$value['uid']}"><img src="tpl/img/ico/cancel.gif" align="absmiddle"/>禁用</a>{else} 
+				<a href="index.php?do=user&type=front&op=able&edituid={$value['uid']}"><img src="tpl/img/ico/success.gif" align="absmiddle"/>启用</a>{/if} 
+			</td>
+				<td>{if $value[uid]!=1}<a href="index.php?do=user&type=front&op=del&edituid={$value['uid']}" onclick="return confirm('{if $basic_config['user_intergration']!=1}确认要删除吗?{else}您开启了用户整合，该操作会同时删除您在其它应用中的数据，确认？{/if}');"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除</a>{else}已禁止{/if}</td>
+          </tr>
+		 {/loop}
+          <tr>
+            <th colspan="6" align="left"><input type="checkbox" id="checkbox" onclick="checkall()"> 
+			全选　
+			
+			<input type="submit" name="sbt_action" value="批量禁用" class="input_but" />
+			<input type="submit" name="sbt_action" value="批量开启" class="input_but" />
+			<input type="submit" name="sbt_action" value="批量删除" onclick="return confirm('确认？');" class="input_but" />
+			
+			&nbsp;&nbsp;&nbsp;<input type="button" name="sbt_add" value="添加新用户" class="input_but" onclick="document.location.href='index.php?do=user&type=front&op=add'"/>
+			</th>
+			<th colspan="7">
+				<div class="page">
+					{$pages[page]}
+				</div>
+			</th>
+          </tr>
+        </table>
+	</div>
+    </div>
+</form>
+<script>
+	function showpl(){
+		$('#sbt_del').show();
+		$('#slt_action').show();
+	}
+</script>
+</body>
+</html>

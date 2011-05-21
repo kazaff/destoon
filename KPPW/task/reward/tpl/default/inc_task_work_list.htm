@@ -1,0 +1,185 @@
+
+		 <div class="work_input_d"><ul><li class="fl_l">
+		 <input type="button" value="所有稿件" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&worktype=all&ord=$ord#t_work_list'" class="input_btn" />
+		 {if $uid}
+		 <input type="button" value="我的稿件" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&worktype=my&ord=$ord#t_work_list'" class="input_btn" /> 
+		 {/if}
+		 <input type="button" value="vip稿件($workcount_arr[vip])个" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&worktype=vip&ord=$ord#t_work_list'" class="input_btn" /> 
+		 {if $task_info[task_mode]==1}
+		 <input type="button" value="入围($workcount_arr[status5])个" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&workstatus=5&ord=$ord#t_work_list'" class="input_btn" /> 
+		 {/if}
+		 {if $task_info[task_mode]==2}
+		 <input type="button" value="中标($workcount_arr[status4])个" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&worktype=prize&ord=$ord#t_work_list'" class="input_btn" />
+		 {/if}
+		 {if $task_info[task_mode]==3}
+		 <input type="button" value="合格($workcount_arr[status6])个" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&workstatus=6&ord=$ord#t_work_list'" class="input_btn" />
+		 <input type="button" value="未采纳($workcount_arr[status7])个" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&workstatus=7&ord=$ord#t_work_list'" class="input_btn" />
+		 {/if}
+		 </li>　
+		 <form action="index.php?do=task&view=work&task_id=$task_id#t_work_list" method="post">
+		 <li class="fl_r"><input type="text" size="12" value="$txt_work_search" name="txt_work_search" class="input_txt" /> 
+		 <select name="slt_work_search">
+		 	<option value="1" {if $slt_work_search==1}selected="selected"{/if}>作者</option>
+		 	<option value="2" {if $slt_work_search==2}selected="selected"{/if}>稿件</option>
+		 </select> 
+		 <input type="submit"" value="搜索" class="input_btn" /> 
+		 <select onchange="location.href=this.value">
+		 	<option value="index.php?do=task&task_id={$task_id}&view=work&worktype=$worktype&workstatus=$workstatus#t_work_list">按时间升序</option>
+		 	<option {if $ord=='desc'}selected="selected"{/if} value="index.php?do=task&task_id={$task_id}&view=work&worktype=$worktype&workstatus=$workstatus&ord=desc#t_work_list">按时间降序</option>
+		 </select>
+		
+
+		 </li> </form></ul></div>
+    <div class="task_info2 p_0" >
+   	  <div class="task_work_d">
+       	
+        {loop $work_list $value}  
+          <dl class="task_work_d_tit"><dt class="w20">
+          <strong>稿件编号：{$value[work_id]}号</strong></dt>
+          <dt class="w80"><strong>时间:</strong><span class="f60"> <!--{date('Y/m/d H:i:s',$value['work_time'])}--></span>
+          <strong>{if $value['vote_num']}<strong>获得</strong><span class="f60"> $value['vote_num'] </span>票{/if}
+          &nbsp;&nbsp;
+          
+          {if $task_info['task_status']!=6}
+          
+          {if $button_arr['work_comment']}
+          <input type="button" value="添加点评" onclick="showWindow('work_comment{$value[work_id]}','index.php?do=task_op&op=workcomment&comment_type=3&task_id={$task_id}&obj_id={$value[work_id]}')" class="span_btn" />
+          {/if}
+          {if $button_arr['work_notice']&&$value[work_status]!=4&&$value[work_status]!=5}
+          <input type="button" value="入围" onclick="location.href='index.php?do=task_op&op=worknotice&task_id=$task_id&work_id=$value[work_id]'" class="span_btn" />
+          {/if}
+          {if $button_arr['work_accept']&&$value['work_status']!=4&&$value['work_status']!=6&&$value['work_status']!=7}
+          <input type="button" value="中标" onclick="accepttask($value['work_id'])" class="span_btn" />
+          {elseif $prize_arr}
+          {loop $prize_arr $prize}
+          	{if $p_en[$prize['prize']]>0&&!in_array($value['work_status'],array(1,2,3))}
+          	<input type="button" value="设为{$prize['prize']}等奖" onclick="setprize($value['work_id'],$prize['prize'])" class="span_btn" />
+          	{/if}
+          {/loop}
+          {/if}
+		  {if ($basic_config[mark_start_status]==1)||($basic_config[mark_start_status]==2&&$task_info[task_status]==3)||($basic_config[mark_start_status]==3&&$task_info[task_status]==7)}
+			  {if $value[work_status]==1||$value[work_status]==2||$value[work_status]==3||$value[work_status]==4||$value[work_status]==6}
+				  {if $uid==$task_info[uid]}
+				  	{if !$value[mark_status]}
+				  		<input type="button" class="span_btn"  value="对投稿者评分" id="buyer_mark" onclick="showWindow('buyer_mark', 'index.php?do=mark&task_id={$task_info[task_id]}&work_id={$value[work_id]}&user_type=2&to_uid={$value[uid]}&task_type={$do}');" />
+				  	{/if}
+				  {elseif $uid==$value[uid]}
+					  {if !$value[mark_status]}
+					 	 <input type="button" class="span_btn"  value="对发布者评分" id="seller_mark" onclick="showWindow('seller_mark', 'index.php?do=mark&task_id={$task_info[task_id]}&work_id=0&user_type=1&to_uid={$task_info[uid]}&task_type={$do}');"/>
+			          {/if}
+				  {/if}
+			  {/if}
+		  {/if}
+		  {if $button_arr['work_wrong']&&!$value['work_status']}
+	          	<input type="button" value="不通过" onclick="location.href='index.php?do=task_op&op=workwrong&task_id=$task_id&work_id=$value[work_id]'" class="span_btn" />
+		  {/if}
+          {if $button_arr['work_vote']&&$value['work_status']}
+			  
+	          	<input type="button" value="投他一票" onclick="location.href='index.php?do=task_op&op=workvote&task_id=$task_id&work_id=$value[work_id]'" class="span_btn" />
+	     
+		  {/if}
+		   {if $task_info['task_status']>2}<input type="button" value="举报稿件" onclick="showWindow('a_comment4', 'index.php?do=task_op&op=workcomment&comment_type=4&task_id={$task_info[task_id]}&work_id=$value[work_id]');" class="span_btn" />{/if}
+          
+          {/if}
+          
+          
+          </dt></dl>
+          <dl class="task_work_d_bg">
+           	  <dd class="w20">
+               	  <ul><li><img src="{SKIN_PATH}/img/task_work_p.gif"/><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a>{if $value[title]}&nbsp;<a href="index.php?do=space&view=studio_index&member_id={$value[uid]}"><font color="#ff6600">[{$value[title]}工作室]</font></a>{/if}</li>
+                    <li class="t_c"><a href="index.php?do=space&member_id={$value[uid]}"><!--{userpic($value[uid],middle)}--></a></li>
+                    <li>认证状态：{if $value[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+				  {if $value[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+				  {if $value[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $value[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $value[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;</li>
+					
+                    <li>用户头衔：<!--{eval $exp_value = Func_comm_class::get_experience_level($value[experience_value]);echo $exp_value[title];}--></li>
+                    <li>经验等级：<!--{eval echo $exp_value[pic];}--></li>
+					<li>威客信誉：<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($value[w_m_credit_value],1);echo $w_m_score_value[pic];}--></li>
+					<li>威客好评率：{if $value[buyer_good_rate]}{$value[buyer_good_rate]}{else}0{/if}</li>
+					<li>中标次数：{if $value['accepted_num']}$value['accepted_num']{else}0{/if}</li>
+                  </ul>
+              </dd>
+              <dd class="w80" >
+              {if $value['work_status']}<div class="task_{$value['work_status']}"></div>{/if}
+              	<p>{if $value['hide_work']&&$uid!=$value[uid]&&$uid!=$task_info[uid]}
+              	<a href="javascript:;" onclick="hide_my_work({$value['work_id']})"><img src="{SKIN_PATH}/img/hide_story.gif" /></a>
+              	{else}
+				<span id="xs_content">
+              	$value['work_desc']
+				</span>
+              	{/if}</p>
+              	{if $workcomment_arr[$value[work_id]]}
+                <div class="task_work_msg">
+                	<dl><dt></dt>
+                    <dd>
+                    	<ul>
+                    	{loop $workcomment_arr[$value[work_id]] $i $c}
+                    	<li {if ($i+1)%2!=0}class="bgcolor"{else}{/if}>{$c[content]}<span class="c999">(<span class="red"> $c['username'] </span>点评于<!--{date('Y-m-d H:i:s',$c['on_time'])}-->)</span></li>
+                    	{/loop}
+                        
+                        </ul>
+                    </dd></dl>
+                </div>
+                {/if}
+              </dd>
+            </dl>
+           {/loop}
+            
+          
+          
+          
+    </div></div> <!--task_info2_bg_E-->
+      <div class="Npage"><div class="fl_r">
+		          {$work_pages[page]}
+		    </div>
+<script>
+
+function accepttask(workid){
+	if(1==1{if $task_info[task_mode]==3&&($workcount_arr['status6']+1)==$task_info[work_count]}&&showDialog('这已是最后一件了,此操作将会结束任务,确定?', 'confirm', '结束任务','accepttaskcallback('+workid+')',1){/if}){
+		location.href='index.php?do=task_op&op=workaccept&task_id=$task_id&work_id='+workid;
+	}
+}
+
+function setprize(workid,prizeid){
+	
+	if(1==1{if $p_en[1]+$p_en[2]+$p_en[3]-1==0}&&showDialog('这已是最后一个奖项了,此操作将会结束任务,确定?', 'confirm', '结束任务','setprizecallback('+workid+','+prizeid+')',1){/if}){
+		location.href='index.php?do=task_op&op=workaccept&task_id=$task_id&work_id='+workid+'&prize_id='+prizeid;
+	}
+}
+
+function hide_my_work(workid){
+	{if $userinfo['isvip']}
+	location.href="index.php?do=task_op&task_id=$task_id&op=hidework";
+	{else}
+	showDialog('只有vip会员才能隐藏稿件，立刻成为VIP?', 'confirm', '购买vip','location.href="index.php?do=user&view=auth_vip"',1)
+	{/if}
+	
+}
+
+function accepttaskcallback(workid){
+	location.href='index.php?do=task_op&op=workaccept&task_id=$task_id&work_id='+workid;
+}
+
+function setprizecallback(workid,prizeid){
+	location.href='index.php?do=task_op&op=workaccept&task_id=$task_id&work_id='+workid+'&prize_id='+prizeid;
+}
+  	$(function(){
+		$("span[id='xs_content']").each(function(){
+		   var mw = 600;
+		   m = 	$(this).find('img');
+		   w = m.attr("width");
+		   h = m.attr("height")
+		   var hw = h/w;
+		   var wh = w/h;
+		   if(w>mw){
+		   	m.attr("witdh",mw);
+			m.attr('height',mw*hw);
+		   }
+		})
+})
+ 
+</script>
+
+	

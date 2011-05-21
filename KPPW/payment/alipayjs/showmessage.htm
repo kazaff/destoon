@@ -1,0 +1,133 @@
+
+		 
+<!--{if $_GET[inajax]}-->
+    
+<!--{template header_ajax}-->
+    <h3 class="flb"><em>{$title}</em><span><a href="javascript:;" class="flbc" onclick="hideWindow('$_GET[handlekey]');" title="close">关闭</a></span></h3>
+		<div class="c altw">
+			<div class="$alerttype">$content</div>
+		</div>
+<!--{template footer_ajax}-->
+
+<!--{else}-->
+      
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>{$page_title}</title>
+<meta name="keywords" content="$page_keyword">
+<meta name="description" content="$page_description">
+<meta name="generator" content="客客出品 {KEKE_VERSION}" />
+<meta name="author" content="kekezu" />
+<meta name="copyright" content="powered by kekezu 2010-2018 kekezu Inc." />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="../../{SKIN_PATH}/css/base.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../resource/js/jquery.js"></script>
+</head>
+    <body>
+        <div id="append_parent">
+        </div>
+        <div id="ajaxwaitid">
+        </div>
+         
+        <div id="tool" class="w960">
+            <ul id="top_menu">
+                <li class="w50 fl_l">{if $uid}您好，<font color="red"><a href="index.php?do=user" style="color:red;">{$username}！</a></font>&nbsp;&nbsp;&nbsp;<a href="index.php?do=user&view=message_list">{if $messagecount}<img src="{SKIN_PATH}/img/message.gif">&nbsp;短消息({$messagecount})</a>{else}短消息</a>{/if}&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php?do=logout">退出</a>
+					 {else}
+					  您好，欢迎来到{$_K['website_name']}! 　
+					 <a href="index.php?do=login" id="alogin">请登录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="index.php?do=register" id="aregister">免费注册</a>
+					 {/if}
+					
+                </li>
+                <li class="w50 fl_r">
+                	<div> 
+                   <h6 class="h6_1"><a href="index.php?do=user" >我的客客</a></h6>
+                   <p>
+					{loop $model_list $model}
+                   <a href="index.php?do=user&view=release_task&model_id={$model[model_id]}">我发布的{$model[model_name]}</a><br>
+                   {/loop}
+					<u></u>
+					{loop $model_list $model}
+					 <a href="index.php?do=user&view=join_task&model_id={$model[model_id]}">我参加的{$model[model_name]}</a><br>
+					 {/loop}
+					<a href="index.php?do=user&view=collect_task">我收藏的任务</a><br>
+				   </p>
+				   </div>
+                    <i>&nbsp;</i>
+                    <h6><a href="index.php?do=release">发布任务</a></h6>
+                    <i>&nbsp;</i>
+                    <div>
+					<h6 class="h6_2"><a href="#">网站导航</a></h6>
+					<p class="p3">
+					<a href="index.php?do=release">任务发布</a>
+					<a href="index.php?do=user&view=cash">在线充值</a><br>
+					{loop $model_list $model}
+					<a href="index.php?do=task_list&model_id={$model[model_id]}">$model[model_name]</a>
+					{/loop}<br>
+				   </p>
+				   </div>
+                    <i>&nbsp;</i>
+                    <h6><a href="index.php?do=help">帮助</a></h6>
+                    <i>&nbsp;</i>
+                    <h6><a href="#" onClick="setHomepage('{$_K['siteurl']}')">设为首页</a></h6>
+                    <i>&nbsp;</i>
+                    <h6><a href="#" onClick="addFav('{$_K['website_name']}','{$_K['siteurl']}');">加入收藏</a></h6>
+                </li>
+            </ul>
+        </div>
+        <!--tool_E-->
+	<!--{template header_seach}-->      
+        <!--top_E-->
+        <div id="nav">
+            <div class="nav">
+            <!--{eval $navid=0;}-->
+            {loop $nav_list $nav}
+            {if $navid}<i></i>{/if}
+            <a href="$nav[nav_url]" {if $nav['newwindow']}target="_blank"{/if} {if $nav_active_index == ++$navid} class="nav_active">{/if}</>$nav[nav_title]</a>
+            {/loop}
+            </div>
+			
+			<style>
+				.nav_tips strong {display:block;float:left;}
+				.nav_tips #icefable2 {float:left;width:150px;overflow:hidden;}
+				.nav_tips #icefable2 a{display:block;width:150px;height30px;overflow:hidden;}
+			</style>
+			
+            <div class="nav_tips">
+                <strong>小贴士 </strong>
+				<!--{tag 页头滚动小贴士}-->
+				
+            </div>
+            <div class="nav_news">
+                <!--{tag 导航喇叭消息}-->
+            </div>
+        </div>
+
+
+
+
+	<script language="JavaScript">
+		window.history.forward(1);
+	function jump(){
+		{if $url}
+			window.location.href='{$url}';
+		{else}
+			history.go(-1);
+		{/if}
+		}
+		<!--{if $time}-->
+		setTimeout('jump()',1000*($time)); //指定1秒刷新一次
+		<!--{/if}-->
+	</script>
+	<div id="content">
+	    <div class="{if $msgtype=='info'}tip_s{else}tip_f{/if}">
+	    	<b>提示信息 {$title}</b><br/>
+			{$content}
+			<br>&nbsp;<a href="{$url}" style="text-decoration:underline;">如果页面没有响应，请点击这里刷新&nbsp; </a>
+	    </div>
+	</div><!--content_E-->
+	<div class="clear"></div>
+	<!--{template footer}-->
+<!--{/if}-->

@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset={DT_CHARSET}"/>
+<title>{if $seo_title}{$seo_title}{else}{if $head_title}{$head_title}{$DT[seo_delimiter]}{/if}{$DT[sitename]}{/if}</title>
+<meta name="keywords" content="{$head_keywords}"/>
+<meta name="description" content="{$head_description}"/>
+<meta name="generator" content="Destoon B2B,www.destoon.com"/>
+<meta http-equiv="x-ua-compatible" content="ie=7"/>
+<link rel="stylesheet" type="text/css" href="{DT_SKIN}answer.css"/>
+<link rel="shortcut icon" href="{DT_PATH}favicon.ico"/>
+<link rel="bookmark" href="{DT_PATH}favicon.ico"/>
+<script type="text/javascript" src="{DT_PATH}lang/{DT_LANG}/lang.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/config.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/common.js"></script>
+<script type="text/javascript" src="{DT_PATH}file/script/page.js"></script>
+<script type="text/javascript">
+if(parent.location == window.location) window.location='{$linkurl}';
+</script>
+</head>
+<body>
+<div id="destoon_answer">
+{if $action == 'vote_show'}
+<div class="left_head">投票结果</div>
+<div style="padding:15px;">
+<table cellpadding="6" cellspacing="1" width="100%" align="center" bgcolor="#C5D7ED">
+<tr bgcolor="#F1F7FC" align="center">
+<td>回答者</td>
+<td>票数</td>
+<td width="200">&nbsp;</td>
+<td>比例</td>
+</tr>
+{loop $votes $v}
+<tr bgcolor="#FFFFFF" align="center">
+<td>
+{if $v[hidden]}
+匿名
+{else}
+	{if $v[username]}
+	<a href="{userurl($v[username])}" target="_blank">{$v[username]}</a>
+	{else}
+	{hide_ip($v[ip])}
+	{/if}
+{/if}
+</td>
+<td class="px11">{$v[vote]}</td>
+<td align="left"><div class="vote_b"><div class="vote_s" style="width:{$v[precent]};"> </div></div></td>
+<td class="px11">{$v[precent]}</td>
+</tr>
+{/loop}
+</table>
+</div>
+<center><input type="button" value="返 回" onclick="window.location='{$MOD[linkurl]}answer.php?itemid={$itemid}';" class="btn"/></center>
+<br/>
+{else}
+	<iframe src="" name="send" id="send" style="display:none;"></iframe>
+	{if $could_admin && $item[process]==1}
+	<div class="left_head">处理提问</div>
+	<div class="question_op">
+	<div><span class="px14">如果已获得满意的回答，请及时采纳，感谢回答者。若还没有满意的回答，可以尝试以下操作： </span></div>	
+	{if $items>1}
+	<div><a href="{$MOD[linkurl]}answer.php?itemid={$itemid}&action=vote" onclick="return confirm('确定要举行投票吗？');" class="f_b px13" target="_top">举行投票</a><span class="f_gray"> - 不知道哪个回答最好，让网友投票来选出最佳答案;</span></div>
+	{/if}
+	<div><a href="javascript:" onclick="Ds('add_content');H();" class="f_b px13">补充问题</a><span class="f_gray"> - 补充提问细节，以得到更准确的答案;</span></div>
+	<div id="add_content" style="display:none;background:#F1F7FC;padding:15px;">
+	<form method="post" action="{$MOD[linkurl]}answer.php" target="_top">
+	<input type="hidden" name="itemid" value="{$itemid}"/>
+	<input type="hidden" name="action" value="addition"/>
+	<textarea name="content" id="content" style="width:90%;height:80px;margin:0 0 10px 0;">{$item[addition]}</textarea><br/>
+	<input type="submit" value=" 确 认 " class="btn"/>
+	<input type="button" value=" 取 消 " class="btn" onclick="Dh('add_content');H();"/>
+	</form>
+	</div>
+	{if $item[raise] < $MOD[maxraise]}
+	<div><a href="javascript:" onclick="Ds('add_credit');H();" class="px13 f_b">提高悬赏</a><span class="f_gray"> - 提高悬赏，以提高问题的关注度;</span></div>
+	<div id="add_credit" style="display:none;background:#F1F7FC;padding:15px;">
+	<form method="post" action="{$MOD[linkurl]}answer.php" target="_top">
+	<input type="hidden" name="itemid" value="{$itemid}"/>
+	<input type="hidden" name="action" value="raise"/>
+	提问期内，可以追加悬赏 <strong class="f_red">{$MOD[maxraise]}</strong> 次(已追加<strong>{$item[raise]}</strong>次)。悬赏一次，可延长问题的有效期 <strong class="f_blue">{$MOD[raisedays]}</strong> 天。<br/> 
+	当您一次悬赏的{$DT[credit_name]}高于 <strong>20</strong> 分时，该问题将等同于新提出的问题，在所属分类的问题列表中显示为最新。 <br/>
+	追加悬赏
+	<select name="credit">
+	{loop $CREDITS $v}
+	{if $v>0}<option value="{$v}">{$v}</option>{/if}
+	{/loop}
+	</select>
+	分  当前{$DT[credit_name]} <strong class="f_blue">{$_credit}</strong><br/>
+	<div style="padding:5px 0 5px 0;">
+	<input type="submit" value=" 确 认 " class="btn"/>
+	<input type="button" value=" 取 消 " class="btn" onclick="Dh('add_credit');H();"/>
+	</form>
+	</div>
+	</div>
+	{/if}
+	<div><a href="{$MOD[linkurl]}answer.php?itemid={$itemid}&action=close" onclick="return confirm('确定要关闭这个问题吗？');" class="f_b px13" target="_top">关闭问题</a><span class="f_gray"> - 没有满意的回答 ，可以直接结束提问，关闭问题;</span></div>
+	</div>
+	{/if}
+
+	{if $answers}
+	<div class="left_head c_b">其他回答 <span class="px12">({$items})</span></div>
+	{loop $answers $k $v}
+	{if $k==count($answers)-1}<a name="last"></a>{/if}
+	<div class="answer_body" id="a_{$v[itemid]}">{nl2br($v[content])}</div>
+	<div class="answer_foot">
+	<span class="f_r">回答者： <span id="u_{$v[itemid]}">
+	{if $v[hidden]}
+	匿名
+	{else}
+		{if $v[username]}
+		<a href="{userurl($v[username])}" target="_blank">{$v[username]}</a>
+		{else}
+		{hide_ip($v[ip])}
+		{/if}
+	{/if}
+	&nbsp;&nbsp;<span class="px11">{timetodate($v[addtime], 5)}</span></span></span>
+	{if $could_admin && $item[process] == 1}
+	<input type="button" value="采纳为答案" onclick="choose_answer({$v[itemid]});" class="btn"/>
+	{/if}
+	{if $item[process] == 2}
+		{if $could_admin}
+		<input type="button" value="移除选项" onclick="if(confirm('确定要移除此投票选项吗？')) $('send').src='{$MOD[linkurl]}answer.php?itemid={$itemid}&aid={$v[itemid]}&action=vote_del';" class="btn"/>
+		{/if}
+		{if $could_vote}
+		<input type="button" value="投一票" onclick="$('send').src='{$MOD[linkurl]}answer.php?itemid={$itemid}&aid={$v[itemid]}&action=vote_add';" class="btn"/>
+		{/if}
+		{if !$could_vote || $could_admin}
+		<input type="button" value="投票结果" onclick="window.location='{$MOD[linkurl]}answer.php?itemid={$itemid}&action=vote_show';" class="btn"/>
+		{/if}
+	{/if}
+	&nbsp;&nbsp;
+	</div>
+	{/loop}
+	<div class="pages">{$pages}</div>
+	{/if}
+	<div id="choose_form" style="display:none;">
+	<div class="left_head">采纳答案</div>
+	<div class="answer_body" id="choose_a"></div>
+	<div class="answer_foot" id="choose_u"></div>
+	<form method="post" action="{$MOD[linkurl]}answer.php" target="_top" onsubmit="return choose_check();">
+	<input type="hidden" name="aid" id="aid" value="0"/>
+	<input type="hidden" name="action" value="choose"/>
+	<input type="hidden" name="itemid" value="{$itemid}"/>
+	<table width="100%" cellpadding="8" cellspacing="0">
+	<tr>
+	<td align="right" valign="top" class="px14"><br/>感谢语或评论：</td>
+	<td><textarea rows="6" cols="70" name="content" id="thx_content" class="f_gray" onfocus="if(this.value=='说声谢谢，感谢回答者的无私帮助'){this.value='';this.className='';}">说声谢谢，感谢回答者的无私帮助</textarea><br/><span id="dcontent" class="f_red px12"></span>
+	</td>
+	</tr>
+	<tr>
+	<td align="right"  class="px14">额外奖励：</td>
+	<td>	
+	<select name="credit" id="choose_credit">
+	<option value="0">0</option>
+	{loop $CREDITS $v}
+	{if $v>0}<option value="{$v}">{$v}</option>{/if}
+	{/loop}
+	</select>
+	<span class="f_gray">如果您对这一回答非常满意,您可以选择给回答者额外的奖励</span>
+	</td>
+	</tr>
+	<tr>
+	<td> </td>
+	<td>
+	<input type="submit" value=" 确 认 " class="btn"/>
+	<input type="button" value=" 取 消 " class="btn" onclick="choose_cancel();"/>
+	</td>
+	</tr>
+	</table>
+	</form>
+	</div>
+	<script type="text/javascript">
+	function choose_check() {
+		return true;
+	}
+	function choose_answer(id) {
+		$('choose_a').innerHTML = $('a_'+id).innerHTML;
+		$('choose_u').innerHTML = $('u_'+id).innerHTML;
+		$('aid').value = id;
+		Ds('choose_form');
+		H();
+		$('choose_credit').focus();
+	}
+	function choose_cancel() {
+		$('choose_a').innerHTML = '';
+		$('choose_u').innerHTML = '';
+		$('aid').value = 0;
+		Dh('choose_form');
+		H();
+	}
+	</script>
+
+	{if $could_answer}
+	<div class="left_head">我来回答</div>
+	<form method="post" action="{$MOD[linkurl]}answer.php" target="send" id="dform" onsubmit="return check();">
+	<input type="hidden" name="items" value="{$items}"/>
+	<input type="hidden" name="itemid" value="{$itemid}"/>
+	<div class="px14">
+	<table width="100%" cellpadding="8" cellspacing="1">
+	<tr>
+	<td align="right" valign="top"><br/>我来回答：</td>
+	<td><textarea rows="6" cols="70" name="content" id="content" onfocus="H();"></textarea><br/><span id="dcontent" class="f_red px12"></span>
+	</td>
+	</tr>
+	<tr>
+	<td align="right">参考资料：</td>
+	<td><input type="text" name="url" size="60" id="url"/></td>
+	</tr>
+	{if $_userid}
+	<tr>
+	<td align="right">匿名设定：</td>
+	<td class="px12"><input type="checkbox" name="hidden" value="1" id="hidden"/> 如果不需要显示您的信息，您可以对回答设定匿名</td>
+	</tr>
+	{/if}
+	{if $need_captcha}
+	<tr>
+	<td align="right"><span class="f_red">*</span> 验证码：</td>
+	<td class="px12">{template 'captcha', 'chip'} <span id="dcaptcha" class="f_red"></span></td>
+	</tr>
+	{/if}
+	{if $need_question}
+	<tr onmouseout="H();">
+	<td align="right"><span class="f_red">*</span> 验证问题：</td>
+	<td class="px12">{template 'question', 'chip'} <span id="danswer" class="f_red"></span></td>
+	</tr>
+	{/if}
+	<tr>
+	<td> </td>
+	<td class="px12">
+	<input type="submit" name="submit" value=" 提交回答 " class="btn"/>&nbsp;
+	<a href="{$MOD[linkurl]}faq.php#credit" target="_blank">{$DT[credit_name]}规则</a>
+	</td>
+	</tr>
+	{if !$_userid}
+	<tr>
+	<td> </td>
+	<td class="px12 f_gray">
+	登录后回答可以获得{$DT[credit_name]}奖励，并可以查看和管理所有的回答。<a href="{$MODULE[2][linkurl]}{$DT[file_login]}" target="_top">登录</a> | <a href="{$MODULE[2][linkurl]}{$DT[file_register]}" target="_top">注册</a>
+	</td>
+	</tr>
+	{/if}
+	</table>
+	</div>
+	</form>
+	</div>
+	<script type="text/javascript">
+	function check() {
+		var l;
+		var f;
+		f = 'content';
+		l = $(f).value.length;
+		if(l < 5) {
+			Dmsg('内容应最少5字，当前已输入'+l+'字', f);
+			return false;
+		}
+		{if $need_captcha}
+		f = 'captcha';
+		l = $(f).value;
+		if(!is_captcha(l)) {
+			Dmsg('请填写正确的验证码', f);
+			return false;
+		}
+		if($('c'+f).innerHTML.indexOf('error') != -1) {
+			$(f).focus();
+			return false;
+		}
+		{/if}
+		{if $need_question}
+		f = 'answer';
+		l = $(f).value.length;
+		if(l < 1) {
+			Dmsg('请填写验证问题', f);
+			return false;
+		}
+		if($('c'+f).innerHTML.indexOf('error') != -1) {
+			$(f).focus();
+			return false;
+		}
+		{/if}
+	}
+	try{parent.$('answer_btn').style.display = '';}catch(e){}
+	</script>
+	{/if}
+{/if}
+<script type="text/javascript">
+function H() {
+	try{parent.$('destoon_answer').style.height = $('destoon_answer').scrollHeight+'px';}
+	catch(e){}
+}
+H();
+</script>
+</body>
+</html>

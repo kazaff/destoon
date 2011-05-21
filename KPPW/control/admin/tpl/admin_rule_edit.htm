@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type"
+	content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script src="tpl/js/util.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript"
+	src="../../resource/js/xheditor/xheditor.js"></script>
+<body>
+<form method="post" action="index.php?do=rule&view=edit&key=$key&type=$type&model_id=$model_id" id="frm_art_edit" enctype="multipart/form-data">
+<div class="main">
+<div class="m_tit">
+<ul>
+	<li class="m_tit_l"></li>
+	<li class="font14">编辑权限</li>
+	<li class="m_tit_r"></li>
+</ul>
+</div>
+<table width="96%" height="200" border="0" cellspacing="0"
+	cellpadding="0" class="tab_m t_l">
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">权限名：</td>
+		<td colspan="3">$rule[0]</td>
+	</tr>
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">权限说明：</td>
+		<td colspan="3">$rule[2]</td>
+	</tr>
+	{if $type=='score'}
+	{loop $score_rule $score}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">$score['unit_title']</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_$score['score_rule_id']').hide()}else{$('#edit_rule_text_$score['score_rule_id']').show()}"{/if} type="radio" {if $rule_list[$key.$model_key]['score_'.$score['score_rule_id']]<0}checked="checked"{/if} name="edit_rule[score_{$score['score_rule_id']}][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_$score['score_rule_id']').show()}else{$('#edit_rule_text_$score['score_rule_id']').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key]['score_'.$score['score_rule_id']]>=0}checked="checked"{/if} name="edit_rule[score_{$score['score_rule_id']}][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_$score['score_rule_id']" {if $rule_list[$key.$model_key]['score_'.$score['score_rule_id']]<0}style="display: none"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key]['score_'.$score['score_rule_id']]<0}0{else}$rule_list[$key.$model_key]['score_'.$score['score_rule_id']]{/if}" name="edit_rule[score_{$score['score_rule_id']}][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	{/loop}
+	{else}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">VIP</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_vip').hide()}else{$('#edit_rule_text_vip').show()}"{/if} type="radio" {if $rule_list[$key.$model_key][vip]<0}checked="checked"{/if} name="edit_rule[vip][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_vip').show()}else{$('#edit_rule_text_vip').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key][vip]>=0}checked="checked"{/if} name="edit_rule[vip][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_vip" {if $rule_list[$key.$model_key][vip]<0}style="display: hidden"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key][vip]<0}0{else}$rule_list[$key.$model_key][vip]{/if}" name="edit_rule[vip][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">实名认证</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_realname').hide()}else{$('#edit_rule_text_realname').show()}"{/if} type="radio" {if $rule_list[$key.$model_key][realname]<0}checked="checked"{/if} name="edit_rule[realname][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_realname').show()}else{$('#edit_rule_text_realname').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key][realname]>=0}checked="checked"{/if} name="edit_rule[realname][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_realname" {if $rule_list[$key.$model_key][realname]<0}style="display: hidden"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key][realname]<0}0{else}$rule_list[$key.$model_key][realname]{/if}" name="edit_rule[realname][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">企业认证</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_entriprise').hide()}else{$('#edit_rule_text_entriprise').show()}"{/if} type="radio" {if $rule_list[$key.$model_key][entriprise]<0}checked="checked"{/if} name="edit_rule[entriprise][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_entriprise').show()}else{$('#edit_rule_text_entriprise').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key][entriprise]>=0}checked="checked"{/if} name="edit_rule[entriprise][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_entriprise" {if $rule_list[$key.$model_key][entriprise]<0}style="display: hidden"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key][entriprise]<0}0{else}$rule_list[$key.$model_key][entriprise]{/if}" name="edit_rule[entriprise][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">邮件认证</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_email').hide()}else{$('#edit_rule_text_email').show()}"{/if} type="radio" {if $rule_list[$key.$model_key][email]<0}checked="checked"{/if} name="edit_rule[email][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_email').show()}else{$('#edit_rule_text_email').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key][email]>=0}checked="checked"{/if} name="edit_rule[email][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_email" {if $rule_list[$key.$model_key][email]<0}style="display: hidden"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key][email]<0}0{else}$rule_list[$key.$model_key][email]{/if}" name="edit_rule[email][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">银行认证</td>
+		<td colspan="3">
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_bank').hide()}else{$('#edit_rule_text_bank').show()}"{/if} type="radio" {if $rule_list[$key.$model_key][bank]<0}checked="checked"{/if} name="edit_rule[bank][r]" value="-1">禁用 
+		<input {if $rule[1]}onclick="if(this.checked){$('#edit_rule_text_bank').show()}else{$('#edit_rule_text_bank').hide()}"{/if} type="radio" {if $rule_list[$key.$model_key][bank]>=0}checked="checked"{/if} name="edit_rule[bank][r]" value="0">启用
+		{if $rule[1]}
+		<font id="edit_rule_text_bank" {if $rule_list[$key.$model_key][bank]<0}style="display: hidden"{/if}>
+		<input type="text" value="{if $rule_list[$key.$model_key][bank]}0{else}$rule_list[$key.$model_key][bank]{/if}" name="edit_rule[bank][t]">
+		0为不限制,大于0为限制的次数
+		</font>
+		{/if}
+		</td>
+	</tr>
+	{/if}
+	
+	
+	<tr>
+		<td align="left" colspan="4">
+		<div style="padding-left: 300px;"><input type="submit"
+			name="sbt_edit" class="input_but" value="保存编辑" /> <input type="reset"
+			name="rst_edit" class="input_but" value="返回上一页"
+			onclick="history.go(-1);" /></div>
+		</td>
+	</tr>
+</table>
+<br />
+</div>
+</form>
+<script type="text/javascript">
+	var editor = $("#tar_content").xheditor({tools:'simple',internalScript:false,internalStyle:false,upImgUrl:"../../index.php?do=ajax_upload&type=admin&task_id=1",upImgExt:"jpg,jpeg,gif,png"});
+</script>
+</body>
+</html>

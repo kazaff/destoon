@@ -1,0 +1,7 @@
+<script type="text/javascript">
+var config='5|0xFFFFFF|0x333333|80|0xFAFAFA|0x333333|0x000000';
+var files='{loop $tags $i $t}{if $i}|{/if}{$t[thumb]}{/loop}';
+var links='{loop $tags $i $t}{if $i}|{/if}{$t[linkurl]}{/loop}';
+var texts='{loop $tags $i $t}{if $i}|{/if}{$t[alt]}{/loop}';
+document.write('<embed src="{DT_PATH}file/flash/slide.swf" wmode="opaque" FlashVars="config='+config+'&bcastr_flie='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'& menu="false" quality="high" width="{$width}" height="{$height}" type="application/x-shockwave-flash" extendspage="http://get.adobe.com/flashplayer/"></embed>');
+</script>

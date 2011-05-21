@@ -1,0 +1,6 @@
+<script type="text/javascript">
+var pics='{loop $tags $i $t}{if $i}|{/if}{$t[thumb]}{/loop}';
+var links='{loop $tags $i $t}{if $i}|{/if}{$t[linkurl]}{/loop}';
+var texts='{loop $tags $i $t}{if $i}|{/if}{$t[alt]}{/loop}';
+document.write('<embed src="{DT_PATH}file/flash/focus.swf" quality="high" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" wmode="transparent" width="{$width}" height="{$height}" menu="false"  FlashVars="pics='+pics+'&links='+links+'&texts='+texts+'"></embed>');
+</script>

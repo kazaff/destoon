@@ -1,0 +1,26 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+#show_player {height:160px;background:url('image/load.gif') no-repeat center center;}
+.announce {height:28px;line-height:28px;background:url('image/announce_bg.gif') repeat-x;padding:0 10px 0 10px;overflow:hidden;}
+.announce strong {color:#FF0000;}
+.trade_head {background:url('image/trade_head.gif') no-repeat;padding:4px 0 0 11px;font-size:14px;letter-spacing:1px;line-height:20px;}
+.trade_body {border:#AACCEE 1px solid;padding:8px;}
+.trade_body li {height:22px;line-height:23px;overflow:hidden;padding:0 5px 0 5px;color:#666666;}
+.loading {width:100%;height:220px;background:url('image/loading.gif') no-repeat center center;}
+.headline h2 {text-align:center;font-size:14px;margin:0;height:29px;line-height:30px;overflow:hidden;}
+.headline span {color:#004499;}
+.product {padding:8px 5px 0 5px;}
+.product img {border:#DCDCDC 1px solid;padding:2px;}
+.product li {line-height:20px;height:20px;width:100px;overflow:hidden;}
+.newsr {border-bottom:#C0C0C0 1px dotted;margin:0 0 5px 0;}
+/* quote */
+.quote_head {height:25px;line-height:25px;overflow:hidden;background:url('image/quote_head.gif') no-repeat;padding:0 3px 0 0;}
+.quote_head div {width:80px;text-align:center;font-size:14px;}
+.quote_head_i {color:#666666;padding:2px 0 1px 1px;}
+.quote_body {border:#FF7300 1px solid;padding:11px 0 11px 0;}
+.quote_body li {background:url('image/ico_quote.gif') no-repeat 13px 1px;padding:0 15px 0 35px;color:#666666;height:20px;line-height:20px;overflow:hidden;}
+/* know */
+.know_credit {background:url('image/ico_reward.gif') no-repeat;font-size:11px;color:#666666;padding:0 0 0 14px;}
+.video li {background:url('image/ico_video.gif') no-repeat 2px 4px;padding:0 10px 0 21px;}

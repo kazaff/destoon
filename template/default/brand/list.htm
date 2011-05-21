@@ -1,0 +1,44 @@
+{template 'header'}
+<div class="m">
+	<div class="m_l_1 f_l">
+	<div class="left_box">		
+	<div class="pos">&nbsp;当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')}</div>
+			<div class="category">
+				<p><img src="{DT_SKIN}image/arrow.gif" width="17" height="12" alt=""/> <strong>按分类浏览</strong></p>
+				<div>
+				<table width="100%" cellpadding="3">
+				{loop $maincat $k $v}
+				{if $k%$MOD[page_subcat]==0}<tr>{/if}
+				<td{if $v[catid]==$catid} class="f_b"{/if}><a href="{$MOD[linkurl]}{$v[linkurl]}">{set_style($v[catname],$v[style])}</a> <span class="f_gray px10">({$ITEMS[$v[catid]]})</span></td>
+				{if $k%$MOD[page_subcat]==($MOD[page_subcat]-1)}</tr>{/if}
+				{/loop}
+				</table>
+				</div>
+			</div>
+			<div class="b10 tool">&nbsp;</div>	<!--{tag("moduleid=$moduleid&condition=status=3&catid=$catid&pagesize=".$MOD[pagesize]."&page=$page&showpage=1&update=1&datetype=5&introduce=150&order=".$MOD[order]."&fields=".$MOD[fields]."&template=list-brand&target=_blank")}-->
+	</div>
+	</div>
+	<div class="m_n f_l">&nbsp;</div>
+	<div class="m_r_1 f_l">
+		<div class="sponsor">{ad($moduleid,$catid,$kw,7)}</div>
+		<div class="box_head_1"><div><strong>本周搜索排行</strong></div></div>
+		<div class="box_body">
+			<div class="rank_list">
+				<!--{tag("moduleid=$moduleid&table=keyword&condition=moduleid=$moduleid and status=3 and updatetime>$today_endtime-86400*7&pagesize=10&order=week_search desc&key=week_search&template=list-search_rank", -2)}-->
+			</div>		
+		</div>
+		<div class="b10">&nbsp;</div>
+		<div class="box_head_1"><div><strong>按地区浏览</strong></div></div>
+		<div class="box_body">
+		{php $mainarea = get_mainarea(0, $AREA)}
+		<table width="100%" cellpadding="3">
+		{loop $mainarea $k $v}
+		{if $k%2==0}<tr>{/if}
+		<td><a href="{$MOD[linkurl]}{rewrite('search.php?areaid='.$v['areaid'])}">{$v[areaname]}</a></td>
+		{if $k%2==1}</tr>{/if}
+		{/loop}
+		</table>
+		</div>
+	</div>
+</div>
+{template 'footer'}

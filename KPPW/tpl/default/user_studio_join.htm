@@ -1,0 +1,33 @@
+<!--{eval $page_title='申请加入工作室 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<form action="index.php?do=space&view=studio_index" method="post">
+<div class="mainbox" style="width:450px;">
+<input type="hidden" name="hdn_studio_id" value="{$studio_info[studio_id]}">
+<input type="hidden" name="member_id" value="{$member_id}">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right">
+				工作室名称：
+			</td>
+			<td align="left">
+				{$studio_info[title]}
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				加入的理由：
+			</td>
+			<td align="left">
+				<textarea cols="60" rows="8" name="tar_desc"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<br>
+				<input class="rele_btn" type="submit" id="sbt_sq" name="sbt_sq" value="立即申请">
+			</td>
+		</tr>
+	</table>
+</div>
+</form>
+<!--{template footer}-->

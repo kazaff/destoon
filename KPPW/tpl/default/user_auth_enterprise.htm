@@ -1,0 +1,107 @@
+<!--{eval $page_title='企业认证 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+       <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+        <form action="index.php?do={$do}&view={$view}&auth_id={$auth_id}" method="post" enctype="multipart/form-data" id="frm_auth">
+			<div class="backright_d">
+				<dl><dt>{$item_info[auth_title]}</dt>
+				<dd>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+						<td colspan="2" align="left">
+                     		<b>
+                     			{if $user_info[enterprise_auth]==1}
+								<font color="red">{$item_info[auth_title]}已通过</font>
+								{else}
+                     			{$item_info[auth_title]}流程：<font color="red">第一步：填写{$item_info[auth_title]}信息</font>——>第二步：后台审核通过！
+                     			{/if}
+							</b>
+						</td>
+					  <tr>
+						<td class="t_r" width="20%">用户名：</td>
+					    <td>{$user_info[username]}</td>
+					  </tr>
+					    <tr>
+					    <td class="t_r">登记注册号码：</td>
+					    <td>
+					    <input type="text" size="30" name="txt_licen_num" class="input_txt2" {if $enterprise_info[licen_num]}value="{$enterprise_info[licen_num]}" readonly="readonly"{/if} />
+					    </td>
+				      </tr>
+					    <tr>
+					    <td class="t_r">营业执照图片：</td>
+					    <td>
+					    <input type="file" size="30" name="fle_licen_pic" class="input_txt2" />
+					    </td>
+				      </tr>
+                      <tr>
+					    <td class="t_r">说明：</td>
+					    <td>{$item_info[auth_desc]}<font color="red">（认证将在 {$item_info[auth_day]}个工作日完成）</font>
+					    </td>
+				      </tr>
+                     <tr height="30">
+                     	<td colspan="2" align="center">
+                     		{if $enterprise_info&&!$enterprise_info[auth_status]}
+							<input type="button" name="sbt_edit" value="待审核" />
+							（请耐心的等待管理审核）
+							{elseif  $enterprise_info&&$enterprise_info[auth_status]==2}
+							<input type="button" name="sbt_edit" value="审核不通过" />
+							（如果您有什么异议可以联系客户）
+							{elseif  $enterprise_info&&$enterprise_info[auth_status]==1}
+							<input type="button" name="sbt_edit" value="审核已通过" />
+							<span class="red">（您的{$item_info[auth_title]}已通过管理员审核）</span>
+							{else}
+                     		<input type="button" onclick="user_auth()" value="立即认证" />
+							{/if}
+							<input type="hidden" name="sbt_edit" value="1">
+                     	</td>
+                     </tr>
+					</table>
+			  </dd></dl>
+			</div>
+			</form>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript">
+	function user_auth(){
+		var user_balance = {$user_info[balance]};
+		var user_credit = {$user_info[credit]};
+		var is_allow_credit = {$basic_config[credit_is_allow]};
+		var pay_cash = {$item_info[auth_cash]};
+
+		if(pay_cash<=0){
+			form_sbt();
+		}else{
+			if((user_credit+user_balance)>=pay_cash){
+				if(is_allow_credit==1){
+					if(user_credit>=pay_cash){
+						showDialog('将从您的代金券中扣除'+pay_cash+'点,', 'confirm', '确认付款','form_sbt()',0);
+					}else{
+						showDialog('将从您的账号中扣除￥'+(pay_cash-user_credit)+'元,代金券中扣除'+user_credit+'点,', 'confirm', '确认付款','form_sbt()',0);
+					}
+				}else{
+					showDialog('将从您的账号中扣除￥'+pay_cash+'元', 'confirm', '确认付款','form_sbt()',0);
+				}
+			}else{
+				showDialog('您的余额不足，需要在线支付,', 'confirm', '在线支付','online_pay()',0);
+			}
+		}
+		return false;
+	}
+	function form_sbt(){
+		$('#frm_auth').submit();
+	}
+	function online_pay(){
+		window.location.href='index.php?do=user&view=cash';
+	}
+</script>
+<script src="resource/js/css.js" type="text/javascript"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<!--{template footer}-->

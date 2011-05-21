@@ -1,0 +1,157 @@
+
+body {
+	text-align: left;
+	background:#F1F8EA;
+}
+a {
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+input,textarea{
+	border:1px solid #ccc;
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:20px;
+}
+.header {
+	color:#000;
+	background:#8F0763 url(../img/skin_1_5/top_nav_bg.gif) repeat-x left bottom;
+}
+.logo h2 {
+	color:#000;
+}
+.topMenu a {
+	color:#000;
+}
+.topMenu a:hover {
+	color:#eee;
+}
+.menuWrapper {
+	background:#3B510E;
+}
+.menu a {
+	color:#fff;
+}
+.menu a:hover, .menu a.on {
+	background:#3B510E url(../img/skin_1_5/menu_a.gif) no-repeat left 0;
+	color:#fff;
+}
+.menu a span{} 
+.menu a:hover span,.menu a.on span {
+	background:url(../img/skin_1_5/menu_a.gif) no-repeat right 0
+}
+.footer {
+	color:#fff;
+	background:#3B510E;
+}
+.footer .copyRight {
+}
+.footer .linkFwbao {
+}
+.homeContainer{
+	background:#4B6712;
+}
+.homeContainer .section {
+	border:1px solid #693;
+	color:#333;
+	background:#F6FCE9;
+}
+.homeContainer .section a {
+	color:#568000;
+}
+.homeContainer .section a:hover {
+
+}
+.homeContainer .titleNav, .pageName {
+	border-bottom:1px solid #7BA91E;
+	background:#568000 url(../img/skin_1_5/title_icon.gif) no-repeat 5px;
+	color:#fff;
+	display:block;
+}
+.homeContainer .titleNav a.more {
+	color:#000;
+}
+.corner {
+	
+}
+.subContainer {
+	border:1px solid #693;
+}
+.pagePositon {
+	background:#eee;
+}
+a.putNew {
+	background:#568000;
+	color:#fff;
+}
+a.putNew:hover {
+	color:#000;
+	background:#9c3;
+	text-decoration:none
+}
+.pageName {
+	
+}
+.lineBg {
+	border-bottom:1px dashed #CAE6B1;
+}
+.lineBg2 {
+	border-bottom:2px solid #CAE6B1;
+}
+.pageLeft a {
+	color:#568000;
+	display:block;
+	padding:2px 5px;
+}
+.pageLeft a:hover {
+	background:#333;
+	text-decoration:none;
+	color:#000;
+}
+.pageRight {
+	border-left:1px solid #696;
+}
+.rightContent {
+	color:#666;
+}
+.rightContent a {
+	color:#568000;
+}
+.rightContent a:hover {
+
+}
+.teamMembers li.pic img {
+	border:1px solid #eee;
+}
+.teamMembers li.pic a:hover img{
+	border:1px solid #9c3;
+}
+.teamMembers li.info {
+	color:#333;
+}
+.serviceList li.title, .serviceList li .price {
+	color:#000;
+}
+.serviceList li .price a {
+	font-size:13px;
+	color:#568000;
+	text-decoration:underline;
+}
+.commentBox .title {
+	color:#000;
+}
+.pages a {
+	color:#000;
+	background:#693;
+	
+}
+.pages a:hover {
+	background:#9c3;
+	color:#000;
+}
+.pages a.on {
+	background:#9c3;
+	font-weight:bold;
+	color:#000;
+}

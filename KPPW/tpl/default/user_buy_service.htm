@@ -1,0 +1,74 @@
+<!--{eval $page_title='交易管理 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl>
+				<dt>
+					买入的商品
+				</dt>
+				<dd style="padding:10px;border:1px solid #bdd7ef;">
+				<form method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list t_c">
+					   <tr>
+					  	<th>时间</th>
+						<th>总金额 </th>
+						<th>交易对象</th>
+						<th>商品名称</th>
+						<th>交易状态</th>
+						<th>操作</th>
+					</tr>
+					{loop $order_arr $key $value}
+					<tr>
+						<td><!--{date('Y-m-d H:i:s',$value['on_time'])}--></td>
+						<td>￥{$value[count_cash]}元</td>
+						<td>{$value[buy_username]}</td>
+						<td>{$value['title']}</td>
+						<td>
+							{if !$value[order_status]}
+							{if $value['buyer_status']&&$value['sale_status']}等待买家付款{elseif $value['buyer_status']}等待卖方确认！{else}等待买方确认！{/if}
+							{elseif $value[order_status]==1}
+							进行中
+							{elseif $value[order_status]==2}
+							已终止
+							{elseif $value[order_status]==3}
+							卖方取消订单
+							{elseif $value[order_status]==4}
+							买方申请退款
+							{elseif $value[order_status]==5}
+							等待仲裁
+							{elseif $value[order_status]==7}
+							订单完成
+							{/if}
+						</td>
+						<td width="150">
+						{if !$value['mark_id']&&$value[order_status]==7}
+						<a href="javascript:;" onclick="showWindow('seller_mark', 'index.php?do=mark&obj_id={$value['order_id']}&mark_type=2');"><img src="{SKIN_PATH}/img/ico/search.png" align="absmiddle"/>评价</a>
+						{/if}
+						<a target="_blank" href="{if $value['service_type']==2}shop.php?do=service_info&sid=$value[service_id]{else}shop.php?do=step&order_id=$value[order_id]{/if}"><img src="{SKIN_PATH}/img/ico/search.png" align="absmiddle"/>查看</a>&nbsp;
+						</td>
+					</tr>
+					{/loop}
+					<tr>
+						<td colspan="7">
+							<div class="Npage">
+				              	{$pages[page]}
+				            </div>
+						</td>
+					</tr>
+				</table>
+				</form>
+			  </dd>
+			  </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<!--{template footer}-->

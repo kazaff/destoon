@@ -1,0 +1,36 @@
+{template 'header'}
+<style>
+.map {padding:10px 20px 10px 20px;}
+.map p {margin:0px;line-height:28px;padding:0 0 0 20px;font-size:14px;}
+</style>
+<div class="m">
+	<div class="left_box">		
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="./">网站地图</a></div>
+		<br/>
+	{loop $MODULE $m}
+	{if $m[moduleid] > 3 && !$m[islink]}
+	{php $CATEGORY = cache_read('category-'.$m[moduleid].'.php');}
+	<div class="map">
+	<div class="box_head px15"><a href="{$m[linkurl]}" target="_blank"><strong>{$m[name]}</strong></a></div>
+	<div class="box_body">
+	<table cellspacing="0" cellspacing="0">
+	{php $child = get_maincat(0, $CATEGORY);}
+	{loop $child $i $c}
+	{if $i%6==0}<tr>{/if}
+	<td valign="top" width="150">
+		<p><a href="{$m[linkurl]}{$c[linkurl]}" target="_blank">{set_style($c[catname], $c[style])}</a></p>
+	</td>
+	{if $i%6==5}</tr>{/if}
+	{/loop}
+	</table>
+	</div>
+	</div>
+	{/if}
+	{/loop}
+		<br/>
+	</div>
+</div>
+<script type="text/javascript">
+try {$('type_wap').style.backgroundColor = '#CDDCE4';}catch (e){}
+</script>
+{template 'footer'}

@@ -1,0 +1,20 @@
+
+
+<script type="text/javascript" src="{SKIN_PATH}/js/dangdang.js" ></script>
+
+    <script type=text/javascript>
+             document.lanterninfo=function(){
+             Lanterninfo=new Array();
+             Lanterninfo=[       
+{loop $datalist $key $value}
+{if $key},{/if}
+['{$value[ad_file]}','{$value[ad_content]}','{$value[ad_url]}']
+{/loop}
+               ];
+               
+               return Lanterninfo;
+           } 
+           Lantern.info=new Array();
+           Lantern.info=document.lanterninfo();
+           Lantern.init();
+</script>

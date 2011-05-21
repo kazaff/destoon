@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/css.js">
+        </script>
+        <title>系统配置表</title>
+    </head>
+    <body>
+    	<div id="append_parent"></div>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                    	{if $op=='info'}
+						站点信息管理
+						{else}
+						    基本配置管理
+						{/if}
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form name="frm_config_basic" id="frm_config_basic" action="index.php?do=config&view=basic&op={$op}" method="post" accept-charset="{$_K['charset']}" enctype='multipart/form-data'>
+                <input type="hidden" name="basic_config_id" value="{$basic_config_id}">
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                	{if $op=='info'}
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                            网站名称：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_website_name" value="{$website_name}" maxlength="100" limit="required:true;len:3-100;general:false" msg="网站名称不能为空，长度3-100" msgArea="web_name_msg" class="input_t"/><b style="color:red">*</b>
+                            <span id="web_name_msg"></span>网站的实际名称。
+                        </td>
+                    </tr>
+				
+                    <tr>
+                        <td class="bg1 t_r">
+                            网站URL：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_website_url" value="{$website_url}" maxlength="100" limit="required:true;len:3-100;general:false" msg="网站地址不正确，长度3-100" msgArea="web_url_msg" class="input_t"/><b style="color:red">*</b>
+                            <span id="web_url_msg"></span>填写您站点的完整域名。如: http://www.kekezu.com，不要以斜杠 (“/”) 结尾
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            网站logo：
+                        </td>
+                        <td>
+                        	<input type="text" size="50" name="fle_web_logo" id="fle_web_logo" class="input_t" value="{$web_logo}" >&nbsp;&nbsp;LOGO的高65px 宽300px 图片类型为jpeg,gif,png 
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                           公司名称：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_company"  value="{$company}" limit="len:3-100" msg="公司名称长度：3-100,不能有特殊字符" msgArea="txt_company_msg" class="input_t"/><span id="txt_company_msg"></span>将显示在页面底部的联系方式处
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            联系地址：
+                        </td>
+                        <td>
+                            <input type="text" size="50" maxlength="200" name="txt_address" value="{$address}" limit="len:3-200;general:false" msg="联系地址长度：3-200" msgArea="txt_address_msg" class="input_t"/><span id="txt_address_msg"></span>将显示在页面底部的联系方式处
+                        </td>
+                    </tr>
+					 <tr>
+                        <td class="bg1 t_r">
+                            联系电话：
+                        </td>
+                        <td>
+                            <input type="text" size="50" maxlength="20" name="txt_phone" value="{$phone}"   class="input_t"/>将显示在页面底部的联系方式处
+                        </td>
+                    </tr>
+										 <tr>
+                        <td class="bg1 t_r">
+                           客服电话：
+                        </td>
+                        <td>
+                            <input type="text" size="50" maxlength="100" name="txt_kf_phone" value="{$kf_phone}"  class="input_t"/>
+							（多个以“，”隔开）将显示在页面右上角的联系方式处
+							
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            邮编：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_post"  value="{$postcode}" limit="len:0-10" msg="邮编不正确" msgArea="txt_post_msg" class="input_t"/><span id="txt_post_msg"></span>将显示在页面底部的联系方式处
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            网站备案号：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_filing" value="{$filing}" limit="len:3-20;general:false" msg="备案号长度3-20" msgArea="txt_filing_msg" class="input_t"/><span id="txt_filing_msg"></span>如果网站已备案，输入您的备案信息，页面底部将显示 ICP备案信息
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            第三方统计代码：
+                        </td>
+                        <td>
+                            <textarea cols="52" name="txt_stats_code"  msg="第三方统计代码长度3-500" msgArea="txt_stats_code_msg" rows="3" class="textarea">{$stats_code}
+							</textarea>
+							<span id="txt_stats_code_msg"></span>填写第三方流量统计JS代码
+                        </td>
+                    </tr>
+					 <tr>
+                        <td class="bg1 t_r">
+                            网站是否关闭：
+                        </td>
+                        <td>
+                            <label for="checkclose1">
+                                <input type="radio" id="checkclose1" name="txt_is_close" <!--{if $is_close==1}--> checked="checked" <!--{/if}-->  value="1">关闭
+                            </label>
+                            <label for="checkclose2">
+                                <input type="radio" id="checkclose2" name="txt_is_close" <!--{if $is_close==2}--> checked="checked" <!--{/if}--> value="2">开启
+                            </label>
+                        </td>
+                    </tr>
+					
+                    <tr id="close_true" style="display:none;">
+                        <td class="bg1 t_r">
+                            网站关闭原因：
+                        </td>
+                        <td>
+                            <textarea cols="52" name="txt_close_reason" rows="3" class="textarea">{$close_reason}
+                            </textarea>
+                        </td>
+                    </tr>
+					{else}
+                     <tr>
+                        <td  width="30%"  class="bg1 t_r">
+                            是否开启伪静态：
+                        </td>
+                        <td>
+                        	 <label for="rdo_is_rewrite_1">
+                                <input type="radio" id="rdo_is_rewrite_1" name="ckb_is_rewrite" <!--{if $is_rewrite==0||!$is_rewrite}--> checked="checked" <!--{/if}-->  value="0">关闭
+                            </label>
+                            <label for="rdo_is_rewrite_2">
+                                <input type="radio" id="rdo_is_rewrite_2" name="ckb_is_rewrite" <!--{if $is_rewrite==1}--> checked="checked" <!--{/if}--> value="1">开启
+                            </label>
+						</td>
+                    </tr>
+					 <tr>
+                        <td class="bg1 t_r">
+                           代金券是否启用：
+                        </td>
+                        <td>
+                            <label for="rdo_credit_is_allow">
+                                <input type="radio" id="rdo_credit_is_allow" name="rdo_credit_is_allow" <!--{if $credit_is_allow==2}--> checked="checked" <!--{/if}-->  value="2">关闭
+                            </label>
+                            <label for="rdo_crdeit_is_allow2">
+                                <input type="radio" id="rdo_crdeit_is_allow2" name="rdo_credit_is_allow" <!--{if $credit_is_allow==1}--> checked="checked" <!--{/if}--> value="1">开启
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            	网站标题：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_seo_title" value="{$seo_title}"  limit="required:true;len:3-100;general:false" msg="seo标题不能为空，长度3-100" msgArea="seo_title_msg" maxlength="100" class="input_t"/><b style="color:red">*</b>
+                            <span id="seo_title_msg"></span>网页标题通常是搜索引擎关注的重点，本附加字设置将出现在标题中网站名称的后面，如果有多个关键字，建议用 "|"、","(不含引号) 等符号分隔
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            	Meta Keywords：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_seo_keyword" value="{$seo_keyword}"  limit="required:true;len:3-500;general:false" msg="SEO 关键词为能为空，长度3-500" msgArea = "txt_seo_keywords_msg" class="input_t"/><b style="color:red">*</b>
+                            <span id="txt_seo_keywords_msg"></span>Keywords 项出现在页面头部的 Meta 标签中，用于记录本页面的关键字，多个关键字间请用半角逗号 "," 隔开
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            	Meta Description：
+                        </td>
+                        <td>
+                            <textarea cols="52" name="txt_seo_desc"  limit="required:true;len:3-500;general:false" msg="SEO 描述不能为空，长度3-500" msgArea = "seo_description_msg" rows="3" class="textarea">{$seo_desc}
+							</textarea>
+                            <span id="seo_description_msg"></span>Description 出现在页面头部的 Meta 标签中，用于记录本页面的概要与描述
+                        </td>
+                    </tr>
+					
+                   
+							<tr>
+                        <td class="bg1 t_r">
+                            附件上限：
+                        </td>
+                        <td>
+                             <input type="text" size="50" name="txt_max_size" value="{$max_size}" limit="required:true;type:int;len:1-2" value="2" msg="上传文件大小为整数" msgArea="txt_max_size_msg" class="input_t"/><b style="color:red">*</b><span id="txt_max_size_msg"></span>MB 系统配置值：2M，如果设定值超过系统配置值，则以系统配置值为准。
+							 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            附件格式：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_file_type" value="{$file_type}" limit="required:true;len:3-100;general:false"  msg="上传文件格式长度：3-100" msgArea="txt_file_type_msg" class="input_t"/><b style="color:red">*</b><span id="txt_file_type_msg"></span>如果有多个关键字，(zip|rar|jpg|gif|png)(不含引号) 等符号分隔
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            用户禁止关键字：
+                        </td>
+                        <td>
+                            <textarea cols="52" name="txt_ban_users"  rows="3" class="textarea">{$ban_users}
+							</textarea>
+							(用户名之间用~|~隔开，建议不要使用“*”号和“？”号)
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            内容禁止关键字：
+                        </td>
+                        <td>
+                            <textarea cols="52" name="txt_ban_content"   rows="3" class="textarea">{$ban_content}
+							</textarea>
+							(关键词必须是中文或英文字符串，多个请用~|~隔开，建议不要使用“*”号和“？”号)
+                        </td>
+                    </tr>
+					   <tr>
+                        <td class="bg1 t_r">
+                            新用户注册时间限制：
+                        </td>
+                        <td>
+                            <input type="text" size="50" name="txt_reg_limit" value="{$reg_limit}" limit="type:int" msg="注册时间为整数" msgArea="txt_reg_limit_msg" class="input_t"/><span id="txt_reg_limit_msg"></span>(时间为分钟)
+                        </td>
+                    </tr>
+					{/if}
+                    <tr>
+                        <td class="bg1 t_r">
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="保存配置" id="submit_save" class="input_but">  <input type="reset" value="重新配置" class="input_but">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <script type="text/javascript" src="tpl/js/form_and_validation.js">
+        </script>
+		 
+		<!--<script type="text/javascript" src="{$_K['siteurl']}./resource/js/script_calendar.js">
+        </script>-->
+        <script type="text/javascript">
+            $(function(){
+            
+                $("#frm_config_basic").submit(function(){
+				   var value = $("#fle_web_logo").val();
+				   if (value) {
+				   	s = value.lastIndexOf(".");
+				   	lastname = value.substring(s, value.length);
+				   	if (lastname.toLowerCase() != ".gif" && lastname.toLowerCase() != ".jpg" && lastname.toLowerCase() != ".png" && lastname.toLowerCase() != ".jpeg") {
+				   		alert("文件类型不对！")
+						$(this).focus();
+						return false;
+				   	}
+				   	else {
+				   		return true;
+				   	}
+				   }
+				   
+				   
+				})
+                if($("#checkclose1").attr("checked"))
+				{
+					$("#close_true").show();
+				}
+				else
+				{
+					$("#close_true").hide();
+				}
+                $("#checkclose1").click(function(){
+                    $("#close_true").show();
+                })
+                $("#checkclose2").click(function(){
+                    $("#close_true").hide();
+                })
+                
+                
+                
+            })
+        </script>
+    </body>
+</html>

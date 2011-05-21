@@ -1,0 +1,217 @@
+
+body *{
+	text-align: left;
+}
+a {
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+a:visited {color:#FFF;}
+input,textarea{
+	/*border:1px solid #ccc;*/
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:20px;
+}
+.header {
+	color:#fff;
+	background:#0152A0 url(../img/top_nav_bg.gif) repeat-x left bottom;
+}
+.logo h2 {
+	color:#fff
+}
+.topMenu a {
+	color:#fff;
+}
+.topMenu a:hover {
+	color:#eee;
+}
+.menuWrapper {
+	background:#02488A;
+}
+.menu a {
+	color:#fff
+}
+.menu a:hover, .menu a.on {
+	background:#015FB9 url(../img/skin_1/menu_a.gif) no-repeat left 0;
+	color:#fff
+}
+.menu a span{} 
+.menu a:hover span,.menu a.on span {
+	background:url(../img/skin_1/menu_a.gif) no-repeat right 0
+}
+.menu a:visited span {
+	color:#FFF;
+}
+.footer {
+	color:#666;
+	background:#f3f3f3;
+}
+.footer .copyRight {
+}
+.footer .linkFwbao {
+}
+.homeContainer{
+	background:#eee;
+}
+.homeContainer .section {
+	border:1px solid #ccc;
+	color:#666;
+	background:#fff;
+}
+.homeContainer .section a {
+	color:#03a;
+}
+.homeContainer .section a:hover {
+
+}
+.homeContainer .titleNav, .pageName {
+	border-bottom:1px solid #e4e4e4;
+	background:#f4f4f4 url(../img/skin_1/title_icon.gif) no-repeat 5px;
+	color:#323232;
+	display:block;
+}
+.homeContainer .titleNav a.more {
+	color:#03a;
+}
+.corner {
+	
+}
+.subContainer {
+	border:1px solid #ddd;
+}
+.pagePositon {
+	background:#eee;
+}
+a.putNew {
+	background:#03a;
+	color:#fff;
+}
+a.putNew:hover {
+	background:#757677;
+	text-decoration:none
+}
+.pageName {
+	
+}
+.lineBg {
+	border-bottom:1px dashed #ccc;
+}
+.lineBg2 {
+	border-bottom:2px solid #eee;
+}
+.pageLeft a {
+	color:#03a;
+	display:block;
+	padding:2px 5px;
+}
+.pageLeft a:hover {
+	background:#eee;
+	text-decoration:none;
+}
+.pageRight {
+	border-left:1px solid #eee;
+}
+.rightContent {
+	color:#666;
+}
+.rightContent a {
+	color:#03a;
+}
+.rightContent a:hover {
+
+}
+.teamMembers li.pic img {
+	border:1px solid #eee;
+}
+.teamMembers li.pic a:hover img{
+	border:1px solid #03a;
+}
+.teamMembers li.info {
+	color:#666;
+}
+.serviceList li.title, .serviceList li .price {
+	color:#666;
+}
+.serviceList li .price a {
+	font-size:13px;
+	color:#03a;
+	text-decoration:underline;
+}
+.commentBox .title {
+	color:#000;
+}
+.pages a {
+	color:#03a;
+	background:#ccc;
+	
+}
+.pages a:hover {
+	background:#03a;
+	color:#fff;
+}
+.pages a.on {
+	background:#fff;
+	font-weight:bold;
+	color:#03a;
+}
+
+.commentBox {
+	padding:15px 0 0;
+	
+}
+.dashed {
+	background:url(../img/line_bg.png) repeat-x scroll 0 bottom;
+}
+.dashed2{
+	background:url(../img/line_bg2.png) repeat-x 0 bottom
+}
+.commentBox p {
+	padding:5px 0;
+}
+.commentBox .title,.comments .title{
+	font-size:14px;
+	background:url(../img/comment_tit_bg.gif) repeat-x;
+	border:1px solid #e9e9e9;
+	padding:3px 10px;
+}
+.commenting {
+	padding:5px 0;
+	width:480px;
+}
+.commenting .input {
+	height:16px;
+	width:120px;
+}
+.commenting .input,.commenting .textarea{
+	border:1px solid #ccc;
+}
+.commenting .textarea {
+	font-size:12px;
+	height:120px;
+	width:410px;
+}
+.comments{
+	padding:10px 0
+}
+.comments .dashed2 span{
+	color: gray;
+	display: block;
+	padding-top:0px;
+}
+.comment_list {
+	color: #999;
+}
+.comment_list li {
+	padding: 10px;
+	border-bottom:1px dashed #ccc;
+}
+.comment_list p {
+	padding: 5px;
+}
+.comment_list .message {
+	color: #000;
+}
+.comment_list .reply {
+}

@@ -1,0 +1,54 @@
+<!--{template header}-->
+<div class="mainbox" style="width:350px;>
+<form action="index.php?do=task_op&op=taskbid" method="post">
+	<table >
+		<tr>
+			<td colspan="2"  height="90%" valign="top" align="left">
+			<ul>
+				{if $skill_indus_arr}
+				{loop $skill_indus_arr $s}
+					<li ><input type="checkbox" name="chk" value="$s[skill_id]"><span>$s[skill_name]</span></li>
+				{/loop}
+				{else}
+				该行业下没有技能
+				{/if}
+			</ul>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" name="sbt_bid" onclick="selectskill()" value="确定" class="pn pnc">
+				<input type="button" name="rst_msg" value="取消" class="pn" onClick="hideWindow('skill_select')">
+			</td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+
+<script>
+
+function selectskill()
+{
+	var s='';
+	var st='';
+	$('input[name="chk"]:checked').each(function(){
+		if(s!='')
+		{
+			s+=',';
+			st +=',';
+		}
+	    s+=$(this).val();
+	    st+=$(this).next().html();
+	  });
+	$('#skill_list_show').html(st);
+	$('#hd_skill_ids').val(s);
+	hideWindow('skill_select')
+}
+
+
+</script>
+<!--{template footer}-->

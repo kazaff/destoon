@@ -1,0 +1,96 @@
+<!--{eval $page_title='发送短消息 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+       <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+				<!-- 	
+				<div class="x_tit"><span><a href="index.php?do=user&view=message_list&message_type=1" >系统消息</a></span>
+				<span><a href="index.php?do=user&view=message_list&message_type=2" >收件箱</a></span> 
+				<span><a href="index.php?do=user&view=message_list&message_type=3" >发件箱</a></span>  
+				<span  class="now"><a href="index.php?do=user&view=message_send" >写短信</a></span> 
+				</div>
+					<form action="index.php?do={$do}&view={$view}" method="post">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<td class="t_r">收信人：</td>
+					    <td>
+							<input type="type" name="txt_to_username"  class="input_txt3"> （请填写收信人的用户名）
+						</td>
+					  </tr>
+					  <tr>
+					    <td class="t_r">标题：</td>
+					    <td><input type="type" name="txt_title"  class="input_txt3" size="58" maxlength="100"></td>
+				      </tr>
+					  <tr>
+					    <td class="t_r">内容：</td>
+					    <td><textarea cols="60" rows="8" name="tar_content"></textarea></td>
+				      </tr>
+					</table>
+                  <div class="t_c mt_10">
+                  
+                  <input type="submit" name="sbt_msg" value="立即发送" class="input_btn3">
+             
+                  </div>
+				  </form>
+				   -->
+			  <dl>
+			  <div class="msg_box">
+			  	<dt>
+					<div class="x_tit_1">
+						<div>
+							<span><a href="index.php?do=user&view=message_list&message_type=1" >系统消息</a></span>
+							<span><a href="index.php?do=user&view=message_list&message_type=2" >收件箱</a></span> 
+							<span><a href="index.php?do=user&view=message_list&message_type=3" >发件箱</a></span>  
+							<span  class="now"><a href="index.php?do=user&view=message_send" >写短信</a></span> 
+						</div>
+					</div>
+				</dt>
+				<dd>
+				<div>
+					<form action="index.php?do={$do}&view={$view}" method="post">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list-table_1">
+						  <tr>
+							<td class="t_r" width="10%"><em>*</em>收信人：</td>
+						    <td>
+								<input type="type" name="txt_to_username"  class="input_txt3" /> （请填写收信人的用户名）
+							</td>
+						  </tr>
+						  <tr>
+						    <td class="t_r"><em>*</em>标题：</td>
+						    <td>
+						    	<input type="type" id="txt_title" name="txt_title"  class="input_txt3" size="58" maxlength="100" limit="required:true;len:1-100" msg="请填写标题" msgArea="chk_txt_title" />
+						    	<span id="chk_txt_title"></span>
+						    </td>
+					      </tr>
+						  <tr>
+						    <td class="t_r"><em>*</em>内容：</td>
+						    <td>
+						    	<textarea cols="60" rows="8" id="tar_content" name="tar_content" limit="required:true;len:1-100" msg="请填写内容" msgArea="chk_tar_content"></textarea>
+						    	<span id="chk_tar_content"></span>
+						    </td>
+					      </tr>
+					      <tr>
+					      	<td></td>
+					      	<td><input type="submit" name="sbt_msg" value="立即发送" /></td>
+	                 	  </tr>
+						</table>
+				  </form>
+				</div>
+			  	</dd>
+			  </div>
+			  </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+    
+    
+</div><!--content_E--><div class="clear"></div>
+<!--{template footer}-->

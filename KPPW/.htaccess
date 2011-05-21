@@ -1,0 +1,153 @@
+# 将 RewriteEngine 模式打开
+RewriteEngine On
+#如果有目录就填写目录如, "RewriteBase /目录名称"  否则就写 "RewriteBase /" 
+RewriteBase /kekewitkey
+#首页
+RewriteRule ^index.html$ index.php
+#一级
+
+RewriteRule ^index-do-(\w+).html$ index.php?do=$1
+#商城
+RewriteRule ^shop.html$ shop.php
+#二级
+#任务列表
+RewriteRule ^index-do-(\w+)-model_id-(\d+).html$ index.php?do=$1&model_id=$2
+#任务详细
+RewriteRule ^index-do-(\w+)-task_id-(\d+).html$ index.php?do=$1&task_id=$2
+#个人中心
+RewriteRule ^index-do-(\w+)-view-(\w+).html$ index.php?do=$1&view=$2
+#查看商品
+RewriteRule ^index-do-(\w+)-sid-(\d+).html$ index.php?do=$1&sid=$2
+RewriteRule ^index-do-(\w+)-slt_indus_id-(\d+).html$ index.php?do=$1&slt_indus_id=$2
+RewriteRule ^index-do-(\w+)-art_cat_id-(\d+).html$ index.php?do=$1&art_cat_id=$2
+RewriteRule ^index-do-(\w+)-art_cat_pid-(\d+).html$ index.php?do=$1&art_cat_pid=$2
+RewriteRule ^index-do-(\w+)-model_id-(\w+).html$ index.php?do=$1&model_id=$2
+#站内信
+RewriteRule ^index-do-(\w+)-to_uid-(\d+).html$ index.php?do=$1&to_uid=$2
+RewriteRule ^index-do-(\w+)-art_id-(\d+).html$ index.php?do=$1&art_id=$2
+RewriteRule ^index-do-(\w+)-model_id-(\d+).html$ index.php?do=$1&model_id=$2
+RewriteRule ^shop-do-(\w+)-indus_id-(\d+).html$ shop.php?do=$1&indus_id=$2
+RewriteRule ^shop-do-(\w+)-sid-(\d+).html$ shop.php?do=$1&sid=$2
+#商店空间首页
+RewriteRule ^shop-do-(\w+)-shop_id-(\d+).html$ shop.php?do=$1&shop_id=$2
+#个人空间页
+RewriteRule ^index-do-(\w+)-member_id-(\d+).html$ index.php?do=$1&member_id=$2
+#查看买入商品
+RewriteRule ^index-do-(\w+)-order_id-(\d+).html$ index.php?do=$1&order_id=$2
+
+#三级(任务需求)
+#短消息
+RewriteRule ^index-do-(\w+)-view-(\w+)-message_type-(\d+).html$ index.php?do=$1&view=$2&message_type=$3
+
+RewriteRule ^index-do-(\w+)-task_id-(\d+)-view-(\w+).html$ index.php?do=$1&task_id=$2&view=$3
+RewriteRule ^index-do-(\w+)-indus_id-(\d+)-model_id-(\d+).html$ index.php?do=$1&indus_id=$2&model_id=$3
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-indus_id-(\d+).html$ index.php?do=$1&model_id=$2&indus_id=$3
+#(商店在线留言,服务报价，客户案例，联系方式，客户留言）
+RewriteRule ^shop-do-(\w+)-view-(\w+)-shop_id-(\d+).html$ shop.php?do=$1&view=$2&shop_id=$3
+#我是雇主，我是威客
+RewriteRule ^index-do-(\w+)-view-(\w+)-model_id-(\d+).html$ index.php?do=$1&view=$2&model_id=$3
+#雇佣
+RewriteRule ^index-do-(\w+)-euid-(\d+)-mid-(\d+).html$ index.php?do=$1&euid=$2&mid=$3
+RewriteRule ^index-do-(\w+)-view-(\w+)-service_id-(\d+).html$ index.php?do=$1&view=$2&service_id=$3
+RewriteRule ^index-do-(\w+)-art_id-(\d+)-menu_id-(\d+).html$ index.php?do=$1&art_id=$2&menu_id=$3
+#悬赏所有任务（无搜索条件）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-page_size-(\d+)-view-(\w+)-slt_cash_cove-(\w+){0,5}-slt_order-(\w+){0,5}.html$      index.php?do=$1&model_id=$2&page_size=$3&view=$4&slt_cash_cove=$5&slt_order=$6
+#发帖任务（无搜索条件）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_cash_cove-(\w+){0,5}-slt_order-(\w+){0,5}.html$      index.php?do=$1&model_id=$2&view=$3&slt_cash_cove=$4&slt_order=$5
+
+#悬赏价格排序
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-page_size-(\d+)-slt_order-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&page_size=$4&slt_order=$5
+
+#任务大厅时间（剩余）
+RewriteRule ^index-do-(\w+)-txt_left_day-(\d+).html$ index.php?do=$1&txt_left_day=$2
+
+#任务大厅时间（发布）
+RewriteRule ^index-do-(\w+)-txt_pub_day-(\d+).html$ index.php?do=$1&txt_pub_day=$2
+
+RewriteRule ^index-do-(\w+)-art_cat_id-(\d+)-menu_id-(\d+).html$ index.php?do=$1&art_cat_id=$2&menu_id=$3
+
+#招标价格（$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-page_size-(\d+)-slt_order-(\d+)-model_id-(\d+).html$ index.php?do=$1&view=$2&page_size=$3&slt_order=$4&model_id=$5
+#招标价格（$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_cash_cove-(\d+){0,5}-page_size-(\d+)-slt_order-(\d+)-model_id-(\d+).html$ index.php?do=$1&view=$2&slt_cash_cove=$3&page_size=$4&slt_order=$5&model_id=$6
+#招标剩余时间（$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_cash_cove-(\d+){0,6}-page_size-(\d+)-slt_order-(\d+)-model_id-(\d+).html$ index.php?do=$1&view=$2&slt_cash_cove=$3&page_size=$4&slt_order=$5&model_id=$6
+#招标剩余时间（$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-page_size-(\d+)-slt_order-(\d+)-model_id-(\d+).html$ index.php?do=$1&view=$2&page_size=$3&slt_order=$4&model_id=$5
+
+#招标条数排序（$slt_order有值且$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-page_size-(\d+)-view-(\w+)-slt_order-(\d+)-model_id-(\d+).html$ index.php?do=$1&page_size=$2&view=$3&slt_order=$4&model_id=$5
+#招标条数排序（$slt_order没值且$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-page_size-(\d+)-view-(\w+)-slt_cash_cove-(\d+)-model_id-(\d+).html$ index.php?do=$1&page_size=$2&view=$3&slt_cash_cove=$4&model_id=$5
+#招标条数排序（$slt_order有值且$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-page_size-(\d+)-view-(\w+)-slt_cash_cove-(\d+){0,6}-slt_order-(\d+){0,6}-model_id-(\d+).html$ index.php?do=$1&page_size=$2&view=$3&slt_cash_cove=$4&slt_order=$5&model_id=$6
+#招标条数排序（$slt_order没值且$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-page_size-(\d+)-view-(\w+)-model_id-(\d+).html$ index.php?do=$1&page_size=$2&view=$3&model_id=$4
+
+#招标任务分页（都有值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_order-(\d+){0,5}-slt_cash_cove-(\d+){0,5}-model_id-(\d+)-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&view=$2&slt_order=$3&slt_cash_cove=$4&model_id=$5&page_size=$6&page=$7
+#招标任务分页($slt_order有值,$slt_cash_cove没值)
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_order-(\d+){0,5}-model_id-(\d+)-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&view=$2&slt_order=$3&model_id=$4&page_size=$5&page=$6
+#招标任务分页($slt_order没值,$slt_cash_cove有值)
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_cash_cove-(\d+){0,5}-model_id-(\d+)-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&view=$2&slt_cash_cove=$3&model_id=$4&page_size=$5&page=$6
+#招标任务分页（都没值）
+RewriteRule ^index-do-(\w+)-view-(\w+)-model_id-(\d+)-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&view=$2&model_id=$3&page_size=$4&page=$5
+
+#雇佣任务（$slt_order有值且$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_order-(\d+){0,5}-slt_cash_cove-(\d+){0,5}.html$ index.php?do=$1&model_id=$2&view=$3&slt_order=$4&slt_cash_cove=$5
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_order-(\d+){0,5}.html$ index.php?do=$1&model_id=$2&view=$3&slt_order=$4
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_cash_cove-(\d+){0,5}.html$ index.php?do=$1&model_id=$2&view=$3&slt_cash_cove=$4
+
+
+ 
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+).html$ index.php?do=$1&model_id=$2&view=$3
+#悬赏任务分页（都有值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_order-(\d+){0,5}-slt_cash_cove-(\d+){0,5}-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&slt_order=$4&slt_cash_cove=$5&page_size=$6&page=$7 
+#悬赏任务分页($slt_order有值,$slt_cash_cove没值)
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_order-(\d+){0,5}-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&slt_order=$4&page_size=$5&page=$6 
+#悬赏任务分页($slt_order没值,$slt_cash_cove有值)
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_cash_cove-(\d+){0,5}-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&slt_cash_cove=$4&page_size=$5&page=$6 
+#悬赏任务分页（都没值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&page_size=$4&page=$5 
+
+
+#雇佣条数排序（$slt_order有值且$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-page_size-(\d+)-view-(\w+)-slt_order-(\d+).html$ index.php?do=$1&model_id=$2&page_size=$3&view=$4&slt_order=$5
+#雇佣条数排序（$slt_order没值且$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-page_size-(\d+)-view-(\w+)-slt_cash_cove-(\d+).html$ index.php?do=$1&model_id=$2&page_size=$3&view=$4&slt_cash_cove=$5
+#雇佣条数排序（$slt_order有值且$slt_cash_cove有值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-page_size-(\d+)-view-(\w+)-slt_cash_cove-(\d+){0,5}-slt_order-(\d+){0,5}.html$ index.php?do=$1&model_id=$2&page_size=$3&view=$4&slt_cash_cove=$5&slt_order=$6
+#雇佣条数排序（$slt_order没值且$slt_cash_cove没值）
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-page_size-(\d+)-view-(\w+).html$ index.php?do=$1&model_id=$2&page_size=$3&view=$4
+
+#发帖剩余时间($slt_cash_cove有值)
+RewriteRule ^index-do-(\w+)-model_id-(\d+)-view-(\w+)-slt_cash_cove-(\d+)-page_size-(\d+)-slt_order-(\d+).html$ index.php?do=$1&model_id=$2&view=$3&slt_cash_cove=$4&page_size=$5&slt_order=$6
+
+
+#翻页
+RewriteRule ^index-do-(\w+)-view-(\w+){0,5}-page_size-(\d+)-page-(\d+).html$ index.php?do=$1&view=$2&page_size=$3&page=$6
+
+#人才库搜索
+RewriteRule ^index-do-(\w+)-txt_search_title-(\w+){0,50}-txt_search_id-(\d+){0,10}-ckb_vip_auth-(\d+){0,10}-slt_indus_pid-(\d+)-slt_province-(\w+){0,20}-slt_city-(\w+){0,20}-slt_order-(\d+){0,10}-sbt_search-(\w+).html$ index.php?do=$1&txt_search_title=$2&txt_search_id=$3&ckb_vip_auth=$4&slt_indus_pid=$5&slt_province=$6&slt_city=$7&sbt_search=$8
+
+
+
+#四级
+
+#商城作品展示
+RewriteRule ^shop-do-(\w+)-view-(\w+)-shop_id-(\d+)-by-(\w+).html$ shop.php?do=$1&view=$2&shop_id=$3&by=$4
+#商店商品分类
+RewriteRule ^shop-do-(\w+)-view-(\w+)-shop_id-(\d+)-cate_id-(\d+).html$ shop.php?do=$1&shop_id=$2&cate_id=$3
+#查看案例
+RewriteRule ^index-do-(\w+)-view-(\w+)-shop_id-(\d+)-cid-(\d+).html$ index.php?do=$1&view=2&shop_id=$3&cid=$4
+#查看中标稿件
+RewriteRule ^index-do-(\w+)-task_id-(\d+)-view-(\w+)-workstatus-(\d+).html$ index.php?do=$1&task_id=$2&view=$3&workstatus=$4
+#五级
+RewriteRule ^index-do-(\w+)-task_id-(\d+)-view-(\w+)-worktype-(\w+)-ord-(\w+).html$ index.php?do=$1&task_id=$2&view=$3&worktype=$4&ord=$5
+#招标任务列表页
+RewriteRule ^index-do-(\w+)-view-(\w+)-slt_order-(\w+)-slt_cash_cove-(\w)-model_id-(\d+).html$ index.php?do=$1&view=$2&slt_order=$3&slt_cash_cove=$4&model_id=$5
+
+
+#远程图片
+#RewriteRule  ^task/fttask/img-id-(\d+)-tid-(\d+).gif$  task/fttask/img.php?id=$1&tid=$2
+ 

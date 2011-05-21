@@ -1,0 +1,25 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprisev_shop_header}-->
+ <div class="pageRight">
+    <div class="titleNav">
+    	<span class="fl">『关于我们』</span><span class="titleIcon"></span>
+    </div>
+    <div id="c_aboutus" style="min-height: 120px; height: auto ! important; overflow: visible;" class="aboutUs">
+    	<p>$shop_info['aboutus']</p>
+    </div>
+      <!--{template shop/tpl/default/enterprisev_footer}-->
+    <br>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.titleIcon').click(function(){
+			$(".aboutUs").slideToggle();
+		})
+	})
+</script>
+</body>
+</html>
+  

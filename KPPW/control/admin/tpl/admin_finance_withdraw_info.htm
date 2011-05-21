@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/css.js">
+        </script>
+		
+        <title>提现审核</title>
+    </head>
+    <body>
+    	<div id="append_parent"></div>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                        提现信息审核
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form name="frm_config_basic" id="frm_config_basic" action="#" method="post">
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                            提现申请人：
+                        </td>
+                        <td>
+                           $withdraw_info['username']
+                        </td>
+                    </tr>
+				
+                    <tr>
+                        <td class="bg1 t_r">
+                            提现金额：
+                        </td>
+                        <td>
+                            $withdraw_info['withdraw_cash']
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            申请时间：
+                        </td>
+                        <td>
+                           <!--{date('Y-m-d H:i:s',$withdraw_info[applic_time])}-->
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            受理状态：
+                        </td>
+                        <td>
+                            {if $withdraw_info['withdraw_status']}已受理{else}未受理{/if}
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            收款方式：
+                        </td>
+                        <td>
+                            {if $withdraw_info['pay_type']==1}支付宝{elseif $withdraw_info['pay_type']==2}财富通{else}银行{/if}
+                        </td>
+                    </tr>
+   					<tr>
+                        <td class="bg1 t_r">
+                            收款帐号：
+                        </td>
+                        <td>
+                            {if $withdraw_info['pay_type']==1}$withdraw_info['pay_zfb']{elseif $withdraw_info['pay_type']==2}$withdraw_info['pay_cft']{else}$withdraw_info['pay_bank']{/if}
+                        </td>
+                    </tr>
+					
+                    <tr>
+                        <td class="bg1 t_r">
+                        </td>
+                        <td>
+							
+                            {if !$withdraw_info['withdraw_status']}<input type="submit" value="通过审核" id="submit_save" onclick="return confirm('确认要审核么?');return false;location.href='index.php?do=finance&view=withdraw&ac=pass&withdraw_id=$withdraw_id'" class="input_but"> {/if}
+							<input type="button" value="直接删除" onclick="location.href='index.php?do=finance&view=withdraw&ac=del&withdraw_id=$withdraw_id'" class="input_but">
+                        </td>
+                    </tr>
+                </table>
+				<input type="hidden" value=1 name="is_submit">
+            </form>
+        </div>
+        </script>
+		 
+    </body>
+</html>

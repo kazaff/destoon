@@ -1,0 +1,28 @@
+{template 'header', 'wap'}
+{if $itemid}
+	<strong>{$title}</strong><br/>
+	{if $page==1}
+	日期:<small>{$editdate}</small><br/>
+	{if !$username}<span style="color:red;">非会员信息</span><br/>{/if}
+	{if $vip}{VIP}:{$vip}级<br/>{/if}
+	<strong>联系方式</strong><br/>
+	{template 'contact', 'wap'}
+	<strong>详细介绍</strong><br/>
+	{if $thumb}<img src="{$thumb}"/><br/>{/if}
+	{/if}
+	{$content}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a> <a href="index.php?moduleid={$moduleid}&amp;areaid={$v[areaid]}">({$v[area]})</a> <small>{$v[editdate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/>
+{template 'footer', 'wap'}

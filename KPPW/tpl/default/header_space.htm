@@ -1,0 +1,25 @@
+<!--{eval $page_title = $space_info[username].'的个人空间 - '.$_K['html_title']}-->
+<!--{if $inajax}-->
+<!--{template header_ajax}-->
+    <h3 class="flb"><em>{$title}</em><span><a href="javascript:;" class="flbc" onClick="hideWindow('$handlekey');" title="close">关闭</a></span></h3>
+<!--{else}-->
+<!--{template header_top}-->
+        <!--tool_E-->
+<!--{template header_seach}--> 
+
+        </div>
+<!--{/if}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/tab.css" rel="stylesheet" type="text/css"/>
+<style>
+.pic_small{border:1px solid #EEEEEE;display:block;height:60px;padding:2px;width:60px;}
+.pic_middle{border:1px solid #EEEEEE;display:block;height:124px;padding:2px;width:124px;}
+.pic_big{border:1px solid #EEEEEE;display:block;height:180px;padding:2px;width:180px;}
+</style>
+<div class="ab_nav w960">
+    <a href="index.php?do=space&view=person_index&member_id={$member_id}" {if $view=='person_index'}class="ab_nav_h"{/if}>个人资料</a><i> </i>
+	<a href="index.php?do=space&view=person_log&member_id={$member_id}" {if $view=='person_log'}class="ab_nav_h"{/if}>威客记录</a><i> </i>
+	<a href="index.php?do=space&view=person_mark&member_id={$member_id}" {if $view=='person_mark'}class="ab_nav_h"{/if}>威客信誉</a><i> </i>
+	{if $space_info[studio_id]&&$studio_info[studio_status]==1}<a href="index.php?do=space&view=studio_index&member_id={$member_id}" {if $view=='studio_index'}class="ab_nav_h"{/if}>威客工作室</a><i> </i>{/if}
+	{if $shop_info[shop_id]}<a href="shop.php?do=shop&shop_id={$shop_info[shop_id]}">查看店铺</a><i> </i>{/if}
+</div>

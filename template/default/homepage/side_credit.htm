@@ -1,0 +1,15 @@
+{if $file != 'credit'}
+<div class="side_head"><div><span class="f_r"><a href="{userurl($username, 'file=credit', $domain)}"><img src="{$MODULE[4][linkurl]}image/more.gif" title="更多"/></a></span><strong>{$side_name[$HS]}</strong></div></div>
+<div class="side_body">
+<!--{php $tags=tag("table=credit&condition=status=3 and username='$username'&pagesize=".$side_num[$HS]."&order=addtime desc&template=null")}-->
+<ul>
+{if $tags}
+{loop $tags $t}
+<li><a href="{userurl($username, 'file=credit&itemid='.$t['itemid'], $domain)}" title="{$t[alt]}">{$t[title]}</a></li>
+{/loop}
+{else}
+<li>暂未上传</li>
+{/if}
+</ul>
+</div>
+{/if}

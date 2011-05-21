@@ -1,0 +1,72 @@
+<!--{template header_space}-->
+<div id="content">
+<br>
+<table style="margin: auto;" width="650" border="0" align="center" cellpadding="0" cellspacing="0" class="td_25">
+  <tr>
+    <th colspan="4"><img src="{SKIN_PATH}/img/ab_data.gif" align="absmiddle"/></th></tr>
+  <tr>
+    <td rowspan="5" align="center" valign="middle">
+    	<!--{userpic($space_info[uid],middle)}-->
+	</td>
+    <td colspan="3">用 户 名：{$space_info[username]}</td>
+    </tr>
+  <tr>
+    <td colspan="3">真实姓名：{$space_info[truename]}</td>
+    </tr>
+  <tr>
+    <td colspan="3">用户头衔：<a href="index.php?do=space&view=person_log&member_id={$member_id}"><!--{eval $exp_value = Func_comm_class::get_experience_level($space_info[experience_value]);echo $exp_value[title];}--></a></td>
+    </tr>
+  <tr>
+    <td colspan="3">用户等级：<a href="index.php?do=space&view=person_log&member_id={$member_id}"><!--{eval echo $exp_value[pic];}--></a></td>
+    </tr>
+  <tr>
+    <td colspan="3">所 在 地：{$space_info[residency]}</td>
+  </tr>
+  <tr>
+    <td align="right" width="150">雇主好评率：</td>
+    <td><!--{eval $user_rate_g = Func_comm_class::get_favorable_comment($member_id,1,1);echo $user_rate_g[rate];}--></td>
+    <td align="right" >威客好评率：</td>
+    <td><!--{eval $user_rate_w = Func_comm_class::get_favorable_comment($member_id,1,2);echo $user_rate_w[rate];}--></td>
+  </tr>
+  <tr>
+    <td align="right">雇主信誉等级：</td>
+    <td><!--{eval $score_value_g = Func_comm_class::get_mark_level($space_info['g_m_credit_value'],1);echo $score_value_g[pic];}--></td>
+    <td align="right">威客信誉等级：</td>
+    <td><!--{eval $score_value_w = Func_comm_class::get_mark_level($space_info['w_m_credit_value'],2);echo $score_value_w[pic];}--></td>
+  </tr>
+  <tr>
+    <td align="right">雇主信誉值：</td>
+    <td>{$space_info[g_m_credit_value]}</td>
+    <td align="right">威客信誉值：</td>
+    <td>{$space_info[w_m_credit_value]}</td>
+  </tr>
+  <tr>
+    <td align="right">认证：</td>
+    <td colspan="3">
+    	 {if $space_info[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+		  {if $space_info[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+		  {if $space_info[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+		  {if $space_info[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+		  {if $space_info[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;  		  
+	</td>
+    </tr>
+  <tr>
+    <td align="right">专业才能：</td>
+    <td colspan="3">&nbsp;{loop $skill_arr $key $value}&nbsp;&nbsp;{$value[skill_name]}{/loop}</td>
+  </tr>
+  <tr>
+    <td align="right">注册时间：</td>
+    <td colspan="3"><!--{date('Y-m-d H:i:s',$space_info[reg_time])}-->&nbsp;&nbsp;上次登录时间<!--{date('Y-m-d H:i:s',$space_info[last_login_time])}--></td>
+  </tr>
+  <tr>
+    <td align="right">个人介绍：</td>
+    <td colspan="3">{$space_info[summary]}</td>
+  </tr>
+  <tr>
+    <td align="right">站内信：</td>
+    <td colspan="3"><a href="index.php?do=message&to_uid={$member_id}" onclick="{if $uid}{if $uid!=$member_id}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if}" /><img src="{SKIN_PATH}/img/ab_message.gif" align="absmiddle">发送站内信</a></td>
+  </tr>
+  </table>
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

@@ -1,0 +1,498 @@
+<!--{eval $page_title=$task_info['task_title'].' - '.$_K['html_title'].' - '.$page_description=Func_comm_class::cutstr($task_info[task_desc],50)}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<script src="{$_K['siteurl']}/resource/js/keke.js" type="text/javascript"></script>
+<div id="content">
+    <div class="task_info_bg"><div class="task_info">
+   	  <div class="task_info_tit">
+   	  	<ul>
+   	  	    <li class="fl_l"><strong>您当前的位置</strong>：
+			<a href="index.php?do=task_list&model_id={$model_info['model_id']}">{$model_info['model_name']}</a> 
+			{if $indus_p_id}
+				>  <a href="index.php?do=search_list&indus_pid={$indus_p_id}&model_id={$model_info['model_id']}">{$indus_arr[$indus_p_id][indus_name]}</a>  
+			{/if}
+		  	{if $task_info[indus_id]}
+				>  <a href="index.php?do=search_list&indus_id={$task_info[indus_id]}&model_id={$model_info['model_id']}">{$indus_arr[$task_info[indus_id]][indus_name]}</a> 
+			{/if}
+			</li>
+			<li class="fl_r">
+	    	<a href="javascript:;" id="task_favor"><img src="{SKIN_PATH}/img/task_favorites.gif"/>收藏任务</a>
+			</li></ul></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+             <tr><td colspan="3" class="task_title font14">
+				{$task_info[task_title]}
+				{if $task_info[delay_cash]}
+					&nbsp;<b><font color="red">加价</font></b>
+				{/if} 	
+				{if $task_info[isvip]==1}
+					&nbsp;<img src="{SKIN_PATH}/img/vip2.gif" align="absmiddle"/>
+				{/if}
+				{if $task_info[istop]==1}
+					&nbsp;<img src="{SKIN_PATH}/img/jian.gif" align="absmiddle"/>
+				{/if}
+				{if $task_info[is_prom]==1}
+					&nbsp;<img src="{SKIN_PATH}/img/guang.gif" align="absmiddle"/>
+				{/if}
+			</td></tr>
+             <tr>
+                 <td width="26%" valign="top">
+                 <ul class="task_details_left">
+                    <li><strong>任务价格</strong>：<span class="red"><strong>￥{$task_info[task_cash]}</strong></span></li>
+                    {if $task_info['city']}<li><strong>限定城市</strong>：{$task_info[city]}</li>{/if}
+                    <li><strong>任务编号</strong>：{$task_info[task_id]}</li>
+                    <li><strong>开始时间</strong>：<!--{date('Y-m-d H:i:s',$task_info[start_time])}--></li>
+                    <li><strong>结束时间</strong>：<!--{if $task_info[task_status]==7}-->任务已结束<!--{else}--><!--{date('Y-m-d H:i:s',$task_info[end_time])}--><!--{/if}--></li>
+					{if $task_info[task_status]==7 || $task_info[task_status]==3}
+					{else}
+                    <li><strong>剩余时间</strong>：{if $task_info[task_status]==2&&$task_info[end_time]<time()}延期中{else}{$task_info[remaining_time]}{/if}</li>
+					{/if}
+					<li><strong>任务状态</strong>：<font color="red" >{$reward_status_arr[$task_info[task_status]]}</font></li>
+					
+					{if $task_info[task_status]==3}
+					<li><strong>公示时间</strong>：<!--{date('Y-m-d H:i',$task_info[sp_end_time])}-->    结束</li>
+					{/if}
+                 </ul>                 </td>
+                 <td width="46%" valign="top">
+                 	
+					{if $task_info[task_status]==2}
+						<div class="task_progress"></div>
+					{elseif $task_info[task_status]==3}
+						<div class="task_progress2"></div>
+					{elseif $task_info[task_status]==4}
+						<div class="task_progress2"></div>
+					{elseif $task_info[task_status]==7 || $task_info[task_status]==5 }
+						<div class="task_progress3"></div>
+					{/if}
+					
+					<div class="t_c">
+						{if $task_info[task_status]==7}
+						<span class="font14 red ico_true">任务已经圆满结束！</span>
+						<input type="button" class="task_btn2" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&{if $task_info[task_mode]==1}workstatus=4{elseif $task_info[task_mode]==2}worktype=prize{else}workstatus=6{/if}#t_work_list'" value="查看中标稿件"/>
+						{elseif $task_info[task_status]==5}
+						<span class="font14 red ico_true">任务已经失败结束！</span>
+						{elseif $task_info[task_status]==3}
+						<input type="button" class="task_btn"  value="任务举报" onclick="{if $uid}showWindow('a_comment2', document.getElementById('a_comment2').href);{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false{/if}"/> 
+						<a id="a_comment2" name="a_comment2" href="index.php?do=task_op&op=workcomment&comment_type=2&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}"  title="任务举报"></a>
+						<input type="button" class="task_btn2" onclick="location.href='index.php?do=task&task_id=$task_id&view=work&{if $task_info[task_mode]==1}workstatus=4{elseif $task_info[task_mode]==2}worktype=prize{else}workstatus=6{/if}#t_work_list'" value="查看中标稿件"/>
+						{elseif $task_info[task_status]==4}
+						<input type="button" class="task_btn"  value="任务举报" onclick="{if $uid}showWindow('a_comment2', document.getElementById('a_comment2').href);{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false{/if}"/> 
+						<a id="a_comment2" name="a_comment2" href="index.php?do=task_op&op=workcomment&comment_type=2&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}"  title="任务举报"></a>
+						{elseif $task_info[task_status]==2}
+							{if $uid!=$task_info[uid]}
+							<input type="button" class="task_btn"  value="任务报名" onclick="task_sign();"/> 
+							<a id="a_comment5" name="a_comment5" href="index.php?do=task_op&op=tasksign&comment_type=5&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}"  title="任务报名"></a>
+							<input type="button" class="task_btn"  value="任务交稿" onclick="{if $uid}showWindow('a_comment6', document.getElementById('a_comment6').href,'get',1,'','initedit()');return false;{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false{/if}"/>  
+							<a id="a_comment6" name="a_comment6" href="index.php?do=task_op&op=taskwork&comment_type=6&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}"  title="任务交稿"></a>
+							
+							{else}
+							{if $button_arr['set_vote']}
+							<input type="button" class="task_btn2" onclick="showDialog('所有入围稿件将作为投票项，票数最高的将在{$reward_config[vote_limit_time]}天后成为中标稿件，确定现在就开始投票吗？', 'confirm', '发起投票','tasksetvote();',1)" value="发起投票"/>
+							{/if}
+							{if $button_arr['task_delay']}
+							<input type="button" class="task_btn2" onclick="showDialog('每次延期最多延长{$reward_config['adjourn_day']}天，这是您第{$delaycount}次延期，本次延期需最低支付{$defer_rule_arr[$delaycount][defer_cash_scale]}%的任务佣金，即<!--{eval echo $defer_rule_arr[$delaycount][defer_cash_scale]*$task_info[task_cash]/100;}-->，确定要加价延期吗？', 'confirm', '加价延期','taskdelay()',1)" value="加价延期"/>
+							{/if}
+							{/if}
+						{/if}
+						{if $uid!=$task_info[uid]}
+						<input type="button" class="task_btn"  value="任务评论" onclick="{if $uid}showWindow('a_comment1', document.getElementById('a_comment1').href,'get',0);{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false{/if}"/>
+							<a id="a_comment1" name="a_comment1" href="index.php?do=task_op&op=workcomment&comment_type=1&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}"  title="给我留言"></a>
+						{/if}
+					</div>
+				</td>
+                 <td width="28%" rowspan="4" valign="top">
+                    <div class="Posted_by">
+                        <dl><dt class="font14">任务发布者</dt>
+                        <dd class="Posted_by_gut">
+                       	  <span class="img_t">
+                       	  	<a href="index.php?do=space&member_id={$task_info[uid]}">
+							<!--{userpic($task_info[uid],small)}-->
+							</a>
+							</span>
+                          <a href="index.php?do=space&member_id={$task_info[uid]}" class="c030"><strong>{$task_info[username]}</strong></a>  
+				  {if $space_info[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+				  {if $space_info[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+				  {if $space_info[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $space_info[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $space_info[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;  		  <br/>                       
+						      雇主信誉：<!--{eval $g_m_score_value = Func_comm_class::get_mark_level($space_info['g_m_credit_value'],2);echo $g_m_score_value[pic];}-->
+						  
+						  <br/>
+						    雇主好评率：
+						  	{if $space_info[seller_good_rate]}{$space_info[seller_good_rate]}{else}0{/if}	  		  
+						  <ul>
+						  	<li>发标次数：{$space_info[pub_num]}</li>
+						  </ul>
+                          <p>
+                          <a id="a_msg"  href="index.php?do=message&to_uid={$space_info[uid]}&task_id={$task_info[task_id]}" onclick="{if $uid}{if $uid!=$task_info[uid]}showWindow('a_msg', this.href);{else}showDialog('操作无效，您不能给自己留言', 'alert', '登录提示','',0);return false;{/if}{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if}"  title="站内短信">站内短信</a>
+                          </p>
+                        </dd>
+                        </dl>
+                    </div>                 
+					
+					<div class="Posted_by2">
+                        <dl><dt class="font14">威客{$kf_info[uid]}号客服</dt>
+                        <dd class="Posted_by_gut">
+                       	  <span class="img_t">
+                       	  	<a href="javascript:;">
+							<!--{userpic($kf_info[uid],small)}-->
+							</a>
+							</span>
+                          <a href="javascript:;" class="c030"><strong>{$kf_info[username]}</strong></a><br/>                       
+						        <br> 
+								 客服电话：<strong>{$kf_info['phone']}</strong>
+						 		  		  
+						  <ul>
+						  	<li><font color="red">建议直接来电快速解决您的问题</font></li>
+						</ul>
+                          <p>
+ 
+                          <a id="a_msg" href="index.php?do=task_op&op=workcomment&comment_type=5&task_id={$task_info[task_id]}" onclick="{if $uid}showWindow('a_comment5', this.href);return false;{else}showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;{/if}"  title="客服留言">客服留言</a>
+                          <a target="_blank" href="http://wpa.qq.com/msgrd?v=1&uin={$kf_info[qq]}&site=qq&menu=yes">QQ联系</a>
+ 
+						  </p>
+                        </dd>
+                        </dl>
+                    </div>                 
+					
+					
+					
+					</td>
+             </tr>
+             <tr>
+               <td colspan="2">
+               		{if $task_info[task_mode]==1 && ($task_info[task_status]==3 || $task_info[task_status]==7) }
+					<strong>中标稿件</strong>：<font color="red">{$work_info[username]}</font>中标，{$work_info[work_id]}号稿件，中标时间：[<!--{date('Y-m-d H:i:s',$work_info[work_time])}-->]
+					{/if}
+               </td>
+             </tr>
+             <tr>
+               <td colspan="2">
+               	
+                <div id="task_mode">
+                    <ul style="border-right:1px solid #cfe2f6;">
+                    <p><strong><img src="{SKIN_PATH}/img/icon_1.gif" align="absmiddle"/>中标模式</strong></p>
+                    <p>
+                    	{if $task_info[task_mode]==1}
+						单人中标模式
+						{elseif $task_info[task_mode]==2}
+						多人中标模式
+						{elseif $task_info[task_mode]==3}
+						计件中标模式
+						{else}
+						{/if}
+					</p>
+					{if $task_info[task_mode]==1}
+					 <p>任务需要<font color="red"> 1</font> 稿件,中标稿件获得<font color="red">{$task_info[task_cash]}</font> 元赏金</p>
+					{elseif $task_info[task_mode]==2}
+						{loop $prize_arr $key $value}
+							<p><font color="red">{$value[prize]}</font>等奖  ， <font color="red">{$value[prize_count]}</font>个 ，平均分配<font color="red"> {$value[prize_cash]}</font>元赏金</p>
+						{/loop}
+					{elseif $task_info[task_mode]==3}
+						<p>任务需要 <font color="red">{$task_info[work_count]}</font>个 稿件，每件中标稿件获得<font color="red">{$task_info[single_cash]}</font> 元赏金</p>
+					{else}
+					{/if}
+					<p>共<font color="red">{$work_count}</font>个稿件， 已中标<font color="red"> {$selected_count}</font>  个稿件 。 </p>
+                    <p></p>
+                    </ul>
+                    <ul>
+	                    <p><strong><img src="{SKIN_PATH}/img/icon_2.gif" align="absmiddle"/>赏金声明</strong></p>
+	                    <p>稿件如果被客户选中，在完成赏金支付后。                    </p>
+						{if $task_info[task_mode]==1}
+						<p>任务悬赏金额为<font color="red">￥{$task_info[task_cash]}</font>，网站收取服务费<font color="red">￥<!--{eval echo ($task_info[task_cash]*$deduct_scale)}--></font>，中标者将获取<font color="red">￥<!--{eval echo ($task_info[task_cash]-($task_info[task_cash]*$deduct_scale))}--></font></p>
+						{elseif $task_info[task_mode]==2}
+						<p>
+							{loop $prize_arr $key $value}
+							<p><font color="red">{$value[prize]}</font>等奖  ， <font color="red">{$value[prize_count]}</font>个 ，每个可获取<font color="red">￥<!--{eval echo (($value[prize_cash]-($value[prize_cash]*$deduct_scale))/$value[prize_count])}--></font>元赏金</p>
+							{/loop}
+						</p>
+						{elseif $task_info[task_mode]==3}
+						<p><p>任务需要 <font color="red">{$task_info[work_count]}</font>个 稿件，每件中标稿件获得<font color="red"><!--{eval echo ($task_info[single_cash]-($task_info[single_cash]*$deduct_scale))}--></font> 元赏金</p></p>
+						{else}
+						{/if}
+						
+					</ul>
+                </div>               </td>
+             </tr>
+         </table>
+		 {if $task_info[is_prom]==1 && $task_info[task_status]==2&&$uid}
+         <div class="task_promotion"><ul><li style="width:360px;margin-right:50px;"><i class="ico">&nbsp;</i>
+		发布者支付 <font color="red">￥ {$task_info[prom_count]} 元</font>推广费用到{$_K['website_name']}已收到雇主的任务款，确保任务结束后，推广者能收到推广费。</li>
+		<li class="promotion_img"></li>
+		<li>
+         
+		  <input type="text" class="input_txt" name="txt_prom_url" id="txt_prom_url" size="40" value="{$_K['siteurl']}/index.php?do=task&task_id=$task_id&member_id=$uid"/> 
+		  <input type="button" class="input_btn"  value="点击复制"  onclick="{if $reward_config[is_open_prom]==1}setCopy('{$_K['siteurl']}/index.php?do=task&task_id=$task_id&member_id=$uid','推广链接已经成功复制到您的剪切板');{else}showDialog('操作无效，管理员已关闭推广模式!', 'alert', '操作失败提示','',0);{/if}"/><br/>
+			<p style="margin-top:5px;">分享到:
+				<a href=javascript:window.open('http://shuqian.qq.com/post?from=3&title='+encodeURIComponent(document.title)+'&uri='+encodeURIComponent(document.location.href)+'&jumpback=2&noui=1','favit','');void(0)><img src="{SKIN_PATH}/img/qq.gif" alt="QQ书签" border="0" height="16" width="16"></a>
+				<a href="javascript:u=location.href;t=document.title;c = %22%22 + (window.getSelection ? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url=%22http://cang.baidu.com/do/add?it=%22+encodeURIComponent(t)+%22&iu=%22+encodeURIComponent(u)+%22&dc=%22+encodeURIComponent(c)+%22&fr=ien#nw=1%22;window.open(url,%22_blank%22,%22scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes%22); void 0"><img src="{SKIN_PATH}/img/baidu.gif" alt="百度搜藏" border="0" height="16" width="16"></a> 
+				<a href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk='+c(b.location)+'&title='+c(b.title),'bkmk_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=420px,width=550px,resizable=1,alwaysRaised=1');a.setTimeout(function(){d.focus()},300)})();"><img src="{SKIN_PATH}/img/google.gif" alt="Google书签" border="0" height="16" width="16"></a> 
+				<a target=_self href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(vivi=window.open('http://vivi.sina.com.cn/collect/icollect.php?pid=free9.net&title='+escape(d.title)+'&url='+escape(d.location.href)+'&desc='+escape(t),'vivi','scrollbars=no,width=480,height=480,left=75,top=20,status=no,resizable=yes'));vivi.focus();" target="_blank"><img src="{SKIN_PATH}/img/vivi.gif" alt="新浪ViVi" border="0" height="16" width="16"></a> 
+				<a href="#" onclick="window.open('http://myweb.cn.yahoo.com/popadd.html?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title), 
+				'Yahoo','scrollbars=yes,width=780,height=550,left=80,top=80,status=yes,resizable=yes');"><img src="{SKIN_PATH}/img/yahoo.gif" alt="雅虎收藏" border="0" height="16" width="16"></a> 
+				<a href="javascript:void((function(s,d,e){if(/xiaonei\.com/.test(d.location))return;var%20f='http://share.xiaonei.com/share/butt*****hare.do?link=',u=d.location,l=d.title,p=[e(u),'&title=',e(l)].join('');function%20a(){if(!window.open([f,p].join(''),'xnshare',['toolbar=0,status=0,resizable=1,width=626,height=436,left=',(s.width-626)/2,',top=',(s.height-436)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent));"><img src="{SKIN_PATH}/img/renren.gif" alt="分享到校内人人网" border="0" height="16" width="16"></a> 
+				<a href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(kaixin=window.open('http://www.kaixin001.com/~repaste/repaste.php?&rurl='+escape(d.location.href)+'&rtitle='+escape(d.title)+'&rcontent='+escape(d.title),'kaixin'));kaixin.focus();"><img src="{SKIN_PATH}/img/kaixin001.gif" alt="转贴到开心网" border="0" height="16" width="16"></a> 
+			</p>
+		 </li>
+         </ul>
+		 </div>
+		 {elseif $task_info[is_prom]==1 && $task_info[task_status]==3 && count($promer_arr)}
+		 <div class="task_promotion">
+		 	<ul>
+		 		<li class="promotion_img2"></li>
+				{loop $promer_arr $value}
+		 		<li style="height:25px;width:270px;">
+				 用户$value[prom_username] 推广$value[join_username]  成功中标！	
+		 		</li>
+				{/loop} 
+            </ul>
+		 </div>
+		 {/if}
+    </div></div> <!--task_info_bg_E--> 
+    
+    <div class="task_info_tit">
+    	<a href="index.php?do=task&task_id={$task_info[task_id]}&view=demand#t_work_list"><h3 {if $view=='demand'}class="now"{/if} id="tab_cont3_1" >任务需求</h3></a>
+		<a href="index.php?do=task&task_id={$task_info[task_id]}&view=work#t_work_list"><h3 {if $view=='work'}class="now"{/if} id="tab_cont3_2" >查看作品</h3></a>
+		<a href="index.php?do=task&task_id={$task_info[task_id]}&view=comment#t_work_list"><h3 {if $view=='comment'}class="now"{/if} id="tab_cont3_3" >查看留言</h3></a>
+		<a href="index.php?do=task&task_id={$task_info[task_id]}&view=favorable#t_work_list"><h3 {if $view=='favorable'}class="now"{/if} id="tab_cont3_4" >信用评价</h3></a>
+		<span class="fl_r">任务结束时间: <!--{date('Y-m-d H:i:s',$task_info[end_time])}--></span></div>
+    <div class="task_info_bg" id="t_work_list">
+    	{if $view=='demand'}
+    	<div class="task_info" id="div_cont3_1">
+    		{$task_info[task_desc]}
+			<br><br><br>
+    	{if $file_list}<p>
+    	<strong>任务附件：
+    	{loop $file_list $file}
+    	<a target="_blank" href="{$file[file_save_name]}"><font color="red">{$file[file_name]}</font></a>&nbsp;&nbsp;&nbsp;
+    	{/loop}
+    	</strong>
+    	</p>
+    	{/if}
+    	</div>
+		{/if}
+		{if $view=='work'}
+		
+   	  <!--{template task/reward/tpl/default/inc_task_work_list}-->
+    
+    
+		{/if}
+		{if $view=='comment'}
+		<div class="task_info" id="div_cont3_3" >
+
+			{if ($task_info[task_status]==3 || $task_info[task_status]==4 ||  $task_info[task_status]==7) || ($task_info[task_status]==2 && $reward_config[is_comment]==1)}
+				{loop $comment_arr $key $value}
+				{if $value[comment_type]==1}
+				<div class="p_10 cer {if $key==0}mtask_work_msg_list{/if}">
+					{if $value[p_id]}
+						<p class="img_t">&nbsp;&nbsp;</p><p class="img_t">&nbsp;&nbsp;</p>
+					{/if}
+		    	<p class="img_t">
+		    		<a href="index.php?do=space&member_id={$task_info[uid]}">
+		    			<!--{userpic($value[uid],small)}-->
+					</a>
+					</p>
+					<p class="f60"><a href="index.php?do=space&member_id={$task_info[uid]}">{$value[username]}</a></p>
+					<p><strong>
+						{if $value[comment_type]==1}
+						任务交流{if $value[p_id]}[回复]{/if}
+						{elseif $value[comment_type]==2}
+						任务举报
+						{/if}
+						: </strong>
+					{$value[content]}
+					<br>
+					<span class="c999">日期: <!--{date('Y-m-d H:i:s',$value[on_time])}--></span>
+					{if $uid ==$task_info[uid]}
+					{if $value[uid]!=$uid}
+					<a id="a_commentt" href="index.php?do=task_op&op=workcomment&comment_type=1&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}&p_id={$value[comment_id]}" onclick="showWindow('a_commentt', this.href,'get',0);"><font color="red">[回复]</font></a>
+					{/if}
+					{/if}
+					</p>
+		   		</div>
+				{/if}
+			{/loop}
+		    <div class="Npage"><div class="fl_r">
+		          {$comment_pages[page]}
+		    </div>
+			{/if}
+    	</div>
+		{/if}
+		
+			{if $view=='favorable'}
+			<div class="task_info" id="div_cont3_4" >
+			<form action="" method="#t_work_list">
+				<input type="hidden" name="task_id" value="{$task_info[task_id]}">
+				<input type="hidden" name="do" value="{$do}">
+				<input type="hidden" name="view" value="{$view}">
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pj_table">
+	                  <tr>
+	                    <th width="60">
+	                    <select name="slt_mark_type" onchange="this.form.submit();">
+	                        <option  selected="selected"  value="">全部评价</option>
+	                        <option  value="1" {if $slt_mark_type==1}selected="selected"{/if}>好评</option>
+	                        <option  value="2" {if $slt_mark_type==2}selected="selected"{/if}>中评</option>
+	                        <option  value="3" {if $slt_mark_type==3}selected="selected"{/if}>差评</option>
+	                    </select>
+	                    </th>
+	                    <th>
+	                    <select name="slt_mark_content" onchange="this.form.submit();">
+	                        <option  value="1" {if $slt_mark_content==1}selected="selected"{/if}>有内容评价</option>
+	                        <option  value="2" {if $slt_mark_content==2}selected="selected"{/if}>无内容评价</option>
+	                    </select>
+						 <select name="slt_mark_from" onchange="this.form.submit();">
+	                        <option  value="1" {if $slt_mark_from==1}selected="selected"{/if}>来自威客的评价</option>
+	                        <option  value="2" {if $slt_mark_from==2}selected="selected"{/if}>来自雇主的评价</option>
+	                    </select>
+	                    </th>
+						<th width="150">评论者</th>
+	                  </tr>
+			  {loop $mark_log_arr $key $value}
+			  <tr>
+	            <td>
+	            	{if $value[mark_status]==1}
+	            	<img src="{SKIN_PATH}/img/ico_p1.gif"/>好评
+					{elseif $value[mark_status]==2}
+					<img src="{SKIN_PATH}/img/ico_p2.gif"/>中评
+					{elseif $value[mark_status]==3}
+					<img src="{SKIN_PATH}/img/ico_p3.gif"/>差评
+					{else}
+					<img src="{SKIN_PATH}/img/ico_p1.gif"/>好评
+					{/if}
+				</td>
+	            <td><p>{$value[mark_content]} </p>
+	            <span class="c999">[<!--{date('Y-m-d H:i:s',$value[mark_time])}-->]</span></td>
+	            <td><a href="index.php?do=space&uid={$value[by_uid]}" target="_blank">{$value[by_username]}</a></td>
+	          </tr>
+			  {/loop}
+			  <tr>
+			  	<td colspan="4">{$mark_log_pages[page]}</td>
+			  </tr>
+			  </table>
+			  </form>
+			  </div>
+			{/if}
+		
+	</div> <!--task_info2_bg_E-->
+    
+    <div class="task_con_tit">
+    	<dl><dt class="font14">已报名的威客</dt>
+		<dt> ( 已有 <span class="red">{$sign_count}</span> 人报名 )</dt>
+		<dd><a href="javascript:;" class="hide_a">收缩此栏目</a>　 <a href="#top">返回顶部</a></dd></dl>
+    </div>
+    <div class="p_10">
+    	{loop $sign_arr $key $value}
+    	<p class="img_t">
+    		<a href="index.php?do=space&member_id={$value[uid]}">
+				<!--{userpic($value[uid],small)}-->
+				{$value[username]}</a>
+		</p>
+		{/loop}
+	</div>
+    
+
+    <div class="task_con_tit">
+    	<dl><dt class="font14">会员常见问题</dt><dd><a href="javascript:;" class="hide_a">收缩此栏目</a>　 <a href="#top">返回顶部</a></dd></dl>
+    </div>
+    <div class="p_10"><ul>
+     <!--{tag 会员常见问题}-->
+    </ul></div>  
+    
+	
+    <div class="task_con_tit">
+    	<dl><dt class="font14">任务流程图</dt><dd><a href="javascript:;" class="hide_a">收缩此栏目</a>　 <a href="#top">返回顶部</a></dd></dl>
+    </div>
+    <div class="t_c"><img src="{SKIN_PATH}/img/task_process.gif"  /></div>
+    
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" >
+var editor = null;
+	$(function(){
+		$(".hide_a").click(function(){
+			$(this).parent().parent().parent().next().slideToggle('slow');
+			})
+		$("#task_favor").click(function(){
+			var uid =  parseInt('{$uid}')+0;
+			if(uid == '' || isNaN(uid))
+			{
+				showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;
+			}else{
+				var url = "index.php?do=task";
+				$.ajax( {
+					type : "POST",
+					url : url,
+					cache : false,
+					async : false,
+					data : "ajax=favor&task_id={$task_id}&task_title={$task_info[task_title]}",
+					dataType : "json",
+					error : function(json) {
+						showDialog('系统繁忙，请稍后再试!', 'alert', '错误提示','',0);return false;
+					},
+					success : function(json) {
+						if (json.status == 0) {
+							 showDialog('此任务您已经收藏过了!', 'alert', '错误提示','',1);return false;
+						} 
+						else if(json.status == -1)
+						{
+							showDialog('您所在的用户组不能收藏该类型任务！!', 'notice', '信息提示','',1);return false;
+						}
+						else {
+							showDialog('此任务您已经收藏成功！!', 'notice', '信息提示','',1);return false;
+						}
+					}
+				});
+			}
+		})
+	})
+	function CopyText(){
+		var text=$('#txt_prom_url').val();//这句只复制全页的文本内容 
+		var res;
+		res = window.clipboardData.setData("Text", text);
+		if(res){
+			//alert('推广的链接已经复制到剪切板!');
+			showDialog('推广的链接已经复制到剪切板!', 'notice', '操作成功提示','',0);
+		}else{
+			//alert('推广的链接复制失败!');
+			showDialog('推广的链接复制失败!', 'alert', '操作失败提示','',0);
+		}
+	}
+
+
+	
+	function tasksetvote(){
+		location.href='index.php?do=task_op&op=tasksetvote&task_id=$task_id';
+	}
+	function taskdelay(){
+		showWindow('taskdelay', 'index.php?do=task_op&op=taskdelay&task_id=$task_id');
+	}
+	
+	function task_sign(){
+		var is_sign = {$is_sign}+0;
+		var uid = {$uid}+0;
+		var task_uid = {$task_info[uid]}+0;
+		var is_bid = {$is_bid}+0;
+		
+			if(uid==''){
+				showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;
+			}else{
+				if(uid==task_uid){
+					showDialog('操作无效，用户不能自己发布的任务进行报名!', 'alert', '操作失败提示','',0);return false;
+				}else if(is_sign>0){
+					showDialog('操作无效，您已经进行过一次报名，请勿重发操作!', 'alert', '操作失败提示','',0);return false;
+				}else{
+					showDialog('您确定对该任务进行报名,确定?', 'confirm', '任务报名','user_sign();',1)
+				}
+			}
+			
+		
+	}
+	function user_sign(){
+		location.href='index.php?do=task_op&op=tasksign&ac=tasksign&task_id={$task_info[task_id]}&obj_id={$task_info[task_id]}';
+	}
+	function initedit(){
+		
+		editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id=&type=link',upImgUrl:"index.php?do=ajax_upload&task_id=",upImgExt:"jpg,jpeg,gif,png"});
+	}
+	
+</script>
+<!--{template footer}-->

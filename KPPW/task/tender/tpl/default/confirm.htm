@@ -1,0 +1,27 @@
+<!--{template header}-->
+<div class="window " id="panelWindow">
+	<div class="info">
+            <p><strong>任务名称：</strong><span class="red">$title_val</span></p>
+            <p><strong>任务预算：</strong><span class="red">$cove_val</span></p>
+			<p><strong>任务周期：</strong><span class='red'>$day_val</span>天</p>
+			
+			<p><strong>服 务 费：</strong><span class="red">{$zb_config['zb_fees']}</span>元</p>
+			
+			
+                                您的帐户余额：<!--{eval printf('%10.2f',$user_info['balance'])}--></>元 {if $basic_config['credit_is_allow']==1} 您的代金券：<!--{eval printf('%10.2f',$user_info['credit'])}-->元{/if}
+			<p class="mt_10">
+			<!--{eval $user_info['credit']=$basic_config['credit_is_allow']==1?$user_info['credit']:0;}-->
+			<!--{if (($user_info['balance']+$user_info['credit'])<$zb_config['zb_fees'])}-->
+			您需要在线支付：<!--{eval printf("%10.2f",$zb_config['zb_fees'])-($user_info['balance']+$user_info['credit'])}-->	
+			<input type="button" class="input_btn3" id="btn_online_pay" onclick="online_pay();" value="在线付款"/>
+			<!--{else}-->
+			<input type="button" class="input_btn3" id="btn_confirm_pay" onclick="confirm_pay();" value="确认付款"/>
+			<!--{/if}-->
+			
+			<input type="button" class="input_btn3" id="btn_wait_pay" onclick="wait_pay();" value="稍后付款"/> 
+			<input type="button" class="input_btn3" value="重新填写" onclick="hideWindow('$handlekey')"/>
+		</p>
+        </div>
+        
+    </div>
+<!--{template footer}-->

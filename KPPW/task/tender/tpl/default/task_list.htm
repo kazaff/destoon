@@ -1,0 +1,142 @@
+<!--{eval $page_title=$indus_info['indus_name'].'招标任务列表 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+    <div class="main_left">
+        <div class="main_d_task">
+            <div class="main_d_task_tit">
+                <h4>{$model_info['model_name']}</h4><span>{if $indus_c_arr[$indus_id][indus_pid]}<a href="javascript:;" class="c030">$indus_c_arr[$indus_c_arr[$indus_id][indus_pid]][indus_name]</a> > {/if}{if $indus_id}<a href="javascript:;" class="c030">$indus_c_arr[$indus_id][indus_name]</a>{/if}</span><a href="index.php?do=release&model_id=$model_id" class="post_task_a"></a>
+            </div>
+            <dl>
+            	<form action="index.php" method="get" name="frm_tender_list" id="frm_tender_list">
+            		<input type="hidden" name="do" value="task_list">
+            		<input type="hidden" name="view" value="{$view}">
+            		<input type="hidden" name="model_id" value="$model_id">
+					<input type="hidden" name="indus_id" value="{$indus_id}">
+					<input type="hidden" name="page_size" value="{$page_size}">
+            <dd class="main_d_task_gut">
+                <div class="main_d_task_sort">
+                	<strong>排序方式：</strong>
+					
+					{if $slt_order=='2'}
+					<a href="index.php?do={$do}&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&page_size={$page_size}&slt_order=1&model_id=$model_id">招标价格↓</a>
+					{else}
+					<a href="index.php?do={$do}&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&page_size={$page_size}&slt_order=2&model_id=$model_id">招标价格↑</a>
+					{/if}
+					
+					{if $slt_order=='4'}
+					<a href="index.php?do={$do}&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&page_size={$page_size}&slt_order=3&model_id=$model_id">剩余时间↓</a> 
+					{else}
+					<a href="index.php?do={$do}&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&page_size={$page_size}&slt_order=4&model_id=$model_id">剩余时间↑</a>
+					{/if}
+					
+					<select style="width:120px;" name="slt_order" onchange="frm_tender_list.submit();">
+						<option value=''>默认排序</option>
+						<option value="1" {if $slt_order=='1'}selected="selected"{/if}>价格 从高到低</option>
+						<option value="2" {if $slt_order=='2'}selected="selected"{/if}>价格 从低到高</option>
+						<option value="3" {if $slt_order=='3'}selected="selected"{/if}>剩余时间 从多到少</option>
+						<option value="4" {if $slt_order=='4'}selected="selected"{/if}>剩余时间 从少到多</option>
+					</select>　
+					招标金额：
+					 <select  style="width:120px;" name="slt_cash_cove" onchange="frm_tender_list.submit();">
+					 <option value=''>请选择金额范围</option>
+					 	{loop $cash_rule_arr $key $value}
+							<option value="{$value[cash_rule_id]}" {if $slt_cash_cove==$value[cash_rule_id]}selected{/if}>{$value[cove_desc]}</option>
+						{/loop}
+					 </select>
+					 条数:
+					 <a href="index.php?do=task_list&page_size=20&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}{if $slt_order}&slt_order={$slt_order}{/if}&model_id=$model_id">20</a>
+					 <a href="index.php?do=task_list&page_size=40&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}{if $slt_order}&slt_order={$slt_order}{/if}&model_id=$model_id">40</a>
+					 <a href="index.php?do=task_list&page_size=80&view={$view}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}{if $slt_order}&slt_order={$slt_order}{/if}&model_id=$model_id">80</a></div>
+                <dl><dd class="post_task_tab_dt">
+	                	<a href="index.php?do={$do}&view=all{if $slt_order}&slt_order={$slt_order}{/if}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&model_id=$model_id"><h3 {if $view=='all' or $view=='' }class="post_task_tab_now"{/if}>所有任务</h3></a>
+						<a href="index.php?do={$do}&view=proceed{if $slt_order}&slt_order={$slt_order}{/if}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&model_id=$model_id"><h3 {if $view=='proceed'}class="post_task_tab_now"{/if}>正在进行</h3></a>
+						<a href="index.php?do={$do}&view=over{if $slt_order}&slt_order={$slt_order}{/if}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&model_id=$model_id"><h3 {if $view=='over'}class="post_task_tab_now"{/if}>已结束</h3></a>
+						<a href="index.php?do={$do}&view=vip{if $slt_order}&slt_order={$slt_order}{/if}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&model_id=$model_id"><h3 {if $view=='vip'}class="post_task_tab_now"{/if}>VIP任务</h3></a>
+						<a href="index.php?do={$do}&view=commend{if $slt_order}&slt_order={$slt_order}{/if}{if $slt_cash_cove}&slt_cash_cove={$slt_cash_cove}{/if}&model_id=$model_id"><h3 {if $view=='commend'}class="post_task_tab_now"{/if}>推荐任务</h3></a>
+					</dd>
+                <dd class="main_d_task_list">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="task_table t_c">
+                  <tr>
+                    <th width="50">No.ID</th>
+                    <th class="title">任务标题</th>
+                    <th width="60">报名人数</th>
+                    <th width="110">金额范围</th>
+                    <th width="80">结束时间</th>
+                    
+                  </tr>
+				  
+				  {loop $task_arr $key $value}
+                  <tr>
+                    <td>#{$value[task_id]}</td>
+                    <td class="title">
+                    	<a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">
+                    		<!--{eval echo(Func_comm_class::cutstr($value[task_title],40));}-->
+							{if $value[isvip]==1}
+								&nbsp;<img src="{SKIN_PATH}/img/vip2.gif" align="absmiddle"/>
+							{/if}
+							{if $value[istop]==1}
+								&nbsp;<img src="{SKIN_PATH}/img/jian.gif" align="absmiddle"/>
+							{/if}
+						</a>
+					</td>
+                    <td>{$value[sign_num]}</td>
+                    <td><em>
+                    		 {$cash_rule_arr[$value[task_cash_coverage]][cove_desc]}
+						</em>
+					</td>
+                    <td>
+                    {if $value[task_status]==7}
+					任务已结束
+					{else}
+					{$value[remaining_time]}
+					{/if}
+					</td>
+                  </tr>
+                 {/loop}
+                </table>
+                
+              </dd></dl>
+              <div class="Npage">
+              	{$pages[page]}
+                   <!-- <span>1 / 10 页</span>
+                    <span><<上一页</span>
+                    <a href="#" class="Nnow">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a>
+                    <span>下一页>></span>-->
+              </div>
+            </dd>
+                
+            </dl>
+        </div><!--main_d_task_E-->
+        
+        <div class="clear"></div>
+        
+        
+    </div><!--main_left_E-->
+    
+    <div class="main_right">
+    	<div class="mb_10"><a href="index.php?do=release&model_id=$model_id"><img src="{SKIN_PATH}/img/reward.png"/></a></div>
+        <div class="mb_10"><a href="index.php?do=task_list&model_id=$model_id"><img src="{SKIN_PATH}/img/earn.png"/></a></div>
+  		<div class="main_d_r">
+        	<dl><dt class="main_d_r_tit font14">任务分类</dt>
+            <dd class="main_d_r_tag">
+            	{loop $indus_p_arr $key $values}
+					<h4 class="font14">{$values[indus_name]} </h4>
+					{loop $indus_c_arr $key $value}
+						{if $value[indus_pid]==$values[indus_id]}
+						<a {if $indus_id==$value[indus_id]}style="color: #fe8b2f"{/if} href="index.php?do={$do}&indus_id={$value[indus_id]}&model_id=$model_id">{$value[indus_name]}</a>
+						{/if}
+					{/loop}
+				{/loop}  
+            </dd></dl>
+        </div>
+        
+        
+
+  </div><!--main_right_E-->
+    
+</form>
+</div><!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

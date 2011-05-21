@@ -1,0 +1,453 @@
+<!--{eval $page_title = '威客商城 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<link href="shop/tpl/default/css/index_style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="shop/tpl/default/js/scroll.js"></script>
+<div id="top"></div>
+<div class="header">
+      <div class="top_nav">
+      		<div class="width_layer">
+                <ul class="class_nav">
+                    <!--{eval $nav_count = 0;}-->
+                    {loop $nav_list $nav}
+		            {if $nav['ishide']!=3&&$nav_count<=6}
+		            	 <li><a class="map" href="$nav[nav_url]"><span>$nav[nav_title]</span></a></li>
+		            	{if ++$nav_count ==3 }<li><a class="logo" href="shop.php"><span>威客商城</span></a></li>{/if}
+		            {/if}
+		            {/loop}
+                    
+                </ul>
+            </div>
+			
+            <div class="search_box">
+            	<div class="tab">
+                	<!-- <a id="tab_cont0_1" class="select" onClick="swaptab('cont0','select','',2,1)" title="店铺名称" href='javascript:void(0);'><span>店铺名称</span></a> -->
+                    <a id="tab_cont0_2" class="select" onClick="swaptab('cont0','select','',2,2)" title="商品名称" href='javascript:void(0);'><span>商品名称</span></a>
+                </div>
+                <div class="tab_con">
+                	<div id="div_cont0_1" style="display:block;">
+                    	<form action="shop.php?do=shop_list" method="post">
+                       	  	<input class="txt" name="txt_keyword" type="text" />
+                        	<input type="submit" class="btn" value=" " />
+                        </form>
+                    </div>
+                    <div id="div_cont0_2" style="display:none;">
+                    	<form action="shop.php?do=service_list" method="post">
+                        	<input class="txt" name="txt_keyword" type="text" />
+                        	<input type="submit" class="btn" value=" " />
+                        </form>
+                    </div>
+                </div>    
+                <div class="wykd">
+				{if $shop_info}<a href="index.php?do=user&view=service_add">发布商品</a>{else}<a href="index.php?do=user&view=create_shop">我要开店</a>{/if}
+				</div>
+      		</div>
+			
+      </div>
+</div>
+<div class="content">
+    <div class="width_layer">
+        <div class="tab_nav">
+          <ul>
+          	<li><h2 id="renwu" class="rw_class">商品分类</h2></li>
+            {loop $indus_arr $key $value}
+			<li><a id="tab<!--{eval echo $key+1}-->" fd="{$value['indus_id']}"  title="{$value['indus_name']}" href='javascript:void(0);'><span>{$value['indus_name']}</span></a></li>
+			{/loop}
+            <li><a href="shop.php?do=service_list">查看所有商品>></a></li>
+          </ul>
+      </div>
+	  <script type="text/javascript">
+	  	$(function(){
+			var tt;
+			var obj;
+			$(".tab_nav li a").mouseover(function(){
+				
+				fd = $(this).attr('fd');
+				$("#con_tab_1").data('id',fd);
+				obj = $(this);
+				$(obj).parent().parent().find('a').each(function(i,n){
+					$(n).removeClass('select');
+				})
+				$(obj).addClass('select');
+				if(fd){
+				  window.clearTimeout(tt);
+				   
+				  if(typeof($(this).data('mydata')) != 'undefined'){
+				  	sub_show($(this).data('mydata'),fd);
+				  }else{
+				  	$("#con_tab_1").html("<img src='resource/img/loading.gif'>加载中......");
+					url = "index.php?do=shop&ajax=get_service&indus_id="+fd+"&aaa="+new Date().getTime();
+					$.getJSON(url,function(data){
+						$(obj).data('mydata',data);
+						sub_show(data,fd);
+					})
+				  }
+				
+			   }
+			}).mouseleave(function(){
+				
+				obj = $(this);
+				fd = $(this).attr('fd');
+				if(fd){
+				window.clearTimeout(tt);
+				tt = window.setTimeout(function(){
+				$("#con_tab_1").hide();
+				$(obj).removeClass('select');	
+				},200);
+				}
+			})
+			$("#con_tab_1").mousemove(function(){
+				window.clearTimeout(tt);
+				tt = window.setTimeout(function(){$("#con_tab_1").show();},200);
+			}).mouseleave(function(){
+				window.clearTimeout(tt);
+				tt = window.setTimeout(function(){
+					$("#con_tab_1").hide();
+					$(obj).removeClass('select');
+					},200);
+			})
+			 
+		})
+		
+		function sub_show(data,fd){
+			 
+			var s_hmtl = "<dl>";
+				s_hmtl +="<dt>";
+				s_hmtl +="<strong>详细分类</strong>";
+				s_hmtl +="<ul>";
+				var k=1;
+				$.each(data.data.indus,function(i,n){
+					s_hmtl += '<li><a target="_blank" href=shop.php?do=service_list&indus_id='+n.indus_id+'>'+n.indus_name+'</a></li>';
+					if((k++)%2==0){
+						s_hmtl += '</ul><ul>';
+					}
+				})
+				s_hmtl +="</ul>";
+				s_hmtl +="</dt>";
+				s_hmtl +="<dd>";
+				s_hmtl +="<strong>推荐商品：</strong>";
+				$.each(data.data.service,function(i,n){
+					s_hmtl +='<p><em>￥'+n.price+'元</em><a title="'+n.title+'" target="_blank" href="shop.php?do=service_info&sid='+n.service_id+'">'+n.title+'</a></p>';
+				})
+				s_hmtl +='<p><a class="more" target="_blank" href="shop.php?do=service_list&indus_id='+fd+'">更多商品&gt;&gt;</a></p>';
+				s_hmtl +="</dd>";
+				s_hmtl +="</dl>";
+			 $("#con_tab_1").html(s_hmtl).show();
+		}
+
+	  	/*动态*/
+        $(document).ready(function(){
+            $("#scrollDiv").Scroll({line:2,speed:1000,timer:3000});
+        });
+
+	  </script>
+      <div class="nav_content">
+          <div id="con_tab_1" class="submenu" style="display:none;">
+          </div>
+      </div>
+      
+      <div class="right_side">
+        <div class="adv_show" style="margin-bottom:10px;">
+           <!--广告图片-->          
+     		<div id="barScroll" class="mrwm_slide mt10">
+     		<!--{showads(商城幻灯,shop)}-->
+	  		</div>
+        </div>
+      </div>
+       <script type="text/javascript">
+       
+       	$(function(){
+    		var len = $(".mrwm_slist2 > li").length;
+    		var index = 0;
+    		$(".mrwm_slist2 li").mouseover(function(){
+    		   index =   $(".mrwm_slist2 li").index(this);
+    		   showImg2(index);
+    		});
+    		//滑入 停止动画，滑出开始动画.
+    		$('#barScroll2').hover(function(){
+    		     if(MyTime){
+    		     clearInterval(MyTime);
+    		     }
+    		},function(){
+    		     MyTime = setInterval(function(){
+    		       showImg2(index)
+    		     index++;
+    		     if(index==len){index=0;}
+    		     } , 2000);
+    		});
+    		//自动开始
+    		var MyTime = setInterval(function(){
+    		   showImg2(index)
+    		   index++;
+    		   if(index==len){index=0;}
+    		} , 2000);
+    		})
+    		// Demo1 : 关键函数：通过控制top ，来显示不通的幻灯片
+    		function showImg2(i){
+    		  //$("#imgScrollCon2").stop(true,false).animate({left : -750*i},800);
+    		   $(".imgScrollCon2 li").eq(i).show().siblings().hide();
+    		   $(".mrwm_slist2 li")
+    		    .eq(i).addClass("select")
+    		    .siblings().removeClass("select");
+    		}
+
+       	$(function(){
+    		var len = $(".mrwm_slist3 > li").length;
+    		var index = 0;
+    		$(".mrwm_slist3 li").mouseover(function(){
+    		   index =   $(".mrwm_slist3 li").index(this);
+    		   showImg3(index);
+    		});
+    		//滑入 停止动画，滑出开始动画.
+    		$('#barScroll3').hover(function(){
+    		     if(MyTime){
+    		     clearInterval(MyTime);
+    		     }
+    		},function(){
+    		     MyTime = setInterval(function(){
+    		       showImg3(index)
+    		     index++;
+    		     if(index==len){index=0;}
+    		     } , 2000);
+    		});
+    		//自动开始
+    		var MyTime = setInterval(function(){
+    		   showImg3(index)
+    		   index++;
+    		   if(index==len){index=0;}
+    		} , 2000);
+    		})
+    		// Demo1 : 关键函数：通过控制top ，来显示不通的幻灯片
+    		function showImg3(i){
+    		  //$("#imgScrollCon3").stop(true,false).animate({left : -750*i},800);
+    		   $(".imgScrollCon3 li").eq(i).show().siblings().hide();
+    		   $(".mrwm_slist3 li")
+    		    .eq(i).addClass("select")
+    		    .siblings().removeClass("select");
+    		}
+		
+       	$(function(){
+    		var len = $(".mrwm_slist4 > li").length;
+    		var index = 0;
+    		$(".mrwm_slist4 li").mouseover(function(){
+    		   index =   $(".mrwm_slist4 li").index(this);
+    		   showImg4(index);
+    		});
+    		//滑入 停止动画，滑出开始动画.
+    		$('#barScroll4').hover(function(){
+    		     if(MyTime){
+    		     clearInterval(MyTime);
+    		     }
+    		},function(){
+    		     MyTime = setInterval(function(){
+    		       showImg4(index)
+    		     index++;
+    		     if(index==len){index=0;}
+    		     } , 2000);
+    		});
+    		//自动开始
+    		var MyTime = setInterval(function(){
+    		   showImg4(index)
+    		   index++;
+    		   if(index==len){index=0;}
+    		} , 2000);
+    		})
+    		// Demo1 : 关键函数：通过控制top ，来显示不通的幻灯片
+    		function showImg4(i){
+    		  //$("#imgScrollCon4").stop(true,false).animate({left : -750*i},800);
+    		   $("#imgScrollCon4 li").eq(i).show().siblings().hide();
+    		   $(".mrwm_slist4 li")
+    		    .eq(i).addClass("select")
+    		    .siblings().removeClass("select");
+    		}
+       </script>
+      
+      <div class="clear"></div>
+      
+      <!-- 1111111111111111 -->
+      <link href="shop/tpl/{$_K['template']}/css/shop.css" rel="stylesheet" type="text/css" />
+<div class="box">
+	<div class="shangcheng">
+   	  <div class="tuijian">
+       	  <div class="t_top">
+          	<strong>商城推荐</strong>
+          </div>
+            <div class="t_content">
+            	<ul>
+                	<li><!--{showad(104)}--></li>
+                    <li><!--{showad(105)}--></li>
+                    <li><!--{showad(106)}--></li>
+                </ul>
+          </div>
+      </div>
+      <div class="dongtai">
+        	<div class="dt">
+            <div class="d_top"></div>
+               <div class="d_content">
+			    <div class="cont">
+                   <div id="scrollDiv">
+                       <ul>
+	                    {loop $feedlist $feed}
+						<li><em>·</em>$feed['title'] &nbsp;&nbsp;<!--{eval echo Func_comm_class::gmdate($feed['feed_time'])}--></li>
+	           			{/loop}
+	                   </ul>
+                   </div>
+               </div>     
+          </div>
+            </div>
+            <div class="zy">
+            	<div class="zy_left">
+               	  <div class="zy_top"><strong>商城公告</strong></div>
+                  <div class="zy_content">
+                    	<ul>
+                        	<!--{tag 商城_公告}-->
+                        </ul>
+                  </div>
+                </div>
+                <div class="zy_right">
+                	<div class="zy_top"><strong>最新成交</strong></div>
+                    <div class="zy_content">
+                    	<ul>
+                    	{loop $order_list $v}
+	                    	<li><strong>￥{$v['count_cash']}元</strong><a href="index.php?do=space&memberid={$v['buy_uid']}">$v['buy_username']</a>购买了<a target="_blank" title="网吧协会官方网站" href="shop.php?do=service_info&sid=$v[service_id]">$v['title']</a></li>             
+	                	{/loop}
+                        	
+                        </ul>
+                    </div>
+                </div>
+            </div>
+      </div>
+        <div class="contact">
+        	<div class="a1">{if $shop_info}<a href="index.php?do=user&view=service_add"><img src="shop/tpl/{$_K['template']}/img/pic4.jpg" width="219" height="56" /></a>{else}<a href="index.php?do=user&view=create_shop"><img src="shop/tpl/{$_K['template']}/img/pic4.jpg" width="219" height="56" /></a>{/if}</div>
+            <div class="a2"><a href="index.php?do=release&model_id=1"> <img src="shop/tpl/{$_K['template']}/img/pci5.jpg" width="219" height="56" /></a></div>
+            <div class="a3"><a href="index.php?do=search_list"> <img src="shop/tpl/{$_K['template']}/img/pic6.jpg" width="219" height="56" /></a></div>
+            <div class="a4"><!--{tag 商城页_开店联系方式}--></div>
+        </div>
+    </div>
+    
+    <div class="dianpu">
+    	<div class="dp_left">
+        	<div class="dp_s"><strong>&nbsp;&nbsp;&nbsp;店铺排行榜</strong></div>
+            <div class="dp_x">
+            	<div class="xxk">
+                	<a id="tab_contq_1" class="select" onClick="swaptab('contq','select','',2,1)"><span>个人店铺</span></a>
+                    <a id="tab_contq_2" onClick="swaptab('contq','select','',2,2)"><span>企业店铺</span></a>
+       		   </div>
+              <div class="paihang" id="div_contq_1">
+              {loop $hotp_shop_list $sp}
+                	<ul>
+                    	<li><span><a href="shop.php?do=shop&shop_id=$sp[shop_id]" style="color: red;">{if $sp['shop_name']}<!--{eval echo Func_comm_class::cutstr($sp['shop_name'],20);}-->{else}$sp['username']{/if}</a></span> &nbsp;信用值：{$sp['w_m_credit_value']}<img src="shop/tpl/{$_K['template']}/img/jiantou.jpg" width="9" height="11" /></li>
+                        <li style="height:20px;line-height:20px;overflow:hidden;">主营范围：<!--{eval $rg = explode(',',$sp['service_range'])}-->{loop $rg $r}<a href="shop.php?do=service_list&indus_id=$r">{$indus_all[$r][indus_name]}</a>{/loop}</li>
+                    </ul>
+              {/loop}
+              </div>
+              <div class="paihang" id="div_contq_2" style="display: none;">
+              {loop $hote_shop_list $sp}
+                	<ul>
+                    	<li><span><a href="shop.php?do=shop&shop_id=$sp[shop_id]" style="color: red;">{if $sp['shop_name']}<!--{eval echo Func_comm_class::cutstr( $sp['shop_name'],22)}--> {else}$sp['username']{/if}</a></span> &nbsp;信用值：{$sp['w_m_credit_value']}<img src="shop/tpl/{$_K['template']}/img/jiantou.jpg" width="9" height="11" /></li>
+                        <li>主营范围：<!--{eval $rg = explode(',',$sp['service_range'])}-->{loop $rg $r}<a href="shop.php?do=service_list&indus_id=$r">{$indus_all[$r][indus_name]}</a>{/loop}</li>
+                    </ul>
+              {/loop}
+              </div>
+            </div>
+        </div>
+        <div class="dp_right">
+        	<div class="dp_top"><strong>&nbsp;&nbsp;最新商品</strong></div>
+          <div class="dp_content">
+                <div class="dp_pic">
+                	<ul id="div_contx_1">
+                		{loop $new_list $value}
+                    	<li>
+                    	<a class="img" href="shop.php?do=service_info&sid={$value[service_id]}"><img src="{if $value['pic']}$value['pic']{else}shop/tpl/default/img/def_service.jpg{/if}" onerror="this.src='shop/tpl/default/img/def_service.jpg'" width="165" height="124" /></a>
+                    	<span><font style="color: #bd0000">￥$value[price]</font> <a href="shop.php?do=service_info&sid=$value[service_id]">$value[title]</a></span>
+                    	<span class="s2"><a href="index.php?do=space&member_id=$value[uid]">$value[username]</a>发布于 <!--{eval echo Func_comm_class::gmdate($value['on_time'])}--></span>
+                    	</li>
+                        {/loop}
+                    </ul>
+                   
+                </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="shangpin">
+    	<div class="sp_left">
+        
+        	<div class="sp_top"><strong>成交排行</strong></div>
+  		    <div class="sp_content">
+                <ul>
+                	{loop $top_sale_list $k $zp}
+	            	<li><img src="shop/tpl/{$_K['template']}/img/<!--{eval echo $k+1}-->.jpg" width="17" height="14" /><span>共￥{$zp[totalcash]}</span><a href="shop.php?do=service_info&sid=$zp['service_id']"> {$zp[title]}</a></li>
+	                {/loop}
+                </ul>
+              
+          </div>
+        </div>
+      <div class="sp_center">
+        	<div class="sp_top"><strong>热门作品</strong></div>
+            <div class="sp_content">
+        		<ul>
+        		{loop $hot_zp_list $k $zp}
+            	<li><img src="shop/tpl/{$_K['template']}/img/<!--{eval echo $k+1}-->.jpg" width="17" height="14" /><span>￥{$zp[price]}</span><a href="shop.php?do=service_info&sid=$zp['service_id']"> {$zp[title]}</a></li>
+                {/loop}
+            </ul>
+            </div>
+        
+      </div>
+      <div class="sp_right">
+        
+        <div class="sp_top"><strong>热门服务</strong></div>
+        <div class="sp_content">
+           <ul>
+            	{loop $hot_fw_list $k $zp}
+            	<li><img src="shop/tpl/{$_K['template']}/img/<!--{eval echo $k+1}-->.jpg" width="17" height="14" /><span>￥{$zp[price]}</span><a href="shop.php?do=service_info&sid=$zp['service_id']">{$zp[title]}</a></li>
+                {/loop}
+            </ul>             
+        </div>
+            
+      </div>
+    </div>
+</div>
+<div class="clear"></div>
+      
+   <div class="main_bot">
+                    <div class="main_bot_d main_bot_d1">
+                        <ul class="w50 fl_l linko">
+                          {loop $buyer_help_arr $v}  
+						   <li><a href="index.php?do=help_info&art_id=1099&menu_id=$v['art_id']" target="_blank">$v['art_title']</a></li> 
+						  {/loop}   
+                        </ul>
+                     </div>
+                     <div class="main_bot_d main_bot_d2">
+                         <ul class="w50 fl_l linko">
+                            {loop $saler_help_arr $v}  
+						   <li><a href="index.php?do=help_info&art_id=1099&menu_id=$v['art_id']" target="_blank">$v['art_title']</a></li> 
+						  {/loop} 
+                         </ul>
+                     </div>
+                    <div class="main_bot_d main_bot_d3">
+                          <ul class="w50 fl_l linko">
+                            {loop $faq_help_arr $v}  
+						   	<li><a href="index.php?do=help_info&art_id=1099&menu_id=$v['art_id']" target="_blank">$v['art_title']</a></li> 
+						  {/loop} 
+                          </ul>
+                    </div>
+     </div>
+   
+</div>
+</div>
+
+<script type="text/javascript" src="resource/js/jquery.lazyload.js">
+$(function() {          
+    $("img:below-the-fold").lazyload({
+        placeholder : "resource/img/grey.gif", 
+        event : "sporty",
+		effect : "fadeIn"
+
+    });
+});
+$(window).bind("load", function() { 
+    var timeout = setTimeout(function() {$("img").trigger("sporty")}, 5000);
+}); 
+</script>
+
+<!--{template footer}-->

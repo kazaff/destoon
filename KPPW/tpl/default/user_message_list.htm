@@ -1,0 +1,127 @@
+<!--{eval $page_title='短消息列表 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<!--
+				<div class="x_tit"><span {if $message_type==1 || !isset($message_type)} class="now"{/if}  ><a href="index.php?do=user&view=message_list&message_type=1" >系统消息</a></span>
+				<span {if $message_type==2} class="now"{/if}><a href="index.php?do=user&view=message_list&message_type=2" >收件箱</a></span> 
+				<span {if $message_type==3} class="now"{/if}><a href="index.php?do=user&view=message_list&message_type=3" >发件箱</a></span>  
+				<span {if $view=='message_send'} class="now"{/if}><a href="index.php?do=user&view=message_send" >写短信</a></span> 
+				</div>
+				<form method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c">
+					  <tr>
+					  	<th>消息ID</th>
+						<th>标题</th>
+                        <th>发布时间</th>
+                        <th>消息类型</th>
+                        <th>状态</th>
+                        <th>发信人</th>
+                        <th>接收人</th>
+                        <th>操作</th>
+					  </tr>
+					  {loop $message_arr $m}
+					  <tr>
+					  <td><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$m[msg_id]}"> {$m[msg_id]}</td>
+					  <td><a {if $uid==$m[recive_uid]&&!$m[view_status]}style="font-weight: bold"{/if} href="index.php?do=user&view=message_view&msg_id=$m[msg_id]">$m[title]</a></td>
+					  <td>{date('Y-m-d',$m[on_time])}</td>
+					  <td>{if $m[uid]==0}系统消息{else}私人消息{/if}</td>
+					  <td>{if $uid==$m[recive_uid]&&!$m[view_status]}未读{else}已读{/if}</td>
+					  <td>{if $m[uid]==0}系统{else}$m[username]{/if}</td>
+					  <td>$m[recive_username]</td>
+					  <td> <a href="index.php?do=user&view=message_view&msg_id=$m[msg_id]">查看</a> <a href="index.php?do=user&view=message_view&op=del&msg_id=$m[msg_id]">删除</a> </td>
+					  </tr>
+					  {/loop}
+					  <tr>
+					  	<td colspan="8" align="left">
+					  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  		<input type="checkbox" id="checkbox" onclick="checkall()"> 
+							全选　
+							<input type="submit" name="sbt_action" value="批量删除" class="input_but" />
+					  	</td>
+					  </tr>
+				</table>
+				</form>
+				-->
+				<dl>
+				<div class="msg_box">
+					<dt>
+					<div class="x_tit_1">
+						<div>
+						<span {if $message_type==1 || !isset($message_type)} class="now"{/if} ><a href="index.php?do=user&view=message_list&message_type=1" >系统消息</a></span>
+						<span {if $message_type==2} class="now"{/if}><a href="index.php?do=user&view=message_list&message_type=2" >收件箱</a></span>
+						<span {if $message_type==3} class="now"{/if}><a href="index.php?do=user&view=message_list&message_type=3" >发件箱</a></span>
+						<span {if $view=='message_send'} class="now"{/if}><a href="index.php?do=user&view=message_send" >写短信</a></span>
+						</div>
+					</div>
+					</dt>
+					<dd>
+					<div class="msg_table">
+						<form method="post">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list-table">
+							  <tr class="title-tr">
+							  	<th>消息ID</th>
+								<th>标题</th>
+		                        <th>发布时间</th>
+		                        <th>消息类型</th>
+		                        <th>状态</th>
+		                        <th>发信人</th>
+		                        <th>接收人</th>
+		                        <th>操作</th>
+							  </tr>
+							  {loop $message_arr $m}
+							  <tr>
+							  <td><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$m[msg_id]}"> {$m[msg_id]}</td>
+							  <td><a {if $uid==$m[recive_uid]&&!$m[view_status]}style="font-weight: bold"{/if} href="index.php?do=user&view=message_view&msg_id=$m[msg_id]">$m[title]</a></td>
+							  <td><!--{date('Y-m-d',$m[on_time])}--></td>
+							  <td>{if $m[uid]==0}系统消息{else}私人消息{/if}</td>
+							  <td>{if $uid==$m[recive_uid]&&!$m[view_status]}未读{else}已读{/if}</td>
+							  <td>{if $m[uid]==0}系统{else}$m[username]{/if}</td>
+							  <td>$m[recive_username]</td>
+							  <td> <a href="index.php?do=user&view=message_view&msg_id=$m[msg_id]">查看</a> <a href="index.php?do=user&view=message_view&op=del&msg_id=$m[msg_id]">删除</a> </td>
+							  </tr>
+							  {/loop}
+							  <tr>
+							  	<td colspan="8" align="left">
+							  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  		<input type="checkbox" id="checkbox" onclick="checkall()"> 
+									全选　
+									<input type="submit" name="sbt_action" value="批量删除" class="input_but" />
+							  	</td>
+							  </tr>
+						</table>
+						</form>
+					</div>
+				
+
+				
+                   	 <div class="Npage">
+	              	{$pages[page]}
+	              	</div>
+	              	</dd>
+                  </div>
+			  </dl>
+			</div>
+		</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+    
+<script type="text/javascript">
+function checkall(){
+	if($('#checkbox').attr('checked')==true){
+		$('input[type=checkbox]').attr('checked',true);
+	}else{
+		$('input[type=checkbox]').attr('checked',false);
+	}
+}
+</script>
+</div><!--content_E-->
+<!--{template footer}-->

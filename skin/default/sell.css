@@ -1,0 +1,17 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+.sell_tip {width:180px;height:70px;background:url('image/sell_tip.gif') no-repeat;overflow:hidden;z-index:1000;position:absolute;}
+.sell_tip p {margin:0 0 4px 2px;font-weight:bold;}
+.sell_tip div {padding:8px 0 0 10px;}
+.tool {margin:0 10px 0 10px;border-bottom:#CCCCCC 1px dotted;}
+.tool table {width:100%;}
+.img_list li {height:22px;line-height:22px;overflow:hidden;}
+/* album */
+.album {width:250px;cursor:pointer;}
+.album div {padding:5px;border:#CCCCCC 1px solid;background:#F3F3F3;}
+.album div span {display:block;width:240px;height:180px;overflow:hidden;text-align:center;vertical-align:middle;}
+.ab_im {padding:2px;margin:10px 0 10px 13px;border:#C0C0C0 1px solid;}
+.ab_on {padding:2px;margin:10px 0 10px 13px;border:#FF6600 1px solid;background:#FF6600;}
+.product_option {padding:10px 20px 10px 20px;}

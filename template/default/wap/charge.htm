@@ -1,0 +1,11 @@
+{template 'header', 'wap'}
+充值卡充值<br/>
+<form action="index.php" method="post">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<input type="hidden" name="action" value="{$action}"/>
+<input type="hidden" name="forward" value="{$forward}"/>
+卡号:<input type="text" name="number" size="10"/><br/>
+密码:<input type="text" name="password" size="10"/><br/>
+<input type="submit" name="submit" value="充值"/>
+</form>
+{template 'footer', 'wap'}

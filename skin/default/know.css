@@ -1,0 +1,25 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+a.konw_a:link,a.konw_a:active,a.konw_a:visited {color:#003399;text-decoration:underline;font-size:14px;}
+a.konw_a:hover {color:#FF6600;text-decoration:none;}
+.know_sch {line-height:180%;}
+.know_sch_inp {width:260px;padding:3px;margin:5px;font-size:14px;}
+.know_sch_btn {padding:3px 0 8px 6px;}
+.know_btn_1 {background:url('image/know_btn_1.gif') repeat-x;border:#FFCB56 1px solid;padding:3px 0 1px 0;cursor:pointer;}
+.know_btn_2 {background:url('image/know_btn_2.gif') repeat-x;border:#CCCCCC 1px solid;padding:3px 0 1px 0;cursor:pointer;}
+.know_sch_item {padding:0 0 0 6px;color:green;}
+.know_box {padding:0 10px 10px 10px;}
+.know_credit {background:url('image/ico_reward.gif') no-repeat;font-size:11px;color:#666666;padding:0 0 0 14px;}
+.know_list table {width:100%;color:#666666;}
+.know_list li {background:url('image/li_dot.gif') no-repeat 3px 8px;padding:0 0 0 12px;height:26px;line-height:26px;overflow:hidden;}
+.know_catalog p {margin:5px;}
+.know_catalog div {padding:0 6px 10px 6px;line-height:20px;}
+.know_addition{border-top:#F1F1F1 1px solid;margin:0 15px 0 15px;padding:10px;line-height:180%;font-size:14px;}
+.know_comment{border-top:#F1F7FC 1px solid;padding:10px;line-height:180%;font-size:14px;}
+.know_asker {border-top:#CCCCCC 1px dotted;margin:0 15px 0 15px;padding:10px;}
+.best_answer_head {margin:0 15px 0 15px;padding:8px 10px 5px 30px;background:#F1F7FC url('image/know_flag.gif') no-repeat 10px 7px;border-top:#AACCEE 1px solid;}
+.best_answer_body {margin:0 15px 15px 15px;padding:10px 20px 0 20px;background:#FCFDFD;}
+.best_answer_show {font-size:14px;line-height:180%;}
+.best_answer_foot {padding:0 15px 8px 0;color:#666666;font-size:12px;}

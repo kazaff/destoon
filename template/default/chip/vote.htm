@@ -1,0 +1,40 @@
+<div class="vote">
+<form action="{$extendurl}index.php" method="post" target="_blank" id="vote_{$itemid}" onsubmit="return check_vote_{$itemid}();">
+<input type="hidden" name="itemid" value="{$itemid}"/>
+<input type="hidden" name="submit" value="1"/>
+<div><a href="{if $linkto}{$linkto}{else}{$linkurl}{/if}"{if $linkto} target="_blank"{/if}>{$title}</a></div>
+<ul>
+{loop $votes $k $v}
+<li><input type="{$type}" name="vote[]" value="{$k}" id="vote_{$itemid}_{$k}"/> <label for="vote_{$itemid}_{$k}"> {$v}</label></li>
+{/loop}
+</ul>
+<p><input type="submit" value="投票" class="btn"/>
+<input type="button" value="结果" class="btn" onclick="window.location='{$linkurl}';"/></p>
+</form>
+</div>
+<script type="text/javascript">
+function check_vote_{$itemid}() {
+	var inputs = $('vote_{$itemid}').getElementsByTagName('input');
+	var inputs_length = inputs.length;
+	var selected = 0;
+	for(var i = 0; i < inputs_length; i++) {
+		if(inputs[i].type == '{$type}' && inputs[i].checked == true) selected++;
+	}
+	{if $type=='radio'}
+	if(selected == 0) {
+		alert('请选择投票选项');
+		return false;
+	}
+	{else}
+	if(selected < {$vote_min}) {
+		alert('最少需要选择{$vote_min}个投票选项');
+		return false;
+	}
+	if(selected > {$vote_max}) {
+		alert('最多可选择{$vote_max}个投票选项');
+		return false;
+	}
+	{/if}
+	return true;
+}
+</script>

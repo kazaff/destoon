@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<body>
+<form method="get" action="index.php" id="frm_cat_edit">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="view" value="{$view}">
+
+<input type="hidden" name="hdn_link_id" value="{$link_info[link_id]}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑友情链接</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+      <tr>
+        <td class="bg1 t_r">友情链接类型：</td>
+        <td><select name="slt_link_type">
+        <option value="1" {if $link_info[link_type]==1}selected="selected"{/if}>首页显示</option>
+		<option value="2" {if $link_info[link_type]==2}selected="selected"{/if}>内页显示</option>
+		<option value="3" {if $link_info[link_type]==3}selected="selected"{/if}>首页内页显示</option>
+		</select>　
+		</td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">友情链接名称：</td>
+        <td><input type="text" class="input_t" name="txt_link_name" value="{$link_info[link_name]}" maxlength="50" limit="required:true;len:1-50" msg="友情链接名称不能为空，长度限制在1-50" msgArea="link_name_msg"  class="input_t"/><b style="color:red"> *</b><span id="link_name_msg"></span></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">友情链接地址：</td>
+        <td><input type="text" class="input_t" name="txt_link_url" value="{$link_info[link_url]}" maxlength="100" limit="required:true;len:3-100" msg="友情链接地址不能为空，长度限制在3-100" msgArea="link_url_msg"  class="input_t"/><b style="color:red"> *</b><span id="link_url_msg"></span></td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">友情链接图片地址：</td>
+        <td><input type="text" class="input_t" name="txt_link_pic" value="{$link_info[link_pic]}" maxlength="100"    class="input_t"/></td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">排序：</td>
+        <td><input type="text" class="input_t" name="txt_listorder" value="{$link_info[listorder]}" maxlength="6" onkeyup="clearstr(this)"/> </td>
+      </tr>
+
+	  {if $link_info[on_time]}
+      <tr>
+        <td class="bg1 t_r">上次修改时间：</td>
+        <td><!--{date('Y-m-d H:i:s',$link_info[on_time])}--></td>
+      </tr>
+	  {/if}
+	   <tr>
+         <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/>
+       	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script src="tpl/js/form_validation_.js" type="text/javascript"></script>
+</body>
+</html>

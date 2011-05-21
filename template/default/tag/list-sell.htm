@@ -1,0 +1,45 @@
+{loop $tags $k $t}
+<div class="list" id="item_{$t[itemid]}">
+	<table>
+	<tr align="center">
+		<td width="25">&nbsp;<input type="checkbox" id="check_{$t[itemid]}" name="itemid[]" value="{$t[itemid]}" onclick="sell_tip(this, {$t[itemid]});"/> </td>
+		<td width="90"><div><a href="{$t[linkurl]}" target="_blank"><img src="{imgurl($t[thumb], 1)}" width="80" height="80" alt="{$t[alt]}" onmouseover="img_tip(this, this.src);" onmouseout="img_tip(this, '');"/></a></div></td>
+		<td width="10"> </td>
+		<td align="left">
+			<ul>
+			<li>{if $t[vip]}<span class="f_r"><img src="{DT_SKIN}image/vip.gif"/> <img src="{DT_SKIN}image/vip_{$t[vip]}.gif"/></span>{/if}<a href="{$t[linkurl]}" target="_blank"><strong class="px14">{$t[title]}</strong></a></li>
+			<li class="f_gray">{$t[introduce]}</li>
+			<li><span class="f_r px11">{timetodate($t[edittime], $datetype)}&nbsp;&nbsp;</span>{cat_pos($t[catid], '&nbsp;')}</li>
+			<li>
+			<span class="f_r f_gray">
+			{if $t[qq] && $DT[im_qq]}{im_qq($t[qq])}&nbsp;{/if}
+			{if $t[ali] && $DT[im_ali]}{im_ali($t[ali])}&nbsp;{/if}
+			{if $t[msn] && $DT[im_msn]}{im_msn($t[msn])}&nbsp;{/if}
+			{if $t[skype] && $DT[im_skype]}{im_skype($t[skype])}</a>&nbsp;{/if}
+			[{area_pos($t[areaid], '')}]&nbsp;&nbsp;</span>
+			<a href="{userurl($t[username])}" target="_blank">{$t[company]}</a>&nbsp;
+			<span class="f_gray">
+			{if $t[validated]}<span class="f_green">[已核实]</span>{else}[未核实]{/if}
+			{if !$t[username]} [未注册]{/if}
+			</span>
+			</li>
+			</ul>
+		</td>
+		<td width="10"> </td>
+		<td width="100"> 
+		{if $t[unit] && $t[price]>0}
+			<span class="f_red"><strong class="px14">{$t[price]}</strong>/{$t[unit]}</span><br/>
+			{$t[minamount]}{$t[unit]}起订<br/>
+			<img src="{DT_SKIN}image/spacer.gif" width="1" height="10"/><br/>
+			<a href="{$path}{rewrite('order.php?itemid='.$t['itemid'])}" class="l"><img src="{DT_SKIN}image/buy.gif" title="订购"/></a>
+		{else}
+		<span class="f_gray">面议</span><br/>
+		<img src="{DT_SKIN}image/spacer.gif" width="1" height="10"/><br/>
+		<a href="{$path}{rewrite('inquiry.php?itemid='.$t['itemid'])}" class="l"><img src="{DT_SKIN}image/inquiry.gif" title="询价"/></a>
+		{/if}
+		</td>
+	</tr>
+	</table>
+</div>
+{/loop}		
+{if $showpage && $pages}<div class="pages">{$pages}</div>{/if}

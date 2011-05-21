@@ -1,0 +1,68 @@
+<!--{template header_space}-->
+<div id="content">
+
+
+<div class="mainbox">
+      <div class="backleft">
+      	<div class="s_logo t_c">
+            	<p><img src="data/uploads/{$studio_info[logo]}" width="176" height="112" align="absMiddle" class="img"></p>
+                <p class="font14 mt_10">{$studio_info[title]}工作室</p>
+                <p>创始人：<a href="index.php?do=space&member_id={$studio_info[uid]}"><font color="red">{$studio_info[username]}</font></a></p>
+            </div>
+            <div class="ltop">
+			</div>
+            <div class="lctr ab_sub_nav">
+                   <a href="index.php?do=space&view=studio_index&member_id={$member_id}" >基本资料</a>
+                   <a href="index.php?do=space&view=studio_zb_task&member_id={$member_id}" class="now">中标的任务</a>
+                   <a href="index.php?do=space&view=studio_fb_task&member_id={$member_id}">发布的任务</a>
+                   <a href="index.php?do=space&view=studio_mark&member_id={$member_id}">信誉详情</a>    
+            </div>
+            <div class="lbtm"></div>
+        </div><!--backleft_E-->
+        
+        <div class="backright">
+			<div class="backright_d">
+				<dl><dt>中标任务列表</dt></dl>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30">
+			  <tbody>
+				 <tr>  
+					<th>任务ID</th>
+				 	<th>任务名称</th>
+				  	<th>金额</th>
+					<th>剩余时间</th>
+		            <th>参与/提交 </th>
+					<th>雇主</th>
+			  </tr>
+		  
+			  	{loop $task_arr $key $value}
+		  	 <tr>
+		  	 	<td>{$value[task_id]}</td>
+			    <td> <a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">{$value[task_title]}</a></td>
+			    <td class="f60">{if $value[model_id]==2}￥{$cash_rule_arr[$value[task_cash_coverage]][cove_desc]}{else}￥{$value[task_cash]} 元{/if}</td>
+			    <td>
+			    	{if $value[task_status]==7}
+					任务已结束
+					{elseif $value[task_status]==3}
+					公示中
+					{else}
+                	{$value[remaining_time]}
+					{/if}
+				</td>
+			    <td> {$value[sign_num]}/
+                    {$value[work_num]}</td>
+			    <td><a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></td>
+			  </tr>
+			  {/loop}
+			  <tr>
+			  	<td colspan="6" >{$pages[page]}</td>
+			  </tr>
+		  	</tbody>
+	</table>
+	</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E-->
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

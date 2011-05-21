@@ -1,0 +1,10 @@
+{template 'header', 'wap'}
+<form action="index.php" method="post">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<input type="hidden" name="action" value="{$action}"/>
+<input type="hidden" name="forward" value="{$forward}"/>
+户名:<input type="text" name="username" size="10"/><br/>
+密码:<input type="password" name="password" size="10"/><br/>
+<input type="submit" name="submit" value="登录"/>
+</form>
+{template 'footer', 'wap'}

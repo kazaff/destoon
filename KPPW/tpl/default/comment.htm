@@ -1,0 +1,26 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+
+
+<div class="mainbox" style="width:400px;">
+<form action="index.php?do=task_op&op=workcomment" method="post">
+	<table>
+		<tr>
+			<td>
+			<input type="hidden" name="task_id" value="{$task_id}">
+			<input type="hidden" name="obj_id" value="{$obj_id}">
+			<input type="hidden" name="comment_type" value="{$comment_type}">
+			<input type="hidden" name="p_id" value="{$p_id}">
+        	<textarea  rows="16" name="tar_content" style="width:350px;height:200px;">$comment_content</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" name="sbt_comment" value="确定" class="pn pnc">
+				<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('a_comment{$comment_type}')"></td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+<!--{template footer}-->

@@ -1,0 +1,53 @@
+<div class="inc">
+    <ul class="img" id="img">
+        {loop $datalist $key $value}
+        <li style="display: list-item;">
+            <a target="_blank" title="{$value[ad_content]}" href="{$value[ad_url]}"><img src="{$value[ad_file]}" width="387" height="215"></a>
+        </li>
+		{/loop}
+    </ul>
+    <ul class="tag" id="tag">
+        {loop $datalist $key $value}
+        <li >
+            {$value[ad_content]}
+        </li>
+        {/loop}
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var len = $("#tag > li").length;
+        var index = 0;
+        $("#tag li").mouseover(function(){
+            index = $("#tag li").index(this);
+            showImg(index);
+        });
+        
+        $('#inc').hover(function(){
+            if (MyTime) {
+                clearInterval(MyTime);
+            }
+        }, function(){
+            MyTime = setInterval(function(){
+                showImg(index)
+                index++;
+                if (index == len) {
+                    index = 0;
+                }
+            }, 3000);
+        });
+         
+        var MyTime = setInterval(function(){
+            showImg(index)
+            index++;
+            if (index == len) {
+                index = 0;
+            }
+        }, 3000);
+    })
+    function showImg(i){
+        //$("#img li").stop(true,false).animate({left : -387*i},800);
+        $("#img li").eq(i).show().siblings().hide();
+        $("#tag li").eq(i).addClass("select").siblings().removeClass("select");
+    }
+</script>

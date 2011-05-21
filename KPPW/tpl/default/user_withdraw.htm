@@ -1,0 +1,149 @@
+<!--{eval $page_title='提现申请 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+  <!-- <div class="space_top_bg1">{$username}个人管理中心</div> -->
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d">
+				<dl>
+					<dt>提现申请</dt>
+				<dd>
+					<br/>
+					<form name="frm_cash_out" action="" method="post"  enctype="application/x-www-form-urlencoded">
+	                <input type="hidden" name="formhash" id="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+					<table width="100%" height="150" border="0" cellspacing="0" cellpadding="0" class="td_p10 mt_10 font14n">
+                      <tr>
+						<td colspan="2">
+							您的余额：
+							￥<font color="red"><!--{eval printf('%10.2f',$space_info['balance'])}--></font> 元
+						</td>
+				      </tr>
+                      <tr>
+						<td colspan="2">请输入提现金额：
+						<input type="hidden"  value="{$space_info['balance']}" id="hdn_balance">
+						<input type="txt" maxlength="8" id="txt_cash_in" name="txt_withdraw_cash"  onkeyup="clearstr(this)" limit="type:int;required:true;len:1-8" msg="金额的长度为1-8!" msgArea="txt_cash_in_msg" class="input_txt2" size="30"/> 元 <span id="txt_cash_in_msg">（不支持小数，最低{$pay_arr[withdraw_min]}元）</span></td>
+				      </tr>
+				      <tr>
+						<td colspan="2">请选择提现方式：
+						<input onclick="choosepaytype(1)" type="radio" {if $withdraw_arr[0]['pay_type']<2}checked="checked"{/if} value="1" name="rdo_pay_type">支付宝
+						<input onclick="choosepaytype(2)" type="radio" {if $withdraw_arr[0]['pay_type']==2}checked="checked"{/if} value="2" name="rdo_pay_type">财付通
+						<input onclick="choosepaytype(3)" type="radio" {if $withdraw_arr[0]['pay_type']==3}checked="checked"{/if} value="3" name="rdo_pay_type">银行
+						</td>
+				      </tr>
+				      <tr>
+				      	<td colspan="2">确认您的帐号信息：
+						<input type="text" {if $withdraw_arr[0]['pay_type']>1}style="display:none;"{/if} name="txt_pay_zfb" value="$user_info['pay_zfb']" id="pay_type_1">
+						<input type="text" {if $withdraw_arr[0]['pay_type']!=2}style="display:none;"{/if} name="txt_pay_cft" value="$user_info['pay_zfb']" id="pay_type_2">
+					    
+						<textarea {if $withdraw_arr[0]['pay_type']!=3}style="display:none;"{/if} name="txt_pay_bank" id="pay_type_3" cols="40" rows="5">{if $user_info['pay_bank']}$user_info['pay_bank']{else}
+						所属银行:
+						银行帐号:
+						开户人姓名:
+						{/if}</textarea>
+				      </tr>
+				      
+                     <tr>
+						<td colspan="2"><br/>
+						<input type="submit" id="sbt_withdraw" name="sbt_withdraw" value="立即提现" class="rele_btn"></td>
+				      </tr>
+					</table>
+					</form>
+					
+					{if $withdraw_arr}
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c">
+					  <tr>
+						<th>提现金额</th>
+                        <th>申请时间</th>
+                        <th>提款方式</th>
+                        <th>受理状态</th>
+                        <th>受理时间</th>
+					  </tr>
+					  {loop $withdraw_arr $value}
+                      <tr>
+						<td>￥<font color='red'><!--{eval printf('%10.2f',$value[withdraw_cash])}--></font></td>
+					    <td><!--{date('Y-m-d H:i:s',$value[applic_time])}--></td>
+                        <td>{if $value[pay_type]==1}支付宝{elseif $value[pay_type]==2}财富通{elseif $value[pay_type]==3}银行{/if}</td>
+                        <td>{if !$value[withdraw_status]}未受理{elseif $value[withdraw_status]==1}已通过{else}未通过{/if}</td>
+                        <td>{if $value[process_time]}<!--{date('Y-m-d H:i:s',$value[process_time])}-->{/if}</td>
+					  </tr>
+					  {/loop}
+					</table>
+					{/if}
+					
+                   	 <div class="Npage">
+	              	{$pages[page]}
+	              	</div>
+			  </dd></dl>
+			
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+</div><!--content_E-->
+ <div class="clear"></div>
+ 
+ <script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+ <script type="text/javascript">
+ 	$(function(){
+		$("#txt_cash_in").blur(function(){
+				var obj = document.getElementById("txt_cash_in");
+			    var msgArea = obj.getAttribute('msgArea');
+				if($(this).val()>0){
+					var aa = validElement(obj);
+					if (!aa) {
+						$("#"+msgArea).css("color", "red");
+						 
+					}else if(parseInt(aa.value)<{$pay_arr[recharge_min]}){
+						$("#"+msgArea).css("color", "red");
+						$("#"+msgArea).html('提现金额最低不得少于{$pay_arr[withdraw_min]}元!');
+						obj.focus();
+					}else{
+						$("#"+msgArea).css('color','green');
+						$("#"+msgArea).html('金额输入正确!');
+						}
+				}else{
+					$("#"+msgArea).css("color", "red");
+					$("#"+msgArea).html('充值金额不能为空!');
+					obj.focus();
+				}
+			}).focus(function(){
+				var obj = document.getElementById("txt_cash_in");
+			    var msgArea = obj.getAttribute('msgArea');
+				$("#"+msgArea).css('color','');
+				$("#"+msgArea).html('（不支持小数，最低{$pay_arr[withdraw_min]} 元）');
+			})
+		$("input[name='sbt_withdraw']").click(function(){
+			var cash = parseFloat($("#txt_cash_in").val());
+			var balance = parseFloat($("#hdn_balance").val());
+			if(!isDigit(cash)){
+				return false;
+			}
+			if(cash > balance){
+				showDialog('提现金额不能大于您当前的余额!','alert','错误提示','',1);
+				return false;
+			}else if(cash < {$pay_arr[withdraw_min]}){
+				showDialog('提现金额不能小于{$pay_arr[withdraw_min]}!','alert','错误提示','',1);
+				return false;
+			}else{
+				var sv = $("input[name='rdo_pay_type'][checked]").val();
+				if(!$('#pay_type_'+sv).val())
+				{
+					showDialog('请确保您的收款帐号信息正确!','alert','错误提示','',1);
+					return false;
+				}
+				return true;
+			}
+		})
+		
+	})
+	function choosepaytype(type){
+ 		
+ 		$('#pay_type_1').hide();
+ 		$('#pay_type_2').hide();
+ 		$('#pay_type_3').hide();
+ 		$('#pay_type_'+type).show();
+ 	}
+ </script>
+<!--{template footer}-->

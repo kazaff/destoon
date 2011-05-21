@@ -1,0 +1,53 @@
+<!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+  <div class="main_news">
+    <div class="topnav"><img src="{SKIN_PATH}/img/homenav.gif" align="absmiddle"/>
+	<a href="index.php">首页</a> > <a href="index.php?do=news_list">新闻列表页</a> >
+			{if $art_cat_info}
+			<a href="index.php?do=news_list&art_cat_id={$art_cat_info[0][art_cat_id]}">{$art_cat_info[0][cat_name]}</a>
+			{/if}</div>
+    <div class="box739">
+    <div class="sclisttop">
+    	<span class="sclisttopic">
+    		{if $art_cat_info}
+			{$art_cat_info[0][cat_name]}
+			{else}
+			文章列表
+			{/if}
+    		
+		</span><span>(共{$count}条)</span>
+		<span class="sclisttime">发表时间</span></div>
+      <div class="sclistcent">
+     	<ul>
+       		{loop $art_arr $key $value}
+				<li><a href="index.php?do=news_info&art_id={$value[art_id]}"><!--{eval echo(Func_comm_class::cutstr($value[art_title],70));}--></a><span>发表于：<!--{date('Y-m-d',$value['pub_time'])}--></span></li>
+			{/loop}
+        </ul>
+        <div class="clear"></div>
+        <div class="Npage">
+            <!--<span>1 / 10 页</span>
+            <span><<上一页</span>
+            <a href="#" class="Nnow">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a>
+            <span>下一页>></span>-->
+			{$pages[page]}
+      	</div>
+      </div>
+    </div>
+    
+    <div class="box220">
+			 <dl>
+				<dt>{$art_cat_p_info[0][cat_name]}</dt>
+				{loop $art_cat_c_arr $keys $values}
+					<dd><a href="index.php?do={$do}&art_cat_id={$values[art_cat_id]}">{$values[cat_name]}</a></dd>
+				{/loop}
+		      </dl>
+    </div>
+    
+  </div><!--main_box_E-->
+</div>
+<!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

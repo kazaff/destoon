@@ -1,0 +1,33 @@
+ 
+.tb, .tb2{ margin:15px 0 15px 67px; }
+.tb th{ padding:5px; color:#3F6A01; font-weight:700; }
+.tb td{ padding:3px 5px; }
+.tb .w, .tb .nw, .tb .padleft{ padding-left:45px; }
+.tb .pdleft1{ padding-left:67px; }
+.txt{ width:200px; }
+.w{ background:url(bg_repno.gif) no-repeat 45px -148px;  }
+.nw{ background:url(bg_repno.gif) no-repeat 45px -197px; }
+.red{ color:red; }
+#notice { border: 1px solid #B5CFD9; width: 100%; padding: 5px; height: 300px;overflow: hidden;text-align: left; }
+
+/*----------------------*/
+* {font-size:12px; font-family: Verdana, Arial, Helvetica, sans-serif; line-height: 1.5em; word-break: break-all; }
+body { text-align:center; margin: 0; padding: 0; background: #9ACB54; }
+.bodydiv { margin: 40px auto 0; width:720px; text-align:left; border:1px solid #fff; background: #FFF; }
+h1 { font-size: 18px; margin:0; line-height: 50px; height: 50px; background: #D5F5AE; border-top:5px solid #3D9301; color: #3F6A01; padding-left: 10px; }
+h2,.desc{height:25px;line-height:25px;background:#eee;padding-left:10px;}
+.desc b{line-height:25px;}
+#menu {width: 100%; margin: 10px auto; text-align: center; }
+#menu td { height: 30px; line-height: 30px; color: #999; border-bottom: 3px solid #EEE; font-size:14px;}
+.current { font-weight: bold; color: #090 !important; border-bottom-color: #F90 !important; }
+.showtable { width:100%; border: solid; border-color:#86B9D6 #B2C9D3 #B2C9D3; border-width: 3px 1px 1px; margin: 10px auto; background: #F5FCFF; }
+.showtable td { padding: 3px; }
+.showtable strong { color: #5086A5; }
+.datatable { width: 100%; margin: 10px auto 25px; }
+.datatable td { padding: 5px 0; border-bottom: 1px solid #EEE; }
+input { border: 1px solid #9ACB54; padding: 5px; background: #D5F5AE; color: #3F6A01;font-weight:bold;font-family:Arial, Helvetica, Verdana, sans-serif;}
+.button { margin: 10px auto 20px; width: 100%; }
+.button td { text-align: center; }
+.button input, .button button { border: solid; border-color:#F90; border-width: 1px 1px 3px; padding: 5px 10px; color: #090; background: #FFFAF0; cursor: pointer; }
+#footer { font-size: 10px; line-height: 40px; background: #D5F5AE; text-align: center; height: 38px; overflow: hidden; color: #3F6A01; margin-top: 20px;border-top:1px solid #9ACB54;}
+

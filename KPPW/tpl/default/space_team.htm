@@ -1,0 +1,125 @@
+<!--{eval $page_title = $space_info[username].'的团队工作室 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/space2.css" rel="stylesheet" type="text/css"/>
+<style>
+.pic_small{border:1px solid #EEEEEE;display:block;height:60px;padding:2px;width:60px;}
+.pic_middle{border:1px solid #EEEEEE;display:block;height:124px;padding:2px;width:124px;}
+.pic_big{border:1px solid #EEEEEE;display:block;height:180px;padding:2px;width:180px;}
+</style>
+<div id="content">
+    <div class="space_top_bg">
+    	<h1>{$space_info[username]}的团队工作室</h1>
+        <ul class="nav">
+        	<li>
+        		<a href="index.php?do=space&view=team_index">团队首页</a>
+				<a href="index.php?do=space&view=team_desc">团队介绍</a>
+				<a href="index.php?do=space&view=team_case">成功案例</a>
+			</li></ul>
+    </div>
+    
+<div class="mainbox">
+    	{if $view=='team_index'}
+        <div class="space_d2">
+        	<dl><dt class="tit2 font14">成功案例<a href="index.php?do=space&view=team_case" class="more">更多>></a></dt>
+            <dd class="p_10 space_case">
+            	{loop $task_arr $key $value}
+					<ul class="space_case_list">
+	            		<li><a href="index.php?do={if $value[task_type]==1}reward{else}tender{/if}_info&task_id={$value[task_id]}">
+	            			<img src="{SKIN_PATH}/img/case_list_img.jpg" class="img_p1"/></a></li>
+						<li>
+							<a href="index.php?do={if $value[task_type]==1}reward{else}tender{/if}_info&task_id={$value[task_id]}"><!--{eval echo(Func_comm_class::cutstr($value[task_title],20));}--></a></li>
+							<li>金额：<span class="red"> 
+							{if $value[task_type]==1}
+							￥{$value[task_cash]}
+							{else}
+							￥{$tender_cash_rule[$value[task_cash_coverage]][cove_desc]}
+							{/if}
+							 </span>元</li>
+					</ul>
+				{/loop}
+			</dd></dl>
+        </div>
+        
+       
+        
+        <div class="space_d">
+        	<dl><dt class="font14">团队介绍<a href="index.php?do=space&view=team_desc" class="more">更多>></a></dt>
+            <dd>
+            	{$space_info[summary]}
+            </dd></dl>
+        </div>
+        
+        <div class="space_d ml_10 tcase">
+        	<dl><dt class="font14">经验简介<a href="index.php?do=space&view=team_case" class="more"></a></dt>
+            <dd>
+            {$space_info[experience]}
+            </dd></dl>
+        </div>
+        
+        <div class="space_d ml_10 about">
+        	<dl><dt class="font14">联系我们<a href="#" class="more"></a></dt>
+            <dd>
+            	<ul>
+                <li>联系人：{$space_info[username]}</li>
+                <li>电　话：{$space_info[phone]}</li>
+                <li>传　真：{$space_info[fax]}</li>
+                <li>E-mail：{$space_info[email]}</li>
+                <li>地　址：{$space_info[address]}</li>
+                <li></li>
+                </ul>
+            </dd></dl>
+        </div>
+        
+		{elseif $view=='team_desc'}
+		 <div class="space_d2">
+        	<dl><dt class="tit2 font14">团队介绍<a href="#" class="more"></a></dt>
+            <dd class="p_10 space_case">
+            	
+				<ul class="space_case_list">
+            		{$space_info[summary]}
+				</ul>
+			
+			</dd></dl>
+        </div>
+		
+		{elseif $view=='team_case'}
+		<div class="space_d2">
+        	<dl><dt class="tit2 font14">成功案例<a href="#" class="more"></a></dt>
+            <dd class="p_10 space_case">
+            	{loop $task_arr $key $value}
+					<ul class="space_case_list">
+	            		<li><a href="index.php?do={if $value[task_type]==1}reward{else}tender{/if}_info&task_id={$value[task_id]}">
+	            			<img src="{SKIN_PATH}/img/case_list_img.jpg" class="img_p1"/></a></li>
+						<li>
+							<a href="index.php?do={if $value[task_type]==1}reward{else}tender{/if}_info&task_id={$value[task_id]}">LOGO设计</a></li>
+							<li>金额：<span class="red"> 
+							{if $value[task_type]==1}
+							￥{$value[task_cash]}
+							{else}
+							￥{$tender_cash_rule[$value[task_cash_coverage]][cove_desc]}
+							{/if}
+							 </span>元</li>
+					</ul>
+				{/loop}
+			</dd></dl>
+        </div>
+        
+		
+		{/if}
+		
+        
+        <div class="clear"></div>
+         <div class="roll mt_10">
+            <ul><li class="roll_l"></li>
+            <li class="gut2">
+				{loop $work_arr $key $value}
+                <a ><img src="{$value[work_pic]}" onerror="this.src='{SKIN_PATH}/img/case_list_img2.jpg'" class="img_p1"/></a>
+				{/loop}
+			</li>
+            <li class="roll_r"></li></ul>
+        </div><!--roll_E-->
+      
+  </div><!--mainbox_E-->
+    
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

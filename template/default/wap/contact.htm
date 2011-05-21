@@ -1,0 +1,46 @@
+{if $user_status == 3}
+{if $member}
+公司:<a href="index.php?moduleid=4&amp;username={$member[username]}">{$member[company]}</a><br/>
+发信:<a href="index.php?moduleid=2&amp;action=message_send&amp;touser={$member[username]}">点此发送</a><br/>
+{if $member[truename]}姓名:{$member[truename]}({gender($member[gender])})<br/>{/if}
+{if $member[telephone]}电话:{$member[telephone]}<br/>{/if}
+{if $member[mobile]}手机:{$member[mobile]}<br/>{/if}
+{if $member[fax]}传真:{$member[fax]}<br/>{/if}
+{if $member[address]}地址:{$member[address]}<br/>{/if}
+{if $member[postcode]}邮编:{$member[postcode]}<br/>{/if}
+{if $member[mail]}邮件:{$member[mail]}<br/>{/if}
+{if $member[msn]}MSN:{$member[msn]}<br/>{/if}
+{if $member[qq]}QQ:{$member[qq]}<br/>{/if}
+{else}
+公司:{$item[company]} [未注册]<br/>
+{if $item[truename]}姓名:{$item[truename]}<br/>{/if}
+{if $item[telephone]}电话:{$item[telephone]}<br/>{/if}
+{if $item[mobile]}手机:{$item[mobile]}<br/>{/if}
+{if $item[address]}地址:{$item[address]}<br/>{/if}
+{if $item[email]}邮件:{$item[email]}<br/>{/if}
+{if $item[msn]}MSN:{$item[msn]}<br/>{/if}
+{if $item[qq]}QQ:{$item[qq]}<br/>{/if}
+{/if}
+
+{elseif $user_status == 2}
+<div class="pay">
+查看联系方式需支付<strong>{$fee}</strong>{$fee_unit}<br/>
+{if $currency == 'money'}
+{$fee_name}余额:{$_money}{$fee_unit} <a href="index.php?moduleid=2&amp;action=charge">充值</a> <br/>
+{else}
+{$fee_name}余额:{$_credit}{$fee_unit} <br/>
+{/if}
+<form action="index.php" method="post">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<input type="hidden" name="itemid" value="{$itemid}"/>
+<input type="hidden" name="action" value="pay"/>
+{if $currency == 'money'}支付密码:<input type="password" name="password" size="5"/>{/if}
+<input type="submit" name="submit" value="确定"/>
+</form>
+</div>
+{elseif $user_status == 1}
+无权查看，请升级<br/>
+{if $DT[telephone]}咨询电话：{$DT[telephone]}<br/>{/if}
+{elseif $user_status == 0}
+<a href="index.php?moduleid=2&amp;action=login">请登录查看</a><br/>
+{/if}

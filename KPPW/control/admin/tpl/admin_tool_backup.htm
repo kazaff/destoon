@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+ 
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+ 
+<body>
+<form method="get" action="index.php" id="frm_cat_edit">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="view" value="{$view}">
+
+<input type="hidden" name="hdn_skill_id" value="{$skill_info[skill_id]}">
+<div class="main">
+		<div class="info_sql">
+			<ul> 
+			<li  >
+				
+				<br>
+		数据库名：{DBNAME}
+		<br>   
+		<input type="submit" name="sbt_edit" class="input_but"  value="立即备份"/>
+			</li> 
+			</ul>
+			
+		</div>
+   
+    </div>
+</form>
+ 
+</body>
+</html>

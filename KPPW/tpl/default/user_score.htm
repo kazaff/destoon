@@ -1,0 +1,206 @@
+<!--{eval $page_title='信誉等级 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+     <div id="content">
+   <!-- <div class="space_top_bg1">{$username}个人管理中心</div>-->
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <form action="index.php?do=user&view=auth_team" method="post" enctype="multipart/form-data" >
+        <div class="backright">
+			<div class="backright_d">
+				<dl><dt>威客信誉</dt></dl>
+			</div>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c tab_list">
+  <tr>
+    <th>来自雇主的评价</th>
+    <th width="16%">最近一个月</th>
+    <th width="16%">最近三个月</th>
+    <th width="16%">最近六个月</th>
+    <th width="16%">半年前</th>
+    <th width="16%">全部</th>
+  </tr>
+  <tr>
+    <th rowspan="3">威客等级：<span class="orange9"><!--{eval $score_value_w = Func_comm_class::get_mark_level($space_info['w_m_credit_value'],2);echo $score_value_w[pic];}--></span><br />
+威客信誉值：{if $space_info['w_m_credit_value']}<a>{$space_info['w_m_credit_value']}</a>{else}0{/if}&nbsp;个<br />
+中标任务数：{if $zb_task_count}<a>{$zb_task_count}</a>{else}{$zb_task_count}{/if}&nbsp;个<br />
+
+信誉规则：<a href="javascript:void(0);" id="level" onclick="showWindow('map','index.php?do=level_rule');" >信誉规则</a><br />
+　获得任务款：<span class="orange9">{if $get_task_cash[0][cash]}{$get_task_cash[0][cash]}{else}0{/if}&nbsp;元</span><br />
+　　　好评率：<span class="orange9"><!--{eval $user_rate1 = Func_comm_class::get_favorable_comment($member_id,1,1);echo $user_rate1[rate];}--></span></th>
+    <td>{if $g_good_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=1&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_1}{/if}</td>
+    <td>{if $g_good_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=1&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_3}{/if}</td>
+    <td>{if $g_good_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=1&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_1}{/if}</td>
+	<td>{if $g_good_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=1&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_half}{/if}</td>
+	<td>{if $g_good_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=1&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$g_good_mark_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <td>{if $g_middle_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=2&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_1}{/if}</td>
+    <td>{if $g_middle_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=2&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_3}{/if}</td>
+	<td>{if $g_middle_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=2&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_6}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_6}{/if}</td>
+	<td>{if $g_middle_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=2&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_half}{/if}</td>
+	<td>{if $g_middle_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=2&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$g_middle_mark_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <td>{if $g_bad_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=3&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_1}{/if}</td>
+    <td>{if $g_bad_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=3&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_3}{/if}</td>
+	<td>{if $g_bad_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=3&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_6}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_6}{/if}</td>
+	<td>{if $g_bad_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=3&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_half}{/if}</td>
+	<td>{if $g_bad_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=3&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$g_bad_mark_count_all}{/if}</td>		
+  </tr>
+</table>
+
+
+<br/>
+<div class="backright_d">
+				<dl><dt>雇主信誉</dt></dl>
+			</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c tab_list">
+  <tr>
+    <th>来自威客的评价</th>
+    <th width="16%">最近一个月</th>
+    <th width="16%">最近三个月</th>
+    <th width="16%">最近六个月</th>
+    <th width="16%">半年前</th>
+    <th width="16%">全部</th>
+  </tr>
+  <tr>
+     <th rowspan="3">雇主等级：<span class="orange9"><!--{eval $score_value_g = Func_comm_class::get_mark_level($space_info['g_m_credit_value'],1);echo $score_value_g[pic];}--></span><br />
+雇主信誉值：{if $space_info['w_m_credit_value']}<a>{$space_info['w_m_credit_value']}</a>{else}0{/if}&nbsp;个<br />
+发布任务数：{if $fb_task_count}<a>{$fb_task_count}</a>{else}{$fb_task_count}{/if}&nbsp;个<br />
+
+信誉规则：<a href="javascript:void(0);" id="level" onclick="showWindow('map','index.php?do=level_rule');" >信誉规则</a><br />
+　支付任务款：<span class="orange9">{if $get_task_cash[0][cash]}{$get_task_cash[0][cash]}{else}0{/if}&nbsp;元</span><br />
+　　　好评率：<span class="orange9"><!--{eval $user_rate2 = Func_comm_class::get_favorable_comment($member_id,1,2);echo $user_rate2[rate];}--></span></th>
+     <td>{if $w_good_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=4&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_1}{/if}</td>
+    <td>{if $w_good_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=4&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_3}{/if}</td>
+    <td>{if $w_good_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=4&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_1}{/if}</td>
+	<td>{if $w_good_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=4&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_half}{/if}</td>
+	<td>{if $w_good_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=4&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p1.gif" align="absmiddle"/> ×{$w_good_mark_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <td>{if $w_middle_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=5&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_1}{/if}</td>
+    <td>{if $w_middle_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=5&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_3}{/if}</td>
+	<td>{if $w_middle_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=5&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_6}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_6}{/if}</td>
+	<td>{if $w_middle_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=5&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_half}{/if}</td>
+	<td>{if $w_middle_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=5&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p3.gif" align="absmiddle"/> ×{$w_middle_mark_count_all}{/if}</td>
+  </tr>
+  <tr>
+    <td>{if $w_bad_mark_count_1}<a href="index.php?do={$do}&view={$view}&show=6&d=1&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_1}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_1}{/if}</td>
+    <td>{if $w_bad_mark_count_3}<a href="index.php?do={$do}&view={$view}&show=6&d=3&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_3}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_3}{/if}</td>
+	<td>{if $w_bad_mark_count_6}<a href="index.php?do={$do}&view={$view}&show=6&d=6&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_6}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_6}{/if}</td>
+	<td>{if $w_bad_mark_count_half}<a href="index.php?do={$do}&view={$view}&show=6&d=half&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_half}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_half}{/if}</td>
+	<td>{if $w_bad_mark_count_all}<a href="index.php?do={$do}&view={$view}&show=6&d=all&member_id={$member_id}"><img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_all}</a>{else}<img src="{SKIN_PATH}/img/ico_p2.gif" align="absmiddle"/> ×{$w_bad_mark_count_all}{/if}</td>		
+  </tr>
+</table>
+<br>
+<div class="backright_d">
+	<!-- 
+	<dl class="tit">
+		<dd>
+			{if $show&&$d}<a href="index.php?do={$do}&view={$view}&show={$show}&d={$d}&member_id={$member_id}" class="ab_tab_h">{$html_title}</a>{/if}
+			<a href="index.php?do={$do}&view={$view}&op=mark_g&member_id={$member_id}" {if $op=='mark_g'}class="ab_tab_h"{/if}>来自雇主的全部评价</a>
+			<a href="index.php?do={$do}&view={$view}&op=mark_w&member_id={$member_id}" {if $op=='mark_w'}class="ab_tab_h"{/if}>来自威客的全部评价</a>
+			<a href="index.php?do={$do}&view={$view}&op=mark_other&member_id={$member_id}" {if $op=='mark_other'}class="ab_tab_h"{/if}>对他人的评价</a>
+			<a href="index.php?do={$do}&view={$view}&op=mark_bad&member_id={$member_id}" {if $op=='mark_bad'}class="ab_tab_h"{/if}>不良记录</a>
+		</dd>
+	</dl>
+	<dl>
+		<dd class="gut">
+			{if $mark_arr}
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c">
+			  <tr>
+			    <th width="54">评价</th>
+			    <th>评价者</th>
+			    <th width="400">评价内容</th>
+			    <th> 评价时间 </th>
+			  </tr>
+			  {loop $mark_arr $key $value}
+			  <tr>
+			    <td align="center" class="f10">
+			    	{if $value[mark_status]==1}
+	            	<img src="{SKIN_PATH}/img/ico_p1.gif"/>
+					{elseif $value[mark_status]==2}
+					<img src="{SKIN_PATH}/img/ico_p3.gif"/>
+					{elseif $value[mark_status]==3}
+					<img src="{SKIN_PATH}/img/ico_p2.gif"/>
+					{else}
+					<img src="{SKIN_PATH}/img/ico_p1.gif"/>
+					{/if}
+				</td>
+			    <td><a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">{$value[by_username]}</a></td>
+			    <td align="center">{$value[mark_content]}</td>
+			    <td nowrap="nowrap">{date('Y-m-d H:i:s',$value[mark_time])}</td>
+			  </tr>
+			 {/loop}
+			 <tr>
+			 	<td colspan="4" >{$pages[page]}</td>
+			 </tr>
+			</table>
+			<br>
+			{else}
+			<div class="tip_box">
+				没有记录
+			</div>
+			{/if}	</dd>
+	</dl>
+	-->
+		<dl>
+		<div class="msg_box">
+			<dt>
+				<div class="x_tit_1">
+					<div>
+						{if $show&&$d}<span class="now"><a href="index.php?do={$do}&view={$view}&show={$show}&d={$d}&member_id={$member_id}">{$html_title}</a>{/if}</span>
+						<span {if $op=='mark_g'}class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=mark_g&member_id={$member_id}">来自雇主的全部评价</a></span>
+						<span {if $op=='mark_w'}class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=mark_w&member_id={$member_id}">来自威客的全部评价</a></span>
+						<span {if $op=='mark_other'}class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=mark_other&member_id={$member_id}">对他人的评价</a></span>
+						<span {if $op=='mark_bad'}class="now"{/if}><a href="index.php?do={$do}&view={$view}&op=mark_bad&member_id={$member_id}">不良记录</a></span>
+					</div>
+				</div>
+			</dt>
+			<dd>
+				<div class="msg_table msg_table_1">
+					{if $mark_arr}
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_30 t_c">
+					  <tr>
+					    <th width="54">评价</th>
+					    <th>评价者</th>
+					    <th width="400">评价内容</th>
+					    <th> 评价时间 </th>
+					  </tr>
+					  {loop $mark_arr $key $value}
+					  <tr>
+					    <td align="center" class="f10">
+					    	{if $value[mark_status]==1}
+			            	<img src="{SKIN_PATH}/img/ico_p1.gif"/>
+							{elseif $value[mark_status]==2}
+							<img src="{SKIN_PATH}/img/ico_p3.gif"/>
+							{elseif $value[mark_status]==3}
+							<img src="{SKIN_PATH}/img/ico_p2.gif"/>
+							{else}
+							<img src="{SKIN_PATH}/img/ico_p1.gif"/>
+							{/if}
+						</td>
+					    <td><a href="index.php?do=task&task_id={$value[task_id]}" target="_blank">{$value[by_username]}</a></td>
+					    <td align="center">{$value[mark_content]}</td>
+					    <td nowrap="nowrap"><!--{date('Y-m-d H:i:s',$value[mark_time])}--></td>
+					  </tr>
+					 {/loop}
+					 <tr>
+					 	<td colspan="4" >{$pages[page]}</td>
+					 </tr>
+					</table>
+					<br>
+					{else}
+					<div class="tip_box">
+						没有记录
+					</div>
+					{/if}	
+				</div>
+			</dd>
+		</div>
+		</dl>
+	</div>
+    <script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+</div><!--content_E-->
+<div class="clear"></div>
+<!--{template footer}-->

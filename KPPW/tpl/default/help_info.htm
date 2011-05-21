@@ -1,0 +1,136 @@
+<!--{template header}-->
+<link href="{SKIN_PATH}/css/help.css" rel="stylesheet" type="text/css"/>
+<style>
+	input, select, textarea, option {
+    vertical-align:baseline;
+}
+</style>
+<div id="content">
+ 	<div class="blank8"></div>
+ <div id="help_search">
+  <ul>
+    <li class="help_search_li1"></li>
+    <li class="help_search_li2">
+      <form method="post" action="index.php?do=help_list">
+        <input type="text" class="text"  id="keyword" name="keyword">
+        <input type="submit" value="搜索我的答案" class="help_search_input" id="" name="">
+        <select style="display: none;" id="searchtype" name="searchtype">
+          <option selected="selected" value="titlekeyword">智能模糊搜索</option>
+          <option value="title">仅搜索标题</option>
+        </select>
+      </form>
+    </li>
+    <li class="help_search_li3"></li>
+  </ul>
+</div>
+<div class="blank8"></div>
+<div id="help_menu">
+  <ul>
+   <li class="fl help_menu_now">
+   	当前位置：<a href="index.php?do=help">帮助中心</a>
+	{if $art_cat_p_info}
+	>> <a href="index.php?do=help_list&art_cat_pid={$art_cat_p_info[art_cat_id]}">{$art_cat_p_info[cat_name]}</a>
+	{/if}
+	{if $art_cat_info}
+	>> <a href="index.php?do=help_list&art_cat_id={$art_cat_info[art_cat_id]}">{$art_cat_info[cat_name]}</a>
+	{/if}
+	</li>
+   <!-- <li class="fr help_menu_guzhu"><a href="http://www.kekezu.com/bbs/forumdisplay.php?fid=13">我是雇主，我要提问&gt;&gt;</a>&nbsp;|&nbsp;<a href="http://www.kekezu.com/bbs/forumdisplay.php?fid=13">我是威客，我要提问&gt;&gt;</a></li> -->
+  </ul>
+</div>
+<div class="blank9"></div>
+<div id="help_main">
+  <!-- help left start -->
+  <div id="help_left">
+    <!-- left menu -->
+    <div id="help_left_first">
+      <div class="help_left_content1">
+        <h3>帮助分类</h3>
+		<!-- help class start -->
+		{loop $art_p_cat_arr $keys $values}
+			<dl id="help_menu_<!--{eval echo $keys+1}-->" class="ddhide">
+	          <dt><a href="javascript:void(0);" style="color: rgb(27, 89, 151);">$values[cat_name]</a></dt>
+			  {loop $art_c_cat_arr $key $value}
+			  	{if $value[art_cat_pid]==$values[art_cat_id]}
+					<dd><a href="index.php?do=help_list&art_cat_id={$value[art_cat_id]}&menu_id=<!--{eval echo $keys+1}-->" {if $art_cat_id==$value[art_cat_id]}style="color: rgb(255, 0, 0);"{/if}>{$value[cat_name]}</a></dd>
+				{/if}
+			  {/loop}
+        	</dl>
+		{/loop}
+		<!-- help class end -->
+      </div>
+    </div>
+    <!-- clear both -->
+    <div class="blank8"></div>
+    <!-- left other -->
+    <div>
+      <ul class="help_left_other_ul cb">
+        <li class="help_left_other_header">客服信息</li>
+      </ul>
+    <!--{tag 帮助中心_客户服务}-->
+      <div class="help_left_footer"></div>
+    </div>
+    <div class="blank8"></div>
+    <!-- suggest -->
+    <!-- <div class="help_suggest">
+    	<a class="suggesttotaskcn" href="index.php?do=message&to_uid=1" onclick="showWindow('a_msg', this.href);">留下您的建议或意见</a>
+	</div> -->
+  </div>
+  <!-- help left end -->
+  <!-- help right start -->
+  <div id="help_right1">
+    <div class="help_pub_content1">
+      <ul class="help_right_content1_header">
+        <li class="help_right_li_header1">{$art_info[art_title]}</li>
+      </ul>
+      <div class="help_pub_p1"> 
+	  <style> .Pkz127 { display:none; } </style>
+		{$art_info[content]}
+		</div>
+	  <div class="blank8"></div>
+    </div>
+  </div>
+  <!-- help right end -->
+ <div id="help_right2">
+     <div class="help_right_content1">
+      <ul class="help_right_content1_header">
+        <li class="help_right_li_header3">{$art_cat_info[cat_name]}</li>
+      </ul>
+      <div class="help_pub1 hel_pub_hack1">
+        <ul>
+        	{loop $art_arr $key $value}
+				{if $art_info[art_id]==$value[art_id]}
+		          <li>
+		          <strong style="color: rgb(255, 153, 0);">{$value[art_title]}</strong>
+				  </li>
+				{else}
+				<li><a href="index.php?do=help_info&art_id={$value[art_id]}">{$value[art_title]}</a></li>
+				{/if}
+		  {/loop}
+         </ul>
+<div class="blank1"></div>
+      </div>
+    </div>
+<div class="blank1"></div>
+</div>
+</div>
+<div class="blank10"></div>
+
+</div>
+<script type="text/javascript">
+$(function(){
+	$(".help_left_content1>dl>dt").click(function(){
+		$(this).parent().addClass('ddshow').siblings().removeClass('ddshow');
+		
+	})
+	var menu_id  = 'help_menu_'+ parseInt({$menu_id});
+	a = new Array();
+	a = menu_id.split('_');
+	var m_id = a[2];
+	if(!isNaN(m_id)){
+		$("#help_menu_"+m_id).addClass('ddshow');
+	}
+	
+})	
+</script>
+<!--{template footer}-->

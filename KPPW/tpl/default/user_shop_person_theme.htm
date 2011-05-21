@@ -1,0 +1,51 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span  class="now"><a href="index.php?do={$do}&view=shop_person_theme" >主题选择</a></span>
+				<span><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+				<span><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+				<span><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>  
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					 {loop $banner_arr $key $value}
+					 	<tr>
+					 		<td>
+					 			<img src="{$value[img_file]}" width="180" height="32" title="{$value[img_name]">
+								<br>
+								<label for="rdo_banner_id{$value[banner_id]}"><input  type="radio" id="rdo_banner_id{$value[banner_id]}" name="rdo_banner_id" value="{$value[banner_id]}" {if $shop_person_config[banner_id]==$value[banner_id]}checked="checked"{/if}>&nbsp;&nbsp;{$value[img_name]}</label>
+					 		</td>
+					 	</tr>
+					 {/loop}
+					  <tr>
+					  	<td colspan="4" align="center">
+					  		<input type="submit" name="sbt_update_pic" value="更新图片" class="input_btn3">
+							<input type="submit" name="sbt_default_pic" value="恢复默认图片" class="input_btn3">
+						</td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+</script>
+<!--{template footer}-->

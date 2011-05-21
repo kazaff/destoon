@@ -1,0 +1,18 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+.vote_show {padding:0 20px 20px 20px;}
+.vote_show_n {width:18px;height:18px;line-height:18px;font-size:11px;background:#0172B6;color:#FFFFFF;text-align:center;}
+.vote_show_p {height:11px;line-height:11px;background:#EDEDED;font-size:1px;}
+.vote_show_p div {height:11px;line-height:11px;float:left;}
+.vote_show_1 {background:#EA7211 url('image/vote_bg.gif') repeat-x 0 0;border-left:#EA7211 1px solid;border-right:#EA7211 1px solid;}
+.vote_show_2 {background:#AABF00 url('image/vote_bg.gif') repeat-x 0 -11px;border-left:#AABF00 1px solid;border-right:#AABF00 1px solid;}
+.vote_show_3 {background:#8B2A00 url('image/vote_bg.gif') repeat-x 0 -22px;border-left:#8B2A00 1px solid;border-right:#8B2A00 1px solid;}
+.vote_show_4 {background:#BF844A url('image/vote_bg.gif') repeat-x 0 -33px;border-left:#BF844A 1px solid;border-right:#BF844A 1px solid;}
+.vote_show_5 {background:#3A8938 url('image/vote_bg.gif') repeat-x 0 -44px;border-left:#3A8938 1px solid;border-right:#3A8938 1px solid;}
+.vote_show_6 {background:#486193 url('image/vote_bg.gif') repeat-x 0 -55px;border-left:#486193 1px solid;border-right:#486193 1px solid;}
+.vote_show_7 {background:#7DA3AE url('image/vote_bg.gif') repeat-x 0 -66px;border-left:#7DA3AE 1px solid;border-right:#7DA3AE 1px solid;}
+.vote_show_8 {background:#AE1486 url('image/vote_bg.gif') repeat-x 0 -77px;border-left:#AE1486 1px solid;border-right:#AE1486 1px solid;}
+.vote_show_9 {background:#5AB502 url('image/vote_bg.gif') repeat-x 0 -88px;border-left:#5AB502 1px solid;border-right:#5AB502 1px solid;}
+.vote_show_10 {background:#BF2146 url('image/vote_bg.gif') repeat-x 0 -99px;border-left:#BF2146 1px solid;border-right:#BF2146 1px solid;}

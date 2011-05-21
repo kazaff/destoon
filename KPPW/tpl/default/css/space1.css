@@ -1,0 +1,22 @@
+.space_top_bg{ height:100px; background:url(../img/space1/space_top_bg1.jpg) no-repeat; padding-left:50px; padding-top:30px; margin-top:20px;}
+.space_top_bg h1{ font-size:24px; font-weight:bold; font-family:Georgia, "Times New Roman", Times, serif; color:#fff;}
+.mainbox{ margin-top:10px;}
+.mainbox{ margin-top:10px;}
+.space_left{ width:210px; overflow:hidden; float:left;}
+.space_left dl{ border:1px solid #ddd; line-height:25px;}
+.title{ height:26px; line-height:26px; font-size:14px; font-weight:bold; background:url(../img/space1/space_bt_bg.gif) repeat-x; padding-left:10px;border-bottom:1px solid #ddd;}
+.img_p1{ border:1px solid #ddd; padding:1px;}
+.space_right{ width:740px; margin-left:10px; float:left; overflow:hidden;}
+.space_right dl{ border:1px solid #ddd;}
+.space_case{ overflow:auto;}
+.space_case_list{ width:179px; float:left; text-align:center; margin-bottom:20px;}
+.roll{ height:114px; overflow:auto;}
+.roll_l,.roll_r{ height:114px; width:9px; float:left; background:url(../img/space1/roll_img.gif) no-repeat 0 center;}
+.roll_r{ background-position:-12px center;}
+.gut{ float:left; width:680px; height:114px; overflow:hidden; padding:0 10px;}
+.gut a{ margin-right:10px;}
+
+
+
+
+

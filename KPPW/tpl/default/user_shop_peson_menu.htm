@@ -1,0 +1,116 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<!-- 
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span ><a href="index.php?do={$do}&view=case_add" >主题选择</a></span>
+				<span><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+				<span><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+				<span class="now"><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span>  
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					
+					<tr>
+						<td colspan="4">
+							<input type="text" name="txt_menu_1" value="{$menu_info[menu_1]}"> 服务报价
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="text" name="txt_menu_2" value="{$menu_info[menu_2]}"> 客户案例
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="text" name="txt_menu_3" value="{$menu_info[menu_3]}"> 联系方式
+						</td>
+					</tr>
+				 
+					
+					  <tr>
+					  	<td colspan="4" align="center">
+					  		<input type="submit" name="sbt_edit" value="立即编辑" class="input_btn3">
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="submit" name="sbt_default" value="恢复默认" class="input_btn3"></td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			   -->
+			   <dl>
+			   	<div class="msg_box">
+				   	<dt>
+						<div class="x_tit_1">
+							<div>
+								<span><a href="index.php?do={$do}&view=shop_person_mytheme" >自定义主题</a></span> 
+								<span><a href="index.php?do={$do}&view=shop_peson_signature" >个性签名</a></span>  
+								<span class="now"><a href="index.php?do={$do}&view=shop_peson_menu" >菜单栏</a></span> 
+							</div>
+						</div>
+					</dt>
+					<dd>
+						<form method="post" enctype="multipart/form-data">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+							<tr>
+								<th colspan="4" style="background-color:#fff;">&nbsp;</th>
+							</tr>
+							<tr>
+								<th>&nbsp;&nbsp;排序</th>
+								<th>&nbsp;&nbsp;名称</th>
+								<th>&nbsp;&nbsp;链接</th>
+								<th>&nbsp;&nbsp;说明</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td><input type="text" name="txt_menu_1" value="{$menu_info[menu_1]}"></td>
+								<td>shop.php?do=shop&view=service&shop_id={$shop_info['shop_id']}</td>
+								<td>服务报价列表页面</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td><input type="text" name="txt_menu_2" value="{$menu_info[menu_2]}"></td>
+								<td>shop.php?do=shop&view=case&shop_id={$shop_info['shop_id']}</td>
+								<td>案例列表页</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td><input type="text" name="txt_menu_3" value="{$menu_info[menu_3]}"></td>
+								<td>shop.php?do=shop&view=contact&shop_id={$shop_info['shop_id']}</td>
+								<td>联系方式展示页</td>
+							</tr>
+							  <tr>
+							  	<td colspan="4" align="center">
+							  		<input type="submit" name="sbt_edit" value="立即编辑" />
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="submit" name="sbt_default" value="恢复默认" /></td>
+							  </tr>
+						</table>
+					</form>
+					</dd>
+				</div>
+			   </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+
+</script>
+<!--{template footer}-->

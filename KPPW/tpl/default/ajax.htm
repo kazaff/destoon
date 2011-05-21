@@ -1,0 +1,57 @@
+ <!--{template header}-->
+{if $ac == 'cate_add'}
+<div style="margin:10 auto;width:250px;">
+<input type="text" name="txt_cate_name" maxlength="15">&nbsp;&nbsp;&nbsp;
+<p>
+<input type="button" onclick="ajax_cate()" id="sbt_cate" value="添加" class="pn pnc">
+</div>
+{elseif $ac =='submit_file'}
+<link href="resource/js/swfupload/default.css" rel="stylesheet" type="text/css" />
+<div style="margin:10 auto;width:450px;">
+  {if $type==3}
+    <p>
+    <div>
+			<div>
+					<input type="text" id="txtFileName" disabled="true" style="border: solid 1px; background-color: #FFF;" />
+                    <span id="spanButtonPlaceholder"></span>
+                        <input name="button" type="button" class="add"  id="upload_button" value="开始上传" style="margin-left:20px;" />
+                  
+			</div>
+				<div class="flash" id="fsUploadProgress">
+							</div>
+				
+				
+							<input type="hidden" name="hidFileID" id="hidFileID" value="" />
+					
+		</div>
+	 
+	 </p>
+  {/if}
+  
+  <input type="button" id="sbt_file" onclick="save_file();" value="提交" class="pn pnc">
+  <input type="button" id="cancel_file" onclick="cancel_file();" value="取消" class="pn">
+  <p style="color:#999">服务器支持最大文件上传为:$max_size;上传限制为50MB(如果服务器不支持50MB就修改php.ini文件)</p>
+  
+</div>
+{/if}
+
+{if $ajax == 'report'}
+<div>举报成功！</div>
+{elseif $ajax =='inputuid'}
+<div class="window" id="panelWindow">
+	<br>
+	<p>
+	请输入要雇佣人的用户名或者是UID:<input type="text" name='inputuid' id="inputuid" maxlength="20"><span id="msg_inputuid"></span>
+	<input type="button" id="sbt_file" onclick="submit_inputuid();" value="确     定" class="pn pnc">
+	<a href="javascript:;" onclick="cancel_inputuid()">消   取</a>
+	<br>
+	<br>
+	<br>
+	</p>
+</div>
+{/if}
+
+
+<!--{template footer}-->
+
+

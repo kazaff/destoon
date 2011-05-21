@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+<pay_name>财付通</pay_name>
+<pay_dir>tenpay</pay_dir>
+<pay_dev>kekezu</pay_dev>
+<descript>财付通交易，推荐QQ用户使用。</descript>
+<pay_desc>财付通接口</pay_desc>
+<pay_status>1</pay_status>
+<img>tenpay.jpg</img>
+<initparam>seller_id:财付通商户编号;tenpay_ckey:财付通交易密钥</initparam>
+</root>

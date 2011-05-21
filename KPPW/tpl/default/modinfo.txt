@@ -1,0 +1,4 @@
+temp_title=default;
+temp_desc=这是kekezu官方默认模板;
+develop=kekezu;
+temp_path=default;

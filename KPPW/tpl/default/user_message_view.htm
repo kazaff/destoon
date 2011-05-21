@@ -1,0 +1,57 @@
+<!--{eval $page_title='查看短消息 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+       <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+			<div class="backright_d" >
+				<dl><dt>短信内容</dt>
+				<dd  style="overflow: hidden;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+					  <tr>
+					    <td class="t_r">发送时间：</td>
+					    <td><!--{date('Y-m-d',$msg[on_time])}--></td>
+				      </tr>
+					  <tr>
+						<td class="t_r">发送者：</td>
+					    <td>
+							{if $msg[username]}
+								$msg[username]
+							{else}
+								系统消息
+							{/if}
+						</td>
+					  </tr>
+					  <tr>
+					    <td class="t_r">接收者：</td>
+					    <td>$msg[recive_username]</td>
+				      </tr>
+					  <tr>
+					    <td class="t_r">标题：</td>
+					    <td>$msg[title]</td>
+				      </tr>
+                      <tr>
+					    <td width="30%" class="t_r" valign="top">内容：</td>
+					    <td><div class="perbox520"><div class="lctr"><div class="rightgut">$msg[content]</div></div></div></td>
+				      </tr>
+                      
+                     
+					</table>
+                  <div class="t_c mt_10">
+                  {if $uid!=$msg[uid]&&$msg[uid]!=0}<input type="button" value="回复" onclick="showWindow('a_msg','index.php?do=message&to_uid={$msg[uid]}&pid={$msg[msg_id]}');" class="input_btn3">{/if}
+                  <input type="button" value="返回" onclick="window.history.go(-1);" />
+                  <input type="button" value="删除" onclick="location.href='index.php?do=user&view=message_view&msg_id={$msg[msg_id]}&op=del'" />
+                  </div>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+    
+    
+</div><!--content_E--><div class="clear"></div>
+<!--{template footer}-->

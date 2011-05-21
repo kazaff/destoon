@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/jquery.js"></script>
+<body>
+<div id="append_parent"></div>
+<form method="post" action="index.php?do=case&view=add" id="frm_case_edit" enctype="multipart/form-data">
+<input type="hidden" name="hdn_case_id" value="{$case_info[case_id]}">
+<input type="hidden" name="hdn_obj_id" value="{$task_id}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">{if $case_info['case_id']}编辑{else}添加{/if}案例</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+
+
+	   <tr>
+        <td width="15%" class="bg1 t_r">案例图片：</td>
+        <td colspan="3">
+            {if $case_info['case_img']}<img src="../../{$case_info['case_img']}" border="0"><br>{/if}
+            
+	        <input type="file" name="fle_case_img" size="20">
+			
+		</td>
+      </tr>
+      
+      <tr>
+      <td width="15%" class="bg1 t_r">任务编号 </td>
+      <td>
+      <input type="text" name="txt_task_id" id="txt_task_id" value="{if $txt_task_id}{$txt_task_id}{else}{$case_info[obj_id]}{/if}" />
+      <input type="button" id="btn_search" value="查询"/>
+	  <script type="text/javascript">
+	  	$(function(){
+			$("#btn_search").click(function(){
+			var id = $("#txt_task_id").val();
+			if(id){
+			 $.getJSON('index.php?do=case&view=add&ajax=1&id='+id,function(json){
+			 	if(json.status){
+					$("#txt_task_title").val(json.data.task_title);
+					$('#txt_case_price').val(json.data.task_cash);
+					$("#txt_case_auther").val(json.data.username);
+				}
+			 })	
+			}
+			
+		})
+		})
+	  
+	  </script>
+      </td>
+      </tr>
+      
+      
+      <tr>
+      <td width="15%" class="bg1 t_r">案例名称 </td>
+      <td>
+      <input type="text" name="txt_task_title" id="txt_task_title" value="{if $case_info[case_title]}$case_info[case_title]{else}$case_info[task_title]{/if}" />
+      </td>
+      </tr>
+		<tr>
+         <td width="30%" class="bg1 t_r">案例描述：</td>
+        <td><textarea class="bg1_t_r" name="tar_case_desc" id="tar_case_desc">{$case_info[case_desc]}</textarea></td>
+	  </tr>
+	   <tr>
+        <td class="bg1 t_r" colspan="1">案例金额：</td>
+        <td><input type="text" class="bg1_t_r" name="txt_case_price" id="txt_case_price" value="{if $case_info[case_price]}{$case_info[case_price]}{elseif $case_info[task_price]}$case_info[task_price]{else}{/if}"></input>
+		</td>
+      </tr>
+	   <tr>
+        <td class="bg1 t_r" colspan="1">上传者：</td>
+        <td><input type="text" class="bg1_t_r" name="txt_case_auther" id="txt_case_auther" value="{$case_info[case_auther]}"></input>
+		</td>
+      </tr>
+      <tr>
+      {if $case_info}
+        <td class="bg1 t_r" colspan="1">时间：</td>
+        <td>
+        <input type="text" onclick="showcalendar(event, this, 0)" name="txt_on_time" value="<!--{eval echo date('Y-m-d H:i',$case_info[on_time])}-->" >
+        </td>
+        {/if}
+      </tr>
+        <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存{if $case_info['case_id']}编辑{else}添加{/if}"/>
+       	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+		</div>
+        </td>
+    </table>
+ 	<br/>
+    </div>
+</form>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+</body>
+</html>

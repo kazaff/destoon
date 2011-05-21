@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html;charset={DT_CHARSET}"/>
+<title>{if $seo_title}{$seo_title}{else}{if $head_title}{$head_title}{$DT[seo_delimiter]}{/if}{$COM[company]}{/if}</title>
+{if $head_keywords}<meta name="keywords" content="{$head_keywords}"/>{/if}
+{if $head_description}<meta name="description" content="{$head_description}"/>{/if}
+<meta name="generator" content="Destoon B2B,www.destoon.com"/>
+<meta http-equiv="x-ua-compatible" content="ie=7"/>
+<link rel="stylesheet" type="text/css" href="{$HSPATH}style.css"/>
+{if !DT_DEBUG}<script type="text/javascript">window.onerror= function(){return true;}</script>{/if}
+<script type="text/javascript" src="{DT_PATH}lang/{DT_LANG}/lang.js"></script>
+<script type="text/javascript">
+var DTPath = '{DT_PATH}';
+var SKPath = '{DT_SKIN}';
+var CKPrex = '{$CFG[cookie_pre]}';
+var DTTour = '{$MODULE[4][linkurl]}tour.php';
+{if !$domain && DT_DOMAIN}
+document.domain = '{DT_DOMAIN}';
+{/if}
+</script>
+<script type="text/javascript" src="{DT_PATH}file/script/homepage.js"></script>
+{if $css}<style type="text/css">{$css}</style>{/if}
+</head>
+<body{if $bgcolor || $background} style="background:{if $bgcolor}{$bgcolor} {/if}{if $background}url('{$background}') no-repeat center 0{/if};"{/if}>
+<div class="m"><div class="top" id="top"><a href="{$COM[linkurl]}" title="{$COM[company]}" rel="sidebar" onclick="window.external.addFavorite(this.href, this.title);return false;">收藏本页</a> | <a href="{$COM[linkurl]}" onclick="javascript:try{this.style.behavior='url(#default#homepage)';this.setHomePage(location.href);}catch(e){}return false;">设为主页</a> | <a href="javascript:Go(DTTour);">随便看看</a></div></div>
+<div class="m">
+<div class="sign">
+{if $COM[vip]}
+<div><strong>{$COM[year]}</strong><span title="指数满分为10">{$COM[vip]}</span></div>
+{else}
+<img src="{$MODULE[4][linkurl]}image/free_bg.gif" alt="普通会员"/>
+{/if}
+</div>
+<div class="head">
+{if $logo}<div class="logo"><a href="{$COM[linkurl]}"><img src="{$logo}" alt="{$COM[company]}" onload="if(this.width>300)this.width=300;"/></a></div>{/if}
+<div>
+<h1>{$COM[company]}</h1>
+<h4>{$COM[business]}</h4>
+</div>
+</div>
+</div>
+<div class="m">
+<div class="menu" id="menu">
+	<ul>
+	<li class="{if $file=='homepage'}menu_on{else}menu_li{/if}"><a href="{$COM[linkurl]}"><span>网站首页</span></a></li>
+	{loop $MENU $k $v}
+	<li class="{if $file==$menu_file[$k]}menu_on{else}menu_li{/if}"><a href="{$v[linkurl]}"><span>{$v[name]}</span></a></li>
+	{/loop}
+	</ul>
+</div>
+</div>
+<div class="m">
+<div class="banner">{if $COM[banner]}<embed src="{$COM[banner]}" quality="high" extendspage="http://get.adobe.com/flashplayer/" type="application/x-shockwave-flash" wmode="transparent" scale="exactfit" width="100%"></embed>{elseif $banner}<img src="{$banner}" width="100%"/>{/if}</div>
+</div>
+<div class="m">
+<div class="pos" id="pos">
+<span class="f_r">
+<script type="text/javascript">show_date();</script>
+</span>
+<span id="position"></span>
+</div>
+</div>
+<div class="m">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr>
+{if $side_pos==0}
+<td width="{$side_width}" valign="top" id="side">{template 'side', $template}</td>
+<td width="10"></td>
+{/if}
+<td valign="top" id="main">

@@ -1,0 +1,8 @@
+{template 'header', 'wap'}
+<span style="color:red;">提示信息:{$msg}</span>
+{if $forward}
+<br/>
+<meta http-equiv="refresh" content="2;URL={$forward}">
+<a href="{$forward}">点击跳转</a>
+{/if}
+{template 'footer', 'wap'}

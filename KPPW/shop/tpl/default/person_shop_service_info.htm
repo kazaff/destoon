@@ -1,0 +1,205 @@
+<!--{eval $page_title='服务与商品列表 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/person_shop_header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+<div class="content">
+    <div class="width_layer">
+    	<div class="left_bar">
+            <!--{template shop/tpl/default/person_left}-->
+        </div>
+		  <div class="right_bar">
+        	
+          <div class="boxWrap">
+			<div class="boxHeader">
+				<h2>作品展示</h2>
+			</div>
+			<div class="boxBody">
+				<div class="serviceDetail">
+					<div class="picContent">
+						<div><img width="250" height="250" onerror="this.src='shop/tpl/default/img/def_service.jpg'" src="$service_info['pic']" style="border: 1px solid rgb(78, 90, 97);"></div>
+						<div id="largeIcon">{if $service_info['pic']}<a class="zoom" href="javascript:;" onclick="zoom('','$service_info['pic']')">查看大图</a>{/if}</div>
+						<div class="btns">
+							<a class="recommend fl" onclick="recommend();return false;" href="javascript:;">推荐给好友</a>
+							<a class="favorite fr" onclick="bookmarkService();return false;" href="javascript:;">收藏该商品</a>
+						</div>
+					</div>
+					<ul class="info">
+						<li><strong>作品名称：$service_info['title']</strong></li>
+						<li>商品类型：{if $service_info['service_type']==1}服务{else}作品{/if}</li>
+						<li>商品报价：$service_info['price']元{if $service_info['unite_price']}/$service_info['unite_price']{/if}</li>
+						<li>预计时间：{if $service_info['service_time']}$service_info['service_time'] $service_info['unit_time']{else}未描述{/if}</li>
+						<li>地区限制：{if $service_info['area_range']}$service_info['area_range']{else}无限制{/if}</li>
+						<li>适合对象：$service_info['obj_name']</li>
+						<li>交付方式：
+					 	 {if $service_info['submit_method'] ==1}站外交付{elseif $service_info['submit_method'] ==2}视频交付{else}文件下载{/if}
+						</li>
+						{if $had_buy}
+						<li class="fwbz">
+							{if $service_info['submit_method']==3}
+							<i class="paybz">您已购买该商品<a href="shop.php?do=service_info&sid=$sid&op=filedown" target="_blank">点此下载</a></i>
+							{else}
+							<i class="paybz">您已购买该商品，点此<a href="javascript:;" onclick="buy_service()">重新购买</a></i>
+							{/if}
+						</li>
+						{else}
+                      	<li class="btns">
+							
+							<a href="javascript:;" onclick="buy_service()">购买此商品</a>
+							
+						</li>
+						
+						
+						{/if}
+					</ul>
+				  <div class="hr dashed2"></div>
+                    <div class="tab_nav">
+                    <a id="tab_tab_1" class="select" onClick="swaptab('tab','select','',3,1)" title="商品详情" href='javascript:void(0);'><span>商品详情</span></a>
+                    <a id="tab_tab_2" onClick="swaptab('tab','select','',3,2)" title="最新成交记录" href='javascript:void(0);'><span>最新成交记录</span></a>
+                    <a id="tab_tab_3" onClick="swaptab('tab','select','',3,3)"  title="互评记录" href='javascript:void(0);'><span>互评记录</span></a>                    </div>
+                  <div id="div_tab_1" style="display:block;">
+                    <div class="intro">
+                      
+					 	$service_info['content'] 
+                      </div>
+                    </div>
+                    <div  id="div_tab_2" style="display:none;">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="pj_table">
+				                  <tr>
+				                    <th width="250"> 商品名称</th>
+				                    <th>金额</th>
+									<th width="">购买人</th>
+									<th width="">成交时间</th
+				                  </tr>
+						  {loop $order_list $k $v}
+						  <tr>
+				            <td> $v['title']</td>
+				            <td><!--{eval printf('%10.2f',$v['count_cash'])}--></td>
+				            <td><a href="index.php?do=space&uid={$v[buy_uid]}" target="_blank">{$v[buy_username]}</a></td>
+							<td><!--{date('Y-m-d H:i:s',$v['on_time'])}--></td>
+					      </tr>
+						  {/loop}
+						  <tr>
+						  	<td colspan="4">{$s_pages[page]}</td>
+						  </tr>
+						  </table>
+                    </div>
+                    <div  id="div_tab_3" style="display:none;">	
+                    	<form action="" method="#t_work_list">
+						<input type="hidden" name="sid" value="{$service_info[service_id]}">
+						<input type="hidden" name="do" value="{$do}">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="pj_table">
+				                  <tr>
+				                    <th width="60">
+				                    <select name="slt_mark_type" onchange="this.form.submit();">
+				                        <option  selected="selected"  value="">全部评价</option>
+				                        <option  value="1" {if $slt_mark_type==1}selected="selected"{/if}>好评</option>
+				                        <option  value="2" {if $slt_mark_type==2}selected="selected"{/if}>中评</option>
+				                        <option  value="3" {if $slt_mark_type==3}selected="selected"{/if}>差评</option>
+				                    </select>
+				                    </th>
+				                    <th>
+				                    <select name="slt_mark_content" onchange="this.form.submit();">
+				                        <option  value="1" {if $slt_mark_content==1}selected="selected"{/if}>有内容评价</option>
+				                        <option  value="2" {if $slt_mark_content==2}selected="selected"{/if}>无内容评价</option>
+				                    </select>
+									 <select name="slt_mark_from" onchange="this.form.submit();">
+				                        <option  value="1" {if $slt_mark_from==1}selected="selected"{/if}>来自威客的评价</option>
+				                        <option  value="2" {if $slt_mark_from==2}selected="selected"{/if}>来自雇主的评价</option>
+				                    </select>
+				                    </th>
+									<th width="150">评论者</th>
+				                  </tr>
+						  {loop $mark_log_arr $key $value}
+						  <tr>
+				            <td>
+				            	{if $value[mark_status]==1}
+				            	<img src="{SKIN_PATH}/img/ico_p1.gif"/>好评
+								{elseif $value[mark_status]==2}
+								<img src="{SKIN_PATH}/img/ico_p3.gif"/>中评
+								{elseif $value[mark_status]==3}
+								<img src="{SKIN_PATH}/img/ico_p2.gif"/>差评
+								{else}
+								<img src="{SKIN_PATH}/img/ico_p1.gif"/>好评
+								{/if}
+							</td>
+				            <td><p>{$value[mark_content]} </p>
+				            <span class="c999">[<!--{date('Y-m-d H:i:s',$value[mark_time])}-->]</span></td>
+				            <td><a href="index.php?do=space&uid={$value[by_uid]}" target="_blank">{$value[by_username]}</a></td>
+				          </tr>
+						  {/loop}
+						  <tr>
+						  	<td colspan="4">{$mark_log_pages[page]}</td>
+						  </tr>
+						  </table>
+			 		 </form>
+                  </div>
+					<div class="fw-clue">
+						<hr>
+						<em>※ 交易提示：</em><br>
+						<!--{tag 服务内容页交易提示}-->               
+                     </div>
+				</div>
+			</div>
+		</div>
+      
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<script>
+function recommend(){
+	setCopy('{$_K['siteurl']}/shop.php?do=service_info&sid=$sid','链接已复制，您可以介绍给您的朋友');
+}
+function bookmarkService(){
+	var uid =  parseInt('{$uid}')+0;
+	if(uid == '' || isNaN(uid))
+	{
+		showDialog('您还没有登录，无法进行此操作', 'alert', '登录提示','',0);return false;
+	}else{
+		var url = "shop.php?do=service_info&sid=$sid&op=bookmark";
+		$.ajax( {
+			type : "GET",
+			url : url,
+			cache : false,
+			async : false,
+			data : "",
+			dataType : "json",
+			error : function(json) {
+				showDialog('系统繁忙，请稍后再试!', 'alert', '错误提示','',0);return false;
+			},
+			success : function(json) {
+				if (json.status == 0) {
+					showDialog('此商品您已经收藏过了!', 'alert', '错误提示','',1);return false;
+				} else {
+					showDialog('此商品您已经收藏成功！!', 'notice', '信息提示','',1);return false;
+				}
+			}
+		});
+	}
+}
+function buy_service(){
+	{if !$uid}
+	showDialog('您尚未登录!', 'alert', '错误提示','',1);return false;
+	{elseif $uid==$service_info['uid']}
+	showDialog('您不能购买您自己的商品!', 'alert', '错误提示','',1);return false;
+	{elseif $service_info['service_type']==1}
+	location.href="shop.php?do=order&service_id=$sid";
+	{else}
+	var url = "shop.php?do=service_info&sid=$sid&op=confirm";
+	showWindow('order_confirm',url,'get',1);
+	{/if}
+}
+
+function online_pay(){
+	var url = "shop.php?do=service_info&sid=$sid&op=online";
+	location.href=url;
+	
+}
+function confirm_pay(){
+	var url = "shop.php?do=service_info&sid=$sid&op=order";
+	location.href=url;
+}
+</script>
+<!--{template shop/tpl/default/person_footer}-->
+
+

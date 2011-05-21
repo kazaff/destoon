@@ -1,0 +1,10 @@
+<ul style="width: 1107px; left: -737.977px;" class="at_imgSwitch_c">
+	{loop $datalist $key $value}
+   <li style="width: 369px; height: 198px;"><a href="{$value[ad_url]}" target="_blank"><img src="{$value[ad_file]}" style="display:block" /></a></li>
+   {/loop}
+</ul>
+<ul style="width: 54px; top: 210px; left: 550px;" class="at_imgSwitch_p">
+	{loop $datalist $key $value}
+		<li {if $key==0}class="at_current"{/if}><!--{eval echo $key += 1;}--></li> 
+   {/loop}
+</ul>

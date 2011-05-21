@@ -1,0 +1,110 @@
+<div class="backleft">
+            <div class="ltop"></div>
+            <div class="lctr">
+                        <div id="ipay">
+                            <h3 {if !in_array($view,array('index','info','skill','auth','auth_bank','auth_email','auth_realname','auth_enterprise','auth_vip','score','message_list','message_view','change_password'))}class="aaa"{/if}>个人信息</h3>
+                            <ul {if !in_array($view,array('index','info','skill','auth','auth_bank','auth_email','auth_realname','auth_enterprise','auth_vip','score','message_list','message_view','change_password'))}style="display: none;"{/if}>
+                            	<li><a class='a' href='index.php?do=user&view=index'>个人中心</a></li>
+                                <li><a class='f' href='index.php?do=user&view=info'>基本资料</a></li>
+                                <!--<li><a class='c' href='index.php?do=user&view=info#2'>联系方式</a></li>-->
+								<li><a class='s' href='index.php?do=user&view=skill'>威客技能</a></li>
+								<!--<li><a class='f' href='index.php?do=user&view=auth_team'>团队认证</a></li>-->
+								<li><a class='u' href='index.php?do=user&view=auth'>认证中心</a></li>
+								<!--<li><a class='g' href='index.php?do=user&view=auth_vip'>vip升级</a></li>-->
+								<li><a class='t' href='index.php?do=user&view=score'>信誉等级</a></li>
+								<li><a class='k' href='index.php?do=user&view=message_list'>短消息</a></li>
+								<li><a class='r' href='index.php?do=user&view=change_password'>修改密码</a></li>
+                            </ul>
+							
+						    <h3 {if !in_array($view,array('cash','withdraw','finance'))}class="aaa"{/if}>财务管理</h3>
+                            <ul {if !in_array($view,array('cash','withdraw','finance'))}style="display: none;"{/if}>
+                            	<li><a class='q' href='index.php?do=user&view=cash'>在线充值</a></li>
+                                <li><a class='n' href='index.php?do=user&view=withdraw'>提现申请</a></li>
+                                <li><a class='c' href='index.php?do=user&view=finance'>账目明细</a></li>
+                            </ul>
+                            <h3 {if !in_array($view,array('release_task'))}class="aaa"{/if}>我是雇主</h3>
+                            <ul {if !in_array($view,array('release_task'))}style="display: none;"{/if}>
+                            	<li><a class='b' href='index.php?do=release'>发布任务</a></li>
+                            	{loop $model_list $mo}
+                            	<li><a class='d' href='index.php?do=user&view=release_task&model_id={$mo[model_id]}'>我发布的{$mo[model_name]}</a></li>
+                                {/loop}
+								<!-- <li><a class='c' href='index.php?do=user&view=auth_team'>我买的商品</a></li> -->
+                            </ul>
+                            <h3 {if !in_array($view,array('join_task','collect_task','success_task','studio'))}class="aaa"{/if}>我是威客</h3>
+                            <ul {if !in_array($view,array('join_task','collect_task','success_task','studio'))}style="display: none;"{/if}>
+                            	{loop $model_list $mo}
+                            	<li><a class='e' href='index.php?do=user&view=join_task&model_id={$mo[model_id]}'>我参加的{$mo[model_name]}</a></li>
+                                {/loop}
+                                <li><a class='l' href='index.php?do=user&view=collect_task'>我收藏的任务</a></li>
+                                <li><a class='p' href='index.php?do=user&view=success_task'>我的成功案例</a></li>
+								
+								<li><a class='v' href='index.php?do=user&view=studio'>我的工作室</a></li>
+								
+							</ul>
+							{if !$shop_config[shop_is_close]}
+                            <h3 {if !in_array($view,array('create_shop','service_list','service_add','service_cate','case_list','case_add','case_list','case_cate','shop_member','shop_info','shop_enterprise_tpl','shop_person_mytheme','sell_service','shop_peson_signature','shop_peson_menu','shop_enterprise_tpl','shop_enterprise_interface','shop_enterprise_menu','shop_enterprise_skin'))}class="aaa"{/if}>我是卖家{if $have_shop }({if $shope_type==1}个人{else} 团队{/if}){/if}</h3>
+                            <ul {if !in_array($view,array('create_shop','service_list','service_add','service_cate','case_list','case_add','case_list','case_cate','shop_member','shop_info','shop_enterprise_tpl','shop_person_mytheme','sell_service','shop_peson_signature','shop_peson_menu','shop_enterprise_tpl','shop_enterprise_interface','shop_enterprise_menu','shop_enterprise_skin'))}style="display: none;"{/if}>
+                            	{if !$have_shop}
+								   <li><a class='a' href='index.php?do=user&view=create_shop'>开通店铺</a></li>
+								{else}
+	                                <li><a class='c' href='index.php?do=user&view=service_list'>商品管理</a> &nbsp;&nbsp;<a class='no' href='index.php?do=user&view=service_add'>发布</a></li>
+	                                <li><a class='d' href='index.php?do=user&view=case_list'>客户案例</a> &nbsp;&nbsp;<a class='no'  href='index.php?do=user&view=case_add'>发布</a></li>
+									{if $shope_type==2}
+									<li><a class='g' href='index.php?do=user&view=shop_member'>店铺成员</a> <a class="no" href='index.php?do=user&view=shop_member_add' >添加</a></li>
+									{/if}
+									 <li><a class='f' href='index.php?do=user&view=shop_info'>店铺资料管理</a></li>
+									{if $shope_type==2}
+									<li><a class='f' href='index.php?do=user&view=shop_enterprise_tpl'>店铺界面管理</a></li>
+									{else}
+									<li><a class='f' href='index.php?do=user&view=shop_person_mytheme'>店铺界面管理</a></li>
+									{/if}
+									<li><a class='f' href='index.php?do=user&view=sell_service'>订单管理</a></li>
+									<li><a class='f' target="_blank" href='shop.php?do=shop&shop_id={$shop_info[shop_id]}'>查看我的店铺</a></li> 
+								{/if}
+								
+								
+                            </ul>
+							<h3 {if !in_array($view,array('service_favorite','buy_service'))}class="aaa"{/if}>我是买家</h3>
+                            <ul {if !in_array($view,array('service_favorite','buy_service'))}style="display: none;"{/if}>
+                            	 <li><a class='a' href='index.php?do=user&view=service_favorite'>我收藏的商品</a></li>
+								 <li><a class='a' href='index.php?do=user&view=buy_service'>已买入的商品</a></li>
+                            </ul>
+                            {/if}
+                        </div>
+                        &nbsp;
+            </div>
+            <div class="lbtm"></div>
+        </div><!--backleft_E-->
+        
+        <script language="javascript" type="text/javascript">
+        $(document).ready(function() {
+            $(".cuslist .center tr:even td").addClass("spbg");  //隔行换色处，额数行增加样式spbg
+            //列表样式每行末尾不显示
+            $("div.lctr ul").each(function() {
+                $(this).find("li:last").css("border-bottom", "none");
+            });
+            //菜单伸缩
+            $("#ipay h3").toggle(
+				function() {
+				    $(this).next().slideToggle("slow");
+				    $(this).addClass("aaa");
+				},
+				function() {
+				    $(this).next().slideToggle("slow");
+				    $(this).removeClass("aaa");
+				}
+			);
+
+            $(".func,.funclist").hover(
+			    function() {
+			        $(".funclist").show();
+			    },
+			    function() {
+			        $(".funclist").hide();
+			    });
+			    $(".closewin img").click(function() {
+			        $(".tipsbox").fadeOut();
+			    })  
+			 
+        })
+    </script>

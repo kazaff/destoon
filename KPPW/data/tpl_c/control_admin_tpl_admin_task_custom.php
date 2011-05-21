@@ -1,0 +1,102 @@
+<?php Template_Class::subtplcheck('control/admin/tpl/admin_task_custom', '1303811201', 'control/admin/tpl/admin_task_custom');?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<?=$_K['charset']?>" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+function del(id){
+var id = id;
+if(confirm('确定要删除？')==true){
+document.location.href='index.php?do=task&view=comment&ac=del&comment_id='+id;
+}
+}
+</script>
+
+<body>
+<form method="get" action="index.php" id="frm_art_search">
+<input type="hidden" name="do" value="<?=$do?>">
+<input type="hidden" name="view" value="<?=$view?>">
+<div class="main">
+<div class="v_search">
+条数：
+<select name="slt_page_size">
+<option value="10" <?php if($slt_page_size=='10') { ?>selected="selected"<?php } ?>>每页显示10</option>
+<option value="20" <?php if($slt_page_size=='20') { ?>selected="selected"<?php } ?>>每页显示20</option>
+<option value="30" <?php if($slt_page_size=='30') { ?>selected="selected"<?php } ?>>每页显示30</option>
+</select>
+任务类型：
+<select name="slt_task_type">
+<?php if(is_array($model_list)) { foreach($model_list as $model) { ?>
+<option value="<?=$model['model_id']?>" {if <?=$slt_task_type?>==<?=$model['model_id']?>selected="selected"{/if}><?=$model['model_name']?></option>
+<?php } } ?>
+</select>
+      　	任务ID:
+<input type="text" class="input_t" size="12" name="txt_task_id" value="<?=$txt_task_id?>" onkeyup="clearstr(this);">
+编号：
+<input type="text" class="input_t" size="12" name="txt_id" value="<?=$txt_id?>" onkeyup="clearstr(this);">
+标题：
+<input type="text" class="input_t" name='txt_title' value="<?=$txt_title?>">　
+<input type="submit" name="sbt_search" value="提 交" class="input_but"/>
+    </div>
+ 	
+  <div id="change">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="130" align="left">ID( <a href="index.php?do=task&view=comment&ord=1"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=task&view=comment&ord=2"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="100" align="left">任务类型</th>
+<th width="100" align="left">任务名称</th>
+<th class="motif" align="left">任务留言</th>
+<th class="80">评论者</th>
+<th width="200">时间( <a href="index.php?do=task&view=comment&ord=3"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=task&view=comment&ord=4"><img src="tpl/img/m_down.gif" /></a> )</th>
+<th width="60">删除</th>
+          </tr>
+  <?php if(is_array($comment_arr)) { foreach($comment_arr as $key => $value) { ?>
+<tr>
+<td align="left">
+<input type="checkbox" name="ckb[]" id="cbk_selected" value="<?=$value['comment_id']?>"> <?=$value['comment_id']?>
+</td>
+<td align="left">
+<?=$model_list[$value['model_id']]['model_name']?>
+</td>
+<td align="left">
+<?=$value['task_title']?>
+</td>
+<td align="left" title="<?=$value['content']?>">
+<p style="width:200px;height:20px;overflow:hidden;" title="<?=$value['content']?>">
+<?=$value['content']?>
+</p>
+</td>
+<td>
+<?=$value['username']?>
+</td>
+<td>
+<?php echo date('Y-m-d H:i:s',$value[on_time]); ?>
+</td>
+
+<td>
+<a href="#" onclick="del(<?=$value['comment_id']?>);"><img src="tpl/img/ico/delete.gif" align="absmiddle"/> 
+删除
+</a>
+</td>
+</tr>
+<?php } } ?>
+          <tr>
+            <th colspan="4" align="left"><label for="checkbox"><input type="checkbox" id="checkbox" onclick="checkall();">  
+全选　
+<input type="submit" name="sbt_action" value="批量删除" class="input_but" />
+</th>
+<th colspan="3">
+<?=$pages['page']?>
+</th>
+          </tr>
+        </table>
+</div>
+  <script src="tpl/js/css.js" type="text/javascript"></script>
+    </div>
+</form>
+</body>
+</html><?php Template_Class::ob_out();?>

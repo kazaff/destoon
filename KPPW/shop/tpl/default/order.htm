@@ -1,0 +1,133 @@
+<!--{eval $page_title = '服务订单确认 - '.$_K['html_title']}-->
+<!--{template header}-->
+<link type="text/css" rel="stylesheet" href="shop/tpl/{$_K['template']}/css/purchase.css">
+<div id="content">
+<div class="pageMain">
+		<div class="page-path"></div>
+		<div class="buyStep"></div>
+		<div class="shopkeeperInfo">
+			<h2 class="bg">店铺信息</h2>
+			<div class="con">
+				<div class="avatar"><a href="" target="_blank">{if $shop_info['shop_type']==1||!$shop_logo}<!--{userpic($shop_info[uid],middle)}-->{else}<img src="$shop_logo">{/if}</a></div>
+				<ul>
+					<li>店 铺 名：{$shop_info['shop_name']}</li>
+					<li>所 在 地：{$shop_info['city']}</li>
+					<li>信 誉 度：<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($shop_info[w_m_credit_value],1);echo $w_m_score_value[pic];}--></li>
+					<li>好 评 率：{if $shop_info['seller_good_rate']}{$shop_info['seller_good_rate']}{else}0{/if}%</li>
+					<li><a href="shop.php?do=shop&shop_id=$shop_info['shop_id']" target="_blank">进入该服务商店铺&gt;&gt;</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="agreementContent">
+			<form method="post" name="f" action="shop.php?do=order&order_id=$order_id&service_id=$service_id" id="forms" >
+				<input type="hidden" name="formhash" id="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+ 				<input type="hidden" name="detail_arr[del]" value="" id="del_step_items">
+ 				<p>
+					<label>服务名称：</label>
+					<input type="text" style="width: 300px;" value="$service_info['title']" class="input_txt2" name="order[title]" id="order_title"> <span class="sp">可修改</span>
+				
+				<p>
+					<label style="margin-left: 14px;">总金额：</label>
+					<input type="text" style="width: 80px;" value="$service_info['price']" class="input_txt2" name="order[count_cash]" id="order_count_cash"> 元 <span class="sp">可修改，以双方洽谈为准，且当前不支持低于20元的在线交易。</span>
+				</p><br>
+				<p><strong>填写服务购买交易细节</strong> <span class="sp">此内容具有合同效力，请认真填写，所有款项由本站代为托管，可以放心交易。</span></p>
+				<!--{eval $old_detail_flag=0;}-->
+				
+				<div class="phase">
+					<input type="hidden" value="0">
+					<h2><span class="fl">服务交易第1阶段:</span></h2>
+					<p class="after">
+						<label>此阶段付款金额：</label>
+						<input type="text" style="width: 80px;" name="detail_arr[new][1][step_cash]" id="detail_arr[new][1][step_cash]" class="input_txt2"> 元 <span class="sp">根据本站交易规则，各阶段付款金额不得低于10元。</span>
+					</p>
+					<p class="after">
+						<label>详细内容：</label>
+						<textarea name="detail_arr[new][1][step_detail]" id="detail_arr[new][1][step_detail]" class="textarea"></textarea>
+					</p>
+				</div>
+				
+				
+				<p><a class="add" tabindex="-1"   href="javascript:">添加新的交易阶段</a></p>
+				
+				<p class="center">&nbsp;
+				<input type="button" class="bg submit" onclick="purchase(this)" value="{if !$order_id}确认提交{else}编辑订单{/if}">&nbsp;</p>
+				
+				
+				</p>
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".add").click(function(){
+			var c = $(".phase").length;
+			c+=1;
+			var s = parseInt($(".phase").length);
+			 var str = "<div class=\"phase\">";
+			 str += "<input type=\"hidden\" value=\"0\">";
+			  str += "<h2><span class=\"fl\">服务交易第"+c+"阶段:</span><a class=\"delete\" tabindex=\"-1\" onclick=\"del(this)\"   id=\"del_"+c+"\" href=\"javascript:;\">删除</a></h2>";
+				str +="<p class=\"after\">";
+				str +="	<label>此阶段付款金额：</label>";
+				str +="		<input type=\"text\" style=\"width: 80px;\" name=\"detail_arr[new]["+c+"][step_cash]\" id=\"detail_arr[new]["+c+"][step_cash]\" class=\"input_txt2\"> 元";
+				str +="	</p>";
+				str +="	<p class=\"after\">";
+				str +="		<label>详细内容：</label>";
+				str +="		<textarea name=\"detail_arr[new]["+c+"][step_detail]\" id=\"detail_arr[new]["+c+"][step_detail]\" class=\"textarea\"></textarea>";
+				str +="	</p>";
+				str +=" </div>";
+			if(s>=2){
+				m=s-1;
+			 h = $(".phase:eq("+m+")>h2>a").remove();
+			
+			}
+			$(".phase:last").after(str);
+		})
+		
+		$("input[type='text']").blur(function(){$(this).attr("class","input_txt2");}).focus(function(){$(this).attr("class","input_txt2_h");})
+	})
+	
+function del(obj){
+
+    var f = $(".phase:last>input").val();
+    if(!isUndefined(f)){
+        if($("#del_step_items").val()){
+        	$("#del_step_items").val($("#del_step_items").val()+',');
+        }
+    	$("#del_step_items").val($("#del_step_items").val()+f);
+     }
+    
+	$(".phase:last").remove();
+	n = $(".phase").length;
+	if(n>1){
+		
+	$(".phase:last>h2>span").after("<a class=\"delete\" tabindex=\"-1\" onclick=\"del(this)\"   id=\"del_"+n+"\" href=\"javascript:;\">删除</a>");
+    }
+	
+}
+function purchase(obj){
+
+ 	var cash = 0;
+	 $(".phase>p>input").each(function(i,n){
+	 	cash += parseFloat($(n).val());
+	 })
+	
+	if(parseFloat(cash)!=parseFloat($('#order_count_cash').val())){
+		showDialog("各阶段服务总金额必须和订单总金额一致",'alert','确认窗口',"",1);
+		return false;
+	}
+	
+	{if !$order_id}
+	showDialog("确认要提交订单吗？",'confirm','确认窗口',"$(\"#forms\").submit();",1);
+	{else}
+	showDialog("编辑订单需要{if $uid==$shop_info['uid']}顾客{else}店主{/if}重新确认，确定?",'confirm','确认窗口',"$(\"#forms\").submit();",1);
+	{/if}
+
+	return;
+}
+
+
+
+</script>
+<!--{template footer}-->

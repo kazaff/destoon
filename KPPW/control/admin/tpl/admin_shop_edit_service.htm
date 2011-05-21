@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<body>
+<form method="post" action="" id="frm_cat_edit" enctype="multipart/form-data">
+
+<input type="hidden" name="hdn_indus_id" value="{$indus_info[indus_id]}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">编辑商品</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">商品名称：</td>
+        <td>
+        <input type="text" class="input_t" name="txt_title" value="{$service_info[title]}" maxlength="20"  class="input_t"/>
+        </td>
+      </tr>
+      <tr>
+        <td class="bg1 t_r">所属行业：</td>
+        <td><select name="slt_indus_id">
+			{loop $indus_arr $v}
+				$v
+			{/loop}
+		</select>　
+		</td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">广告图：</td>
+        <td>
+        <input type="file" class="input_t" name="file_ad_pic" value="" maxlength="6"/> 
+        {if $service_info[ad_pic]}<br><img width="190" src="../../{$service_info[ad_pic]}" alt="" />{/if}
+        </td>
+      </tr>
+   <tr>
+        <td width="30%" class="bg1 t_r">是否关闭：</td>
+        <td>
+        <input  type="radio"" class="input_t" name="chk_is_stop" value="1" {if $service_info[is_stop]==1}checked="checked"{/if} /> 是
+        <input  type="radio"" class="input_t" name="chk_is_stop" value="0" {if !$service_info[is_stop]}checked="checked"{/if} /> 否
+        </td>
+      </tr>
+	   <tr>
+         <td align="left" colspan="2">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/>
+		</div>
+        </td>
+      </tr>
+    </table>
+    </div>
+</form>
+<script src="tpl/js/form_validation_.js" type="text/javascript"></script>
+</body>
+</html>

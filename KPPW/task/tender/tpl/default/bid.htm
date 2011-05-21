@@ -1,0 +1,73 @@
+<!--{template header}-->
+<script type="text/javascript" src="resource/js/form_and_validation.js"></script>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<div class="mainbox" style="width:550px;">
+<form action="index.php?do=task_op&op=taskbid" method="post">
+<input type="hidden" name="task_id" value="{$task_id}">
+<input type="hidden" name="obj_id" value="{$task_id}">
+<input type="hidden" name="comment_type" value="{$comment_type}">
+	<table >
+		<tr>
+			<td width="100px;">投标报价:</td>
+			<td align="left"> <input type="text" name="txt_cash" onkeyup="clearstr(this);" maxlength="10"> 元</td>
+		</tr>
+		<tr>
+			<td>工作周期:</td>
+			<td align="left"> <input type="text" name="txt_day" onkeyup="clearstr(this);" maxlength="6"> 天</td>
+		</tr>
+		<tr>
+			<td>所在地:</td>
+			<td id="birthcitybox" align="left">
+				
+			</td>
+		</tr>
+		<tr>
+			<td>投标留言:</td>
+			<td>
+        	<textarea  rows="16" name="tar_content" id="system-create-location" class="f-textarea editor" style="width:100%;height:200px;"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="submit" name="sbt_bid" value="确定" class="pn pnc">
+				<input type="reset" name="rst_msg" value="取消" class="pn" onClick="hideWindow('a_comment{$comment_type}')">
+				<br/>
+			</td>
+		</tr>
+	</table>
+</form>
+	<br>
+</div>
+<script type="text/javascript">
+
+function sp(provinceid, cityid, province) {
+	var provinces = new Array(
+		"北京", "上海", "重庆", "安徽", "福建", "甘肃", "广东", "广西", "贵州", "海南", "河北", "黑龙江", "河南",
+		"香港", "湖北", "湖南", "江苏", "江西", "吉林", "辽宁", "澳门", "内蒙古", "宁夏", "青海", "山东",
+		"山西", "陕西", "四川", "台湾", "天津", "新疆", "西藏", "云南", "浙江", "海外"
+	);
+
+	var html = "<select name=\"" + provinceid + "\" id=\"" + provinceid + "\" onchange=\"setcity('" + provinceid + "', '" + cityid + "');\">";
+	html = html + "<option value=\"\">选择省份</option>";
+	for(var i = 0; i < provinces.length; i++) {
+		html = html + "<option value=\"" + provinces[i] + "\">" + provinces[i] + "</option>";
+	}
+	return html = html + "</select>";
+}
+function sc(cityid, city, provinceid) {
+	var html = "&nbsp;<select name=\"" + cityid + "\" id=\"" + cityid + "\">";
+		if(city == ""||city==undefined) {
+			html = html + "<option value=\"\">选择城市</option>";
+		} else {
+			html = html + "<option value=\"" + city + "\">" + city + "</option>";
+		}
+	return html = html + "</select>";
+	 
+}
+$(function(){
+	a = sp('birthprovince','birthcity');
+	b = sc('birthcity');	
+	$("#birthcitybox").html("<span>"+a+b+"</span>");
+})
+</script>
+<!--{template footer}-->

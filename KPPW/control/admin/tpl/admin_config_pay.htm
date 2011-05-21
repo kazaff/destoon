@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']" />
+<title></title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+<body>
+<div class="main">
+
+<div class="v_search">支付接口配置</div>
+	<div id="change">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th>名称</th>
+            <th>目录</th>
+            <th>开发者</th>
+            <th>说明</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          {loop $payment_list $p}
+          <tr>
+            <td>$p[pay_name]</td>
+            <td>$p[pay_dir]</td>
+            <td>$p[pay_dev]</td>
+            <td>$p[pay_desc]</td>
+            <td>{if $p[pay_status]}开启{else}关闭{/if}</td>
+            <td><a href="index.php?do=config&view=editpay&payname={$p[pay_dir]}">配置</a> </td>
+          </tr>
+          {/loop}
+          
+          
+        </table>
+	</div>
+
+ <div class="v_search">支付参数配置</div>
+	<div id="change">
+	<form name="frm_config_pay" action="#" method="post">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          
+<tr>
+                        <td class="bg1 t_r">
+                        	用户充值金额最小值：
+                        </td>
+                        <td colspan="5">
+                           	<input type="text" size="50" name="txt_recharge_min" value="{$config_pay_info[recharge_min]}"   msg="用户充值金额最小值不正确，长度1-8" msgArea="recharge_min_msg" maxlength="100" class="input_t"/><b id="recharge_min_msg" style="color:red"></b>(单位：元)
+                        </td>
+                    </tr>
+					  <tr>
+                        <td class="bg1 t_r">
+                        	用户提现金额最小值：
+                        </td>
+                        <td colspan="5">
+                           	<input type="text" size="50" name="txt_withdraw_min" value="{$config_pay_info[withdraw_min]}"   msg="用户提现金额最小值不正确，长度1-8" msgArea="withdraw_min_msg" maxlength="100" class="input_t"/><b id="withdraw_min_msg" style="color:red"></b>(单位：元)
+                        </td>
+                    </tr>
+					 <tr>
+                        <td class="bg1 t_r">
+                        	用户当日提现最高值：
+                        </td>
+                        <td colspan="5">
+                           	<input type="text" size="50" name="txt_withdraw_max" value="{$config_pay_info[withdraw_max]}"   msg="用户当日提现最高值不正确，长度1-8" msgArea="withdraw_max_msg" maxlength="100" class="input_t"/><b id="withdraw_max_msg" style="color:red"></b>(单位：元)
+                        </td>
+                    </tr>
+                    <tr>
+			        <td width="30%" class="bg1 t_r" >
+					<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/></td>
+			        <td  colspan="5 ">
+			        	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+			        </td>
+			      </tr>
+                    </table>
+                    </form>
+                    </div>
+                    
+	
+    
+	
+	
+  <script src="js/css.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>

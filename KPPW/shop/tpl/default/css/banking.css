@@ -1,0 +1,150 @@
+#pageWrapper{width:950px;margin:0 auto}
+.bg1{background:url(../img/fwpay_bg01.png) no-repeat}
+.bg2,a.cur,a.cur i,.solid{background:url(../img/fwpay_bg02.png) no-repeat}
+.icons{background:url(../img/fwpay_icons.png) no-repeat}
+.button{height:30px;background-position:center -126px;border:1px solid #aeb7d6;color:#0025b1;font-size:14px;font-weight:bold;cursor:pointer}
+.input{height:14px;border:1px solid #afafaf;background:#fff;line-height:14px;padding:2px;color:#7e7e7e}
+.searchBtn{width:58px;height:25px;border:0;background-position:-231px -60px;text-indent:-9999px;overflow:hidden;cursor:pointer}
+.circleBox .bg1{height:4px;font-size:0;line-height:0;display:block}
+.circleBox .borderTop{background-position:right -85px;padding-right:5px}
+.circleBox .borderTop i{background-position:0 -77px}
+.circleBox .borderBottom{background-position:right -89px;padding-right:5px}
+.circleBox .borderBottom i{background-position:0 -81px}
+.circleBox .con{border-left:1px solid #facaa9;border-right:1px solid #facaa9;background:#fff;zoom:1}
+.navigation{height:28px;padding:5px 0 6px 25px;margin-top:5px;zoom:1}
+.navigation em{float:left;color:#fcff00;margin-top:5px}
+.navigation ul{width:690px;height:100%;float:right}
+.navigation li{height:27px;float:left}
+.navigation li.solid{width:20px;background-position:0 0}
+.navigation li a{float:left;height:27px;padding-left:22px;color:#fff;font-size:14px;font-weight:bold;margin-top:1px}
+.navigation li a i{float:left;height:27px;line-height:27px;padding-right:22px;cursor:pointer }
+.navigation li a.cur{background-position: -21px 0}
+.navigation li a.cur i{background-position:right 0}
+.navigation li a:hover{text-decoration:none}
+.pageMain{width:950px;padding-top:12px;zoom:1;color:#000}
+.pageMain a{color:#0025b1}
+.pageLeft{width:648px;float:left}
+.pageLeft .focusPic{width:100%;height:250px;padding-bottom:12px}
+.pageLeft .focusPic img{vertical-align:top}
+.pageRight{width:287px;float:right}
+.tabBox .titleNav{height:38px;background-position:right -39px;padding-right:10px}
+.tabBox h2{height:38px;font-size:14px;font-weight:normal;background-position:0 -39px;padding:0 0 0 24px}
+.tabBox .tabCon{border:1px solid #c9c9c9;border-top:0}
+.tabBox .tabMenu{height:32px;float:left;margin-top:6px}
+.tabBox .tabMenu li{height:32px;float:left;line-height:32px}
+.tabBox .tabMenu li.solid{width:20px;color:#ccc;text-align:center;background:none}
+.tabBox .tabMenu li a{height:32px;float:left;padding-left:9px;color:#7e7e7e}
+.tabBox .tabMenu li a i{float:left;padding-right:9px;cursor:pointer}
+.tabBox .tabMenu li a.cur{background-position:0 -27px}
+.tabBox .tabMenu li a.cur i{background-position:right -27px}
+.tabBox .tabMenu a:hover{text-decoration:none}
+.buyflow h2 span{float:right;color:#0267bf;margin-top:10px}
+.buyflow .tabCon{height:120px;background:url(../img/buyflow_bg.png) no-repeat center bottom}
+.tabBox .tabMenu li a.cur i{color:#000;cursor:default}
+.cooperate{margin-top:12px;clear:both}
+.cooperate h2{height:20px;line-height:20px;font-size:14px;color:#000}
+.cooperate li{width:105px;float:left;margin-top:10px}
+.cooperate li img{vertical-align:top}
+.loginBox{padding:15px 15px 45px;border:1px solid #facaa9;background:#fff9d4;zoom:1;font-size:14px}
+.loginBox h2{height:18px;line-height:18px;font-size:14px}
+.loginForm,.loggedBox{border-bottom:1px solid #facaa9;padding:0 10px;position:relative;zoom:1}
+.loginForm h2{margin-bottom:20px}
+.loginForm label{display:block;margin-bottom:10px}
+.loginForm label em{color:#f06000;}
+.loginForm .input{width:225px;padding:4px;margin-bottom:15px;color:#000}
+.loginForm .cueMsg{width:110px;height:33px;line-height:25px;display:block;background-position:0 -60px;text-align:center;position:absolute;right:5px;top:33px;font-size:12px}
+.loginForm .submit{width:79px;height:33px;background-position:0 -93px;border:0;cursor:pointer}
+.loginBox .questions{border-top:1px solid #fff;padding:20px 10px 0}
+.loginBox .questions p{margin-top:8px}
+.loginBox a{color:#0025b1}
+.loggedBox{padding:0}
+.loggedBox .con{padding:15px 10px}
+.loggedBox p{margin-top:15px}
+.loggedBox .btn{display:inline-block;width:97px;height:33px;border:0;background-position:0 -184px;vertical-align:middle}
+
+.master{height:20px;line-height:20px;font-size:14px;padding:0 6px 12px;color:#f06000;}
+.master strong{font-size:18px;font-family:Arial}
+.master span{color:#0025b1;}
+.accountInfo{height:62px;padding:12px 17px;border:1px solid #fce1cf;background:#fffce9;margin-bottom:12px}
+.accountInfo .balance{width:450px;float:left}
+.accountInfo .lockBalance{width:450px;float:right}
+.accountInfo .lockBalance a{float:right;margin:10px 10px;line-height:16px;text-decoration:underline;}
+.accountInfo .con{height:33px;line-height:33px;padding:10px 15px;font-size:14px}
+.accountInfo .con em{font-size:18px;font-weight:normal;font-family:Tahoma,Arial}
+.accountInfo .bg2{width:79px;height:33px;float:right}
+.accountInfo .balance .btn1{background-position:-79px -93px;margin-right:5px}
+.accountInfo .balance .btn2{background-position:-158px -93px}
+.accountInfo .lockBalance .btn{width:121px;background-position:-110px -60px}
+.businessNote{padding:30px 0 0;color:#7e7e7e}
+.businessNote .tabNav{height:33px;padding:0 30px;border-bottom:1px solid #c7c7c7}
+.businessNote .tabNav ul{height:100%;float:left}
+.businessNote .tabNav li{width:81px;height:28px;display:inline;margin-right:10px;float:left;text-align:center}
+.businessNote .tabNav li a{display:inline-block;width:79px;height:22px;line-height:22px;border:1px solid #aeb7d6;color:#0025b1;background-position:center -126px}
+.businessNote .tabNav li.on{background-position:center -156px}
+.businessNote .tabNav li.on a{height:23px;border:1px solid #fcae88;border-bottom:0;color:#f06000;font-weight:bold}
+.businessNote .tabNav li a:hover{text-decoration:none}
+.businessNote em,.paymentFrom em{color:#f06000}
+.businessNote .tabNav .input{width:80px}
+.businessNote .noteList{border-top:2px solid #f2f2f1}
+.businessNote .noteList th{height:58px;font-size:14px;font-weight:normal;color:#000;vertical-align:middle;text-align:left;padding-left:20px}
+.businessNote .noteList .leftTr{padding-right:40px;}
+.businessNote .noteList td{border-top:1px solid #cdcdcd;padding:9px 0 9px 20px;vertical-align:top}
+.businessNote .noteList tr.hover{background:#e1f3ff}
+.paymentFrom{padding:30px;color:#7e7e7e;font-size:14px}
+.paymentFrom p{display:block;margin-bottom:15px}
+.paymentFrom label{display:block;width:100px;float:left;text-align:right}
+.paymentFrom .button{width:100px}
+.buyStep{height:80px;background:url(../img/buyfw_step.png) no-repeat center center}
+.businessState{width:670px;height:56px;padding:15px 25px;line-height:56px;background:#fffdf3;border:1px solid #fce1cf;margin:0 auto 12px;font-size:18px;color:#f06000;font-weight:bold}
+.businessState .icons{display:inline-block;width:70px;height:56px;vertical-align:middle}
+.businessState .complete{background-position:0 0}
+.businessState .doing{background-position:0 -56px}
+.businessState .stop{background-position:0 -112px}
+.businessState .preparative{background-position:0 -168px}
+.businessDetailBox{width:722px;margin:0 auto}
+.businessDetailBox .tabMenu{height:34px}
+.businessDetailBox ul.menu1{background-position:0 -93px}
+.businessDetailBox ul.menu2{background-position:0 -127px}
+.businessDetailBox .tabMenu li{height:28px;line-height:28px;padding:3px 0;float:left;text-align:center;font-size:14px}
+.businessDetailBox .tabMenu li.tab1{width:158px;font-weight: bold;}
+.businessDetailBox .tabMenu li.tab2{width:158px;}
+
+.businessDetailBox .tabMenu li a{color:#000}
+.businessDetailBox .tabMenu li a:hover{text-decoration:none}
+.businessDetailBox .container{border-left:1px solid #d1edf4;border-right:1px solid #d1edf4;padding:20px;font-size:14px;zoom:1}
+.businessDetailBox .borderBottom{height:5px;line-height:0;background-position:0 -161px;font-size:0}
+.businessDetailBox p{margin-bottom:15px}
+.businessDetailBox  .phase{padding:20px 0}
+.businessDetailBox  .phase .finish{font-weight:normal;color:green;}
+.businessDetailBox  .phase h2{height:26px;line-height:26px;border:1px solid #d4ecff;background:#f1faff;padding:0 10px;font-size:14px}
+.businessDetailBox  .phase h2 em{font-weight:normal;color:#f06000}
+.businessDetailBox  .phase #passSpan{font-size:12px;}
+.businessDetailBox  .phase .input{width:80px;height:12px;line-height:12px;margin-top:-2px}
+.businessDetailBox  .phase p{margin:12px 0 0 0}
+.businessDetailBox .btnsNav{height:50px;padding:20px 0;text-align:center}
+.businessDetailBox .btnsNav input{width:120px;height:44px;border:0;cursor:pointer}
+.businessDetailBox .btnsNav input.goback{background-position:0 -217px}
+.businessDetailBox .btnsNav input.stop{background-position:-120px -217px}
+.safeCenter,.addMoney{color:#000}
+.addMoney .input{color:#000}
+.addMoney .addTypeCon{padding-left:30px;padding-bottom:30px}
+.addMoney .onlineBuyBtn{display:inline-block;width:253px;height:139px;background:url(../img/online_buy_btn.png) no-repeat}
+.addMoney .alipay{background-position:0 0}
+.addMoney .netBank{background-position:right 0}
+.addMoney .addTypeCon table{background:#b9b9b9}
+.addMoney .addTypeCon td{padding:8px;background:#fff}
+.addMoney .addTypeCon .product td{background:#f1f1f1;border:1px #fff solid;padding:15px 50px 15px 30px;}
+.addMoney .addTypeCon .product .active{border:1px #ef2103 solid;color:#ef2103;}
+.addMoney .addTypeCon .options{font-size:14px;font-weight:bold;color:#b80000}
+.addMoney .bankPayfor li{padding:15px 0 0 10px}
+.addMoney .bankPayfor img{width:105px;height:25px;}
+.addMoney .bankPayfor .bankCard{width:300px;border:1px solid #000;padding:10px;margin-top:10px}
+.addMoney .buyBtn{display:block;width:126px;height:47px;background-position:0 -261px;margin-left:80px}
+
+.businessDetailBox .btnsNav input.stop1{background:url(../img/bottom_gb1.png) no-repeat; color:#F06001; font-size:16px; font-weight:bold; height:33px;}
+
+.businessDetailBox .tabMenu li.tab3{ background:url(../img/tab1_bg1.png) no-repeat 0 3px;;width:158px;font-weight: bold;}
+.businessDetailBox .tabMenu li.tab5{ background:url(../img/tab1_bg2.png) no-repeat 0 3px;width:146px;}
+.businessDetailBox .tabMenu li.tab4{ background:url(../img/tab2_bg1.png) no-repeat 0 3px;width:158px;}
+.businessDetailBox .tabMenu li.tab6{ background:url(../img/tab2_bg2.png) no-repeat 0 3px;width:149px;font-weight: bold;}
+.businessDetailBox .tabMenu1{ border-bottom:1px solid #d1edf4; cursor:pointer}

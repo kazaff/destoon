@@ -1,0 +1,59 @@
+<!--{template header}-->
+<div class="mainbox" style="width:350px;height:30%;">
+	<table >
+		<tr>
+			<td width="30%" style="widows: 20%" height="80%" valign="top">选择行业</td>
+			<td  height="80%" valign="top" align="left">
+			
+			<ul>
+				<select name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);">
+				<option value="-1"> 请选择父行业 </option>
+				{loop $indus_p_arr $key $value}
+				<option value="{$value[indus_id]}">{$value[indus_name]}</option>
+				{/loop}
+				</select> 
+				<select name="slt_indus_id" id="slt_indus_id">
+				<option value="-1">请选择子行业 </option>
+				</select>
+			</ul>
+			</td>
+		</tr>
+		<tr><td></td><td align="left">选择行业能让雇主和会员更了解您，请务必选择。</td></tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" name="sbt_bid" onclick="setindus()" value="确定" class="pn pnc">
+				<input type="button" name="rst_msg" value="取消" class="pn" onClick="hideWindow('indes_select')">
+			</td>
+		</tr>
+	</table>
+	<br>
+</div>
+<script>
+function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+}
+
+function setindus()
+{
+	var indus_id = $('#slt_indus_id').val();
+	var indus_name = $('#slt_indus_id').find("option:selected").text();  
+	var indus_pname = $('#slt_indus_pid').find("option:selected").text();  
+	
+	$.post("index.php?do=user&view=choose_indus",{is_submit:'1',indus_id:indus_id},function(data){
+		$('#user_indus_name').text(indus_pname+','+indus_name);
+		showDialog('设置成功', 'notice', '操作成功','',0);
+		hideWindow('indes_select');
+	});
+	
+}
+
+</script>
+
+<!--{template footer}-->

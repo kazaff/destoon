@@ -1,0 +1,46 @@
+{template 'header', $template}
+<div class="dsn" id="pos_show">您当前的位置：<a href="{$COM[linkurl]}">首页</a> &raquo; <a href="{$MENU[$menuid][linkurl]}">{$MENU[$menuid][name]}</a>{if $itemid} &raquo; {$title}{/if}</div>
+<div class="main_head"><div><strong>{$MENU[$menuid][name]}</strong></div></div>
+<div class="main_body">
+{if $itemid}
+	<div class="title">{$title}</div>
+	<div class="info">上传日期：{$adddate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;播放次数：{$hits}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$MENU[$menuid][linkurl]}">返回列表</a></div>
+	<div class="t_c" style="padding:15px 0 15px 0;">{template 'player', 'chip'}</div>		
+</div>
+	{if $content}
+	<div class="main_head"><div><strong>详细信息</strong></div></div>
+	<div class="main_body">
+		<div class="content" id="content">{$content}</div>
+	</div>
+	<script type="text/javascript">
+	var content_id = 'content';
+	var img_max_width = {$MOD[max_width]};
+	</script>
+	<script type="text/javascript" src="{DT_PATH}file/script/content.js"></script>
+	{/if}
+	{if $could_comment && in_array($moduleid, explode(',', get_module_setting(3, 'comment_module')))}
+	<div id="comment_div" style="display:;">
+		<div class="main_head"><div><span class="f_r px12">共<span id="comment_count">0</span>条&nbsp;&nbsp;</span><strong><span id="message_title">相关评论</span></strong></div></div>
+		<div class="main_body"><iframe src="{$MODULE[3][linkurl]}comment.php?mid={$moduleid}&itemid={$itemid}" id="destoon_comment" style="width:100%;" scrolling="no" frameborder="0"></iframe>
+		</div>
+	</div>
+	{/if}
+{else}
+	<table cellpadding="0" cellspacing="0" width="100%">
+	{loop $lists $k $v}
+	{if $k%4==0}<tr align="center">{/if}
+	<td valign="top" width="25%" height="180">
+	<div class="thumb" onmouseover="this.className='thumb thumb_on';" onmouseout="this.className='thumb';">
+		<a href="{$v[linkurl]}"><img src="{imgurl($v[thumb], 1)}" width="120" height="90" alt="{$v[alt]}" title="{$v[alt]}"/></a>
+		<div><a href="{$v[linkurl]}" title="{$v[alt]}">{$v[title]}</a></div>
+		<p>{$v[hits]}播放</p>
+		<p>{timetodate($v[addtime], 3)}</p>
+	</div>
+	</td>
+	{if $k%4==3}</tr>{/if}
+	{/loop}
+	</table>
+	<div class="pages">{$pages}</div>
+{/if}
+</div>
+{template 'footer', $template}

@@ -1,0 +1,94 @@
+<!--{eval $page_title='账单明细 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+   <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+  <div class="backright">
+			<div class="backright_d">
+				<dl><dt>我的财务清单</dt>
+				<dd style="padding:10px;border:1px solid #bdd7ef;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+						<tr>
+							<td align="left">
+								<form method="index.php">
+									<input type="hidden" name="do" value="user">
+									<input type="hidden" name="view" value="finance">
+								用途：
+								<select name="slt_narrate">
+									<option value="">请选择金额用途</option>
+									{loop $fina_narrate_arr $key $value}
+										<option value="{$key}">{$value}</option>
+									{/loop}
+								</select>
+								金额：
+								<input type="text" name="txt_start_cash" onkeyup="clearstr(this)" maxlength="10" size="5">
+								-
+								<input type="text" name="txt_end_cash" onkeyup="clearstr(this)" maxlength="10" size="5">
+								时间：
+								<input type="text" name="txt_start_time" onclick="showcalendar(event, this, 0)" size="10">
+								-
+								<input type="text" name="txt_end_time" onclick="showcalendar(event, this, 0)" size="10">
+								<input type="submit"  name="sbt_search" value="查询" >
+								</form>
+							</td>
+						</tr>
+					</table>
+					<br>
+		     		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+					  <tr>
+						<th>财务编号</th>
+                        <th>财务类型</th>
+                        <th>财务用途</th>
+						 <th>金额</th>
+                        <th>余额</th>
+                        <th>代金券</th>
+                        <th>剩余代金券</th>
+						<th>时间</th>
+					  </tr>
+					  {loop $finance_arr $key $value}
+                      <tr>
+						<td>{$value[fina_id]}</td>
+					    <td align="left" title="{$value[task_title]}">
+					    	{if $value[fina_type]==1}
+							支出
+							{else}
+							收入
+							{/if}
+						</td>
+                        <td>
+							$fina_narrate_arr[$value[fina_narrate]]
+						</td>
+						<td>{if floatval($value[fina_cash])}￥ <font color="red">{$value[fina_cash]}</font>{else}--{/if}</td>
+                        <td>
+                        	{if floatval($value[fina_cash])}￥ <font color="red">{$value[user_balance]}</font>{else}--{/if}
+                        </td>
+                        <td>
+                        	{if floatval($value[fina_credit])}{$value[fina_credit]}{else}--{/if}
+						</td>
+                        <td>
+                        	{if floatval($value[fina_credit])}{$value[user_credit]}{else}--{/if}
+						</td>
+						<td>
+							<!--{date('Y-m-d H:i:s',$value[fina_time])}-->
+						</td>
+                       
+					  </tr>
+					  {/loop}
+					</table>
+                   	 <div class="Npage"><div class="fl_r">
+	              	{$pages[page]}</div>
+	              	</div>
+                  
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+<!--{template footer}-->

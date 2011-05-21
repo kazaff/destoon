@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/css.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/form_and_validation.js">
+        </script>
+        <title>雇佣配置表</title>
+    </head>
+	
+	
+	
+	
+    <body>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                        雇佣任务配置管理
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form name="frm_config_reward" action="index.php?do=model&model_id={$model_id}&view=config" method="post">
+               
+                <input type="hidden" name="cash_rul_count" id="cash_rul_count" value="{if count($day_rule_arr)}<!--{eval echo count($day_rule_arr)}-->{else}1{/if}" >
+				<input type="hidden" name="adjourn_rul_count" id="adjourn_rul_count" value="{if  count($defer_rule_arr)}<!--{eval echo count($defer_rule_arr)}-->{else}1{/if}" >
+				<table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td class="bg1" colspan="2">
+                            <b>雇佣配置</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            雇佣任务时间规则设定：
+                        </td>
+                        <td id="td_cash_rul">
+                            <ul id="add_new_rul" style="list-style:none">
+                                
+								 {if count($day_rule_arr) > 1}
+								 {loop $day_rule_arr $key $value}
+								    {if $key == 0}
+								     <li>
+                                    <span id="span_1">1</span>
+                                    <input type="text" size="10" maxlength="5" name="txt_task_min_cash_1" id="txt_task_min_cash_1" readonly="true" value="{$value[rule_cash]}" maxlength="100" limit="required:true;len:1-5" msg="任务最小金额不正确，长度1-5"  class="input_t"/>元以上 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    持续<input type="text" size="10" name="txt_task_min_day_1" value="{$value['rule_day']}"  maxlength="3" limit="required:true;len:1-2;type:float;between:0-" msg="天数必须为大于0的整数" class="input_t"> 天 
+								</li>
+								   {else}
+								    <li><span id="span_<!--{eval echo $key+1}-->"><!--{eval echo $key+1}--></span> <input type="text"  value="{$value[rule_cash]}" maxlength="5"  size="10" name="txt_task_min_cash_<!--{eval echo $key+1}-->" maxlength="5" limit="required:true;len:1-5" msg="任务最小金额不正确，长度1-5"   class="input_t"/>元以上持续<input type="text" size="10" value="{$value['rule_day']}"  maxlength="3" limit="len:1-2;type:int" msg="天数不能为空! 天数的长度1-2"  name="txt_task_min_day_<!--{eval echo $key+1}-->" class="input_t"> 天  </li>
+									{/if}
+								 {/loop}
+								 {else}
+								 <li>
+                                    <span id="span_1">1</span>
+                                    <input type="text" size="10" maxlength="5" name="txt_task_min_cash_1" value="{$day_rule_arr[0]['rule_cash']}" maxlength="100" limit="required:true;len:1-5" msg="任务最小金额不正确，长度1-5"  class="input_t"/>元内 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    持续<input type="text" size="10" name="txt_task_min_day_1" value="{$day_rule_arr[0]['rule_day']}" maxlength="3" limit="required:true;len:1-2;type:int" msg="天数不能为空! 天数的长度1-2" class="input_t"> 天 
+								</li>
+								{/if}
+                            </ul><a href="javascript:;" id="add_cash_rul"><img src="tpl/img/ico/add.gif" align="absmiddle"/>添加规则</a><a href="javascript:;" id="del_cash_rul"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除规则</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务审核金额设定：
+                        </td>
+                        <td>
+                            <input type="text" size="10"  maxlength="5"  name="txt_audit_cash" value="<!--{eval echo $audit_cash;}-->"   limit="type:float;required:true;len:2-100" msg=" 任务审核金额不正确，长度3-100" msgArea="audit_moeny_msg" class="input_t"/>元<b style="color:red">*</b>
+                            (大于这个金额的任务不需要审核，否则需要管理员审核)<span id="audit_moeny_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            雇佣任务最小金额设定：
+                        </td>
+                        <td>
+                            <input type="text" size="10"  maxlength="5" name="txt_task_min_cash" id="txt_task_min_cash" value="<!--{eval echo $task_min_cash}-->" maxlength="100" limit="type:float;required:true;len:1-5" msg=" 任务最小金额为正整数，长度1-5" msgArea="task_min_cash_msg" class="input_t"/>元<b style="color:red">*</b>
+                            (雇佣任务的最小金额为大于零正整数)<span id="task_min_cash_msg"></span>
+                        </td>
+                    </tr>
+					
+                   
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>佣金策略</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务提成比例：
+                        </td>
+                        <td>
+                            <input type="text" size="10" maxlength="3" name="txt_deduct_scale" value="<!--{eval echo $deduct_scale}-->" limit="type:int;len:1-2" msg="任务提成比例值为正整数，长度：1-2" msgArea="deduct_scale_msg" class="input_t"/>%<span id="deduct_scale_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务失败处理：
+                        </td>
+                        <td>
+                            
+                            <label for="rdo_defeated_money_yes">
+                                <input type="radio" name="rdo_defeated_money" <!--{if $defeated_money==2}-->checked="checked"<!--{/if}--> value="2" id="rdo_defeated_money_yes">返还现金
+                            </label>
+                            <label for="rdo_defeated_money_no">
+                                <input type="radio" name="rdo_defeated_money" <!--{if $defeated_money==1}-->checked="checked"<!--{/if}--> value="1"  id="rdo_defeated_money_no">返还代金券
+                            </label>(扣除拥金后的钱)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>雇佣评论设置</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务进行中是否公开评论:
+                        </td>
+                        <td>
+                            <input type="checkbox" name="ckb_is_comment" value="1" {if $is_comment==1}checked="checked"{/if}>
+                        </td>
+                    </tr>
+                    
+					
+					
+					
+					{if $on_time}
+                    <tr>
+                        <td class="bg1 t_r">
+                            上次修改时间：
+                        </td>
+                        <td>
+                            <!--{eval echo date('Y-m-d H:i:s',$on_time)}-->
+                        </td>
+                    </tr>
+                    {/if}
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                           
+                        </td>
+                        <td>
+                        	 <input type="submit" name="sbt_edit" class="input_but" value="保存设置"/>
+                             <input type="reset" name="rst_edit" class="input_but" value="重新设置"  />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <script type="text/javascript">
+            
+            $(function(){
+				$("#txt_task_min_cash").keyup(function(){
+					$("#txt_task_min_cash_1").val($(this).val());
+				})
+                $("#add_cash_rul").click(function(){
+                    var i = parseInt($("#add_new_rul li:last-child span").html());
+                    k = eval(i + 1);
+                    var rul_option = '<li><span id="span_' + k + '"></span> <input type="text"  maxlength="5"  size="10" name="txt_task_min_cash_' + k + '" maxlength="5" limit="required:true;len:1-5" msg="任务最小金额不正确，长度2-5"   class="input_t"/>元以上持续<input type="text" size="10"  maxlength="3" limit="len:1-2;type:int" msg="天数不能为空! 天数的长度1-2"  name="txt_task_min_day_'+k+'" class="input_t"> 天  </li>';
+                    $("#add_new_rul").append(rul_option);
+                    var lastinput = $("#add_new_rul li:last-child input");
+                    $("#add_new_rul li:last-child #span_" + k).html(k);
+					$("#cash_rul_count").val(k);
+                })
+                $("#del_cash_rul").click(function(){
+                   var i = parseInt($("#add_new_rul li:last-child span").html()); 
+					if(i!=1)
+					{
+					  $("#add_new_rul li:last-child").remove();	
+					  $("#cash_rul_count").attr('value',i-1);
+					}
+					else
+					{
+						alert("第一条规则不能被删除！");
+					}
+					
+                })
+                
+                $("#add_adjourn_rul").click(function(){
+					
+                    var i = parseInt($("#new_adjourn_rul li:last-child input").eq(0).val());
+                    
+					k = eval(i + 1);
+					var rul_option ='<li>第<input type="text" size="10" name="txt_defer_times_'+k+'" value="'+k+'" readonly="true" class="input_t"/>次 不低于雇佣总金额的<input type="text" size="10"  maxlength="3" limit="type:float;required:true" msg="百分比不能为空！" name="txt_defer_cash_scale_'+k+'" class="input_t">%</li>'; 
+                    $("#new_adjourn_rul").append(rul_option);
+                    var lastinput = $("#new_adjourn_rul li:last-child input");
+					$("#adjourn_rul_count").val(k);
+                    
+                })
+                $("#del_adjourn_rul").click(function(){
+					var i = parseInt($("#new_adjourn_rul li:last-child input").eq(0).val());
+					if(i!=1)
+					{
+                    	$("#new_adjourn_rul li:last-child").remove();
+						$("#adjourn_rul_count").val(i-1);
+					}
+					else
+					{
+						alert("第一条规则不能被删除！");
+					}
+                })
+                
+                
+            })
+        </script>
+    </body>
+</html>

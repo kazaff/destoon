@@ -1,0 +1,27 @@
+		{php $CATEGORY = cache_read('category-'.$mid.'.php');}
+		<table width="100%" cellspacing="0" cellspacing="0">
+		{php $child = get_maincat(0, $CATEGORY, 1);}
+		{loop $child $i $c}
+		{if $i%2==0}<tr{if $i%4==2} bgcolor="#FAFCFE"{/if}>{/if}
+		<td valign="top" width="50%" onmouseover="this.style.backgroundColor='#E2F0FB';" onmouseout="this.style.backgroundColor='';">
+		<p>
+			<a href="{$MODULE[$mid][linkurl]}{$c[linkurl]}" target="_blank" class="px15"><strong>{set_style($c[catname], $c[style])}</strong></a>
+			{if $c[child]}
+			{php $sub = get_maincat($c[catid], $CATEGORY, 2);}
+			{loop $sub $j $s}{if $j < 5} <a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}" target="_blank"><strong>{set_style($s[catname], $s[style])}</strong></a>{/if}{/loop}
+			{/if}
+		</p>
+		{if $c[child]}
+		{php $sub = get_maincat($c[catid], $CATEGORY, 1);}
+			<ul>
+			{loop $sub $j $s}
+			<li><a href="{$MODULE[$mid][linkurl]}{$s[linkurl]}" target="_blank" class="g">{set_style($s[catname], $s[style])}</a></li>
+			{/loop}
+			{if $j>8}<li><a href="{$MODULE[$mid][linkurl]}{$c[linkurl]}" target="_blank" class="g">更多</a></li>{/if}
+			</ul>
+			<div class="c_b"></div>
+		{/if}
+		</td>
+		{if $i%2==1}</tr>{/if}
+		{/loop}
+		</table>

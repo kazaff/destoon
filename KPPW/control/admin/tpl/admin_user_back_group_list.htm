@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>会员管理</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+
+<body>
+<form method="get" action="index.php" id="frm_user_search">
+<input type="hidden" name="do" value="user">
+<input type="hidden" name="type" value="front">
+<input type="hidden" name="ord" value="{$ord}">
+<div class="main">
+
+	
+ 	
+  <div id="change">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="">编号</th>
+			<th width="">组名</th>
+			<th width="">更新时间</th>
+			<th width="" >操作</th>
+			
+          </tr>
+		{loop $grouplist_arr $key $value}
+        <tr>
+            <td>$value['group_id']</td>
+            <td class="motif">$value['groupname']</td>
+            <td><!--{date('Y-m-d',$value['on_time'])}--></td>
+			<td>
+				<a href="index.php?do=user&type=back&view=group&op=add&editgid={$value['group_id']}"><img src="tpl/img/ico/edit.png" align="absmiddle"/>编辑</a>
+				<a href="index.php?do=user&type=back&view=group&op=del&editgid={$value['group_id']}" onclick="return confirm('确认要删除吗');"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除</a>
+			</td>
+          </tr>
+		 {/loop}
+          <tr>
+            <th colspan="2" align="left">
+			&nbsp;&nbsp;&nbsp;<input type="button" name="sbt_add" value="添加用户组" class="input_but" onclick="document.location.href='index.php?do=user&type=back&view=group&op=add'"/>
+			</th>
+			<th colspan="2">
+				<div class="page">
+					{$pages[page]}&nbsp;
+				</div>
+			</th>
+          </tr>
+        </table>
+	</div>
+    </div>
+</form>
+<script>
+	function showpl(){
+		$('#sbt_del').show();
+		$('#slt_action').show();
+	}
+</script>
+</body>
+</html>

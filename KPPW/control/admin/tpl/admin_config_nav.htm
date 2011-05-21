@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type"
+	content="text/html; charset={$_K['charset']}">
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+<script type="text/javascript" src="tpl/js/css.js">
+        </script>
+
+<title>自定义菜单</title>
+</head>
+<body>
+<div id="append_parent"></div>
+<div class="main">
+
+<form name="frm_config_basic" id="frm_config_basic"
+action="index.php?do=config&view=nav" method="post" enctype='application/x-www-form-urlencoded'>
+
+
+<input type="hidden" value="" id="del_rule_items" name="ruleitem[del]">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+	 <tr>
+	<th>标题</th>
+	<th>链接</th>
+	<th>样式</th>
+	<th width="80">排序</th>
+	<th width="75">新窗口打开</th>
+	<th width="300">显示模式</th>
+	<th width="70">操作</th>
+	</tr>
+	{loop $nav_list $k $v}
+	<tr id="olditem_$k">
+	<td><input value="$v['nav_title']" name="ruleitem[old][{$k}][nav_title]" /></td> 
+	<td><input type="text" value="$v['nav_url']" name="ruleitem[old][{$k}][nav_url]"></td>
+	<td><input type="text" value="$v['nav_style']" name="ruleitem[old][{$k}][nav_style]">&nbsp;</td>
+	<td><input type="text" size="6" value="$v['listorder']" name="ruleitem[old][{$k}][listorder]"></td> 
+	<td>
+	<input type="radio" {if $v['newwindow']}checked="checked"{/if} name="ruleitem[old][{$k}][newwindow]" value="1">是
+	<input type="radio" {if !$v['newwindow']}checked="checked"{/if} name="ruleitem[old][{$k}][newwindow]" value="0">否
+	</td>
+	<td>
+	<input type="radio" {if !$v['ishide']}checked="checked"{/if} name="ruleitem[old][{$k}][ishide]" value="0">全部显示
+	<input type="radio" {if $v['ishide']==1}checked="checked"{/if} name="ruleitem[old][{$k}][ishide]" value="1">全部隐藏
+	<input type="radio" {if $v['ishide']==2}checked="checked"{/if} name="ruleitem[old][{$k}][ishide]" value="2">首页隐藏
+	<input type="radio" {if $v['ishide']==3}checked="checked"{/if} name="ruleitem[old][{$k}][ishide]" value="3">商城隐藏
+	</td>
+	<td><a href="javascript:;" onclick="delrule({$k})"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除</a></td>
+	</tr>
+	{/loop}
+	<tbody id='newitemlist'>
+	</tbody>
+	<tr>
+		<td><button onclick="addrule()" class="input_but" type="button"">增加链接</button></td>
+		<td colspan="6">
+		
+		<input  type="submit" name="submit" class="input_but" value="保存配置">
+		</td>
+	</tr>
+
+</form>
+
+
+
+
+
+
+<script type="text/javascript">
+var newitemcount = 0;
+       function addrule(){
+ 		   newitemcount++;
+ 		   var mod = '';
+
+
+ 		  mod +='<tr id="newitem_'+newitemcount+'">';
+ 			mod +='<td><input type="text" name="ruleitem[new]['+newitemcount+'][nav_title]" /></td>'; 
+ 			mod +='<td><input type="text" name="ruleitem[new]['+newitemcount+'][nav_url]"></td>';
+ 			mod +='<td><input type="text" name="ruleitem[new]['+newitemcount+'][nav_style]"></td>';
+ 			mod +='<td><input type="text" size="6" name="ruleitem[new]['+newitemcount+'][listorder]"></td>'; 
+ 			mod +='<td>';
+ 			mod +='<input type="radio" name="ruleitem[new]['+newitemcount+'][newwindow]" value="1">是';
+ 			mod +='<input type="radio" checked="checked" name="ruleitem[new]['+newitemcount+'][newwindow]" value="0">否';
+ 			mod +='</td>';
+ 			mod +='<td>';
+ 			mod +='<input type="radio" name="ruleitem[new]['+newitemcount+'][ishide]" value="1">是';
+ 			mod +='<input type="radio" checked="checked" name="ruleitem[new]['+newitemcount+'][ishide]" value="0">否';
+ 			mod +='</td>';
+ 			mod +='<td><a href="javascript:;" onclick="delnewrule('+newitemcount+')"><img align="absmiddle" src="tpl/img/ico/delete.gif">删除本条</a></td>';
+ 			mod +='</tr>';
+ 		   
+           $('#newitemlist').html($('#newitemlist').html()+mod);
+ 	   }
+
+        function delnewrule(nid){
+            $('#newitem_'+nid).remove();
+        }
+
+        function delrule(sid){
+            var ov = $('#del_rule_items').val(); 
+            if(ov!=''){
+                ov+=',';
+            }
+            ov+=sid;
+            $('#del_rule_items').val(ov);
+            $('#olditem_'+sid).remove();
+        }
+</script>
+
+
+
+
+</body>
+</html>

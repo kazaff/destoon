@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>添加会员</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+
+<body>
+<div id="append_parent"></div>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">{if $edituid}编辑会员资料{else}添加会员资料{/if}</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do=user&type=front&op=add&edituid=$edituid&view=$view" method="post">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">用户名：</td>
+        <td>
+       
+        <input type="text" {if $edituid}disabled="disabled"{/if} value="{$memberinfo_arr['username']}" name="txt_username" maxlength="50" limit="required:true;len:2-20" msg="用户名不能为空" msgArea="txt_username_msg"  class="input_t"/><b style="color:red"> *</b><span id="txt_username_msg"></span>
+        
+        </td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">密码：</td>
+        <td><input type="password" name="pwd_pwd" maxlength="50" limit="{if !$edituid}required:true;len:6-20{else}len:6-20{/if}" msg="密码限定为3-20位" msgArea="pwd_pwd_msg"  class="input_t"/><b style="color:red"> *</b><span id="pwd_pwd_msg"></span> {if $edituid}如不更改,请留空{/if}</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">确认密码：</td>
+        <td><input type="password" name="pwd_pwd2" maxlength="50" limit="equals:pwd_pwd" msg="确认密码输入不一致" msgArea="pwd_pwd_msg1"  class="input_t"/><b style="color:red"> *</b><span id="pwd_pwd_msg1"></span> </td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">电子邮箱：</td>
+        <td><input type="text" value="{$memberinfo_arr['email']}" name="txt_email" maxlength="50" limit="type:email" msg="格式错误" msgArea="txt_email_msg"  class="input_t"/><span id="txt_email_msg"></span> </td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">联系电话：</td>
+        <td><input type="text" value="{$memberinfo_arr['phone']}" name="txt_phone" maxlength="50" limit="" msg="格式错误" msgArea="txt_phone_msg"  class="input_t"/><span id="txt_phone_msg"></span> </td>
+      </tr>
+	    <tr>
+        <td width="30%" class="bg1 t_r">QQ号码：</td>
+        <td><input type="text" value="{$memberinfo_arr['qq']}" name="txt_qq" maxlength="50" limit="type:int" msg="格式错误" msgArea="txt_qq_msg"  class="input_t"/><span id="txt_qq_msg"></span> </td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">MSN：</td>
+        <td><input type="text" value="{$memberinfo_arr['msn']}" name="txt_msn" maxlength="50" limit="len:3-50" msg="格式错误" msgArea="txt_msn_msg"  class="input_t"/><span id="txt_msn_msg"></span> </td>
+      </tr>
+	 <tr>
+        <td width="30%" class="bg1 t_r">是否为vip：</td>
+        <td>
+        	<input type='radio' {if $memberinfo_arr['isvip']}checked=checked{/if} name="rdo_isvip" value=1>是 
+			<input type='radio' {if !$memberinfo_arr['isvip']}checked=checked{/if} name="rdo_isvip" value=0>否
+		</td>
+      </tr>
+      <tr>
+        <td width="30%" class="bg1 t_r">VIP到期时间：</td>
+        <td><input type="text" onclick="showcalendar(event, this, 1)" name="txt_vip_end_time" value="<!--{date('Y-m-d H:i',$memberinfo_arr[vip_end_time])}-->"  ></td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">是否禁用：</td>
+        <td>
+        	<input type='radio' {if $memberinfo_arr['static']==2}checked=checked{/if} name="rdo_static" value=2>是 
+			<input type='radio' {if $memberinfo_arr['static']!=2}checked=checked{/if} name="rdo_static" value=1>否
+		</td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">经验值</td>
+        <td><input type="text" value="{$memberinfo_arr['experience_value']}" name="txt_experience_value" maxlength="50" limit="type:int" msg="输入错误" msgArea="txt_experience_value_msg"  class="input_t"/><span id="txt_experience_value_msg"></span> </td>
+      </tr>
+	   <tr>
+        <td width="30%" class="bg1 t_r">用户金额</td>
+        <td><input type="text" value="{$memberinfo_arr['balance']}" name="txt_balance" maxlength="50" limit="type:float" msg="输入错误" msgArea="txt_balance_msg"  class="input_t"/><span id="txt_balance_msg"></span> </td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">代金券</td>
+        <td><input type="text" value="{$memberinfo_arr['credit']}" name="txt_credit" maxlength="50" limit="type:float" msg="输入错误" msgArea="txt_credit_msg"  class="input_t"/><span id="txt_credit_msg"></span> </td>
+      </tr>
+     
+	 <input type="hidden" name="is_submit" value="1"/>
+	  
+    </table>
+	
+	<p class="t_c mt_10"><input type="submit" name="sbt_edit" class="input_but" value="{if $edituid}编辑{else}添加{/if}"/> </p>
+ </form>
+ <script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+ 	<br/>
+    </div>
+</body>
+</html>

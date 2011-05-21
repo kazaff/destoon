@@ -1,0 +1,49 @@
+{template 'header', $module}
+<script type="text/javascript">c(2);</script>
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab" id="code"><a href="{$MOD[linkurl]}invite.php"><span>获取代码</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="list"><a href="{$MOD[linkurl]}credits.php?kw={urlencode('推广')}"><span>推广记录</span></a></td>
+</tr>
+</table>
+</div>
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr>
+<td class="tl">引导至</td>
+<td class="tr">
+<input type="radio" name="goto" value="1" id="goto_1" onclick="$('codes').value='{$url}';" checked/><label for="goto_1"> 网站首页</label>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="goto" value="2" id="goto_2" onclick="$('codes').value='{$url}&goto=register';"/><label for="goto_2"> 会员注册</label>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="goto" value="3" id="goto_3" onclick="$('codes').value='{$url}&goto=homepage';"/><label for="goto_3"> 我的主页</label>
+</td>
+</tr>
+<tr>
+<td class="tl">推广网址</td>
+<td class="tr"><input type="text" name="code" value="{$url}" size="80" id="codes" onmouseover="this.select();" style="padding:3px;"/></td>
+</tr>
+<tr>
+<td class="tl">推广方法</td>
+<td class="tr">
+- 将上面的网址发给您QQ/MSN/Email等好友<br/>
+- 在论坛签名,博客链接,网站等加上上面的网址<br/>
+</td>
+</tr>
+<tr>
+<td class="tl">奖励方法</td>
+<td class="tr">
+- 每引导一个IP访问您可以获赠 <span class="f_blue">{$MOD[credit_ip]}</span> {$DT[credit_name]} (24小时内最多积{$MOD[credit_maxip]}{$DT[credit_name]})<br/>
+- 每引导一个用户注册您可以获赠 <span class="f_blue">{$MOD[credit_user]}</span> {$DT[credit_name]}<br/>
+</td>
+</tr>
+<tr>
+<td class="tl">备注事项</td>
+<td class="tr">
+- 无论引导至那个页面，系统均会自动记录您为用户注册推荐人<br/>
+- 引导用户需注册成功完善资料后方可为您加分<br/>
+- 同一IP 24小时内计算一次<br/>
+</td>
+</tr>
+</table>
+<script type="text/javascript">s('credits');m('code');</script>
+{template 'footer', $module}

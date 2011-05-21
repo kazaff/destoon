@@ -1,0 +1,62 @@
+<!--{eval $page_title='服务与商品列表 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/person_shop_header}-->
+<div class="content">
+    <div class="width_layer">
+    	<div class="left_bar">
+            <!--{template shop/tpl/default/person_left}-->
+        </div>
+        <div class="right_bar">
+        	
+          <div class="boxWrap">
+			<div class="boxHeader">
+				<h2>作品展示</h2>
+			</div>
+			<div class="boxBody">
+            	<div class="tool_box">
+                	<div class="sort fl">
+                        排序
+                        <a class="up" href="shop.php?do=shop&view=service&shop_id={$shop_id}&by=sale_num">销量</a>
+                        <a class="down" href="shop.php?do=shop&view=service&shop_id={$shop_id}&by=on_time">新品</a>
+                        <a class="up" href="shop.php?do=shop&view=service&shop_id={$shop_id}&by=price">价格</a>
+                        <a class="down" href="shop.php?do=shop&view=service&shop_id={$shop_id}&by=views">人气</a>
+                    </div>
+                    <div class="search fr">
+                    	<form action="shop.php?do=shop&view=service&shop_id={$shop_id}" method="post" >
+	  					<input class="txbox" name="key" id="key" type="text" />
+                        <input class="btn" type="submit" onclick="return $('#key').val()?true:false" value="搜 索" />
+                       </form>
+					</div>
+                </div>
+                <div class="clear"></div>
+				<div class="serviceListMore">
+					{loop $service_arr $k $v}
+					<ul>
+                        <li class="" onmouseover="this.className='hover'" onmouseout="this.className=''">
+                            <div class="pic">
+                            	<a href="shop.php?do=service_info&sid=$v['service_id']" target="_blank"><img  onerror="this.src='shop/tpl/default/img/def_service.jpg'" src="$v['pic']"></a>
+                            </div>
+                            <div class="info">
+                            <p>服务名称：$v['title']</p>
+                            <p>参考报价：$v['price']元{if $v['unite_price']}/{$v['unite_price']}{/if}</p>
+                            <p>据限地区：$v['area_range']</p>
+                            <p>交付方式：{if $v['submit_method'] ==1}站外交付{elseif $v['submit_method'] ==2}视频交付{else}文件交付{/if}</p>
+                            </div>
+                            <a class="linkDetail" href="shop.php?do=service_info&sid=$v['service_id']" target="_blank">查看详细</a>
+                        </li>
+                    </ul>
+					{/loop}
+					<div class="pages"> 
+					{$pages[page]}
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!--{template shop/tpl/default/person_footer}-->
+
+

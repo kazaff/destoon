@@ -1,0 +1,261 @@
+<!--{eval $page_title = '查看订单 - '.$_K['html_title']}-->
+<!--{template header}-->
+<link type="text/css" rel="stylesheet" href="shop/tpl/{$_K['template']}/css/banking.css">
+
+<div id="content">
+
+<div class="pageMain">
+	<div class="buyStep"></div>
+	
+	<div id="statusDiv" class="businessState"><span class="icons preparative"></span>
+	交易状态：
+	{if !$order_info[order_status]}
+	{if $order_info['buyer_status']&&$order_info['sale_status']}等待买家付款{elseif $order_info['buyer_status']}等待卖方确认！{else}等待买方确认！{/if}
+	{elseif $order_info[order_status]==1}
+	订单已生成，服务进行中！
+	{elseif $order_info[order_status]==2}
+	订单已终止
+	{elseif $order_info[order_status]==3}
+	卖方取消订单
+	{elseif $order_info[order_status]==4}
+	买方申请退款
+	{elseif $order_info[order_status]==5}
+	纠纷，等待客服仲裁。
+	{else}
+	交易已结束
+	{/if}
+	</div>
+	
+	{if !$order_info['order_status']&&(($order_info['buy_uid']==$uid&&!$order_info['buyer_status'])||($shop_info['uid']==$uid&&!$order_info['sale_status']))}
+	<!--{eval $allow_edit=1;}-->
+	{/if}
+	
+	<div id="mainDiv" class="businessDetailBox">
+		<ul class="tabMenu tabMenu1" id="tabUl">
+			<li class="tab3" id="tab_cont_1"   onclick="swaptab('cont','tab3','tab5',{if $allow_edit}3{else}2{/if},1)">服务交易细节内容</li>
+			<li class="tab5" id="tab_cont_2"   onclick="swaptab('cont','tab6','tab5',{if $allow_edit}3{else}2{/if},2)">服务商详细信息</li>
+			{if $allow_edit}<li class="tab5" id="tab_cont_3"   onclick="swaptab('cont','tab6','tab5',3,3)">编辑订单</li>{/if}
+		</ul>
+	
+		<div class="container" id="div_cont_1" style="display: block;">
+			<p id="na">服 务 商：$shop_info['username']</p>
+			<p>服务名称：{$order_info['title']}</p>
+			<p>总&nbsp;金&nbsp;额：{$order_info['count_cash']}元</p>
+			<!--{eval $step_count = count($order_detail_arr);}-->
+			{loop $order_detail_arr $step}
+			<div class='phase'><h2>第{$step['step_num']}阶段订金：<span id='amount' name='amount'>$step['step_cash']</span>元 &nbsp;
+			<em>
+			<span id='paySpan'>
+			{if !$step['step_status']}
+			等待中
+			{elseif $step['step_status']==1}
+			进行中
+			{elseif $step['step_status']==2}
+			待确认
+			{elseif $step['step_status']==3}
+			已完成
+			{/if}
+			</span>
+			<span id='passSpan' style='display:none;'></span> &nbsp; 
+			</em></h2><p>服务详细内容：{$step['step_detail']}</p><p></p>
+			{if $step['step_status']==1}
+			{if $uid==$shop_info['uid']}<button type="button" onclick="showDialog('确认此阶段已完成吗？','confirm','提示','endstep({$step['step_num']})',0)">确认完成</button>{/if}
+			{elseif $step['step_status']==2}
+				{if $uid==$order_info['buy_uid']}
+				<button type="button" onclick="showDialog('{if $step[step_num]==$step_count}这已是最后阶段，此操作将结束任务{else}确认此阶段已完成吗{/if}','confirm','提示','ajaxendstep({$step[step_num]})',1)">通过审核</button> 
+				<button type="button" onclick="showDialog('确认拒绝审核吗？','confirm','提示','refusestep({$step['step_num']})',0)">拒绝审核</button>
+				{/if}
+			{/if}
+			</div>
+			{/loop}
+		
+		
+		</div>
+		
+		<div class="container" id="div_cont_2" style="display:none;">
+			<p>昵&nbsp; &nbsp; 称：$shop_info['username']</p>
+			<p>真实姓名：$shop_info['truename']</p>
+			<p>职位：{$shop_info[job]}</p>
+			<p>所在地：{$shop_info['city']}</p>
+			<p>从业年限：
+                            {if !$shop_info['work_year']}一年以下{/if}
+                            {if $shop_info['work_year']==1}一年{/if}
+                            {if $shop_info['work_year']==2}两年{/if}
+                            {if $shop_info['work_year']==3}三年{/if}
+                            {if $shop_info['work_year']==4}四年{/if}
+                            {if $shop_info['work_year']==5}五年以上{/if}
+                            {if $shop_info['work_year']==6}十年以上{/if}</p>
+            <p>服务范围：
+							{loop $service_range $value}
+							<a href="#" target="_blank">$shop_indus[$value]['indus_name']</a>
+							{/loop} 
+							</p>
+			<p>注册邮箱：$shop_info['email']</p>
+			<p>认证信息：{if $shop_info['realname_auth']}身份认证{/if}{if $shop_info['enterprise_auth']}企业认证{/if}{if $shop_info['email_auth']}邮箱{/if}{if $shop_info['bank_auth']}银行认证{/if}</p>
+		</div>
+		
+		{if $allow_edit}
+		<div class="container" id="div_cont_3" style="display:none;">
+		<form id="edit_step_form" action="shop.php?do=step&order_id=$order_id&op=edit_step" method="post"">
+		<p>
+					<label>服务名称：</label>
+					<input type="text" style="width: 300px;" value="$order_info['title']" class="input_txt2" name="txt_title" id="txt_title"> <span class="sp">可修改</span>
+				
+				<p>
+					<label style="margin-left: 14px;">总金额：</label>
+					<input type="text" style="width: 80px;" value="$order_info['count_cash']" class="input_txt2" name="txt_count_cash" id="txt_count_cash"> 元 <span class="sp">可修改，以双方洽谈为准，且当前不支持低于20元的在线交易。</span>
+				</p><br>
+		<input type="hidden" value="" name="detail_arr[del]" id="del_step_items">
+		{loop $order_detail_arr $step}
+		<div class="phase edit_step_j" id="edit_step_{$step[detail_id]}">
+			<input type="hidden" value="0">
+			<h2><span class="fl edit_step_stepcount_j">服务交易第{$step[step_num]}阶段:</span><a style="float:right" class="delete" tabindex="-1" onclick="del_old($step['detail_id'])" href="javascript:;">删除</a></h2>
+			<p class="after">
+				<label>此阶段付款金额：</label>
+				<input type="text" style="width: 80px;" name="detail_arr[old][{$step['detail_id']}][step_cash]" value="$step[step_cash]" class="input_txt2 edit_step_cash_j"> 元 <span class="sp"> 根据交易规则，各阶段付款金额不得低于10元。</span>
+			</p>
+			<p class="after">
+				<label>详细内容：</label>
+				<textarea name="detail_arr[old][{$step['detail_id']}][step_detail]"  class="textarea">{$step['step_detail']}</textarea>
+			</p>
+		</div>
+		{/loop}
+		</form>
+		
+		<a class="add" tabindex="-1"  style="float: left;"   href="javascript:">添加新的交易阶段</a><input style="float: right;" type="button" onclick="purchase()" value="确认修改" />
+		<br style="clear: ">
+		</div>
+		{/if}
+		
+		
+		
+		<div class="bg1 borderBottom"></div>
+		<div id="stopDiv" class="btnsNav">&nbsp;
+		{if !$order_info['order_status']}
+		{if $uid==$shop_info['uid']&&$order_info['buyer_status']>0&&$order_info['sale_status']<1}<input type="button" class="stop1" onclick="showDialog('订单确定后将不可更改，确认?','confirm','提示','acceptorder()',0)" value="确认订单" />{/if}
+		{if $uid==$order_info['buy_uid']&&$order_info['sale_status']>0}<input type="button" class="stop1" value="确认订单" onclick="showDialog('确定?此操作需要扣除预付款{$order_info['count_cash']}元','confirm','提示','acceptorder()',0)" />{/if}
+		
+		<input type="button" class="stop1" value="终止订单" onclick="showDialog('确认要取消订单么？','confirm','提示','cancerorder()',0)" />
+		{/if}
+		
+	</div>
+</div>
+
+<script>
+var newstepcount=0;
+$(function(){
+	$(".add").click(function(){
+		newstepcount+=1;
+		var s = parseInt($(".phase").length);
+		 var str = "<div class=\"phase edit_step_j\" id=\"new_step_"+newstepcount+"\">";
+		 str += "<input type=\"hidden\" value=\"0\">";
+		  str += "<h2><span class=\"fl edit_step_stepcount_j\">服务交易第"+($step_count+newstepcount)+"阶段:</span><a style=\"float:right\" class=\"delete\" tabindex=\"-1\" onclick=\"del_new("+newstepcount+")\"   id=\"del_"+(newstepcount)+"\" href=\"javascript:;\">删除</a></h2>";
+			str +="<p class=\"after\">";
+			str +="	<label>此阶段付款金额：</label>";
+			str +="		<input type=\"text\" style=\"width: 80px;\" name=\"detail_arr[new]["+newstepcount+"][step_cash]\" class=\"input_txt2 edit_step_cash_j\"> 元";
+			str +="	</p>";
+			str +="	<p class=\"after\">";
+			str +="		<label>详细内容：</label>";
+			str +="		<textarea name=\"detail_arr[new]["+newstepcount+"][step_detail]\" id=\"detail_arr[new]["+newstepcount+"][step_detail]\" class=\"textarea\"></textarea>";
+			str +="	</p>";
+			str +=" </div>";
+		$(".phase:last").after(str);
+		refresh_step();
+	})
+	
+	$("input[type='text']").blur(function(){$(this).attr("class","input_txt2");}).focus(function(){$(this).attr("class","input_txt2_h");})
+})
+
+function cancerorder(){
+	location.href="shop.php?do=step&order_id=$order_id&op=cancerorder";
+}
+
+function acceptorder(){
+	{if $uid==$order_info['buyer_uid']&&$userinfo['balance']+$userinfo['credit']<$order_info['count_cash']}
+	window.showDialog("您的余额不足，是否在线付款!",'confirm','错误提示','online_pay()',0);
+	{else}
+	location.href="shop.php?do=step&order_id=$order_id&op=acceptorder";
+	{/if}
+}
+function endstep(step_id){
+	{if $uid==$order_info['buy_uid']}
+	if(step_id=={$step['step_num']}){
+		ajaxendstep(step_id);
+	}
+	{else}
+		location.href="shop.php?do=step&order_id=$order_id&op=acceptstep&step_id="+step_id;
+	{/if}
+}
+function ajaxendstep(step_id){
+	var url = "shop.php?do=step&order_id=$order_id&inajax=1&op=acceptstep&step_id="+step_id;
+	$.ajax( {
+		type : "GET",
+		url : url,
+		cache : false,
+		async : false,
+		data : "",
+		dataType : "json",
+		error : function(json) {
+			showDialog('error:'+json.error+'!', 'alert', '错误提示','',0);return false;
+		},
+		success : function(json) {
+			showWindow("buyer_mark", "index.php?do=mark&obj_id={$order_info[order_id]}&mark_type=2");
+		}
+	});
+}
+function refusestep(step_id){
+	location.href="shop.php?do=step&order_id=$order_id&op=refusestep&step_id="+step_id;
+}
+
+function onlinepay(){
+	var ccash = $order_info['count_cash']-$userinfo['balance']-$userinfo['credit'];
+	location.href="index.php?do=user&view=cash&type=service&obj_id=$task_id&cash="+ccash;
+}
+
+function del_old(step_id){
+	var d = $('#del_step_items').val();
+	if(d!=""){
+		d+=",";
+	}
+	d += step_id;
+	$('#del_step_items').val(d);
+	$('#edit_step_'+step_id).remove();
+	refresh_step();
+}
+
+function del_new(step_id){
+	$('#new_step_'+step_id).remove();
+	refresh_step();
+}
+
+function purchase(obj){
+
+ 	var cash = 0;
+	 $(".edit_step_j>p>input").each(function(i,n){
+	 	cash += parseFloat($(n).val());
+	 })
+	
+	if(parseFloat(cash)!=parseFloat($('#txt_count_cash').val())){
+		showDialog("各阶段服务总金额必须和订单总金额一致",'alert','确认窗口',"",1);
+		return false;
+	}
+	
+
+	showDialog("编辑订单需要{if $uid==$shop_info['uid']}顾客{else}店主{/if}重新确认，确定?",'confirm','确认窗口',"$(\"#edit_step_form\").submit();",1);
+
+	return;
+}
+
+function refresh_step(){
+	var step_i = 1;
+	 $(".edit_step_stepcount_j").each(function(i,n){
+	 	$(n).html("服务交易第"+step_i+"阶段:");
+	 	step_i += 1;
+	 })
+}
+
+
+</script>
+
+</div>
+<!--{template footer}-->

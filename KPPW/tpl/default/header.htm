@@ -1,0 +1,25 @@
+<!--{if $inajax}-->
+<!--{template header_ajax}-->
+    <h3 class="flb"><em>{$title}</em><span><a href="javascript:;" class="flbc" onClick="hideWindow('$handlekey');" title="close">关闭</a></span></h3>
+<!--{else}-->
+<!--{template header_top}-->
+        <!--tool_E-->
+<!--{template header_seach}-->      
+        <!--top_E-->
+        <div id="nav">
+            <div class="nav">
+            {loop $nav_list $nav}
+            {if $nav['ishide']!=2}
+            {if $navid++}<i></i>{/if}
+            <a href="$nav[nav_url]" {if $nav['newwindow']}target="_blank"{/if} {if $nav_active_index == $nav[nav_style]&&$nav_active_index} class="nav_active">{/if}</>$nav[nav_title]</a>
+            {/if}
+            {/loop}
+            </div>
+          
+            <div class="nav_news">
+                <!--{tag 导航喇叭消息}-->
+            </div>
+        </div>
+		
+
+<!--{/if}-->

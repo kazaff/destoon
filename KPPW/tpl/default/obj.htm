@@ -1,0 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K[charset]}">
+<title>表单提交测试</title>
+</head>
+<body>
+<form action="OBJ.PHP" method="post" accept-charset="{$_K[charset]}">
+	<input type="hidden" name="formhash" value="<!--{eval echo Func_comm_class::formhash();}-->">
+	<input type="text" name = "txt_v" >
+	<p><input type="submit" name="sbt_test" value="Continue" /></p>
+</form>
+</body>
+</html>

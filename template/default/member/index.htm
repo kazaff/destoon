@@ -1,0 +1,234 @@
+{template 'header', $module}
+<link rel="stylesheet" type="text/css" href="image/index.css"/>
+<div id="warn">
+{if $_groupid > 5 && !$_edittime}
+	<div class="warn">贵公司尚未完善详细资料！完善的商业信息有助于获得别人的信任，结交潜在的商业伙伴，获取商业机会&nbsp;&nbsp;<a href="edit.php?tab=2" class="t f_b">现在就去完善</a></div>
+{/if}
+{if $vip && $havedays < 11}
+	<div class="warn">尊敬的{$MG[groupname]}，您的{VIP}服务将在 <strong class="f_red">{$havedays}</strong> 天后到期，为了不影响您的正常使用，请您尽快续费。&nbsp;&nbsp;<a href="renew.php" class="t f_b">点击续费</a></div>
+{/if}
+<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr>
+<td valign="top">
+<div class="i_info">
+<ul>
+{if $MOD[vmember]}
+<li>
+<img src="image/{if $validated}v{else}u{/if}_member.gif" width="16" height="16" title="{if $validated}已通过{$validator}认证{else}未通过认证{/if}" align="absmiddle"/> 认证：
+{if $MOD[vemail]}
+<img src="image/{if $vemail}v{else}u{/if}_email.gif" width="16" height="16" title="{if $vemail}已通过{else}未通过{/if}邮件认证" align="absmiddle"/> <a href="validate.php?action=email" class="l">邮件</a> &nbsp;
+{/if}
+{if $MOD[vmobile]}
+<img src="image/{if $vmobile}v{else}u{/if}_mobile.gif" width="16" height="16" title="{if $vmobile}已通过{else}未通过{/if}手机认证" align="absmiddle"/> <a href="validate.php?action=mobile" class="l">手机</a> &nbsp;
+{/if}
+{if $MOD[vbank]}
+<img src="image/{if $vbank}v{else}u{/if}_bank.gif" width="16" height="16" title="{if $vbank}已通过{else}未通过{/if}银行帐号认证" align="absmiddle"/> <a href="validate.php?action=bank" class="l">银行</a> &nbsp;
+{/if}
+{if $MOD[vtruename]}
+<img src="image/{if $vtruename}v{else}u{/if}_truename.gif" width="16" height="16" title="{if $vtruename}已通过{else}未通过{/if}真实姓名认证" align="absmiddle"/> <a href="validate.php?action=truename" class="l">实名</a> &nbsp;
+{/if}
+{if $MOD[vcompany] && $groupid > 5}
+<img src="image/{if $vcompany}v{else}u{/if}_company.gif" width="16" height="16" title="{if $vcompany}已通过{else}未通过{/if}公司资料认证" align="absmiddle"/> <a href="validate.php?action=company" class="l">公司</a>
+{/if}
+</li>
+{/if}
+<li>
+<img src="image/ico_message.gif" width="16" height="16" alt="" align="absmiddle"/> 信件：
+<strong class="f_red">{$_message}</strong> 封 <a href="message.php" class="l">未读站内信</a>
+&nbsp;&nbsp;
+<a href="message.php?typeid=1" class="l">询价</a> | 
+<a href="message.php?typeid=2" class="l">报价</a> | 
+<a href="message.php?typeid=3" class="l">留言</a> | 
+<a href="message.php?typeid=4" class="l">信使</a> | 
+<a href="message.php?action=send" class="l">发信</a>
+</li>
+<li>
+<img src="image/ico_member.gif" width="16" height="16" alt="" align="absmiddle"/> {$DT[money_name]}：
+<strong class="f_red">{$_money}</strong> {$DT[money_unit]}可用 <span class="f_gray">({$locking}{$DT[money_unit]}锁定)</span>
+&nbsp;&nbsp;
+<a href="record.php" class="l">{$DT[money_name]}流水</a> | 
+<a href="cash.php" class="l">提现</a> | 
+<a href="trade.php?action=pay" class="l">付款</a> | 
+<a href="charge.php?action=pay" class="l">在线充值</a>
+</li>
+<li>
+<img src="image/ico_credit.gif" width="16" height="16" alt="" align="absmiddle"/> {$DT[credit_name]}：
+<strong>{$_credit}</strong>
+&nbsp;&nbsp;
+<a href="credits.php" class="l">{$DT[credit_name]}记录</a> | 
+<a href="credits.php?action=buy" class="l">购买{$DT[credit_name]}</a> | 
+<a href="invite.php" class="l">推广赚{$DT[credit_name]}</a>
+{if $MOD[credit_exchange]}| <a href="credits.php?action=exchange" class="l">{$DT[credit_name]}兑换</a>{/if}
+</li>
+{if $DT[sms] && $MG[sms]}
+<li>
+<img src="image/ico_sms.gif" width="16" height="16" alt="" align="absmiddle"/> 短信：
+<strong>{$_sms}</strong> 条可用
+&nbsp;&nbsp;
+<a href="sms.php?action=add" class="l">发送</a> | 
+<a href="sms.php?action=buy" class="l">购买</a> | 
+<a href="sms.php?action=record" class="l">接收记录</a> | 
+<a href="sms.php?action=send" class="l">发送记录</a> | 
+<a href="sms.php" class="l">短信记录</a>
+</li>
+{/if}
+<li>
+<img src="image/ico_trade.gif" width="16" height="16" alt="" align="absmiddle"/> 订单：
+<strong class="f_red">{$trade}</strong>
+&nbsp;&nbsp;
+<a href="trade.php" class="l">收到的订单(卖)</a> | 
+<a href="trade.php?action=order" class="l">发出的订单(买)</a> 
+</li>
+</ul>
+</div>
+<div class="i_quick">
+	<div>
+		<ul>
+			<li><a href="message.php" class="b"><img src="image/btn_message.gif" width="32" height="32" alt=""/><br/>站内信</a></li>
+			<li><a href="trade.php" class="b"><img src="image/btn_trade.gif" width="32" height="32" alt=""/><br/>交易管理</a></li>
+			<li><a href="record.php" class="b"><img src="image/btn_record.gif" width="32" height="32" alt=""/><br/>{$DT[money_name]}记录</a></li>
+			<li><a href="friend.php" class="b"><img src="image/btn_friend.gif" width="32" height="32" alt=""/><br/>我的商友</a></li>
+			<li><a href="favorite.php" class="b"><img src="image/btn_favorite.gif" width="32" height="32" alt=""/><br/>商机收藏</a></li>
+			<li><a href="{$DT[file_my]}" class="b"><img src="image/btn_my.gif" width="32" height="32" alt=""/><br/><span class="f_red">发布信息</span></a></li>
+			<li><a href="edit.php" class="b"><img src="image/btn_edit.gif" width="32" height="32" alt=""/><br/>完善资料</a></li>
+			<li><a href="alert.php" class="b"><img src="image/btn_alert.gif" width="32" height="32" alt=""/><br/>贸易提醒</a></li>
+			<li><a href="home.php" class="b"><img src="image/btn_home.gif" width="32" height="32" alt=""/><br/>主页设置</a></li>
+			<li><a href="style.php" class="b"><img src="image/btn_style.gif" width="32" height="32" alt=""/><br/>风格模板</a></li>
+		</ul>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<div class="i_find">
+	<div>{if $areaid}<span class="f_r f_gray">[{area_pos($areaid, '')}]</span>{/if}<strong class="px13">您可能在找..</strong></div>
+	<table cellspacing="2" cellpadding="2" width="100%">
+	<tr>
+	<td width="50%" valign="top">
+	<!--{php $tags=tag("moduleid=5&condition=status=3 and username<>'$_username'&areaid=$areaid&pagesize=8&order=edittime desc&template=null")}-->
+	{if $tags}
+	<ul>
+	{loop $tags $k $t}
+	<li><span class="f_r px11 f_gray">{timetodate($t[edittime], 2)}</span>&nbsp;<a href="{$t[linkurl]}" target="_blank" title="{$t[alt]}" class="b">{$t[title]}</a></li>
+	{/loop}
+	</ul>
+	{/if}
+	</td>
+	<td width="50%" valign="top">
+	<!--{php $tags=tag("moduleid=6&condition=status=3 and username<>'$_username'&areaid=$areaid&pagesize=8&order=edittime desc&template=null")}-->
+	{if $tags}
+	<ul>
+	{loop $tags $k $t}
+	<li><span class="f_r px11 f_gray">{timetodate($t[edittime], 2)}</span>&nbsp;<a href="{$t[linkurl]}" target="_blank" title="{$t[alt]}" class="b">{$t[title]}</a></li>
+	{/loop}
+	</ul>
+	{/if}
+	</td>
+	</tr>
+	</table>
+</div>
+</td>
+<td width="8">&nbsp;</td>
+<td valign="top" class="i_rt">
+<div class="i_head">
+<strong>商务便笺</strong>
+</div>
+<div class="i_body">
+	<div class="i_note">
+	<form method="post" action="index.php" onsubmit="return check();">
+	<table cellspacing="2" cellpadding="2" width="100%">
+	<tr>
+	<td colspan="2"><textarea name="note" id="note">{$note}</textarea></td>
+	</tr>
+	<tr>
+	<td><input type="submit" name="submit" value=" 更 新 " class="btn"/></td>
+	<td class="f_gray">[可记录一些文字备忘，限1000字]</td>
+	</tr>
+	</table>
+	</form>
+	</div>
+</div>
+<div class="i_head">
+<strong>系统消息</strong>
+</div>
+<div class="i_body">
+<div class="i_sys">
+<ul>
+{if $sys}
+{loop $sys $v}
+<li><span class="f_r px11 f_gray">{timetodate($v[addtime], 2)}</span>&nbsp;<a href="message.php?action=show&itemid={$v[itemid]}" title="{$v[title]}">{$v[title]}</a></li>
+{/loop}
+{else}
+<li>&nbsp;暂无消息</li>
+{/if}
+</ul>
+</div>
+</div>
+<div class="i_head">
+<strong>会员信息</strong>
+</div>
+<div class="i_body">
+<div class="i_user">
+<table cellpadding="6" cellspacing="0" width="100%">
+<tr>
+<td class="i_user_l">会员名</td>
+<td>{$username}</td>
+</tr>
+<tr>
+<td class="i_user_l">会员组</td>
+<td>{$MG[groupname]}</td>
+</tr>
+{if $MOD[passport]}
+<tr>
+<td class="i_user_l">通行证</td>
+<td>{$passport}</td>
+</tr>
+{/if}
+<tr>
+<td class="i_user_l">会员ID</td>
+<td>{$userid}</td>
+</tr>
+<tr>
+<td class="i_user_l">登录时间</td>
+<td>{$logintime}{if $DT[login_log]==2}&nbsp;&nbsp;<a href="record.php?action=login" class="l">登录记录</a>{/if}</td>
+</tr>
+<tr>
+<td class="i_user_l">注册时间</td>
+<td>{$regtime}</td>
+</tr>
+{if $_groupid > 5}
+<tr>
+<td class="i_user_l">公司名称</td>
+<td>{$company}</td>
+</tr>
+{/if}
+{if $MG[homepage]}
+<tr>
+<td class="i_user_l">我的主页</td>
+<td><a href="{$userurl}" target="_blank" class="l">点击访问</a></td>
+</tr>
+{/if}
+{if $vip}
+<tr>
+<td class="i_user_l">{VIP}级别</td>
+<td><img src="{DT_SKIN}image/vip.gif"/> <img src="{DT_SKIN}image/vip_{$vip}.gif"/></td>
+</tr>
+<tr>
+<td class="i_user_l">服务期</td>
+<td>{timetodate($fromtime, 3)} 至 {timetodate($totime, 3)}</td>
+</tr>
+<tr>
+<td class="i_user_l">剩余时间</td>
+<td><strong>{$havedays}</strong> 天&nbsp;&nbsp;<a href="renew.php" class="l">续费</a></td>
+</tr>
+{elseif $groupid>4}
+<tr>
+<td class="i_user_l">会员升级</td>
+<td>&nbsp;<a href="grade.php"><span class="f_red">立即升级</span></a></td>
+</tr>
+{/if}
+</table>
+</div>
+</div>
+</td>
+</tr>
+</table>
+{template 'footer', $module}

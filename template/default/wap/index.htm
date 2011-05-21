@@ -1,0 +1,7 @@
+{template 'header', 'wap'}
+<div class="main" style="text-align:center;">
+<img src="{if $DT[logo]}{$DT[logo]}{else}{DT_SKIN}image/logo.gif{/if}" alt="{$head_title}"/><br/>
+{loop $WAP_MODULE $i $m}
+<a href="index.php?moduleid={$m[moduleid]}">{$m[name]}</a> 
+{/loop}<br/>
+{template 'footer', 'wap'}

@@ -1,0 +1,196 @@
+{template 'header', 'member'}
+<script type="text/javascript">c(3);</script>
+<div class="menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="tab" id="Tab0"><a href="{$MOD[linkurl]}home.php"><span>主页设置</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab1"><a href="{$MOD[linkurl]}style.php"><span>模板设置</span></a></td>
+<td class="tab_nav">&nbsp;</td>
+<td class="tab" id="Tab2"><a href="{DT_PATH}index.php?homepage={$_username}&update=1" target="homepage"><span>更新主页</span></a></td>
+</tr>
+</table>
+</div>
+<form method="post" action="{$MOD[linkurl]}home.php" id="dform">
+<table cellspacing="1" cellpadding="6" class="tb">
+<tr style="display:{if $MG[home_menu]}{else}none{/if};">
+<td class="tl">菜单设置<br/><br/><br/><a href="{$MOD[linkurl]}home.php?action=reset&item=menu" class="t" onclick="return confirm('确定要恢复默认吗？');">恢复默认</a></td>
+<td class="tr">
+<table cellpadding="3" cellspacing="3">
+<tr align="center">
+<td width="50">显示</td>
+<td width="50">排序</td>
+<td width="100">名称</td>
+<td width="50">分页</td>
+</tr>
+{loop $HMENU $k $v}
+{if strpos($menu_c, ','.$k.',') !== false}
+<tr align="center">
+<td>
+<input type="checkbox" name="menu_show_tmp" value="{$k}"{if $menu_show[$k]} checked{/if} onclick="$('menu_show_{$k}').value=this.checked ? 1 : 0;"/><input type="hidden" name="setting[menu_show][{$k}]" value="{$menu_show[$k]}" id="menu_show_{$k}"/>
+</td>
+<td><input type="text" name="setting[menu_order][{$k}]" size="3" value="{$menu_order[$k]}"/></td>
+<td><input type="text" name="setting[menu_name][{$k}]" size="20" value="{$menu_name[$k]}"/></td>
+<td><input type="text" name="setting[menu_num][{$k}]" size="3" value="{$menu_num[$k]}"/>
+<input type="hidden" name="setting[menu_file][{$k}]" value="{$menu_file[$k]}"/></td>
+</tr>
+{else}
+<tr style="display:none;">
+<td>
+<input type="checkbox" name="menu_show_tmp" value="{$k}"/><input type="hidden" name="setting[menu_show][{$k}]" value="0" id="menu_show_{$k}"/>
+</td>
+<td><input type="text" name="setting[menu_order][{$k}]" size="3" value="{$menu_order[$k]}"/></td>
+<td><input type="text" name="setting[menu_name][{$k}]" size="20" value="{$menu_name[$k]}"/></td>
+<td><input type="text" name="setting[menu_num][{$k}]" size="3" value="{$menu_num[$k]}"/>
+<input type="hidden" name="setting[menu_file][{$k}]" value="{$menu_file[$k]}"/></td>
+</tr>
+{/if}
+{/loop}
+</table>
+</td>
+</tr>
+<tr style="display:{if $MG[home_side]}{else}none{/if};">
+<td class="tl">侧栏设置<br/><br/><br/><a href="{$MOD[linkurl]}home.php?action=reset&item=side" class="t" onclick="return confirm('确定要恢复默认吗？');">恢复默认</a></td>
+<td class="tr">
+<table cellpadding="3" cellspacing="3">
+<tr align="center">
+<td width="50">显示</td>
+<td width="50">排序</td>
+<td width="100">名称</td>
+<td width="50">数量</td>
+</tr>
+{loop $HSIDE $k $v}
+{if strpos($side_c, ','.$k.',') !== false}
+<tr align="center">
+<td>
+<input type="checkbox" name="side_show_tmp" value="{$k}"{if $side_show[$k]} checked{/if} onclick="$('side_show_{$k}').value=this.checked ? 1 : 0;"/><input type="hidden" name="setting[side_show][{$k}]" value="{$side_show[$k]}" id="side_show_{$k}"/></td>
+<td><input type="text" name="setting[side_order][{$k}]" size="3" value="{$side_order[$k]}"/></td>
+<td><input type="text" name="setting[side_name][{$k}]" size="20" value="{$side_name[$k]}"/></td>
+<td><input type="text" name="setting[side_num][{$k}]" size="3" value="{$side_num[$k]}"/>
+<input type="hidden" name="setting[side_file][{$k}]" size="3" value="{$side_file[$k]}"/></td>
+</tr>
+{else}
+<tr style="display:none;">
+<td>
+<input type="checkbox" name="side_show_tmp" value="{$k}"/><input type="hidden" name="setting[side_show][{$k}]" value="0" id="side_show_{$k}"/></td>
+<td><input type="text" name="setting[side_order][{$k}]" size="3" value="{$side_order[$k]}"/></td>
+<td><input type="text" name="setting[side_name][{$k}]" size="20" value="{$side_name[$k]}"/></td>
+<td><input type="text" name="setting[side_num][{$k}]" size="3" value="{$side_num[$k]}"/>
+<input type="hidden" name="setting[side_file][{$k}]" size="3" value="{$side_file[$k]}"/></td>
+</tr>
+{/if}
+{/loop}
+</table>
+</td>
+</tr>
+<tr style="display:{if $MG[home_main]}{else}none{/if};">
+<td class="tl">首页主栏设置<br/><br/><br/><a href="{$MOD[linkurl]}home.php?action=reset&item=main" class="t" onclick="return confirm('确定要恢复默认吗？');">恢复默认</a></td>
+<td class="tr">
+<table cellpadding="3" cellspacing="3">
+<tr align="center">
+<td width="50">显示</td>
+<td width="50">排序</td>
+<td width="100">名称</td>
+<td width="50">数量</td>
+</tr>
+{loop $HMAIN $k $v}
+{if strpos($main_c, ','.$k.',') !== false}
+<tr align="center">
+<td>
+<input type="checkbox" name="main_show_tmp" value="{$k}"{if $main_show[$k]} checked{/if} onclick="$('main_show_{$k}').value=this.checked ? 1 : 0;"/><input type="hidden" name="setting[main_show][{$k}]" value="{$main_show[$k]}" id="main_show_{$k}"/></td>
+<td><input type="text" name="setting[main_order][{$k}]" size="3" value="{$main_order[$k]}"/></td>
+<td><input type="text" name="setting[main_name][{$k}]" size="20" value="{$main_name[$k]}"/></td>
+<td><input type="text" name="setting[main_num][{$k}]" size="3" value="{$main_num[$k]}"/>
+<input type="hidden" name="setting[main_file][{$k}]" size="3" value="{$main_file[$k]}"/></td>
+</tr>
+{else}
+<tr style="display:none;">
+<td>
+<input type="checkbox" name="main_show_tmp" value="{$k}"/><input type="hidden" name="setting[main_show][{$k}]" value="0" id="main_show_{$k}"/></td>
+<td><input type="text" name="setting[main_order][{$k}]" size="3" value="{$main_order[$k]}"/></td>
+<td><input type="text" name="setting[main_name][{$k}]" size="20" value="{$main_name[$k]}"/></td>
+<td><input type="text" name="setting[main_num][{$k}]" size="3" value="{$main_num[$k]}"/>
+<input type="hidden" name="setting[main_file][{$k}]" size="3" value="{$main_file[$k]}"/></td>
+</tr>
+{/if}
+{/loop}
+</table>
+</td>
+</tr>
+<tr>
+<td class="tl">显示设置</td>
+<td class="tr">
+<input type="radio" name="setting[side_pos]" value="0" id="s_p_0"{if $side_pos==0} checked{/if}/><label for="s_p_0"> 侧栏在左</label>&nbsp;&nbsp;
+<input type="radio" name="setting[side_pos]" value="1" id="s_p_1"{if $side_pos==1} checked{/if}/><label for="s_p_1"> 侧栏在右</label> 
+</td>
+</tr>
+<tr>
+<td class="tl">访问统计</td>
+<td class="tr">
+<input type="radio" name="setting[show_stats]" value="1" id="s_s_1"{if $show_stats==1} checked{/if}/><label for="s_s_1"> 显示</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="setting[show_stats]" value="0" id="s_s_0"{if $show_stats==0} checked{/if}/><label for="s_s_0"> 不显示</label> 
+</td>
+</tr>
+<tr>
+<td class="tl">侧栏宽度</td>
+<td class="tr"><input type="text" size="5" name="setting[side_width]" value="{$side_width}"/> px</td>
+</tr>
+<tr>
+<td class="tl">公司简介显示</td>
+<td class="tr"><input type="text" size="5" name="setting[intro_length]" value="{$intro_length}"/> 字符</td>
+</tr>
+<tr>
+<td class="tl">自定义背景颜色</td>
+<td class="tr"><input name="setting[bgcolor]" type="text" size="10" id="bgcolor" value="{$bgcolor}"/> 例如红色为 red 或者 #FF0000</td>
+</tr>
+<tr>
+<td class="tl">自定义背景图</td>
+<td class="tr"><input name="setting[background]" type="text" size="60" id="background" value="{$background}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},0,0, $('background').value, true, 'background');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview($('background').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="$('background').value='';" class="jt">[删除]</span></td>
+</tr>
+<tr>
+<td class="tl">自定义LOGO</td>
+<td class="tr"><input name="setting[logo]" type="text" size="60" id="logo" value="{$logo}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},0,0, $('logo').value, true, 'logo');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview($('logo').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="$('logo').value='';" class="jt">[删除]</span></td>
+</tr>
+<tr>
+<td class="tl">自定义横幅</td>
+<td class="tr"><input name="setting[banner]" type="text" size="60" id="banner" value="{$banner}" readonly/>&nbsp;&nbsp;<span onclick="Dthumb({$moduleid},0,0, $('banner').value, true, 'banner');" class="jt">[上传]</span>&nbsp;&nbsp;<span onclick="_preview($('banner').value);" class="jt">[预览]</span>&nbsp;&nbsp;<span onclick="$('banner').value='';" class="jt">[删除]</span></td>
+</tr>
+<tr>
+<td class="tl">自定义CSS</td>
+<td class="tr"><textarea name="setting[css]" id="css" style="width:500px;height:60px;overflow:visible;font-family:Fixedsys">{$css}</textarea></td>
+</tr>
+<tr>
+<td class="tl">网站公告<br/>(支持html)</td>
+<td class="tr"><textarea name="setting[announce]" id="announce" style="width:500px;height:60px;">{$announce}</textarea></td>
+</tr>
+{if $menu_show[$pageid]}
+<tr>
+<td class="tl">{$menu_name[$pageid]}</td>
+<td class="tr"><textarea name="setting[mypage]" id="mypage" class="dsn">{$mypage}</textarea>
+{deditor($moduleid, 'mypage', 'Destoon', '96%', 300)}</td>
+</tr>
+{else}
+<input type="hidden" value="" name="setting[page]"/>
+{/if}
+<tr>
+<td class="tl">首页SEO标题</td>
+<td class="tr"><input type="text" size="60" name="setting[seo_title]" value="{$seo_title}"/> 不设置则显示公司名称</td>
+</tr>
+<tr>
+<td class="tl">网站关键词</td>
+<td class="tr"><input type="text" size="80" name="setting[seo_keywords]" value="{$seo_keywords}"/></td>
+</tr>
+<tr>
+<td class="tl">网站描述</td>
+<td class="tr"><input type="text" size="80" name="setting[seo_description]" value="{$seo_description}"/></td>
+</tr>
+{php @include DT_ROOT.'/api/map.inc.php';}
+<tr>
+<td class="tl">&nbsp;</td>
+<td class="tr" height="30"><input type="submit" name="submit" value=" 保 存 " class="btn"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value=" 恢复默认 " class="btn" onclick="if(confirm('确定要恢复默认设置吗？当前所有设置将被清空')){this.form.action='{$MOD[linkurl]}home.php?reset=1';}else{return false;}"/></td>
+</tr>
+</table>
+</form>
+{load('clear.js')}
+<script type="text/javascript">s('homepage');m('Tab0');</script>
+{template 'footer', 'member'}

@@ -1,0 +1,44 @@
+<!--{template header}-->
+<form  id="frm_tenpay" method="post" action="$reqUrl" target="_blank" enctype="application/x-www-form-urlencoded">
+					  <table width="450" height="150" border="0" cellspacing="0" cellpadding="0" class="td_p10 mt_10 font14n">
+                      <tr>
+						<th colspan="2" class="font14"><h2>充值金额：<span class="red"><!--{eval printf('%10.2f',$cash)}--></span> 元</h2></th>
+					  </tr>
+					  <tr>
+						<td width="1%"></td>
+						<td width="99%"><img src="payment/{$payment_config[pay_dir]}/{$payment_config[img]}" align="absmiddle"> 财付通交易，推荐QQ用户使用</td>
+					  </tr>
+					  <tr>
+						<td colspan="2"><input type="button" name="btn_confirm_pay" onclick="return confirm_tenpay_pay(this);"  value="确认付款" class="rele_btn"></td>
+				      </tr>
+					  
+					</table>
+					</form>
+					<script>
+					function confirm_tenpay_pay(obj){
+				 		var url =  'index.php?do=user&view=cash&ajax=order';
+							$.ajax( {
+								type : "POST",
+								url : url,
+								cache : false,
+								async : false,
+								data : 'uid=$uid&username=$username&cash=$cash&pay_m=$pay_m&type=$type&obj_id=$obj_id',
+								dataType : "json",
+								error : function(json) {
+									showDialog('系统繁忙，请稍后再试!', 'alert', '错误提示','',1);
+								},
+								success : function(json) {
+									if (json.status == 0) {
+								        showDialog('提交失败，请稍后再试!', 'alert', '错误提示','',1);
+									} else {
+									     $("#frm_tenpay").attr('action',json.data.url);
+										 obj.form.submit();
+									}
+								}
+							});
+				 	 }
+					
+					</script>
+					
+					
+<!--{template footer}-->

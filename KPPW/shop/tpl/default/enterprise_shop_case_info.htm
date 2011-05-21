@@ -1,0 +1,105 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprise_shop_header}-->
+<div class="subContainer">
+	<div class="pagePositon">
+		<div class="pageName">
+            <span class="fl">作品案例</span>
+            <span class="corner"></span>
+            <span class="fr">&gt;&gt;</span>
+        </div>
+		{if $uid==$shop_info['uid']}
+		<a class="putNew" id="publish" href="index.php?do=user&view=case_add">发布新案例</a>
+		{/if}
+	</div>
+	<div class="pageLeft">
+		<ul>
+        	<li></li>
+        </ul>
+	</div>
+	<div class="pageRight">
+    <div class="boxBody">
+
+				
+				<div class="caseList">
+                <ul>
+                  <li class='title'>
+                  $case_info['case_name'] <img src='shop/tpl/{$_K['template']}/img/edit_icon.gif'/></li>
+                    <li class='info dashed'>
+                       <span class='time'>执行时间：{if $case_info['express']}<!--{eval echo date('Y年-m月',$case_info['express'])}-->{else}--{/if}</span>
+                       <span class='edit'>发布于(<!--{eval echo date('Y-m-d H:i:s',$case_info['on_date'])}-->)</span>
+                  </li>
+                    <li class='intro'>
+                    <img src="$case_info['pic']" onerror="this.src='shop/tpl/{$_K['template']}/img/index_case.jpg'" width="556" ><br>
+                    $case_info['content']      
+                    </li>
+                  
+                </ul>
+                </div>
+                
+                <div class="commentBox">
+						<div class="title"><strong>评论</strong></div>
+						
+								<form id="commentform" method="post" action="shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$cid&op=comment">
+									<div class="commenting dashed2">
+									<p><textarea name="txt_comment" id="txt_comment" class="textarea"></textarea></p>
+	
+									<p>
+										验证码:<span id="promptSpan"> 
+										&nbsp; <input type="text" size="5" name="code" limit="required:true;len:4"  msg="请填验证码!" msgArea="txt_code" /><img id="secode_img" height="22" onclick="this.src='secode_show.php?sid='+Math.random()" src="secode_show.php?sid=<!--{eval echo md5(uniqid(time()))}-->"></span>
+										
+										<input type="button" onclick="submit_comment()" id="commentButton" value="发表留言"/><span id="replySpan"></span>&nbsp; 
+										<span id="ann"><input type="checkbox" id="ckb_hide_user" name="ckb_hide_user" {if !$uid}checked="checked"{/if} />匿名发表</span>
+	
+										<img id="loading" style="display:none" src="/images/loading.gif"/>
+									</p><br/>
+									
+									</div>
+								</form>
+							
+
+						<div class="comments">
+	                        <div class="comments">
+							{loop $comment_list $c}
+							<p class='dashed2'>
+								<!--{eval echo nl2br($c['content'])}-->
+								<span>$c['username'] &nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+								</p>
+							{/loop}
+								
+							<div class="pages">{$pages[page]}</div>
+							</div>
+						</div>
+					</div>
+                
+			</div>
+  </div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+	function show(obj){
+	    $(obj).prev().prev().slideToggle();	
+	}
+</script>
+<script>
+function submit_comment(){
+	
+	{if $uid==$shop_info['uid']}
+		showDialog("您不能对自己的案例留言",'alert','错误提示','',0);return;
+	{/if}
+
+	if(!$('#txt_comment').val()){
+		showDialog("没有留言内容",'alert','错误提示','',0);
+	}
+
+	if('$uid'==''&&!document.getElementById('ckb_hide_user').checked){
+		showDialog("您必须先登录!",'alert','错误提示','',0);
+	}
+
+	$('#commentform').submit();
+
+}
+</script>
+<!--{template shop/tpl/default/enterprise_footer}-->
+
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script src="tpl/js/util.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript" src="../../resource/js/xheditor/xheditor.js"></script>
+<body>
+<form method="post" action="index.php?do={$do}" id="frm_art_edit" enctype="multipart/form-data">
+<input type="hidden" name="do" value="{$do}">
+<input type="hidden" name="hdn_art_id" value="{$art_info[art_id]}">
+<input type="hidden" name="type" value="{$type}">
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">{if $art_id}编辑文章{else}添加文章{/if}</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+    	 <tr>
+        <td width="15%" class="bg1 t_r" colspan="1">文章标题：</td>
+        <td colspan="3"><input type="text" class="input_t" name="txt_art_title" size="88" value="{$art_info[art_title]}" maxlength="100" limit="required:true;len:3-100;general:false" msg="文章标题不能为空，长度不能超过100个字符串" msgArea="art_title_msg"  class="input_t"/><b style="color:red"> *</b><span id="art_title_msg"></span> </td>
+	  </tr>
+      <tr>
+        <td class="bg1 t_r">文章分类：</td>
+        <td width="15%"><select name="slt_cat_id">
+			{loop $cat_arr $v}
+				$v
+			{/loop}
+		</select>　
+		</td>
+		 <td width="15%" >排序：</td>
+        <td><input type="text" class="input_t" name="txt_listorder" value="{$art_info[listorder]}" maxlength="5" onkeyup="clearstr(this)"/> </td>
+      </tr>
+	   <tr>
+        <td width="15%" class="bg1 t_r">用户名：</td>
+        <td><input type="text" class="input_t" name="txt_username" value="{$art_info[username]}"/> </td>
+		 <td width="15%">文章来源：</td>
+        <td><input type="text" class="input_t" name="txt_art_source" value="{$art_info[art_source]}"/> </td>
+      </tr>
+		<tr>
+         <td width="30%" class="bg1 t_r">是否推荐显示：</td>
+        <td><input  type="checkbox" class="input_t" name="ckb_is_recommend" value="1" {if $art_info[is_recommend]==1}checked="checked"{/if}/> </td>
+		<td width="15%" >&nbsp;</td>
+        <td>&nbsp;</td>
+		<!-- <td width="15%" >是否幻灯显示：</td>
+        <td><input  type="checkbox" class="input_t" name="ckb_is_delineas" value="1" {if $art_info[is_delineas]==1}checked="checked"{/if}/> </td>
+     	-->
+	  </tr>
+	  <!--
+	   <tr>
+        <td class="bg1 t_r" colspan="1">图片上传：</td>
+        <td colspan="3"><input type="file" name="fle_art_pic" size="50">
+		<input type="hidden" name="hdn_art_pic" value="$art_info[art_pic]">
+		</td>
+      </tr>
+      -->
+      <tr>
+        <td class="bg1 t_r" colspan="1">SEO标题：</td>
+        <td colspan="3"><textarea cols="85"   rows="2" class="textarea" name="tar_seo_title" value="{$art_info[seo_title]}">{$art_info[seo_title]}</textarea></td>
+      </tr>
+      <tr>
+        <td class="bg1 t_r"  colspan="1">SEO关键字：</td>
+        <td colspan="3"><textarea cols="85" rows="2" class="textarea" name="tar_seo_keyword" value="{$art_info[seo_keyword]}">{$art_info[seo_keyword]}</textarea></td>
+      </tr>
+      <tr>
+        <td class="bg1 t_r" colspan="1">SEO描述：</td>
+        <td colspan="3"><textarea cols="85" rows="3" class="textarea" name="tar_seo_desc" value="{$art_info[seo_desc]}">{$art_info[seo_desc]}</textarea></td>
+      </tr>
+	  <tr>
+        <td class="bg1 t_r" colspan="1">文章内容：</td>
+        <td colspan="3"><div class="field" style="margin-left:-10px;*margin-left:0">
+        	<textarea  rows="18" name="tar_content" id="tar_content"  style="width:80%;">{$art_info[content]}</textarea>
+			</div>
+		</td>
+      </tr>
+	  {if $art_info[pub_time]}
+      <tr>
+        <td class="bg1 t_r" colspan="1">上次修改时间：</td>
+        <td colspan="3"><!--{date('Y-m-d H:i:s',$art_info[pub_time])}--></td>
+      </tr>
+	  {/if}
+	  <tr >
+        <td align="left" colspan="4">
+        <div style="padding-left:300px;">
+		<input type="submit" name="sbt_edit" class="input_but"  value="保存编辑"/>
+       	<input type="reset" name="rst_edit" class="input_but"  value="返回上一页" onclick="history.go(-1);"/>
+		</div>
+        </td>
+    </table>
+ 	<br/>
+    </div>
+</form>
+<script type="text/javascript">
+	var editor = $("#tar_content").xheditor({tools:'simple',internalScript:false,internalStyle:false,upImgUrl:"../../index.php?do=ajax_upload&type=admin&task_id=1",upImgExt:"jpg,jpeg,gif,png"});
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprise_shop_header}-->
+
+<div class="subContainer">
+	<div class="pagePositon">
+		<div class="pageName">
+            <span class="fl">服务报价</span>
+            <span class="corner"></span>
+            <span class="fr">&gt;&gt;</span>
+        </div>
+		{if $shop_info['uid']==$uid}
+		<a class="putNew" id="publish" href="index.php?do=user&view=service_add"  target="_blank" >发布新服务</a>
+		{/if}
+	</div>
+	<div class="pageLeft">
+		<ul>
+        	<li></li>
+        </ul>
+	</div>
+	<div class="pageRight">
+    <div class="rightContent serviceList">
+        {if $service_arr}
+		{loop $service_arr $v}
+				  <ul class="lineBg2" style="float:left">
+			      	<li style="float:left" class="pic_box"><img  onerror="this.src='shop/tpl/default/img/def_service.jpg'" src="$v['pic']" width="128"></li>
+			      	<li style="float:left;width:550px;" class="title">● <a href="shop.php?do=service_info&sid=$v['service_id']">$v['title']</a></li>
+			        <li style="float:left;width:550px;padding-left:0px;" class="info lineBg">
+			        	<span class="price">参考报价：$v['price']元{if $v['unite_price']}/{$v['unite_price']}{/if}
+			            	<a href="shop.php?do=service_info&sid=$v['service_id']">购买该服务</a>
+			            </span>
+			            <span class="edit">发布于(<!--{eval echo date('Y-m-d H:i:s',$v['on_time'])}-->) </span>
+			        </li>
+			        <li style="float:left" class="intro">
+			        	<p class="detail" style="display:none;">$v['content']</p><br>
+			            <p class="linkMore" onclick="show(this)">
+			            	<a href="javascript:;" >点击查看全部&gt;&gt;</a>
+			            </p>
+			            </li>
+			      </ul>
+	   {/loop}
+	   {else}
+	    <p>暂无服务</p>
+	   {/if}
+        <div class="pages">{$pages['page']}</div>
+      </div>
+  </div>
+	<div class="clear"></div>
+</div>
+<script>
+	function show(obj){
+		$(obj).prev().prev().toggle();
+	}
+</script>
+<!--{template shop/tpl/default/enterprise_footer}-->
+
+

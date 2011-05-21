@@ -1,0 +1,118 @@
+ /* blank */
+.blank1,.blanka1,.blank2,.blank6,.blank8,.blank9,.blank10,.blank13,.blank15,.blank16,.blank12 {font-size:1px;height:1px;clear:both;}
+.blanka1 {background:url(/images/bg/line1.gif) repeat-x; width:646px; margin:0 auto; padding-bottom:15px;}
+.blank2 {height:2px;}
+.blank6 {height:6px;}
+.blank8 {height:8px;}
+.blank9 {height:9px;}
+.blank10{height:10px;}
+.blank13{height:13px;}
+.blank15{height:15px;}
+.blank16{height:16px;}
+.blank12{height:12px;}
+.fl {float:left;}
+.fr {float:right;}
+ 	/* help search */
+#help_search {width:960px;margin:0 auto;}
+.help_search_li1,.help_search_li3 {float:left;width:209px;height:71px;background:#fff url(../img/help/bg1.gif) no-repeat;}
+.help_search_li3 {background:#fff url(../img/help/bg2.gif) no-repeat; width:6px;}
+.help_search_li2 {width:745px; height:71px; background:url(../img/help/bg3.gif) repeat-x; float:left;}
+.help_search_input,.help_search_input:hover {width:132px; height:33px; background:url(../img/help/input1.gif) no-repeat; color:#000; font:bold 14px/33px ""; border:none; margin-top:19px; text-indent:18px; letter-spacing:1px;}
+.help_search_input:hover {background:url(../img/help/input2.gif) no-repeat;}
+input.text{margin:-1px 5px 0 2px;padding:3px; height:20px; *height:23px; border:1px solid #333; font:12px/23px Verdana, Georgia, Tahoma, sans-serif; padding-top:8px; *padding-top:3px; width:460px; color:#000; }
+
+/* helpmenu */
+#help_menu {width:960px; background:#fff url(../img/help/bg.gif) repeat-x bottom; height:18px; padding-bottom:4px; margin:0 auto; color:#1B5997; font:14px/18px Verdana, Georgia, Tahoma, sans-serif;}
+.help_menu_now a {color:#1B5997; text-decoration:none;}
+.help_menu_now a:hover {color:#f60; text-decoration:underline;}
+.help_menu_guzhu,.help_menu_guzhu a {color:#B93310; font:12px/18px "宋体"; text-decoration:none;}
+.help_menu_guzhu a:hover {color:#f60; text-decoration:underline;}
+
+/* helpmain */
+#help_main {width:960px; margin:0 auto;}
+#help_left,#help_right,#help_right1,#help_right2  {float:left;}
+
+/* help left */
+#help_left {width:193px;}
+#help_left_first {width:184px; border:1px solid #A3DBFF; padding:3px;}
+.help_left_content1,.help_left_content2 {padding:3px 6px 7px 6px; background:#EDF6FC; width:172px; font:14px/26px Verdana, Georgia, Tahoma, sans-serif;}
+.help_left_content1 dt,.help_left_content2 dt {background:#edf6fc url(../img/help/left/icon2.gif) no-repeat 0 8px; padding-left:20px;}
+.help_left_content2 dt {background:#edf6fc url(../img/help/left/icon4.gif) no-repeat 0 8px;}
+.help_left_content1 dd {padding-left:65px; font:bold 12px/18px Verdana, Georgia, Tahoma, sans-serif; background:url(../img/help/left/icon3.gif) no-repeat 50px 3px;}
+.ddhide dd {display:none;}
+.ddshow dd {display:block;}
+.help_left_content1 dd a {color:#4D4D4D; text-decoration:none;}
+.help_left_content1 dt a,.help_left_content2 dt a {color:#1B5997; text-decoration:none;}
+.help_left_content1 dt a:hover,.help_left_content2 dt a:hover,.help_left_content1 dd a:hover {color:#f60; text-decoration:none;}
+.help_left_other_ul {}
+.help_left_other_header {background:#fff url(../img/help/left/bg1.gif) no-repeat; width:193px; height:29px; font:bold 14px/29px Verdana, Georgia, Tahoma, sans-serif; text-indent:10px;}
+.help_left_other_li,.fabutask li,.fabutask1 li {border-left:1px solid #AAD8F9; border-right:1px solid #AAD8F9; width:178px; float:left; font:12px/22px "宋体"; text-align:center; padding:0 6px;}
+.help_left_line {border-left:1px solid #AAD8F9; border-right:1px solid #AAD8F9; width:178px; padding:0 6px; height:7px; background:#fff url(../images/left/line.gif) repeat-x; clear:both;}
+.fabutask1 li {text-align:center;}
+.help_left_footer {background:#fff url(../img/help/left/bg2.gif) no-repeat; height:11px; width:192px; clear:both;}
+.help_suggest {border:1px solid #B5DBFB; background:#DEF0FC; width:190px; height:32px; font:12px/32px Verdana, Georgia, Tahoma, sans-serif;}
+.suggesttotaskcn,.suggesttotaskcn:hover {background:url(../img/help/left/icon1.gif) no-repeat; text-indent:23px; padding-left:26px; color:#0065AE;}
+.suggesttotaskcn:hover {color:#f60;}
+
+/* hot help */
+#hothelp {border-bottom:1px solid #8BC3DF;}
+.hothelphead {height:28px; background:#A0CEF8;}
+.hothelpmore {font:12px/28px "宋体"; text-decoration:none; color:#000; padding-right:10px;}
+.hothelpmore:hover {color:#f60; text-decoration:underline;}
+.hothelptitle {font:bold 14px/30px "宋体"; padding-left:10px;}
+.hothelplist {clear:both;}
+.hothelplist li {border-bottom:1px solid #C5E8FA; background:#fff url(../img/help/left/icon5.gif) no-repeat 10px 10px; padding-left:20px;}
+.hothelplist a {font:12px/24px Verdana, Georgia, Tahoma, sans-serif; color:#000; text-decoration:none;}
+.hothelplist a:hover {color:#f60; text-decoration:underline;}
+
+/* help right */
+#help_right {width:752px;margin-left:15px;}
+#help_right1 {width:607px;margin-left:10px;}
+#help_right2 {width:140px; margin-left:10px;*width:135px;}
+#help_right_content1,#help_com,.help_pub_content,#secretary,.help_pub_content1,.help_right_content1 {border:1px solid #C8DFEE; background:#F6F8FA; padding:0 13px;}
+.help_pub_content1 img {border:2px solid #3399CC;}
+.help_pub_content {width:724px; overflow:hidden;}
+.help_pub_content1 {width:579px; overflow:hidden;}
+.help_right_content1_header {height:34px; border-bottom:1px dashed #C2C2C2; font:bold 14px/34px Verdana, Georgia, Tahoma, sans-serif; color:#1B5997;}
+.help_right_li_header,.help_right_li_header1,.help_right_li_header2 {background:#f6f8fa url(../img/help/right/icon1.gif) no-repeat 7px 7px; height:34px; padding-left:26px;}
+.help_right_li_header3 {padding-left:0; color:#f60;}
+.help_right_li_header1 {background:url(../img/help/right/icon2.gif) no-repeat 5px 9px;}
+.help_right_li_header2 {background:url(../img/help/right/icon4.gif) no-repeat 5px 7px; color:#f60;}
+#help_right_content1_class { clear:both; padding:0 2px 13px 2px;}
+#help_right_content1_class li { width:240px; float:left; margin-top:8px; white-space:nowrap;}
+#help_right_content1_class span {display:block;}
+.help_class_span2 { height:36px; float:left; }
+.help_class_span2 a,.help_class_span2 a:hover {color:#1B5997; font:12px/22px Verdana, Georgia, Tahoma, sans-serif; text-decoration:none;}
+#help_right_content1_class a:hover {color:#f60; text-decoration:underline;}
+.help_class_span1,.help_class_span1:hover {font:bold 12px/22px Verdana, Georgia, Tahoma, sans-serif; text-decoration:underline; color:#000;}
+.help_class_span1:hover {color:#f60;}
+
+#help_com {}
+#help_com_problem {padding:8px 16px 7px 16px; font-family:"宋体";}
+#help_com_problem li {width:48%; float:left; background:url(../img/help/right/icon3.gif) no-repeat 0px 9px; padding-left:8px;}
+#help_com_problem a,#help_com_problem a:hover {color:#222; text-decoration:underline; font:12px/22px Verdana, Georgia, Tahoma, sans-serif;}
+#help_com_problem a:hover {color:#f00;}
+
+/* help class */
+.hel_pub_hack {padding:8px 16px 7px 16px; }
+.help_pub {font-family:"宋体";}
+.help_pub li,.help_pub1 li {width:48%; float:left; background:url(../img/help/right/icon3.gif) no-repeat 0px 9px; padding-left:8px;}
+.help_pub1 li {width:97%; font:12px/22px Verdana, Georgia, Tahoma, sans-serif; padding:0 0 0 8px; margin-bottom:3px; border-bottom:1px dashed #C2C2C2;}
+.help_pub1 a {color:#333; text-decoration:none;}
+.help_pub1 a:hover {color:#f60; text-decoration:underline;}
+.help_pub a,.help_pub a:hover {color:#222; text-decoration:underline; font:12px/22px Verdana, Georgia, Tahoma, sans-serif;}
+.help_pub a:hover {color:#f00;}
+    
+/* help_pub p */
+.help_pub_p,.help_pub_p1 {font:12px/22px Verdana, Georgia, Tahoma, sans-serif; padding:3px 10px; margin:5px 0; border-bottom:1px dashed #ccc; width:704px; overflow:hidden;}
+.help_pub_p1 {width:559px;}
+
+
+/* help_secretary */
+#secretary {background:#DEF0FC; padding:10px; overflow:hidden; width:730px; font:12px/22px Verdana, Georgia, Tahoma, sans-serif; color:#222;}
+#secretary_p {float:left; width:620px; margin-left:10px;}
+#secretary_p p {height:74px;}
+.secretaryimg {width:88px; height:74px; padding:1px; border:1px solid #CCCACA;}
+.help_index_suggest {text-align:right; clear:both;}
+.help_index_suggest a {color:#0065AE; text-decoration:underline;}
+.help_index_suggest a:hover {color:#f60;}

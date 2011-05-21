@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']" />
+<title></title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+<body>
+<div class="main">
+	
+    <div class="v_search">支付接口配置</div>
+	<div id="change">
+	
+	
+         <form name="frm_config_basic" id="frm_config_basic" action="index.php?do=config&view=$view&payname={$payname}" method="post" accept-charset="{$_K['charset']}" enctype='multipart/form-data'>
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                	
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                            接口名称：
+                        </td>
+                        <td>
+                           {$payment_config['pay_name']}
+                        </td>
+                    </tr>
+					<tr>
+                        <td width="30%" class="bg1 t_r">
+                            接口描述：
+                        </td>
+                        <td>
+                            {$payment_config[pay_desc]}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                           是否启用：
+                        </td>
+                        <td>
+                           <input type="radio" name="rdo_pay_status" <!--{if $payment_config['pay_status']}--> checked="checked" <!--{/if}-->  value="1">开启
+                           <input type="radio" name="rdo_pay_status" <!--{if !$payment_config['pay_status']}--> checked="checked" <!--{/if}--> value="0">关闭
+                            
+                        </td>
+                    </tr>
+					{loop $items $item}
+					<tr>
+                        <td class="bg1 t_r">
+                           {$item['name']}：
+                        </td>
+                        <td>
+                           <input type="text" size="50" name="config_{$item['k']}" value="{$item['v']}">
+                        </td>
+                    </tr>
+					{/loop}
+					<tr>
+                        <td width="30%" class="bg1 t_r">
+                            文字提示：
+                        </td>
+                        <td>
+                            <textarea name="txt_description" cols="100" rows="5">{$payment_config[descript]}</textarea>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="bg1 t_r">
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="保存配置" id="submit_save" class="input_but">  <input type="reset" value="重新配置" class="input_but">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            
+            
+	</div>
+	
+	
+  <script src="js/css.js" type="text/javascript"></script>
+
+</div>
+</body>
+</html>

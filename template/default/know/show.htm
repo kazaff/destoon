@@ -1,0 +1,171 @@
+{template 'header'}
+<div class="m">
+<div class="m_l f_l">
+	<div class="left_box">
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; {cat_pos($catid, ' &raquo; ')} &raquo; 正文</div>
+		<h1 class="title">{$title}</h1>
+		<div class="info"><span class="f_r f_b px13"><img src="{DT_SKIN}image/know_{$process}.gif" align="absmiddle"/> {$PROCESS[$process]}</span>
+		<img src="{DT_SKIN}image/ico_reward.gif" align="absmiddle"/> <span class="f_orange">悬赏分：{$credit}</span> -
+		<span class="f_gray">
+		{if $process == 1 || $process == 2}
+		离问题结束还有 {secondstodate($totime-$DT_TIME)}
+		{elseif $process == 3}
+		解决时间 {timetodate($updatetime, 5)}
+		{else}
+		提问时间 {timetodate($addtime, 5)}
+		{/if}
+		</span>
+		</div>
+		<div id="question" class="content px14">{$content}</div>
+		{if $addition}
+		<div class="know_addition">
+		<strong>问题补充：</strong><br/>
+		{nl2br($addition)}
+		</div>
+		{/if}
+		<div class="know_asker">
+		<span class="f_r">共 <span id="hits">{$hits}</span> 次关注&nbsp;&nbsp;&nbsp;&nbsp;
+		提问者：
+		{if $item[hidden]}
+		匿名
+		{else}
+			{if $item[username]}
+			<a href="{userurl($item[username])}" target="_blank">{$item[username]}</a>
+			{else}
+			{hide_ip($item[ip])}
+			{/if}
+		{/if}
+		</span>
+		{if $process == 1}<a href="#answer"><img src="{DT_SKIN}image/btn_answer.gif" width="90" height="23" alt="我来回答" id="answer_btn" class="dsn"/></a>{/if}
+		&nbsp;
+		</div>
+		{if $aid && $best}
+		<div class="best_answer_head">
+		<span class="f_r f_gray">
+			<span id="v_msg"></span>&nbsp;
+			<a href="javascript:" onclick="V(1, {$agree});">支持</a>(<span id="v_{$itemid}_1">{$agree}</span>)&nbsp; | &nbsp;
+			<a href="javascript:" onclick="V(0, {$against});">反对</a>(<span id="v_{$itemid}_0">{$against}</span>)
+		</span>
+		<strong class="px14">最佳答案</strong>
+		</div>
+		<div class="best_answer_body">
+			<div id="content">{template 'content', 'chip'}</div>
+			<div class="best_answer_foot">
+			<span class="f_r">
+			{if in_array($moduleid, explode(',', get_module_setting(3, 'comment_module')))}
+			<a href="{extendurl('comment')}{rewrite('index.php?mid='.$moduleid.'&itemid='.$itemid)}">[我来评论]</a>
+			{/if}
+			&nbsp;&nbsp;回答者：
+			{if $best[hidden]}
+			匿名
+			{else}
+				{if $best[username]}
+				<a href="{userurl($best[username])}" target="_blank">{$best[username]}</a>
+				{else}
+				{hide_ip($best[ip])}
+				{/if}
+			{/if}			
+			&nbsp;&nbsp;<span class="px11">{timetodate($best[addtime], 5)}</span></span>
+			&nbsp;&nbsp;
+			</div>
+			{if $comment}
+			<div class="know_comment">
+			<strong>提问者对答案的评价：</strong><br/>
+			{nl2br($comment)}
+			</div>
+			{/if}
+		</div>
+		<script style="text/javascript">
+		var v_op = 1;
+		var v_nm = 0;
+		function V(op, nm) {
+			v_op = op;
+			v_nm = nm;
+			if(get_cookie('best_answer_{$itemid}')) {
+				Inner('v_msg', '您已经对最佳答案表过态了');
+				return;
+			}
+			makeRequest('action=best&itemid={$itemid}&op='+op, '{$MOD[linkurl]}answer.php', '_V');
+		}
+		function _V() {
+			if(xmlHttp.readyState==4 && xmlHttp.status==200) {
+				if (xmlHttp.responseText == -1) {
+					Inner('v_msg', '您已经对最佳答案表过态了');
+				} else if (xmlHttp.responseText == 0) {
+					Inner('v_msg', '参数错误，如有疑问请联系管理员');
+				} else if (xmlHttp.responseText == 1) {
+					if(v_op == 1) {
+						Inner('v_{$itemid}_1', ++v_nm);
+					} else {
+						Inner('v_{$itemid}_0', ++v_nm);
+					}
+					Inner('v_msg', '感谢参与');
+				}
+			}
+		}
+		</script>
+		{/if}
+		<script type="text/javascript">show_answer('{$MOD[linkurl]}', {$itemid});</script>
+		<br/><br/>
+		<form method="post" action="{$MODULE[2][linkurl]}sendmail.php" name="sendmail" id="sendmail" target="_blank">
+		<input type="hidden" name="itemid" value="{$itemid}"/>
+		<input type="hidden" name="title" value="{$title}"/>
+		<input type="hidden" name="linkurl" value="{$linkurl}"/>
+		</form>
+		<center>
+		[ <a href="{$MOD[linkurl]}search.php">{$MOD[name]}搜索</a> ]&nbsp;
+		[ <script type="text/javascript">addFav('加入收藏');</script> ]&nbsp;
+		[ <a href="javascript:$('sendmail').submit();void(0);">告诉好友</a> ]&nbsp;
+		[ <a href="javascript:Print();">打印本文</a> ]&nbsp;
+		[ <a href="javascript:window.close()">关闭窗口</a> ]&nbsp;
+		[ <a href="javascript:window.scrollTo(0,0);">返回顶部</a> ]
+		</center>
+		<a name="answer"></a>
+		<br/>
+	</div>
+</div>
+<div class="m_n f_l">&nbsp;</div>
+<div class="m_r f_l">
+		<div class="box_head_3"><div><strong>问题搜索</strong></div></div>
+		<div class="box_body_3">
+			<div class="know_sch">
+				<form action="{$MODULE[2][linkurl]}{$DT[file_my]}" id="ask_form">
+				<input type="hidden" name="mid" value="{$moduleid}"/>
+				<input type="hidden" name="cid" value="{$catid}"/>
+				<input type="hidden" name="action" value="add"/>
+				<input type="hidden" name="kw" value="" id="ask_kw"/>
+				</form>
+				<form action="{$MOD[linkurl]}search.php" onsubmit="return know_sch_check();">
+				<input type="hidden" name="typeid" value="99" id="know_typeid"/>
+				<input type="text" name="kw" id="know_kw" value="请输入问题" class="know_sch_inp" onfocus="if(this.value=='请输入问题')this.value='';"/>
+				<div class="know_sch_btn">
+				<input type="submit" value="搜索答案" class="know_btn_1" onclick="$('know_typeid').value=99;"/>&nbsp;
+				<input type="submit" value="我要回答" class="know_btn_2" onclick="$('know_typeid').value=3;"/>&nbsp;
+				<input type="button" value="我要提问" class="know_btn_2" onclick="if(know_sch_check()){$('ask_kw').value=$('know_kw').value;$('ask_form').submit();}"/>&nbsp;
+				</div>
+				</form>
+				<script type="text/javascript">
+					function know_sch_check() {
+						if($('know_kw').value == '请输入问题' || $('know_kw').value.length < 1) {
+							alert('请输入问题');
+							$('know_kw').focus();
+							return false;
+						}
+						return true;
+					}
+				</script>
+			</div>			
+		</div>
+		<div class="b10"></div>
+	<div class="box_head_1"><div><strong>相关问题</strong></div></div>
+	<div class="box_body li_dot">
+		<!--{tag("moduleid=$moduleid&condition=status=3 and process=3&catid=$catid&order=updatetime desc&pagesize=10", -2)}-->
+	</div>
+	<div class="b10 c_b"> </div>
+	<div class="box_head_1"><div><strong>等待您来回答</strong></div></div>
+	<div class="box_body li_dot"><!--{tag("moduleid=$moduleid&condition=status=3 and process=1&catid=$catid&order=addtime desc&pagesize=10", -2)}-->
+	</div>
+</div>
+</div>
+{template 'zoom', 'chip'}
+{template 'footer'}

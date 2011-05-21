@@ -1,0 +1,3 @@
+{loop $tags $k $t}
+| <a href="{if $t[domain]}{$t[domain]}{else}{$t[linkurl]}{/if}">{$t[title]}</a> 
+{/loop}

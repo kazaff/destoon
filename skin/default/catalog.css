@@ -1,0 +1,23 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+.catalog_menu {height:25px;overflow:hidden;background:url('image/catalog.gif') no-repeat;border-bottom:#FF7300 1px solid;}
+.catalog_menu ul {margin:5px 0 0 106px;}
+.catalog_li {float:left;width:50px;height:20px;line-height:23px;overflow:hidden;margin-right:6px;background:url('image/catalog_menu.gif') no-repeat 0 -20px;;text-align:center;letter-spacing:1px;cursor:pointer;}
+.catalog_on {color:#ffffff;float:left;width:50px;height:20px;line-height:23px;overflow:hidden;margin-right:6px;background:url('image/catalog_menu.gif') no-repeat 0 0;text-align:center;letter-spacing:1px;}
+
+.catalog {border:#FF7300 1px solid;border-top:none;}
+.catalog li {float:left;padding:0 10px 0 10px;white-space:nowrap;background:url('image/catalog_li.gif') no-repeat right center;}
+.catalog td {line-height:20px;padding:6px 10px 6px 10px;color:#666666;}
+.catalog p {font-size:13px;margin:3px 3px 3px 8px;height:20px;overflow:hidden;}
+.catalog strong {color:#004499;}
+
+.catalog_letter {border:#FF7300 1px solid;border-bottom:none;height:32px;overflow:hidden;background:url('image/catalog_letter.gif') repeat-x;font-weight:bold;font-size:13px;cursor:pointer;}
+.catalog_letter div {float:left;padding:10px 2px 0 8px;color:#FF6600;}
+.catalog_letter ul {margin-top:5px;}
+.catalog_letter_li {float:left;padding:4px 7px 6px 7px;color:#666666;}
+.catalog_letter_on {float:left;padding:4px 7px 6px 7px;color:#FF6600;border:#BCBCBC 1px solid;border-bottom:none;background:#FAFAFA;}
+.catalog_index {width:640px;overflow:hidden;margin:-1px 0 0 5px;line-height:24px;font-size:13px;border:#BCBCBC 1px solid;border-top:none;background:#FAFAFA;position:absolute;z-index:100;}
+.catalog_index table {margin:10px 0 5px 15px;}
+.catalog_index div {height:7px;line-height:7px;font-size:1px;cursor:pointer;background:#DADADA url('image/close.gif') no-repeat center 2px;}

@@ -1,0 +1,73 @@
+<!--{eval $page_title='成功案例 - '.$_K['html_title']}--><!--{template header}-->
+
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+<div class="main_left">
+        <div class="main_news">
+        <div class="topnav"> 
+	      <img src="{SKIN_PATH}/img/homenav.gif" align="absmiddle"/>
+	<a href="index.php">首页</a> >
+	        <a href="index.php?do=case_list">成功案例</a>&gt;
+       </div>
+            <div class="main_d_task_tit">
+                <h4>成功案例</h4>
+            </div>
+            <dl>
+            <dd class="main_d_task_gut">
+                <dl>
+                <dd class="main_d_case_list">
+                	{loop $task_arr $key $value}
+						<div class="case_list_d">
+                		<img src="{$value[case_img]}" class="img_p2" align="left" width="114px" height="114px" onerror="this.src='{SKIN_PATH}/img/case_list_img.jpg'"/>
+						<a href="index.php?do=task&task_id={$value[task_id]}" class="font14"><!--{eval echo(Func_comm_class::cutstr($value[task_title],30));}--></a>
+						<br>悬赏金额：<b class="red">{if in_array($value[task_mode],array(1,2,3))}
+							￥{$value[task_cash]}
+							{else}
+							￥{$tender_cash_rule[$value[task_cash_coverage]][cove_desc]}
+							{/if}元</b>
+						<br>浏览：{$value[view_num]}次,参与：{$value[sign_num]}人<br>方案：{$value[work_num]}个
+						<br>发布者：
+						<a href="index.php?do=space&member_id={$value[uid]}">{$value[username]}</a></div>
+					{/loop}
+                	
+                
+              </dd></dl>
+              <div class="Npage">
+              		{$pages[page]}
+                 
+					
+              </div>
+            </dd>
+                
+            </dl>
+        </div><!--main_d_task_E-->
+        
+        <div class="clear"></div>
+        
+        
+    </div><!--main_left_E-->
+    
+   <div class="main_right">
+    	<div class="mb_10"><a href="index.php?do=release"><img src="{SKIN_PATH}/img/reward.png"/></a></div>
+        <div class="mb_10"><a href="index.php?do=task_list&model_id=2"><img src="{SKIN_PATH}/img/earn.png"/></a></div>
+  		<div class="main_d_r">
+        	<dl><dt class="main_d_r_tit font14">任务分类</dt>
+            <dd class="main_d_r_tag">
+            	{loop $indus_p_arr $key $values}
+					<h4 class="font14">{$values[indus_name]} </h4>
+					{loop $indus_c_arr $key $value}
+						{if $value[indus_pid]==$values[indus_id]}
+						<a href="index.php?do={$do}&indus_id={$value[indus_id]}">{$value[indus_name]}</a>
+						{/if}
+					{/loop}
+				{/loop}  
+            </dd></dl>
+        </div>
+    </div><!--main_right_E-->
+    
+    
+</div><!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

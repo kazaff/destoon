@@ -1,0 +1,43 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprisev_shop_header}-->
+ <div class="pageRight">
+    <div class="titleNav">
+    	<span class="fl">『关于我们』</span>
+        <span class="fr"><a href="shop.php?do=shop&view=aboutus&shop_id=$shop_id" class="more">&gt;&gt; MORE</a></span>
+    </div>
+    <div class="homeSection"> $shop_info['aboutus']</div>
+    <div class="titleNav">
+    	<span class="fl">『作品案例』</span>
+        <span class="fr"><a href="shop.php?do=shop&view=case&shop_id=$shop_id" class="more">&gt;&gt; MORE</a></span>
+    </div>
+    <div class="homeSection">
+      <ul>
+      	{loop $case_arr $v}
+        <li><em>·</em><a href="shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$v['case_id']">$v['case_name']</a></li>
+		{/loop}
+      </ul>
+    </div>
+    <div class="titleNav">
+    	<span class="fl">『联系我们』</span>
+        <span class="fr"><a href="shop.php?do=shop&view=contact&shop_id=$shop_id" class="more">&gt;&gt; MORE</a></span>
+    </div>
+    <div class="homeSection">
+      <ul>
+         <li>·电 &nbsp;话：——$shop_info['phone']</li>
+        <li>·传 &nbsp;真：——$shop_info['fax']</li>
+		<li>·手 &nbsp;机：——$shop_info['mobile']</li>
+        <li>·E-mail：——<a href="mailto:$shop_info['email']">$shop_info['email']</a></li>
+        <li>·地 &nbsp;址：——$shop_info['address']</li>
+        <li>·联系人：——{if $shop_info['truename']}{$shop_info['truename']}{else}{$shop_info['username']}{/if}</li>
+     
+      </ul>
+    </div>
+    <br>
+	<!--{template shop/tpl/default/enterprisev_footer}-->
+    <br>
+  </div>
+  <div class="clear"></div>
+</div>
+</body>
+</html>

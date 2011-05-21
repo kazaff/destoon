@@ -1,0 +1,80 @@
+<!--{eval $page_title='交易管理 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl>
+				<dt>
+					<div class="x_tit_1">
+						<div>
+							<span {if !$by}class="now"{/if}><a href="index.php?do=user&view=sell_service" >全部订单</a></span>
+							<span {if $by==1}class="now"{/if} ><a href="index.php?do=user&view=sell_service&by=1">已生效订单</a></span> 
+							<span {if $by==2}class="now"{/if}><a href="index.php?do=user&view=sell_service&by=2" >进行中的订单</a></span>  
+							<span {if $by==3}class="now"{/if}><a href="index.php?do=user&view=sell_service&by=3" >待仲裁订单</a></span> 
+							<span {if $by==7}class="now"{/if}><a href="index.php?do=user&view=sell_service&by=7" >已完成订单</a></span>
+							 
+						</div>
+					</div>
+				</dt>
+				<dd style="padding:10px;border:1px solid #bdd7ef;">
+				<form method="post">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line t_c tab_list">
+					    <tr>
+					  	<th>时间</th>
+						<th>总金额 </th>
+						<th>已付金额</th>
+						<th>交易对象</th>
+						<th>商品名称</th>
+						<th>交易状态</th>
+						<th>操作</th>
+					</tr>
+					{loop $order_arr $key $value}
+					<tr>
+						<td><!--{date('Y-m-d H:i:s',$value['on_time'])}--></td>
+						<td>￥{$value[count_cash]}元</td>
+						<td>￥{$value[pay_cash]}元</td>
+						<td>{$value[buy_username]}</td>
+						<td>{$value['title']}</td>
+						<td>
+							{if $value[order_status]==1}
+							生效
+							{elseif $value[order_status]==2}
+							已付款进行中
+							{elseif $value[order_status]==3}
+							未付款
+							{elseif $value[order_status]==4}
+							仲裁    
+							{elseif $value[order_status]==7}
+							订单完成
+							{else}
+							无效
+							{/if}
+						</td>
+						<td width="150">
+						<a target="_blank" href="{if $value[service_type]==2}shop.php?do=service_info&sid={$value[service_id]}{else}shop.php?do=step&order_id={$value[order_id]}{/if}"><img src="{SKIN_PATH}/img/ico/search.png" align="absmiddle"/>查看</a>&nbsp;
+						</td>
+					</tr>
+					{/loop}
+					<tr>
+						<td colspan="7">
+							 <div class="Npage">
+				              	{$pages[page]}
+				              	</div>
+						</td>
+					</tr>
+				</table>
+				</form>
+               	
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<!--{template footer}-->

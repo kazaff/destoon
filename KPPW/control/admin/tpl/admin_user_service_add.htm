@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>添加客服</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript" src="../../resource/js/keke.js"></script>
+<body>
+<div id="append_parent"></div>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">{if $edituid}编辑客服资料{else}添加客服资料{/if}</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do=user&type=service&op=add&edituid=$edituid" method="post">
+    <table width="96%" height="100" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">用户ID：</td>
+        <td>
+        <input type="text" value="{$memberinfo_arr['username']}" name="txt_user_id" maxlength="50" limit="required:true;len:1-20" msg="用户ID不能为空" msgArea="txt_username_msg"  class="input_t" onkeyup="clearstr(this);" /><b style="color:red"> *</b><span id="txt_username_msg"></span>
+		<input type="submit" name="sbt_edit" class="input_but" value="{if $edituid}编辑客服{else}添加客服{/if}"/> 
+        </td>
+      </tr>
+     
+	 <input type="hidden" name="is_submit" value="1"/>
+	  
+    </table>
+	
+	<p class="t_c mt_10"></p>
+ </form>
+ <script type="text/javascript" src="{$_K['siteurl']}/resource/js/script_calendar.js"></script>
+ 	<br/>
+    </div>
+</body>
+</html>

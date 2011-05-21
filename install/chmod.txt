@@ -1,0 +1,6 @@
+announce/
+cache/*
+extend/
+file/*
+config.inc.php
+index.html

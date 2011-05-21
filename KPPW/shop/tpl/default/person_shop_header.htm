@@ -1,0 +1,101 @@
+<link type="text/css" rel="stylesheet" href="shop/tpl/{$_K['template']}/css/public.css">
+<style>
+{if $shop_banner}
+.shopBanner{background:url("{$shop_banner}") no-repeat scroll 0 0 transparent;}
+{/if}
+{if $shop_config['background']}
+body{background: $shop_config['background'];}
+{/if}
+{if $shop_config['font_color']}
+body{color: $shop_config['font_color'];}
+.content a{
+	color: $shop_config['font_color'];
+}
+{/if}
+</style>
+<div class="header">
+	<div class="width_layer">
+      <div class="shopBanner">
+      	
+		 <div class="topMenu">
+                <img src="shop/tpl/default/img/police_icon.gif">
+        <a href="javascript:" onclick="report();return false;">投诉举报</a>&nbsp;
+       {if $uid == $shop_info['uid']}
+	    <img src="shop/tpl/default/img/add_icon.gif">
+        <a href="index.php?do=user&view=shop_person_mytheme">店铺管理</a>
+		{/if}    
+    </div>
+    <script>
+    function report(){
+       $("#report").show();
+     }
+    function  collapse(){
+        $("#report").hide();
+     }
+    </script>
+	<form action="shop/control/ajax.php?1" method="post" id="frm_report" >
+	  <input type="hidden" name='ajax' value="report">
+	  
+    <div class="jubaoDiv" id="report" style="display:none;">
+      <div class="title">
+      	<strong class="fl">投诉举报</strong>
+        <a href="javascript:" onclick="collapse();return false;" title="关闭" class="close">关闭</a>
+      </div>
+      <div class="container">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td align="right" width="80">店铺名称：</td>
+              <td>
+              <span id="nameSpan">{if $shop_info['truename']}{$shop_info['truename']}{else}{$shop_info['username']}{/if}
+              </span>
+              <span class="sign">$shop_config['ad_text']</span>
+              </td>
+            </tr>
+            <tr>
+              <td align="right" valign="top">具体内容：</td>
+              <td><textarea id="content" name="content" class="textarea" style="width:320px"></textarea>
+                <p>为方便我们调查，请提供真实、可靠的内容。</p></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btnBar">
+          <input onclick="submitReport()" id="sbt_report" value="提交" type="button">
+          &nbsp;
+          <input onclick="collapse()" value="取消" type="button">
+        </div>
+      </div>
+    </div>
+	</form>
+	<script>
+		function submitReport(){
+			 showWindow('report','frm_report','post','','','collapse()');
+		}
+	</script>
+      	<span><br></span>
+		<h2>{if $shop_info['truename']}{$shop_info['truename']}{else}{$shop_info['username']}{/if}  
+		$shop_info['job']
+		{if $shop_info['realname_auth']}
+		<s title="已通过身份认证" class="card id-card-pass"></s>
+		{/if}
+		</h2><span class="sign">$shop_config['ad_text']</span>
+        <p>&nbsp;</p>
+		<p>
+            <span id="link">{$_K[siteurl]}/shop.php?do=shop&shop_id=$shop_id</span> 
+            <a onclick="setCopy('{$_K['siteurl']}/shop.php?do=shop&shop_id=$shop_id','复制成功');" href="javascript:;">复制</a>
+            <a onclick="addFav('{if $shop_info['truename']}{$shop_info['truename']}{else}{$shop_info['username']}{/if}的个人商城','{$_K['siteurl']}/shop.php?do=shop&shop_id=$shop_id');" href="javascript:;">收藏</a>
+        </p>
+      </div>
+        <div class="navigation">
+            <span class="fl">访问量：$shop_info['views']</span>
+            <span class="menu" id="ctl00_menu">
+            <a href="shop.php?do=shop&shop_id=$shop_id" {if $view=='index'}class="cur"{/if}>首页</a> | 
+            <a href="shop.php?do=shop&view=service&shop_id=$shop_id" {if $view=='service'}class="cur"{/if}>$shop_meun['menu_1']</a> | 
+            <a href="shop.php?do=shop&view=case&shop_id=$shop_id" {if $view=='case'}class="cur"{/if}>$shop_meun['menu_2']</a> | 
+            <a href="shop.php?do=shop&view=contact&shop_id=$shop_id" {if $view=='contact'}class="cur"{/if}>$shop_meun['menu_3']</a> | 
+            <a href="shop.php?do=shop&view=comment&shop_id=$shop_id" {if $view=='comment'}class="cur"{/if}>客户留言</a>
+            </span>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

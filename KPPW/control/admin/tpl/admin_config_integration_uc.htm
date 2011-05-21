@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <title>用户整合</title>
+    </head>
+    <link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="tpl/js/jquery.js" type="text/javascript">
+    </script>
+    <script type="text/javascript" src="tpl/js/css.js">
+    </script>
+    <script type="text/javascript" src="tpl/js/form_and_validation.js">
+    </script>
+    <body>
+        <div class="main">
+            <div class="m_tit">
+                <ul>
+                    <li class="m_tit_l">
+                    </li>
+                    <li class="font14">
+                        Ucenter用户整合
+                    </li>
+                    <li class="m_tit_r">
+                    </li>
+                </ul>
+            </div>
+            <form action="index.php?do=config&view=integration&type=uc&ac=setting" method="post">
+                <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td colspan="2" class="td27">
+                            UCenter 应用 ID:
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vtop rowform">
+                            <input name="settingnew[uc][appid]" value="{$_UC['uc_appid']}" type="text" class="txt" />
+                        </td>
+                        <td class="vtop tips2">
+                            该值为当前站点在 UCenter 的应用 ID，一般情况请不要改动
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="td27">
+                            UCenter 通信密钥:
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vtop rowform">
+                            <input name="settingnew[uc][key]" value="{$_UC['uc_key']}" type="text" class="txt" />
+                        </td>
+                        <td class="vtop tips2">
+                            通信密钥用于在 UCenter 和KPPW!之间传输信息的加密，可包含任何字母及数字，请在 UCenter 与KPPW! 设置完全相同的通讯密钥，以确保两套系统能够正常通信
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="td27">
+                            UCenter 访问地址:
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class=" ">
+                            <input name="settingnew[uc][api]" value="{$_UC['uc_api']}" type="text" class="txt" size="50" />
+                        </td>
+                        <td class="vtop tips2">
+                            如果您的 UCenter 访问地址发生了改变，请修改此项。不正确的设置可能导致站点功能异常，请小心修改。
+                            <br/>
+                            格式: http://www.sitename.com/uc_server (最后不要加'/')
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="td27">
+                            UCenter IP 地址:
+                        </td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="vtop rowform">
+                            <input name="settingnew[uc][ip]" value="{$_UC['uc_ip']}" type="text" class="txt" />
+                        </td>
+                        <td class="vtop tips2">
+                            如果您的服务器无法通过域名访问 UCenter，可以输入 UCenter 服务器的 IP 地址
+                        </td>
+                    </tr>
+                   
+                    <tbody class="sub" id="ucmysql">
+                        <tr>
+                            <td colspan="2" class="td27">
+                                UCenter 数据库服务器:
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vtop rowform">
+                                <input name="settingnew[uc][dbhost]" value="{$_UC['uc_dbhost']}" type="text" class="txt" />
+                            </td>
+                            <td class="vtop tips2">
+                                可以是本地也可以是远程数据库服务器，如果 MySQL 端口不是默认的 3306，请填写如下形式：127.0.0.1:6033
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="td27">
+                                UCenter 数据库用户名:
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vtop rowform">
+                                <input name="settingnew[uc][dbuser]" value="{$_UC['uc_dbuser']}" type="text" class="txt" />
+                            </td>
+                            <td class="vtop tips2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="td27">
+                                UCenter 数据库密码:
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vtop rowform">
+                                <input name="settingnew[uc][dbpw]" value="{$_UC['uc_dbpw']}" type="password" class="txt" />
+                            </td>
+                            <td class="vtop tips2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="td27">
+                                UCenter 数据库名:
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vtop rowform">
+                                <input name="settingnew[uc][dbname]" value="{$_UC['uc_dbname']}" type="text" class="txt" />
+                            </td>
+                            <td class="vtop tips2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="td27">
+                                UCenter 表前缀:
+                            </td>
+                        </tr>
+                        <tr class="noborder">
+                            <td class="vtop rowform">
+                                <input name="settingnew[uc][dbtablepre]" value="{$_UC['uc_dbtablepre']}" type="text" class="txt" />
+                            </td>
+                            <td class="vtop tips2">
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+
+                </table>
+                <p class="t_c mt_10">
+                    <input type="submit" name="sbt_edit" class="input_but" value="{if $_UC['uc_appid']}编辑配置信息{else}添加配置信息{/if}"/>
+                </p>
+            </form>
+            <br/>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,151 @@
+<!--{template header}-->
+<script src="resource/js/jquery.js" type="text/javascript">
+</script>
+<script src="resource/js/tiptip.js" type="text/javascript">
+</script>
+<script src="resource/js/keke.js" type="text/javascript">
+</script>
+<script src="resource/js/form_and_validation.js" type="text/javascript">
+</script>
+<script src="resource/js/ajaxfileupload.js" type="text/javascript">
+</script>
+<link rel="stylesheet" type="text/css" href="resource/css/base.css" />
+<link rel="stylesheet" type="text/css" href="resource/css/tiptip.css" />
+<script type="text/javascript">
+    $(function(){
+        $(".tiptip").tipTip();
+        $("#btn_fle").click(function(){
+            var obj = document.getElementById('fle_1');
+            if (isExtName(obj, 1)) {
+            
+            }
+        })
+        
+    })
+</script>
+<script type="text/javascript">
+    var STYLEID = '1', STATICURL = '', IMGDIR = 'common', VERHASH = 'cC0', charset = 'gbk', discuz_uid = '0', cookiepre = '5Ptx_', cookiedomain = '', cookiepath = '/', attackevasive = '0', disallowfloat = 'newthread|reply', creditnotice = '1|威望|,2|金钱|,3|贡献|'
+</script>
+<div id="append_parent">
+</div>
+<div>
+	<form action="" method="" >
+	<P>
+		<input type="text" id="secc" ><span id="secshow">
+			<img id="secode_img" src="index.php?do=seccode">
+			<a href="javascript:;" onclick="document.getElementById('secode_img').src='index.php?do=seccode&sid='+Math.random(); return false;" class="c030">看不清，换一张</a>
+		</span>
+		
+	</P>
+	
+	
+</form>
+    <span>文件扩展名判断</span>
+    <form action="index.php?do=ajax_upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="filedata" id="fle_1" ext=".zip,.rar,.jpg,.png,.gif" onchange="isExtName(this,1)"><input type="submit" id="btn_fle" onclick="return isExtName(document.getElementById('fle_1'),1)">
+    </form><span>ajaxUpload</span>
+    <input type="file" name="fle_2" id="fle_2"><input type="button" id="btn_fle" value="ajaxupload" onclick="upload()">
+    <script type="text/javascript">
+        function upload(){
+            $.ajaxFileUpload({
+                url: 'index.php?do=secode_demo&ajax=1',
+                fileElementId: 'fle_2',
+                dataType: 'json',
+                success: function(json){
+                    alert(json.msg.url)
+                },
+                error: function(json, status, e){
+                    alert(e)
+                }
+            });
+        }
+    </script>
+</div>
+tab切换例子
+<div class="main_d_1" style="border:solid">
+    <dl>
+        <dt>
+            <span class="h3_now"><a href="#" id="tab_cont_1" onmouseover="swaptab('cont','h3_now','',3,1)">网站公告</a></span>
+            <span><a href="#" id="tab_cont_2" onmouseover="swaptab('cont','h3_now','',3,2)">中标通知</a></span>
+            <span><a href="#" id="tab_cont_3" onmouseover="swaptab('cont','h3_now','',3,3)">支付公告</a></span>
+        </dt>
+        <dd class="linko" id="div_cont_1">
+            网站公告
+            网站公告
+            网站公告
+        </dd>
+        <dd id="div_cont_2" style="display:none;">
+            中标通知
+            中标通知
+            中标通知
+        </dd>
+        <dd id="div_cont_3" style="display:none;">
+            支付公告
+            支付公告
+            支付公告
+            支付公告
+        </dd>
+    </dl>
+</div>
+<form method="POST">
+    Username:
+    <br/>
+    <input type="text" name="username" class="tiptip" title="请输入用户" />
+    <br/>
+    Password:
+    <br/>
+    <input type="text" name="password" class="tiptip" title="请输入密码" />
+    <br/>
+    <!-- pass a session id to the query string of the script to prevent ie caching --><img id="secode_img" src="secode_show.php?sid=<!--{eval echo md5(uniqid(time()))}-->">
+    <br/>
+    <input type="text" name="code" />
+    <br/>
+    <a href="javascript:;" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;">换一个</a>
+    <input type="submit" name="submit" value="Submit Form" />
+</form><h2>show Dialog</h2>
+<a href="#" onclick="showDialog('alert 内容', 'confirm', 'alert 标题','',0);return false">confirm window</a>
+<a href="#" onclick="showDialog('alert 内容', 'notice', 'alert 标题','',0);return false">notice window</a>
+<a href="#" onclick="showDialog('alert 内容', 'alert', 'alert 标题','',0);return false">alert window</a>
+<h1><a id="w1" href="index.php?do=secode_demo&ac=showWindows" onclick="showWindow('show', this.href);">show Window</a></h1>
+<tbody >
+    <tr>
+        <td class="tt_l">
+        </td>
+        <td ondblclick="hideWindow('login')" class="tt_c">
+        </td>
+        <td class="tt_r">
+        </td>
+    </tr>
+    <tr>
+        <td ondblclick="hideWindow('login')" class="m_l">
+            &nbsp;&nbsp;
+        </td>
+        <td id="fwin_content_login" class="m_c" style="" fwin="login">
+        </td>
+        <td ondblclick="hideWindow('login')" class="m_r">
+        </td>
+    </tr>
+    <tr>
+        <td class="b_l">
+        </td>
+        <td ondblclick="hideWindow('login')" class="b_c">
+        </td>
+        <td class="b_r">
+        </td>
+    </tr>
+</tbody>
+<script type="text/javascript">
+	$(function(){
+		x = new Ajax();
+		x.get("index.php?do=login&inajax=1", function(s, x){
+			alert(s);
+		})
+		//ajaxget("index.php?do=login&title=登录","fwin_content_login",null, '', '');
+	})
+	
+</script>
+
+
+
+<!--{userpic(1,middle)}-->
+<!--{template footer}-->

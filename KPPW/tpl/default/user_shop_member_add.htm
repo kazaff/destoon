@@ -1,0 +1,128 @@
+<!--{eval $page_title='添加店铺成员 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl><dt>添加店铺成员</dt>
+				<dd>
+				<div class="x_tit">
+				<span  class="now"><a href="index.php?do={$do}&view=shop_member_add" >成员添加</a></span>
+				<span><a href="index.php?do={$do}&view=shop_member" >成员管理</a></span>
+				</div>
+				<form method="post" enctype="multipart/form-data">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					
+					 <tr>
+					 	<td colspan="1">
+					 	形象图片：
+					 	</td>
+						<td colspan="3">
+						{if $member_info[licen_pic]}
+						<img src="data/uploads/{$member_info[licen_pic]}" width="100" height="100">
+						<br>
+						{/if}
+					 	<input type="file" name="fle_pic">
+					 	</td>
+					 </tr>
+					  <tr>
+					  	<td colspan="1">成员名称：</td>
+						<td colspan="3">
+							<input type="text" name="txt_real_name" value="{$member_info[real_name]}">
+						</td>
+					  </tr>
+					    <tr>
+					  	<td colspan="1">职位名称：</td>
+						<td colspan="3">
+							<input type="text" name="txt_job" value="{$member_info[job]}">
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">入行年限：</td>
+						<td colspan="3">
+							<input type="text" name="txt_express" value="{$member_info[express]}" size="5" maxlength="5">年
+						</td>
+					  </tr>
+					    <tr>
+					  	<td colspan="1">
+					  		最高学历：
+					  	</td>
+						<td colspan="3">
+							<input type="text" name="txt_top_xl" value="{$member_info[top_xl]}">&nbsp;&nbsp;&nbsp;
+					  	</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="1">毕业学校：</td>
+						<td colspan="3">
+							<input type="text" name="txt_school" value="{$member_info[school]}">
+						</td>
+					  </tr>
+					   <tr>
+					  	<td colspan="1">详细说明：</td>
+						<td colspan="3">
+							<textarea  rows="16" name="tar_content"   id="system-create-location" style="width:100%;height:200spx;">{$member_info[aboutus]}</textarea>
+						</td>
+					  </tr>
+					  <tr>
+					  	<td colspan="4" align="center">
+					  		<input type="hidden" name="hdn_shop_member_id" value="{$member_info[shop_member_id]}">
+					  		<input type="submit" name="sbt_edit" value="立即编辑" class="input_btn3"></td>
+					  </tr>
+				</table>
+				</form>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+
+var editor = $("#system-create-location").xheditor({tools:'simple',internalScript:false,internalStyle:false,width:440,height:230,upLinkUrl:'index.php?do=ajax_upload&task_id={$task_id}&type=link',upImgUrl:"index.php?do=ajax_upload&task_id={$task_id}",upImgExt:"jpg,jpeg,gif,png"});
+$(function(){
+	 
+	var fil_up_obj = document.getElementById("file_name"); 
+	$("#btn_up").click(function(){
+		if(isExtName(fil_up_obj,1))
+		{
+			upload();
+		}
+		else
+		{
+			return false;			
+		}
+	})
+	
+})
+function upload(){	
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&task_id={$task_id}&type=att',
+	fileElementId:'file_name',
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}else{
+			editor.appendHTML('<a href="'+json.msg.url+'" target="_blank">'+json.msg.localname+'</a>');
+		}
+
+		},
+	error:function(json,status,e){
+		  
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+<!--{template footer}-->

@@ -1,0 +1,56 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprise_shop_header}-->
+
+<div class="subContainer">
+  <div class="pagePositon">
+    <div class="pageName">
+    	<span class="fl">团队成员</span>
+        <span class="corner"></span>
+        <span class="fr">&gt;&gt;</span>
+    </div>
+  </div>
+  <div class="pageLeft">
+  	<ul>
+        	<li> </li>
+    </ul>
+  </div>
+  <div class="pageRight">
+    <div class="rightContent teamMembers">
+			 {if $team_arr}
+				{loop $team_arr $v}
+			<ul style="height: auto;">
+                <li class="pic">
+                   <img src="$v['licen_pic']" onerror="this.src='shop/tpl/default/12041_m1.jpg'">              
+                </li>
+                <li class="info lineBg">
+                 	姓名：$v['real_name']<br>
+					职位名称：$v['job']<br>
+					入行年限：$v['express']年<br>
+					最高学历：$v['top_xl']
+	                <span class="linkMore" onclick="show(this)"><a href="javascript:;"   >&gt;&gt; 详细说明</a></span><br>
+						   <div id="aboutus" style="display:none;"> $v['aboutus'] </div></div>
+                </li>
+            </ul><div class="clear"></div>
+			<div class="pages">{$pages['page']}</div>
+            {/loop}
+			{else}
+            <ul style="margin: 15px 15px 0pt 0pt; height: auto;" class="membersInfo">
+				<li>暂未添加个人简介</li>
+			</ul>
+			{/if}
+            <br>
+            
+			
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript">
+	function show(obj){
+		$(obj).next().next().slideToggle();
+	}
+</script>
+<!--{template shop/tpl/default/enterprise_footer}-->
+
+

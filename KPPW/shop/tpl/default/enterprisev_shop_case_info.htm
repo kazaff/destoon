@@ -1,0 +1,108 @@
+<!--{eval $page_title='联系方式 - '.$_K['html_title']}-->
+<!--{template header_top}-->
+<!--{template shop/tpl/default/enterprisev_shop_header}-->
+
+<div class="pageRight">
+    <div class="titleNav">
+    	<span class="fl">『作品案例』</span>
+		{if $uid==$shop_info['uid']}
+        <span class="titleIcon"><a href="index.php?do=user&view=case_add">&gt;&gt;发布新案例</a></span>
+		{/if}
+    </div>
+    <div class="boxBody">
+
+				
+				<div class="caseList">
+                <ul>
+                  <li class='title'><strong>●</strong>
+                  $case_info['case_name'] </li>
+                    <li class='info dashed'>
+                    	<span class='edit'><img src='shop/tpl/{$_K['template']}/img/edit_icon.gif'/>发布于(<!--{eval echo date('Y-m-d H:i:s',$case_info['on_date'])}-->)</span>
+                       <span class='time'>执行时间：{if $case_info['express']}<!--{eval echo date('Y年-m月',$case_info['express'])}-->{else}--{/if}</span>
+                       
+                  </li>
+                    <li class='intro'>
+                    <img src="$case_info['pic']" onerror="this.src='shop/tpl/{$_K['template']}/img/index_case.jpg'" width="556" >      
+                    </li>
+                 
+                </ul>
+                </div>
+                <div class="all"><a href="">点击查看全部>></a></div>
+                <div class="commentBox">
+						<div class="title">●&nbsp;评论&nbsp;&nbsp(共有0条)</div>
+						
+								<form id="commentform" class="commentReg" method="post" action="shop.php?do=shop&view=case_info&shop_id=$shop_id&cid=$cid&op=comment">
+									
+									<div class="commenting dashed2">
+									<p><textarea name="txt_comment" id="txt_comment" class="textarea"></textarea></p>
+	
+									<table>
+										<tr><td>验证码：</td>
+										<td><span id="promptSpan"><input type="text" size="5" name="code" limit="required:true;len:4"  msg="请填验证码!" msgArea="txt_code" />
+										<img id="secode_img" height="22" onclick="this.src='secode_show.php?sid='+Math.random()" src="secode_show.php?sid=<!--{eval echo md5(uniqid(time()))}-->"></span>							
+										<td><input type="button" class="commentFb" onclick="submit_comment()" id="commentButton" value="发表留言"/></td><td><span id="replySpan"></span>&nbsp; </td>
+<td>										<span id="ann"><input type="checkbox" id="ckb_hide_user" name="ckb_hide_user" {if !$uid}checked="checked"{/if} />&nbsp;&nbsp;匿名发表</span></td>
+<td>	
+										<img id="loading" style="display:none" src="/images/loading.gif"/></td></tr>
+									</table>
+									</div>
+								</form>
+							
+
+						<div class="comments">
+	                        <div class="comments">
+							{loop $comment_list $c}
+							<p class='dashed2'>
+								<!--{eval echo nl2br($c['content'])}-->
+								<span><strong>$c['username']</strong>&nbsp;&nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+								</p><p class='dashed2'>
+								<!--{eval echo nl2br($c['content'])}-->
+								<span><strong>$c['username']</strong>&nbsp;&nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+								</p><p class='dashed2'>
+								<!--{eval echo nl2br($c['content'])}-->
+								<span><strong>$c['username']</strong>&nbsp;&nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+								</p><p class='dashed2'>
+								<!--{eval echo nl2br($c['content'])}-->
+								<span><strong>$c['username']</strong>&nbsp;&nbsp;<!--{date('Y-m-d H:i',$c['on_time'])}--></span>
+								</p>
+							{/loop}
+								
+							<div class="pages">{$pages[page]}</div>
+							</div>
+						</div>
+					</div>
+                
+			</div>
+	   <!--{template shop/tpl/default/enterprisev_footer}-->
+    <br>
+  </div>
+  <div class="clear"></div>
+</div>
+<script type="text/javascript">
+	function show(obj){
+	    $(obj).prev().prev().slideToggle();	
+	}
+</script>
+<script>
+function submit_comment(){
+	
+	{if $uid==$shop_info['uid']}
+		showDialog("您不能对自己的案例留言",'alert','错误提示','',0);return;
+	{/if}
+
+	if(!$('#txt_comment').val()){
+		showDialog("没有留言内容",'alert','错误提示','',0);
+	}
+
+	if('$uid'==''&&!document.getElementById('ckb_hide_user').checked){
+		showDialog("您必须先登录!",'alert','错误提示','',0);
+	}
+
+	$('#commentform').submit();
+
+}
+</script>
+</body>
+</html>
+
+

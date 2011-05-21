@@ -1,0 +1,26 @@
+{template 'header', 'wap'}
+{if $itemid}
+	<strong>{$title}</strong><br/>
+	日期:<small>{$fromdate}~{$todate}</small><br/>
+	{if $page==1}
+	城市:{$city}<br/>
+	地址:{$address}<br/>
+	展馆:{$hallname}<br/>
+	主办:{$sponsor}<br/>
+	{/if}
+	{template 'content', 'wap'}<br/>
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a> ({$v[city]}) <small>{$v[fromdate]}~{$v[todate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/>
+{template 'footer', 'wap'}

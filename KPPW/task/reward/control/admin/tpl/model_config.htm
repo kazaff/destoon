@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+        <link href="tpl/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="tpl/js/jquery.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/css.js">
+        </script>
+        <script type="text/javascript" src="tpl/js/form_and_validation.js">
+        </script>
+        <title>悬赏配置表</title>
+    </head>
+	
+    <body>
+    
+    <div class="main">
+            <div class="w_80 m_c">
+                <div id="select1">
+                    <div class="tab_t">
+                        <h3 class="sel" id="tab_cont_1" onclick="swaptab('cont','sel','',3,1)">悬赏配置管理</h3>
+                        <h4></h4>
+                        <h3 id="tab_cont_2" onclick="swaptab('cont','sel','',3,2)">悬赏任务权限配置</h3>
+                        <h4></h4>
+                    </div>
+                    <div class="gut">
+                    <div class="{if $op=='config'||!$op}block{else}none{/if}" id="div_cont_1">
+                    	<ul>
+                            <li>
+   			<form name="frm_config_reward" action="index.php?do=model&model_id={$model_id}&view=config" method="post">
+                <input type="hidden" name="hdn_xs_config_id" value="{$config_reward_info[xs_task_config_id]}">
+                <input type="hidden" name="cash_rul_count" id="cash_rul_count" value="<!--{eval echo count($day_rule_arr)}-->" >
+				<input type="hidden" name="adjourn_rul_count" id="adjourn_rul_count" value="<!--{eval echo  count($defer_rule_arr)}-->" >
+				<table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    <tr>
+                        <td class="bg1" colspan="2">
+                            <b>悬赏配置</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            悬赏任务时间规则设定：
+                        </td>
+                        <td id="td_cash_rul">
+                            <ul id="add_new_rul" style="list-style:none">
+                                
+								 {if count($day_rule_arr) > 1}
+								 {loop $day_rule_arr $key $value}
+								    {if $key == 0}
+								     <li>
+                                    <span id="span_1">1</span>
+                                    <input type="text" size="10" name="txt_task_min_cash_1" id="txt_task_min_cash_1" readonly="true" value="{$value[rule_cash]}" maxlength="100" limit="required:true;len:1-10" msg="任务最小金额不正确，长度1-10"  class="input_t"/>元以上 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    持续<input type="text" size="10" name="txt_task_min_day_1" value="{$value['rule_day']}"  limit="required:true;len:1-2;type:int;between:1-" msg="天数必须为大于0的整数" class="input_t"> 天 
+								</li>
+								   {else}
+								    <li><span id="span_<!--{eval echo $key+1}-->"><!--{eval echo $key+1}--></span> <input type="text"  value="{$value[rule_cash]}"  size="10" name="txt_task_min_cash_<!--{eval echo $key+1}-->" limit="required:true;len:1-10" msg="任务最小金额不正确，长度1-10"   class="input_t"/>元以上持续<input type="text" size="10" value="{$value['rule_day']}"   limit="len:1-2;type:int" msg="天数不能为空! 天数的长度1-2"  name="txt_task_min_day_<!--{eval echo $key+1}-->" class="input_t"> 天  </li>
+									{/if}
+								 {/loop}
+								 {else}
+								 <li>
+                                    <span id="span_1">1</span>
+                                    <input type="text" size="10" name="txt_task_min_cash_1" value="{$day_rule_arr[0]['rule_cash']}" maxlength="100" limit="required:true;len:1-10" msg="任务最小金额不正确，长度1-10"  class="input_t"/>元内 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    持续<input type="text" size="10" name="txt_task_min_day_1" value="{$day_rule_arr[0]['rule_day']}" limit="required:true;len:1-2;type:int" msg="天数不能为空! 天数的长度1-2" class="input_t"> 天 
+								</li>
+								{/if}
+                            </ul><a href="javascript:;" id="add_cash_rul"><img src="tpl/img/ico/add.gif" align="absmiddle"/>添加规则</a><a href="javascript:;" id="del_cash_rul"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除规则</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务审核金额设定：
+                        </td>
+                        <td>
+                            <input type="text" size="10"   name="txt_audit_cash" value="{$config_reward_info[audit_cash]}"   limit="type:float;required:true;len:2-100" msg=" 任务审核金额不正确，长度3-100" msgArea="audit_moeny_msg" class="input_t"/>元<b style="color:red">*</b>
+                            (大于这个金额的任务不需要审核，否则需要管理员审核)<span id="audit_moeny_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                            悬赏任务最小金额设定：
+                        </td>
+                        <td>
+                            <input type="text" size="10"   name="txt_task_min_cash" id="txt_task_min_cash" value="{$config_reward_info[task_min_cash]}" maxlength="100" limit="type:float;required:true;len:1-5" msg=" 任务最小金额为正整数，长度1-5" msgArea="task_min_cash_msg" class="input_t"/>元<b style="color:red">*</b>
+                            (悬赏任务的最小金额为大于零正整数)<span id="task_min_cash_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                           悬赏任务公示期时间：
+                        </td>
+                        <td>
+                            <input type="text" size="10"   name="txt_show_limit_time"  value="{$show_limit_time}" limit="type:int;len:1" msg="公示期时间不对,长度:1" msgArea="show_limit_time_msg" class="input_t">天（最小值为1天）
+							<span id="show_limit_time_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                           悬赏任务投票期时间：
+                        </td>
+                        <td>
+                            <input type="text" size="10" name="txt_vote_limit_time"  value="{$vote_limit_time}" limit="type:int;len:1;required:true" msg="投票期时间不对,长度:1" msgArea="vote_limit_time_msg" class="input_t">天（0为任务没有定搞时，不通过投票决定，任务当失败处理）<br>
+							<span id="vote_limit_time_msg"></span>
+                        </td>
+                    </tr>
+					<tr>
+                        <td class="bg1 t_r">
+                           新注册用户投票时间限制：
+                        </td>
+                        <td>
+                            <input type="text" size="10"  name="txt_reg_vote_limit_time"  value="{$reg_vote_limit_time}" limit="type:int;len:1-3" msg="新注册用户投票时间限制时间不对,长度:1-3" msgArea="reg_vote_limit_time_msg" class="input_t">小时（0为不作限制）
+							<br><span id="reg_vote_limit_time_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            系统自动延期时间：
+                        </td>
+                        <td>
+                            <input type="text" size="10" name="txt_is_auto_adjourn"  limit="required:true;type:int;len:1-3" msg="延期时间输入有误" msgArea="is_auto_adjourn_msg" class="input_t" value="{$is_auto_adjourn}">天(0为不延期)<span id="is_auto_adjourn_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>加价延期规则</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            每次延期最多天数：
+                        </td>
+                        <td>
+                            <input type="text" size="10"  name="txt_adjourn_day" value="{$adjourn_day}" limit="type:int;required:true;len:1-2" msg="每次最多延期天数不正确，长度1-2" msgArea="adjourn_day_msg" class="input_t"/><b style="color:red">*</b>天<span id="adjourn_day_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            悬赏任务延期规则：
+                        </td>
+                        <td>
+                            <ul id="new_adjourn_rul" style="list-style:none">
+                            	{if count($defer_rule_arr) > 1}
+								 {loop $defer_rule_arr $key $value}
+								    {if $key == 0}
+								      <li>
+                                   	 第<input type="text" size="10" name="txt_defer_times_1" id="txt_defer_times_1"   value="{$value['defer_times']}" readonly="true" class="input_t"/>次 不低于悬赏总金额的<input type="text" value="{$value['defer_cash_scale']}" size="10"  limit="type:float;required:true" msg="百分比不能为空！" name="txt_defer_cash_scale_1" class="input_t">%
+                                </li>
+								   {else}
+								    <li>第<input type="text" size="10" name="txt_defer_times_<!--{eval echo $key+1}-->" value="{$value['defer_times']}" readonly="true" class="input_t"/>次 不低于悬赏总金额的<input type="text" size="10" value="{$value['defer_cash_scale']}"  limit="type:float;required:true" msg="百分比不能为空！" name="txt_defer_cash_scale_<!--{eval echo $key+1}-->" class="input_t">%</li>
+									{/if}
+								 {/loop}
+								 {else}
+								<li>第<input type="text" size="10" name="txt_defer_times_1" value="1" readonly="true" class="input_t"/>次 不低于悬赏总金额的<input type="text" value="{$defer_rule_arr[0]['defer_cash_scale']}" size="10" limit="" msg="百分比不能为空！" name="txt_defer_cash_scale_1" class="input_t">%</li>
+								{/if}
+								
+                               
+                            </ul>
+							<a href="javascript:;" id="add_adjourn_rul"><img src="tpl/img/ico/add.gif" align="absmiddle"/>添加规则</a>
+							<a href="javascript:;" id="del_adjourn_rul"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除规则</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>推广设置</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            是否开启推广模式：
+                        </td>
+                        <td>
+                            <label for="is_open_prom_yes"><input type="radio"  {if $is_open_prom ==1 } checked="checked" {/if} name="rdo_is_open_prom" id="is_open_prom_yes" value="1">开启</label>
+							<label for="is_open_prom_no"><input type="radio" {if $is_open_prom ==2 } checked="checked" {/if} name="rdo_is_open_prom" id="is_open_prom_no" value="2">关闭</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>佣金策略</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务提成比例：
+                        </td>
+                        <td>
+                            <input type="text" size="10" name="txt_deduct_scale" value="{$deduct_scale}" limit="type:int;len:1-2" msg="任务提成比例值为正整数，长度：1-2" msgArea="deduct_scale_msg" class="input_t"/>%<span id="deduct_scale_msg"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务失败处理：
+                        </td>
+                        <td>
+                            
+                            <label for="rdo_defeated_money_yes">
+                                <input type="radio" name="rdo_defeated_money" <!--{if $config_reward_info[defeated_money]==2}-->checked="checked"<!--{/if}--> value="2" id="rdo_defeated_money_yes">返还现金
+                            </label>
+                            <label for="rdo_defeated_money_no">
+                                <input type="radio" name="rdo_defeated_money" <!--{if $config_reward_info[defeated_money]==1}-->checked="checked"<!--{/if}--> value="1"  id="rdo_defeated_money_no">返还代金券
+                            </label>(扣除拥金后的钱)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 " colspan="2">
+                            <b>悬赏评论设置</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg1 t_r">
+                            任务进行中是否公开评论:
+                        </td>
+                        <td>
+                            <input type="checkbox" name="ckb_is_comment" value="1" {if $config_reward_info[is_comment]==1}checked="checked"{/if}>
+                        </td>
+                    </tr>
+                    
+					
+					
+					
+					{if $config_reward_info[on_time]}
+                    <tr>
+                        <td class="bg1 t_r">
+                            上次修改时间：
+                        </td>
+                        <td>
+                            <!--{eval echo date('Y-m-d H:i:s',$on_time)}-->
+                        </td>
+                    </tr>
+                    {/if}
+                    <tr>
+                        <td width="30%" class="bg1 t_r">
+                           
+                        </td>
+                        <td>
+                        	 <input type="submit" name="sbt_edit" class="input_but" value="保存设置"/>
+                             <input type="reset" name="rst_edit" class="input_but" value="重新设置"  />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+                            </li>
+                        </ul>
+                    	</div>
+                    	
+                    	<div class="{if $op=='rule'}block{else}none{/if}" id="div_cont_2">
+                    		<table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+                    		<tr>
+								<th width="15%" class="bg1" colspan="1">用户组：</th>
+								{loop $task_rule_menu_t $k $rule}
+								<th class="bg1">$rule[0]</th>
+								{/loop}
+								<th>编辑</th>
+							</tr>
+							{loop $score_rule $score}
+							<tr>
+								<td>$score[unit_title]</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]>0}$rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]次{elseif $rule_list[$k.'_'.$model_id]['score_'.$score['score_rule_id']]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=score&score_id={$score[score_rule_id]}&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							{/loop}
+							<tr><td class="bg1" colspan="<!--{eval echo count($task_rule_menu['shop'])+2;}-->"><b>特殊会员组</b></td></tr>
+							<tr>
+								<td>vip用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][vip]>0}$rule_list[$k.'_'.$model_id][vip]次{elseif $rule_list[$k.'_'.$model_id][vip]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=vip&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+                    		<tr>
+								<td>实名认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][realname]>0}$rule_list[$k.'_'.$model_id][realname]次{elseif $rule_list[$k.'_'.$model_id][realname]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=realname&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>企业认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][enterprise]>0}$rule_list[$k.'_'.$model_id][enterprise]次{elseif $rule_list[$k.'_'.$model_id][enterprise]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=enterprise&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>email认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][email]>0}$rule_list[$k.'_'.$model_id][email]次{elseif $rule_list[$k.'_'.$model_id][email]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=email&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+							<tr>
+								<td>银行认证用户</td>
+								{loop $task_rule_menu_t $k $rule}
+								<td>{if $rule[1]&&$rule_list[$k.'_'.$model_id][bank]>0}$rule_list[$k.'_'.$model_id][bank]次{elseif $rule_list[$k.'_'.$model_id][bank]<0}禁用{else}允许{/if}</td>
+								{/loop}
+								<td><a href="index.php?do=rule&view=group_rule&type=auth&auth=bank&edonly=task&model_id=$model_id">编辑</a></td>
+							</tr>
+                    		</table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <br>
+            </div>
+       </div>
+    	<script src="../../resource/js/keke.js" type="text/javascript"></script>
+    
+    
+    
+    
+    
+        
+        <script type="text/javascript">
+            
+            $(function(){
+				$("#txt_task_min_cash").keyup(function(){
+					$("#txt_task_min_cash_1").val($(this).val());
+				})
+                $("#add_cash_rul").click(function(){
+                    var i = parseInt($("#add_new_rul li:last-child span").html());
+                    k = eval(i + 1);
+                    var rul_option = '<li><span id="span_' + k + '"></span> <input type="text" size="10" name="txt_task_min_cash_' + k + '" limit="required:true;len:1-5" msg="任务最小金额不正确，长度2-5"   class="input_t"/>元以上持续<input type="text" size="10" limit="len:1-2;type:int" msg="天数不能为空! 天数的长度1-2"  name="txt_task_min_day_'+k+'" class="input_t"> 天  </li>';
+                    $("#add_new_rul").append(rul_option);
+                    var lastinput = $("#add_new_rul li:last-child input");
+                    $("#add_new_rul li:last-child #span_" + k).html(k);
+					$("#cash_rul_count").val(k);
+                })
+                $("#del_cash_rul").click(function(){
+                   var i = parseInt($("#add_new_rul li:last-child span").html()); 
+					if(i!=1)
+					{
+					  $("#add_new_rul li:last-child").remove();	
+					  $("#cash_rul_count").attr('value',i-1);
+					}
+					else
+					{
+						alert("第一条规则不能被删除！");
+					}
+					
+                })
+                
+                $("#add_adjourn_rul").click(function(){
+					
+                    var i = parseInt($("#new_adjourn_rul li:last-child input").eq(0).val());
+                    
+					k = eval(i + 1);
+					var rul_option ='<li>第<input type="text" size="10" name="txt_defer_times_'+k+'" value="'+k+'" readonly="true" class="input_t"/>次 不低于悬赏总金额的<input type="text" size="10"  limit="type:float;required:true" msg="百分比不能为空！" name="txt_defer_cash_scale_'+k+'" class="input_t">%</li>'; 
+                    $("#new_adjourn_rul").append(rul_option);
+                    var lastinput = $("#new_adjourn_rul li:last-child input");
+					$("#adjourn_rul_count").val(k);
+                    
+                })
+                $("#del_adjourn_rul").click(function(){
+					var i = parseInt($("#new_adjourn_rul li:last-child input").eq(0).val());
+					if(i!=1)
+					{
+                    	$("#new_adjourn_rul li:last-child").remove();
+						$("#adjourn_rul_count").val(i-1);
+					}
+					else
+					{
+						alert("第一条规则不能被删除！");
+					}
+                })
+                
+                
+            })
+        </script>
+    </body>
+</html>

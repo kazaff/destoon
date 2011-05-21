@@ -1,0 +1,122 @@
+
+body *{
+	text-align: left;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	text-decoration:underline;
+}
+input,textarea{
+	/*border:1px solid #ccc;*/
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:20px;
+}
+.pageWrapper {
+	background:#fff url(../img/skin_2/menu_bg.gif) repeat-y 0 0;
+}
+.header {
+	background:#0051A3 url(../img/top_nav_bg.gif) repeat-x left bottom;
+	color:#fff;
+}
+.logo h2 {
+	color:#fff;
+}
+.topMenu a {
+	color:#eee;
+}
+.topMenu a:hover {
+	color:#fff;
+}
+.footer {
+	color:#939598;
+}
+.footer .copyRight {
+	border-bottom:1px solid #939598;
+}
+.footer .linkFwbao {
+	color:#e76300;
+}
+.pageLeft dt.on {
+	background:#0051A3 url(../img/skin_2/menu_a.gif) no-repeat right;
+}
+.pageLeft dt a {
+	color:#FFF;
+}
+.pageLeft dt.on a, .pageLeft dt a:hover {
+	color:#fff;
+	text-decoration:none;
+}
+.pageLeft dd a {
+	color:#ccc;
+}
+.pageLeft dd a:hover, .pageLeft dd a.on {
+	color:#fff;
+}
+.triangle {
+	
+}
+.pageRight a {
+	color:#03a;
+}
+.pageRight a:hover {
+	color:#f06105
+}
+.titleNav {
+	background:#f3f3f3;
+	color:#000;
+}
+.titleNav a {
+	color:#03a;
+	font-size:12px;
+}
+.titleNav a:hover {
+	color:#f06105;
+}
+.titleNav a.more{
+	font-size:10px;
+}
+.titleIcon {
+	height:100%;
+	background:url(../img/skin_2/title_icon.gif) no-repeat right center;
+	padding-right:15px;
+	float:right;
+}
+.lineBg {
+	border-bottom:1px dashed #ccc;
+}
+.lineBg2 {
+	border-bottom:2px solid #bcbec0;
+}
+.teamMembers li.pic img {
+	border:1px solid #ccc;
+}
+.teamMembers li.info {
+	color:#666;
+}
+.serviceList li.title, .serviceList li .price {
+	color:#666;
+}
+.serviceList li .price a {
+	font-size:13px;
+	color:#03a;
+	text-decoration:underline;
+}
+.commentBox .title {
+	color:#000;
+}
+.pages a {
+	color:#03a;
+	background:#ccc;
+	
+}
+.pages a:hover {
+	background:#03a;
+	color:#fff;
+}
+.pages a.on {
+	background:#fff;
+	font-weight:bold;
+	color:#03a;
+}

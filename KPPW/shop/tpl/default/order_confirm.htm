@@ -1,0 +1,23 @@
+<!--{template header}-->
+<div class="window" id="panelWindow">
+	<div class="info">
+            <p><strong>服务名称：</strong>$service_info['title']</p>
+            <p><strong>服务金额：</strong><span class="red"> <!--{eval printf('%10.2f',$service_info['price'])}--> </span>元</p>
+			<p><strong>服务模式：</strong>{if $service_info[service_type]==2}作品模式{else}服务模式{/if}</p>
+            <p><strong>帐户余额：</strong><!--{eval printf('%10.2f',$user_info['balance'])}--></>元 {if $basic_config['credit_is_allow']==1}  您的代金券：<!--{eval printf('%10.2f',$user_info['credit'])}-->元{/if}</p>
+			<p>
+			<!--{eval $user_info['credit']=$basic_config['credit_is_allow']==1?$user_info['credit']:0;}-->
+			<!--{if ($user_info['balance']+$user_info['credit'])<$service_info['price']}-->
+			您需要在线支付：<span class='red'> <!--{eval printf("%10.2f",$service_info['price']-($user_info['balance']+$user_info['credit']))}--> </span>元
+			</p>
+            <p class="mt_10">
+			<input type="button" class="input_btn3" id="btn_online_pay" onclick="online_pay();" value="在线付款"/>
+			<!--{else}-->
+			<input type="button" class="input_btn3" id="btn_confirm_pay" onclick="confirm_pay();" value="确认付款"/>
+			<!--{/if}-->
+			<input type="button" class="input_btn3" value="重新填写" onclick="hideWindow('$handlekey')"/>
+		</p>
+        </div>
+        
+    </div>
+<!--{template footer}-->

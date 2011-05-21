@@ -1,0 +1,159 @@
+<!--{eval $page_title='用户注册 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/login.css" rel="stylesheet" type="text/css"/>
+
+<style>
+.loginv30 td span {display:block;width:180px;overflow:hidden;}
+.loginv30 td span.org{display:inline;}
+.loginv30 td.t {width:20%}
+.loginv30 td.tx {width:40%}
+</style>
+
+<div id="content">
+    <div class="mainbox">
+        <div class="b960_t2">
+        </div>
+        <div class="b960_c2">
+            <h3 class="login_t3">用户注册(为了保证您的利益请认真填写如下信息)</h3>
+            <div class="login_l">
+                <form action="index.php?do=register" method="post" id="frm_reg" name="frm_reg">
+                    <input type="hidden" name="u" id="u">
+					<input type="hidden" name="e" id="e">
+					<input type="hidden" name="p" id="p">
+					<table class="loginv30" width="100%" border="0" cellspacing="0" cellpadding="0" >
+                        <tr>
+                            <td class="t" width="20%">
+                                您的用户名：
+                            </td>
+                            <td class="tx" width="40%">
+                                <div class="login_inp">
+                                    <input autocomplete="off" type="text" name="txt_username" id="txt_username" maxlength="20" limit="required:true;len:2-20" msg="用户名输入有误！" msgArea="username_msg" />
+                                </div>
+                            </td>
+                            <td class="alert" width="40%">
+                            	
+                                <span id="username_msg">
+                                   <font style="color:red">*</font> 用户名输入3-20字符之间
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">
+                                电子邮箱：
+                            </td>
+                            <td>
+                                <div class="login_inp">
+                                    <input autocomplete="off" type="text" name="txt_email" id="txt_email" maxlength="50" limit="type:email;required:true;len:6-50" msg="邮箱格式不正确！" msgArea="email_msg"/>
+                                </div>
+                            </td>
+                            <td class="alert">
+                            	 
+                                <span id="email_msg">
+                                    <font style="color:red">*</font> 格式：user@qq.com
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">
+                                设置密码：
+                            </td>
+                            <td>
+                                <div class="login_inp">
+                                    <input type="password" name="pwd_password" id="pwd_password" maxlength="20" limit="required:true;len:6-20" msg="密码输入有误！" msgArea="password_msg"/>
+                                </div>
+                            </td>
+                            <td class="alert"> 
+                                <span id="password_msg">
+                                   <font style="color:red">*</font> 密码输入6-20字符之间
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">
+                                重复密码：
+                            </td>
+                            <td>
+                                <div class="login_inp">
+                                    <input type="password" name="pwd_password2" id="pwd_password2" maxlength="20" limit="required:true;equals:pwd_password" msg="重复密码不正确！" msgArea="password2_msg"/>
+                                </div>
+                            </td>
+                            <td class="alert">
+                            
+                                <span id="password2_msg">
+                                  <font style="color:red">*</font> 请重复输入密码
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">
+                                验证码：
+                            </td>
+                            <td colspan="2">
+                                <div class="login_inp2">
+                                    <input type="text" name="code" limit="required:true;len:4" msg="请填验证码!" msgArea="txt_code" /><img id="secode_img" src="secode_show.php?sid=<!--{eval echo md5(uniqid(time()))}-->">
+                                    
+									<br/>
+                                </div>
+                                <p class="org">
+                                    <a href="javascript:;" onclick="document.getElementById('secode_img').src='secode_show.php?sid='+Math.random(); return false;" class="c030">看不清，换一张</a>
+                                </p>
+                                <p>
+                                    会员资料一经提交，即表示您阅读并同意我们的<span class="org"><a href="javascript:;" onclick="showWindow('notice', 'index.php?do=register&view=notice')"  class="c030">服务条款</a></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t">
+                            </td>
+                            <td colspan="2">
+                                <input type="submit" name="sbt_reg" value="提 交" id="sbt_reg" class="login_sub" />&nbsp;&nbsp;我已经有账号&nbsp;&nbsp;<a href="index.php?do=login"><span class="org" >立即登录>></span></a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="server2" style="margin-top: -10px">
+                <p class="topM2 tt">
+                    注册后您可以享受以下服务
+                </p>
+                <dl class="d01">
+                    <dt>
+                        我要悬赏
+                    </dt>
+                    <dd>
+                        更低的成本，更多的选择<span class="org"></span>
+                    </dd>
+                </dl>
+                <dl class="d02">
+                    <dt>
+                        我要赚钱
+                    </dt>
+                    <dd>
+                        能力变现，有本事你就来<span class="org"></span>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                    </dd>
+                </dl>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="b960_b2">
+        </div>
+    </div>
+    <!--mainbox_E-->
+    <br/>
+</div>
+<!--content_E-->
+<div class="clear">
+</div>
+
+<script src="resource/js/form_and_validation.js" type="text/javascript">
+</script>
+<script src="resource/js/register.js" type="text/javascript"></script>
+<!--{template footer}-->

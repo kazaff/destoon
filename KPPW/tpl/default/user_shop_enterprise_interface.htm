@@ -1,0 +1,195 @@
+<!--{eval $page_title='店铺主题选择 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<script type="text/javascript" src="resource/js/xheditor/xheditor.js"></script>
+<script type="text/javascript" src="resource/js/ajaxfileupload.js"></script>
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl><dt>店铺界面管理</dt>
+				<dd>
+				<div class="x_tit">
+				<span ><a href="index.php?do={$do}&view=shop_enterprise_tpl" >选择模板</a></span>
+				<span class="now"><a href="index.php?do={$do}&view=shop_enterprise_interface" >界面修改</a></span> 
+				<span><a href="index.php?do={$do}&view=shop_enterprise_menu" >菜单编辑</a></span>  
+				<span><a href="index.php?do={$do}&view=shop_enterprise_skin" >皮肤修改</a></span>  
+				</div>
+				<form method="post" action="#" enctype="multipart/form-data" id="pic_logo_form">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line">
+					  <tr>
+						<th colspan="4">&nbsp;</th>
+					</tr>
+					<tr>
+						<td colspan="1" width="20%">
+							店铺标志上传：
+						</td>
+						<td colspan="3">
+							<div id="hidden_ad_pic_div" style="{if !$shop_enterprise_config[shop_logo]}display: none;{/if}">
+							<img id="hidden_ad_pic_img" src="{$shop_enterprise_config[shop_logo]}" width="170" >
+							</div>
+							<input type="file" id="filedataad" ext=".jpg,.gif,.png,.jpeg,.bmp" name="filedataad">&nbsp;&nbsp;
+							<input type="button" class="input_btn3" id="sbt_upload_fle" name="sbt_upload_fle" value="上传">
+							<input type="hidden"" id="file_pic_logo" name="file_pic_logo" >
+							<input type="submit" value="保存" name="sbt_logo_fle" class="input_btn3">
+							<br>
+							图片最大尺寸限制为100KB，建议宽高为170x170像素
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							店铺广告语设置：
+						</td>
+						<td colspan="3">
+							<textarea rows="4" cols="30" name="text_ad_text">{$shop_enterprise_config[ad_text]}</textarea>
+							<input type="submit" class="input_btn3" name="sbt_ad_text" value="保存">&nbsp;&nbsp;
+							<br>
+							最大长度限制为35个字符。
+						</td>
+					</tr>
+					<tr>
+						<td colspan="1">
+							首页形象大图：
+						</td>
+						<td colspan="3">
+							<div id="div_ad_theme" {if !$shop_enterprise_config[banner_img]} style="display:none"{/if}>
+							<img id="hidden_ad_theme" src="{$shop_enterprise_config[banner_img]}" width="500" >
+							</div>
+							<input type="file" id="fle_home" ext=".jpg,.gif,.png,.jpeg,.bmp" name="fle_home">&nbsp;&nbsp;
+							<input type="button" class="input_btn3" id="btn_theme_fle" name="btn_theme_fle" value="上传">
+							<input type="submit" class="input_btn3" name="sbt_theme_fle" value="保存">
+							<input type="hidden"" id="hdn_banner" name="hdn_banner" >	
+								<br>
+								文件(支持swf格式)最大尺寸限制为300KB，宽度必须为950像素，高度100-300像素之间。 
+						</td>
+					</tr>
+					<!--<tr>
+						<td colspan="1">
+							&nbsp;
+						</td>
+						<td colspan="3">
+							<div id="div_banner_list">
+								<p>请先选择店铺的所属行业：
+								<select name="indus_pid" onchange="show_banner_list(this.value)">
+									{loop $indus_arr $key $value}
+										<option value="{$value[indus_id]}" {if $shop_info[indus_id]==$value[indus_id]}selected="selected"{/if}>{$value[indus_name]}</option>
+									{/loop}
+								</select>
+								</p>
+								<div id="div_banner_list_img">
+									{loop $my_banner_arr $key $value}
+									<p>
+										<img src="{$value[img_file]}" width="160" height="50">
+										<br>
+										<label for="rdo_banner_id{$value[banner_id]}"><input type="radio" id="rdo_banner_id{$value[banner_id]}" name="rdo_banner_id" value="{$value[banner_id]}" onclick="showDialog('你确认要将此图片作为主题图片吗？', 'confirm', '确认消息','select_banner({$value[banner_id]})',0);return false;" {if $shop_enterprise_config[banner_id]==$value[banner_id]}checked="checked"{/if}>{$value[img_name]}</label>
+									</p>
+									{/loop}
+								</div>
+								
+							</div>
+						 
+						</td>
+					</tr>-->
+				</table>
+				</form>
+			  </dd></dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<script type="text/javascript">
+$(function(){
+	var fil_up_obj1 = document.getElementById("filedataad"); 
+	var theme_fle_obj = document.getElementById("fle_home");
+	$("#sbt_upload_fle").click(function(){
+		
+		if(isExtName(fil_up_obj1,1))
+			{
+				upload2(170,170,'','filedataad');
+			}
+			else
+			{
+				return false;			
+			}
+		})
+	 $("#btn_theme_fle").click(function(){
+	 	if(isExtName(theme_fle_obj),1){
+			upload2(950,100,300,'fle_home');
+		}else
+		{
+			return false;
+		}
+	 })
+		
+})
+
+function show_banner_list(indus_id){
+	$.post("index.php?do={$do}&view={$view}&op=show_banner_list",{indus_id:indus_id},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#div_banner_list_img").html('暂无banner图片');
+		}else{
+			$("#div_banner_list_img").html(str_data);
+		}
+	});   
+}
+
+function show_now_banner(rdo_id){
+	if(rdo_id==1){
+		$('#div_banner_list').show();
+		$('#div_banner_my').hide();
+	}else{
+		$('#div_banner_my').show();
+		$('#div_banner_list').hide();
+	}
+}
+
+function select_banner(banner_id){
+	$.post("index.php?do={$do}&view={$view}&op=select_banner",{banner_id:banner_id},function(data){
+		var str_data = data;
+		if(trim(str_data)==1){
+			showDialog('主题图片设置成功！', 'notice', '消息提示','',0);
+		}else{
+			showDialog('主题图片设置失败！', 'alert', '消息提示','',0);
+		}
+	});   
+}
+
+function upload2(img_width,img_lheight,img_mheight,id){	
+
+
+	$.ajaxFileUpload({url:'index.php?do=ajax_upload&file_name=file_name&type=att&img_width='+img_width+'&file_name='+id,
+	fileElementId:id,
+	dataType:'json',
+	success:function(json){
+		
+		if(json.err){
+			showDialog(decodeURI(json.err), 'alert', '错误提示','',0);
+		}else{
+			 if(id=="filedataad"){
+			 	$("#file_pic_logo").val(json.msg.up_file);
+  			    $("#hidden_ad_pic_div").show();
+			    document.getElementById("hidden_ad_pic_img").src = json.msg.up_file;	
+			 }else{
+			 	$("#div_ad_theme").show();
+				$("#hdn_banner").val(json.msg.up_file);
+				$("#hidden_ad_theme").attr('src',json.msg.up_file);
+			 }
+			 
+		}
+		},
+	 error:function(json,status,e){
+			showDialog('上传失败,可能文件过大<br>'+json.err, 'alert', '错误提示','',0);
+		}
+
+	});
+	}
+</script>
+<script src="resource/js/swfupload/swfupload.js" type="text/javascript" ></script>
+<script src="resource/js/swfupload/fileprogress.js" type="text/javascript" ></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<!--{template footer}-->

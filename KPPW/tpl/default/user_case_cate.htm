@@ -1,0 +1,62 @@
+<!--{eval $page_title='案例分类 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+      <div id="content">
+    
+    <div class="mainbox">
+      <!--{template user_side}-->
+   <div class="backright">
+			<div class="backright_d">
+				<dl>
+					<dt>
+						<div class="x_tit_1">
+							<div>
+								<span><a href="index.php?do={$do}&view=case_add" >案例添加</a></span>
+								<span><a href="index.php?do={$do}&view=case_list" >案例管理</a></span> 
+								<span  class="now"><a href="index.php?do={$do}&view=case_cate" >案例分类</a></span>  
+							</div>
+						</div>
+					</dt>
+					<dd>
+					<form method="post">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_list tab_line t_c">
+						 <tr>
+							<th colspan="2" style="background-color:#fff;">&nbsp;</th>
+						</tr>
+						<tr>
+							<th>分类名称</th>
+							<th>相关操作</th>
+						</tr>
+						{loop $cus_cate_arr $key $value}
+								<tr>
+									<td>{$value[cate_name]}</td>
+									<td>
+									<a href="index.php?do={$do}&view={$view}&ac=edit&cate_id={$value[cus_cate_id]}"><img src="{SKIN_PATH}/img/ico/edit.png" align="absmiddle"/>编辑</a>&nbsp;
+									<a href="index.php?do={$do}&view={$view}&ac=del&cate_id={$value[cus_cate_id]}"><img src="{SKIN_PATH}/img/ico/delete.gif" align="absmiddle"/>删除</a></td>
+								</tr>
+							{/loop}
+							 <tr>
+						  	 <td colspan="2" align="left">
+						  	 	
+						  	 	<input type="hidden"  name="hdn_cus_cate_id" value="{$cus_cate_info[cus_cate_id]}">
+						  	 分类名称：<input type="text" name="txt_cate_name" value="{$cus_cate_info[cate_name]}">
+								<input type="submit" name="sbt_cate" value="{if $ac=='edit'}立即编辑{else}立即添加{/if}" />
+								
+							</td>
+						  </tr>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+							</tr>
+					</table>
+					</form>
+	               	
+				  </dd>
+			  </dl>
+			</div>
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+   	<div style="clear: both;"></div>
+</div><!--content_E-->
+<!--{template footer}-->

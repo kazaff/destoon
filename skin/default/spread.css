@@ -1,0 +1,32 @@
+/*
+	[Destoon B2B System] Copyright (c) 2008-2010 Destoon.COM
+	This is NOT a freeware, use is subject to license.txt
+*/
+.sp_input {width:280px;padding:6px;font-size:16px;border:#E11111 2px solid;color:#666666;}
+.rank_box {padding:15px 15px 15px 15px;}
+.rank_head {padding:0 0 0 5px;height:26px;line-height:26px;overflow:hidden;border-bottom:#CCCCCC 1px dotted;font-weight:bold;font-size:14px;margin:0 0 8px 0;}
+.new_head {margin:0 10px 0 0;padding:0 0 0 10px;height:22px;line-height:22px;font-weight:bold;font-size:13px;color:#FFFFFF;background:#F8B003;}
+.new_body {margin:0 10px 0 0;padding:8px 15px 8px 15px;;background:#FFFFFF;border:#F8B003 1px solid;}
+.new_body li {height:25px;line-height:25px;overflow:hidden;background:url('image/spread_li.gif') no-repeat 0 5px;padding:0 0 0 18px;}
+.new_body li a {font-size:13px;}
+.new_price {color:#F43111;font-weight:bold;}
+
+.body_n {padding:5px 5px 0 5px;}
+.head_n {background:#F43111;line-height:22px;height:22px;font-weight:bold;padding:0 0 0 10px;color:#FFFFFF;}
+
+.h_box {padding:0 15px 10px 15px;}
+.head_h {background:#F3B200;line-height:22px;height:22px;padding:2px 10px 0 10px;color:#FFFFFF;}
+.body_h {padding:5px 5px 0 5px;}
+.body_h li {height:22px;line-height:22px;overflow:hidden;}
+
+.norecord {padding:20px 0 20px 0;text-align:center;color:#666666;}
+
+.buy_head {margin:15px 0 0 0;padding:0 0 0 10px;height:24px;line-height:24px;font-weight:bold;font-size:13px;color:#FFFFFF;background:#F8B003;}
+.buy_body {padding:8px 15px 8px 15px;;background:#FFFFFF;border:#F8B003 1px solid;}
+.buy_submit {background:#006699;color:#FFFFFF;padding:2px;font-size:13px;font-weight:bold;}
+.buy_login {padding:30px 0 50px 20px;font-size:13px;}
+.list_tb {padding:10px;background:#F8F9FB;}
+.list_tb h1 {margin:0 0 10px 0;font-size:14px;text-align:center;}
+.list_tb table {background:#FFFFFF;width:100%;}
+.list_tb th {background:#F1F1F1;}
+.list_dl {background:url('image/dot.gif') repeat-x 0 center;}

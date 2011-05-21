@@ -1,0 +1,8 @@
+{template 'header'}
+<div class="m">
+	<div class="left_box">
+		<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="{$MOD[linkurl]}">{$MOD[name]}</a> &raquo; <a href="{$MOD[linkurl]}product.php">产品分类</a></div>
+		<div style="padding:20px;"><!--{tag("moduleid=$moduleid&table=quote_product&condition=1&pagesize=10&order=listorder desc,pid desc&pagesize=80&page=$page&showpage=1&template=list-quote_product&cols=8")}--></div>
+	</div>
+</div>
+{template 'footer'}

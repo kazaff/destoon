@@ -1,0 +1,156 @@
+
+body {
+	text-align: left;
+	background:#777;
+}
+a {
+	text-decoration:none
+}
+a:hover {
+	text-decoration:underline
+}
+input,textarea{
+	border:1px solid #ccc;
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:20px;
+}
+.header {
+	color:#fff;
+	background:#8F0763 url(../img/skin_1_2/top_nav_bg.gif) repeat-x left bottom;
+}
+.logo h2 {
+	color:#fff
+}
+.topMenu a {
+	color:#fff;
+}
+.topMenu a:hover {
+	color:#333;
+}
+.menuWrapper {
+	background:#3A3A3A;
+}
+.menu a {
+	color:#fff
+}
+.menu a:hover, .menu a.on {
+	background:#015FB9 url(../img/skin_1_2/menu_a.gif) no-repeat left 0;
+	color:#fff
+}
+.menu a span{} 
+.menu a:hover span,.menu a.on span {
+	background:url(../img/skin_1_2/menu_a.gif) no-repeat right 0
+}
+.footer {
+	color:#fff;
+	background:#333;
+}
+.footer .copyRight {
+}
+.footer .linkFwbao {
+}
+.homeContainer{
+	background:#444;
+}
+.homeContainer .section {
+	border:1px solid #333;
+	color:#ccc;
+	background:#666;
+}
+.homeContainer .section a {
+	color:#f3f3f3;
+}
+.homeContainer .section a:hover {
+
+}
+.homeContainer .titleNav, .pageName {
+	border-bottom:1px solid #666;
+	background:#000 url(../img/skin_1_2/title_icon.gif) no-repeat 5px;
+	color:#fff;
+	display:block;
+}
+.homeContainer .titleNav a.more {
+	color:#FFF;
+}
+.corner {
+	
+}
+.subContainer {
+	border:1px solid #333;
+}
+.pagePositon {
+	background:#eee;
+}
+a.putNew {
+	background:#333;
+	color:#fff;
+}
+a.putNew:hover {
+	background:#999;
+	text-decoration:none
+}
+.pageName {
+	
+}
+.lineBg {
+	border-bottom:1px dashed #999;
+}
+.lineBg2 {
+	border-bottom:2px solid #999;
+}
+.pageLeft a {
+	color:#333;
+	display:block;
+	padding:2px 5px;
+}
+.pageLeft a:hover {
+	background:#333;
+	text-decoration:none;
+	color:#fff;
+}
+.pageRight {
+	border-left:1px solid #555;
+}
+.rightContent {
+	color:#ccc;
+}
+.rightContent a {
+	color:#333;
+}
+.rightContent a:hover {
+
+}
+.teamMembers li.pic img {
+	border:1px solid #eee;
+}
+.teamMembers li.pic a:hover img{
+	border:1px solid #333;
+}
+.teamMembers li.info {
+	color:#ccc;
+}
+.serviceList li.title, .serviceList li .price {
+	color:#fff;
+}
+.serviceList li .price a {
+	font-size:13px;
+	color:#f3f3f3;
+	text-decoration:underline;
+}
+.commentBox .title {
+	color:#000;
+}
+.pages a {
+	color:#000;
+	background:#666;
+	
+}
+.pages a:hover {
+	background:#ccc;
+	color:#333;
+}
+.pages a.on {
+	background:#333;
+	font-weight:bold;
+	color:#fff;
+}

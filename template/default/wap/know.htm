@@ -1,0 +1,49 @@
+{template 'header', 'wap'}
+{if $itemid}
+	{if $action == 'list'}
+		<a href="index.php?moduleid={$moduleid}&amp;itemid={$itemid}">[{$title}]答案列表</a><br/>
+		{if $could_answer}<a href="index.php?moduleid={$moduleid}&amp;itemid={$itemid}&amp;action=answer">[我来回答]</a><br/><br/>{/if}
+		{loop $lists $v}
+		{nl2br($v[content])}<br/>
+		<small>{timetodate($v[addtime], 5)}</small><br/>
+		回答:{if $v[hidden]}匿名{else}{if $v[username]}<a href="index.php?moduleid=4&amp;username={$v[username]}">{$v[username]}</a>{else}{hide_ip($v[ip])}{/if}{/if}<br/><br/>
+		{/loop}
+		{if $pages}<br/>{$pages}<br/>{/if}
+	{elseif $action == 'answer'}
+	<a href="index.php?moduleid={$moduleid}&amp;itemid={$itemid}">回答[{$title}]</a><br/>
+	<form action="index.php" method="post">
+	<input type="hidden" name="moduleid" value="{$moduleid}"/>
+	<input type="hidden" name="action" value="{$action}"/>
+	<input type="hidden" name="itemid" value="{$itemid}"/>
+	<input type="hidden" name="forward" value="{$forward}"/>
+	答案:<br/>
+	<input type="text" name="content" size="20"/><br/>
+	<input type="submit" name="submit" value="提交"/>
+	</form>
+	{else}
+	<strong>{$title}</strong><br/>
+	日期:<small>{$editdate}</small><br/>
+	状态:{$PROCESS[$process]}<br/>
+	提问:{if $hidden}匿名{else}<a href="index.php?moduleid=4&amp;username={$username}">{$username}</a>{/if}<br/>
+	{$content}<br/>
+	<strong>最佳答案</strong>:<br/>
+	{template 'content', 'wap'}<br/>
+	<a href="index.php?moduleid={$moduleid}&amp;itemid={$itemid}&amp;action=list">[全部回答({$answer})]</a>
+	{if $could_answer}<a href="index.php?moduleid={$moduleid}&amp;itemid={$itemid}&amp;action=answer">[我来回答]</a>{/if}
+	{/if}
+{else}
+	{loop $lists $v}
+	<a href="index.php?moduleid={$moduleid}&amp;catid={$v[catid]}">[{$v[catname]}]</a> <a href="index.php?moduleid={$moduleid}&amp;itemid={$v[itemid]}">{$v[title]}</a>
+	({$PROCESS[$v[process]]}) <small>{$v[editdate]}</small><br/>
+	{/loop}
+{/if}
+{if $pages}<br/>{$pages}<br/>{/if}
+<br/>
+<form action="index.php" method="get">
+<input type="hidden" name="moduleid" value="{$moduleid}"/>
+<a href="index.php?moduleid={$moduleid}">{$MOD[name]}</a>
+<input type="text" name="kw" value="{$kw}" size="6"/>
+<input type="submit" name="submit" value="搜索"/>
+</form>
+<br/>
+{template 'footer', 'wap'}

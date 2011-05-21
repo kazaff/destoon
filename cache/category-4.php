@@ -1,0 +1,1 @@
+<?php defined('IN_DESTOON') or exit('Access Denied'); return array (3 => array ('catid' => '3','catname' => '公司默认分类','style' => '','catdir' => '3','domain' => '','linkurl' => 'list.php?catid=3','letter' => '','level' => '1','parentid' => '0','arrparentid' => '0','child' => '0','arrchildid' => '','listorder' => '0',),); ?>

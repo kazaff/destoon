@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type"
+	content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<script src="tpl/js/util.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/Css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+<script type="text/javascript"
+	src="../../resource/js/xheditor/xheditor.js"></script>
+<body>
+<form method="post" action="index.php?do=rule&view=group_rule&type=$type&score_id=$score_id&auth=$auth&edonly=$edonly" id="frm_art_edit" enctype="multipart/form-data">
+<div class="main">
+<div class="m_tit">
+<ul>
+	<li class="m_tit_l"></li>
+	<li class="font14">编辑权限</li>
+	<li class="m_tit_r"></li>
+</ul>
+</div>
+<table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	{if  $type=='score'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">$score_info['unit_title']</td>
+	</tr>
+	{elseif $type=='auth'&&$auth=='vip'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">VIP用户</td>
+	</tr>
+	{elseif $type=='auth'&&$auth=='bank'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">银行认证会员</td>
+	</tr>
+	{elseif $type=='auth'&&$auth=='enterprise'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">企业认证会员</td>
+	</tr>
+	{elseif $type=='auth'&&$auth=='email'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">邮件认证会员</td>
+	</tr>
+	{elseif $type=='auth'&&$auth=='realname'}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">用戶組：</td>
+		<td colspan="3">实名认证会员</td>
+	</tr>
+	{/if}
+	
+	
+	{loop $task_rule_menu['task'] $mid $model_rule}
+	{if !$edonly||($edonly=='task'&&$model_id==$mid)}
+	<tr>
+		<td colspan="5" align="left">&nbsp;&nbsp;&nbsp;<b>{$model_list[$mid][model_name]}配置</b></td>
+	</tr>
+	{loop $model_rule $k $rule}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">$rule[0]：</td>
+		<td colspan="3">
+		<input onclick="if(this.checked){$('#edit_rule_{$k}_{$mid}').hide()}" name="edit_rule[{$k}_{$mid}][v]" type="radio" value="-1" {if $rule_list[$k.'_'.$mid][$rule_group]<0}checked="checked"{/if} />禁用
+		<input onclick="if(this.checked){$('#edit_rule_{$k}_{$mid}').show()}" name="edit_rule[{$k}_{$mid}][v]" type="radio" value="0" {if $rule_list[$k.'_'.$mid][$rule_group]>=0}checked="checked"{/if} />启用
+		{if $rule[1]}
+		<input id="edit_rule_{$k}_{$mid}" type="text" name="edit_rule[{$k}_{$mid}][t]" {if $rule_list[$k.'_'.$mid][$rule_group]<0}style="display: none;"{/if} value="{if $rule_list[$k.'_'.$mid][$rule_group]<0}0{else}$rule_list[$k.'_'.$mid][$rule_group]{/if}" />
+		{/if}
+		$rule[2]
+		</td>
+	</tr>
+	{/loop}
+	{/if}
+	{/loop}
+	
+	{if !$edonly||$edonly=='shop'}
+	<tr>
+		<td colspan="5" align="left">&nbsp;&nbsp;&nbsp;<b>店铺权限</b></td>
+	</tr>
+	{loop $task_rule_menu['shop'] $k $rule}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">$rule[0]：</td>
+		<td colspan="3">
+		<input onclick="if(this.checked){$('#edit_rule_{$k}').hide()}" name="edit_rule[$k][v]" type="radio" value="-1" {if $rule_list[$k][$rule_group]<0}checked="checked"{/if} />禁用
+		<input onclick="if(this.checked){$('#edit_rule_{$k}').show()}" name="edit_rule[$k][v]" type="radio" value="0" {if $rule_list[$k][$rule_group]>=0}checked="checked"{/if} />启用
+		{if $rule[1]}
+		<input id="edit_rule_{$k}" type="text" name="edit_rule[$k][t]" {if $rule_list[$k][$rule_group]<0}style="display: none;"{/if} value="{if $rule_list[$k][$rule_group]<0}0{else}$rule_list[$k][$rule_group]{/if}" />
+		{/if}
+		$rule[2]
+		</td>
+	</tr>
+	{/loop}
+	{/if}
+	
+	{if !$edonly||$edonly=='studio'}
+	<tr>
+		<td colspan="5" align="left">&nbsp;&nbsp;&nbsp;<b>工作室权限</b></td>
+	</tr>
+	{loop $task_rule_menu['studio'] $k $rule}
+	<tr>
+		<td width="15%" class="bg1 t_r" colspan="1">$rule[0]：</td>
+		<td colspan="3">
+		<input onclick="if(this.checked){$('#edit_rule_{$k}').hide()}" name="edit_rule[$k][v]" type="radio" value="-1" {if $rule_list[$k][$rule_group]<0}checked="checked"{/if} />禁用
+		<input onclick="if(this.checked){$('#edit_rule_{$k}').show()}" name="edit_rule[$k][v]" type="radio" value="0" {if $rule_list[$k][$rule_group]>=0}checked="checked"{/if} />启用
+		{if $rule[1]}
+		<input id="edit_rule_{$k}" type="text" name="edit_rule[$k][t]" {if $rule_list[$k][$rule_group]<0}style="display: none;"{/if} value="{if $rule_list[$k][$rule_group]<0}0{else}$rule_list[$k][$rule_group]{/if}" />
+		{/if}
+		$rule[2]
+		</td>
+	</tr>
+	{/loop}
+	{/if}
+	
+	
+	
+	
+	
+	<tr>
+		<td align="left" colspan="4">
+		<div style="padding-left: 300px;"><input type="submit"
+			name="sbt_edit" class="input_but" value="保存编辑" /> <input type="reset"
+			name="rst_edit" class="input_but" value="返回上一页"
+			onclick="history.go(-1);" /></div>
+		</td>
+	</tr>
+</table>
+<br />
+</div>
+</form>
+<script type="text/javascript">
+	var editor = $("#tar_content").xheditor({tools:'simple',internalScript:false,internalStyle:false,upImgUrl:"../../index.php?do=ajax_upload&type=admin&task_id=1",upImgExt:"jpg,jpeg,gif,png"});
+</script>
+</body>
+</html>

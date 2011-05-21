@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>会员管理</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+
+<body>
+<form method="get" action="index.php" id="frm_user_search">
+<input type="hidden" name="do" value="user">
+<input type="hidden" name="type" value="front">
+<input type="hidden" name="ord" value="{$ord}">
+<div class="main">
+	
+	<div class="v_search" style="text-align:center;">
+		 
+
+		用户id：<input type="text" class="input_t" size="4" name="txt_uid" value="{$txt_uid}" onkeyup="clearstr(this);">　
+		用户名：<input type="text" class="input_t" name='txt_username' value="{$txt_username}" onkeyup="clearspecial(this);">　
+
+		<input type="submit" name="sbt_search" value="查找" class="input_but" onmouseover="this.className='input_but_over'" onmouseout="this.className='input_but'"/>
+      
+	
+    </div>
+	
+ 	
+  <div id="change">
+  		<table width="10%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th width="80" align="left">UID( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=1"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=2"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="120" class="motif">用户名</th>
+			<th width="100">会员身份</th>
+			<th width="80">用户状态</th>
+			<th width="40">性别</th>
+			<th width="105">注册时间</th>
+			<th width="110">注册ip</th>
+			<th width="90">积分( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=3"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=4"><img src="tpl/img/m_down.gif" /></a> )</th>
+			<th width="90">余额( <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=5"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=front&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=6"><img src="tpl/img/m_down.gif" /></a> )</th>
+			<th width="110" colspan="3">操作</th>
+			
+          </tr>
+		{loop $userlist_arr $key $value}
+        <tr>
+            <td align="left"><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$value[uid]}"> {$value[uid]}</td>
+            <td class="motif"><a href="javascript:void(0)" >{$value[username]}</a></td>
+            <td>{if $value[isvip]}VIP会员{else}普通会员{/if}</td>
+			<td>{if $value[status]}正常{else}禁用{/if}</td>
+			<td>{$value[sex]}</td>
+			<td><!--{date('Y-m-d',$value['reg_time'])}--></td>
+            <td>{$value[reg_ip]}</td>
+            <td>{$value[credit]}</td>
+			<td>{$value[balance]}</td>
+			<td><a href="index.php?do=user&type=front&op=add&edituid={$value['uid']}">编辑</a></td>
+			<td>
+				{if $value[status]}<a href="index.php?do=user&type=front&op=disable&edituid={$value['uid']}">禁用</a>{else}
+				<a href="index.php?do=user&type=front&op=able&edituid={$value['uid']}">启用</a>{/if}
+			</td>
+			<td><a href="index.php?do=user&type=front&op=del&edituid={$value['uid']}" onclick="return confirm('确认要删除吗?');">删除</a></td>
+          </tr>
+		 {/loop}
+          <tr>
+            <th colspan="4" align="left"><input type="checkbox" id="checkbox" onclick="checkall()"> 
+			全选　
+			<input type="radio" name="rdo" value="del" onclick="showpl()" /> 批量:
+			<select name="slt_action" id="slt_action" style="display:none;">
+				<option value="del">批量删除</option>
+				<option value="disable">批量禁用</option>
+				<option value="able">批量开启</option>
+			</select>　
+			<input type="submit" id="sbt_del" style="display:none;" name="sbt_del" value="执行" class="input_but" />
+			&nbsp;&nbsp;&nbsp;<input type="button" name="sbt_add" value="添加新用户" class="input_but" onclick="document.location.href='index.php?do=user&type=front&op=add'"/>
+			</th>
+			<th colspan="1">
+			</th>
+			<th colspan="7">
+				<div class="page">
+					{$pages[page]}
+				</div>
+			</th>
+          </tr>
+        </table>
+	</div>
+    </div>
+</form>
+<script>
+	function showpl(){
+		$('#sbt_del').show();
+		$('#slt_action').show();
+	}
+</script>
+</body>
+</html>

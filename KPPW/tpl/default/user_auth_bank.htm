@@ -1,0 +1,182 @@
+<!--{eval $page_title='银行卡认证 '.' - 用户中心  - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/manage.css" rel="stylesheet" type="text/css"/>
+<link href="{SKIN_PATH}/css/self.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+       <div id="content">
+     
+    <div class="mainbox">
+      <!--{template user_side}-->
+        <div class="backright">
+        <form action="index.php?do={$do}&view={$view}&auth_id={$auth_id}&pay_type={$pay_type}" method="post" enctype="multipart/form-data" id="frm_auth">
+			<div class="backright_d">
+				<dl><dt>{$item_info[auth_title]}</dt>
+				<dd style="overflow: hidden;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="td_p10 tab_line tab_list">
+						<td colspan="2" align="left">
+                     		<b>
+                     			{if $user_info[bank_auth]==1}
+								<font color="red">{$item_info[auth_title]}已通过</font>
+								{else}
+								{$item_info[auth_title]}流程：<font color="red">第一步：填写{$item_info[auth_title]}信息</font>——>第二步：后台审核通过！
+								{/if}
+							</b>
+                     	</td>
+					  <tr>
+						<td class="t_r" width="20%">用户名：</td>
+					    <td>{$user_info[username]}</td>
+					  </tr>
+					      <tr>
+					    <td class="t_r">支付类型：</td>
+					    <td>
+					    <a {if !$bank_info[pay_to_user_cash]}href="index.php?do={$do}&view={$view}&auth_id={$auth_id}&pay_type=1"{/if}>{if $pay_type==1}<img src="{SKIN_PATH}/img/ico/apply.gif"><font color="red">在线支付</font>{else}在线支付{/if}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a {if !$bank_info[pay_to_user_cash]}href="index.php?do={$do}&view={$view}&auth_id={$auth_id}&pay_type=2"{/if}>{if $pay_type==2}<img src="{SKIN_PATH}/img/ico/apply.gif"><font color="red">线下支付</font>{else}线下支付{/if}</a>
+					    </td>
+				      </tr>
+					  {if $pay_type==1}
+					   </tr>
+					    <tr>
+					    <td class="t_r">支付方式：</td>
+					    <td>
+					   	<select name="slt_online_pay_tool">
+					   		{loop $pay_tool_arr $key $value}
+								<option value="{$key}" {if $bank_info[online_pay_tool]==$key}checked="checked"{/if}>{$value}</option>
+							{/loop}
+					   	</select>
+					    </td>
+				      </tr>
+				      </tr>
+					    <tr>
+					    <td class="t_r">支付账号：</td>
+					    <td>
+					    <input type="text" size="30" name="txt_online_pay_account" class="input_txt2" {if $bank_info[online_pay_account]}value="{$bank_info[online_pay_account]}" readonly="readonly"{/if} />
+					    </td>
+				      </tr>
+					  {/if}
+					  {if $pay_type==2}
+					   </tr>
+					    <tr>
+					    <td class="t_r">银行名称：</td>
+					    <td>
+					   	<select name="slt_bank_name">
+					   		{loop $bank_name_arr $key $value}
+								<option value="{$key}" {if $bank_info[bank_name]==$key}checked="checked"{/if}>{$value}</option>
+							{/loop}
+					   	</select>
+					    </td>
+				      </tr>
+				      </tr>
+					  
+					    <tr>
+					    <td class="t_r">开户银所在地：</td>
+					    <td>
+					        <script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','{$bank_info[deposit_area][0]}');
+							showcity('slt_city', '$bank_info[deposit_area][1]', 'slt_province', '');
+							//-->
+							</script>
+					    </td>
+				      </tr>
+					    <tr>
+					    <td class="t_r">开户银支行名称：</td>
+					    <td>
+					    <input type="text" size="30" name="txt_deposit_name" class="input_txt2" {if $bank_info[deposit_name]}value="{$bank_info[deposit_name]}" readonly="readonly"{/if}/>
+					    </td>
+				      </tr>
+					    <tr>
+					    <td class="t_r">银行账号：</td>
+					    <td>
+					    <input type="text" size="30" name="txt_bank_account" class="input_txt2" {if $bank_info[bank_account]}value="{$bank_info[bank_account]}" readonly="readonly"{/if} />
+					    </td>
+				      </tr>
+					  {/if}
+					  
+                      <tr>
+					    <td class="t_r">说明：</td>
+					    <td>{$item_info[auth_desc]}<font color="red">（认证将在 {$item_info[auth_day]}个工作日完成）</font>
+					    </td>
+				      </tr>
+                     <tr>
+                     	<td colspan="2" align="center">
+                     		{if $bank_info&&!$bank_info[pay_to_user_cash]&&!$bank_info[auth_status]}
+							<input type="button" name="sbt_edit" value="待后台打款" />
+							（请耐心的等待后台管理员打款）
+							{elseif  $bank_info[pay_to_user_cash]&&!$bank_info[auth_status]}
+							<input type="button" name="sbt_edit" value="请确认收款" />
+							（后台管理员打款到您的账户，请确认查收）
+							{elseif  $bank_info&&$bank_info[auth_status]==2}
+							<input type="button" name="sbt_edit" value="审核不通过" />
+							（如果您有什么异议可以联系客户）
+							{elseif  $bank_info&&$bank_info[auth_status]==1}
+							<input type="button" name="sbt_edit" value="审核已通过" />
+							<span class="red">（您的{$item_info[auth_title]}已通过管理员审核）</span>
+							{else}
+                     		<input type="button" onclick="user_auth()" value="立即认证" />
+							{/if}
+							<input type="hidden" name="sbt_edit" value="1">
+                     	</td>
+                     </tr>
+					 </form>
+					 <form action="index.php?do={$do}&view={$view}&auth_id={$auth_id}&pay_type={$pay_type}" method="post" enctype="multipart/form-data" id="frm_get_cash">
+					 {if $bank_info[auth_status]!=1}
+						  {if $bank_info[pay_to_user_cash]&&!$bank_info[user_get_cash]}
+						  <tr>
+						  	<td class="t_r">&nbsp;</td>
+							<td>管理员于[<!--{date('Y-m-d H:i:s',$bank_info[pay_time])}-->]，已经打款到您的账户中<br>请查收并填写收款金额：<input type="text" name="txt_user_get_cash" maxlength="6">元&nbsp;&nbsp;<input type="submit" name="sbt_user_get_cash" value="确认收款"></td>
+						  </tr>
+						  {elseif $bank_info[pay_to_user_cash]&&$bank_info[pay_to_user_cash]!=$bank_info[user_get_cash]}
+						   <tr>
+						  	<td class="t_r">&nbsp;</td>
+						 <td><font color="red"> 您填写的收款金额和管理员的打款金额不一致，认证失败！</font></td>
+						 </tr>
+						 {else}
+						  {/if}
+					  {/if}
+					  </form>
+					</table>
+			  </dd></dl>
+			</div>
+			
+        <div class="clear"></div>
+    </div><!--backright_E-->
+        
+  	</div><!--mainbox_E--><br/>
+    
+</div><!--content_E-->
+<div class="clear"></div>
+<script type="text/javascript">
+	function user_auth(){
+		var user_balance = {$user_info[balance]};
+		var user_credit = {$user_info[credit]};
+		var is_allow_credit = {$basic_config[credit_is_allow]};
+		var pay_cash = {$item_info[auth_cash]};
+
+		if(pay_cash<=0){
+			form_sbt();
+		}else{
+			if((user_credit+user_balance)>=pay_cash){
+				if(is_allow_credit==1){
+					if(user_credit>=pay_cash){
+						showDialog('将从您的代金券中扣除'+pay_cash+'点,', 'confirm', '确认付款','form_sbt()',0);
+					}else{
+						showDialog('将从您的账号中扣除￥'+(pay_cash-user_credit)+'元,代金券中扣除'+user_credit+'点,', 'confirm', '确认付款','form_sbt()',0);
+					}
+				}else{
+					showDialog('将从您的账号中扣除￥'+pay_cash+'元', 'confirm', '确认付款','form_sbt()',0);
+				}
+			}else{
+				showDialog('您的余额不足，需要在线支付,', 'confirm', '在线支付','online_pay()',0);
+			}
+		}
+		return false;
+	}
+	function form_sbt(){
+		$('#frm_auth').submit();
+	}
+	function online_pay(){
+		window.location.href='index.php?do=user&view=cash';
+	}
+</script>
+<script src="resource/js/css.js" type="text/javascript"></script>
+<script src="resource/js/form_and_validation.js" type="text/javascript"></script>
+<!--{template footer}-->

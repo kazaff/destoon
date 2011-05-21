@@ -1,0 +1,312 @@
+<!--{eval $page_title = '人才库 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/talent.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resource/js/script_city.js"></script>
+<div class="main">
+    <div class="width_layer">
+        <div class="left_side">
+       	  <div class="search">
+           	<div class="search_btn">
+                	<a href="index.php?do=talent_list">威客人才库</a>
+                    <a href="#tab_cont3_1">威客工作室</a>
+            </div>
+                <div class="search_box">
+                <form action="index.php" method="get">
+                	<input type="hidden" name="do" value="talent_list">
+                	<ul>
+                	  <li><b>行业分类:</b>
+                          <select style="width:80px"  name="slt_indus_pid" id="slt_indus_pid" onchange="show_indus(this.value);">
+							<option value=""> 请选择父行业 </option>
+							{loop $indus_p_arr $key $value}
+								<option value="{$value[indus_id]}">{$value[indus_name]}</option>
+							{/loop}
+						  </select> 
+							<select style="width:80px" name="slt_indus_id" id="slt_indus_id" >
+									<option value="">请选择子行业 </option>
+							</select>
+                      </li>
+                	  <li><b>地区分类:</b>
+                      		<script type="text/javascript">
+							<!--
+							showprovince('slt_province', 'slt_city','');
+							showcity('slt_city', '', 'slt_province', '');
+							//-->
+							</script>
+                      </li>
+                	  <li><b>实名认证:</b>
+                      		<label for="ckb_vip_auth"><input type="checkbox" name="ckb_vip_auth" id="ckb_vip_auth"  >VIP认证</label>
+							<label for="ckb_realname_auth"><input type="checkbox" name="ckb_realname_auth" id="ckb_realname_auth"  >身份证认证</label>
+							<label for="ckb_email_auth"><input type="checkbox" name="ckb_email_auth" id="ckb_email_auth"  >邮箱认证</label>
+							<label for="ckb_enterprise_auth"><input type="checkbox" name="ckb_enterprise_auth" id="ckb_enterprise_auth"  >企业认证</label>
+                      </li>
+                      <li class="key">
+                        <input class="txt_box" name="txt_search_title"  type="text"  />
+                        <input name="" type="image" src="{SKIN_PATH}/img/sreach_box_btn.gif" />
+                      </li>
+              	  </ul>
+                </form>
+           	  </div>
+          </div>
+            <div class="show">
+            	<!--{showads(人才广告,talent)}-->
+            </div>
+            
+            <div class="clear"></div>
+            
+            <div class="pep">
+            	<div class="title">
+                	<span>{$basic_config['website_name']}有<b class="red">$telent_wk_count</b>个<b class="red">人才</b>，完成了<b class="red">$telent_case_count</b>个任务</span>
+                    <h2>人才展示</h2>
+                </div>
+                <div class="content">
+                	<div class="tab">
+                    	<span><a href="index.php?do=talent_list">&raquo;更多</a></span>
+						<!--{eval $key_c = 1;}-->
+						{loop $indus_p_arr $key $values}
+						<a id="tab_cont_{$key_c}" {if $key_c==1} class="select" {/if} sid="{$key_c}" fd="$values[indus_id]" onClick="swtab(this);swaptab('cont','select','',<!--{eval echo count($indus_p_arr)}-->,<!--{eval echo $key_c++}-->)" title="$values[indus_name]" href='javascript:;'><span>$values[indus_name]</span></a>
+						{/loop}
+                      
+                    </div>
+                    <div class="tab_content">
+                    	<!--{eval $key_c = 1;}-->
+                    	{loop $indus_p_arr $key $v}
+						<div id="div_cont_{$key_c}" style="display:{if $key_c==1}block{else}none{/if};">
+                        	{if $key_c++ ==1}
+							<dl class="margin_r_two">
+                            	<dt class="title">新创建的工作室</dt>
+                                {loop $studio_arr $v}
+								<dd>
+                                	<ul>
+                                   	  <li class="img_box">
+                                   	  	{if $v['logo']}
+										<img src="$v['logo']" width="55" height="55"/>
+										{else}
+										<img src="data/uploads/member/small_{$v[uid]}.jpg" title="$v['username']" width="55" height="55" class="pic_small" onerror="this.src='resource/img/avgdefaultsmall.jpg'" />
+										{/if}
+										</li>
+                                        <li><a href="index.php?do=space&view=studio_index&member_id=$v['uid']">$v['title']</a></li>
+                                        <li>用户成员 共有<b class="red">$v['members']</b>人</li>
+                                        <li class="tech">技能：<a href="$v['indus_id']">$v['indus_name']</a></li>
+                                    </ul>
+                                </dd>
+								{/loop}
+                              
+                            </dl>
+                            
+                            <dl>
+                            	<dt class="title">新加入的人才</dt>
+                                <dd>
+                                	<ul>
+                                		{loop $talent_arr $v}
+                                        <li>
+                                            <a class="type" href="index.php?do=space&member_id=$v['uid']">$v['username']</a>
+                                            <span>{$indus_p_arr[$v['indus_pid']]['indus_name']}/$v['indus_name']</span>
+                                        </li>
+										{/loop}
+                                    </ul>
+                                </dd>
+                            </dl>
+                        
+                        <div class="clear"></div>
+                        <div class="show_case">
+                        	<div class="title">
+                                <h2>新案例</h2>
+                            </div>
+                            <div class="content">
+                            <ul>
+                            	{loop $talent_top_arr $v}
+                            	<li>
+                            	<A class="hn" hideFocus title="$v['task_title']" 
+style="FONT-WEIGHT: bold; COLOR: #390; hide-focus: true" 
+href="index.php?do=task&task_id=$v['task_id']" 
+target=_blank>$v['task_title']</A>悬赏：<FONT 
+color=#ff0000>￥<B>$v['task_cash']</B></FONT><BR>中标威客：<A hideFocus style="hide-focus: true" 
+href="index.php?do=space&member_id=$v[uid]" target=_blank><FONT 
+color=green>$v['username']</FONT></A><BR><A hideFocus title="index.php?do=task&task_id=$v['task_id']"
+style="hide-focus: true" 
+href="index.php?do=task&task_id=$v['task_id']" target=_blank><FONT 
+color=#ff6600>点击查看详情&gt;&gt;</FONT></A> 
+                            	</li>
+                            	 {/loop}
+                            	
+                            	
+                            	
+                               
+                            </ul>
+                            	
+                            </div>
+                         </div>
+                         {/if}
+                        </div>
+						{/loop}
+						
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="right_side">
+        	<div class="new_info">
+            	<div class="title">
+                    <span><!-- <a href="#">&raquo;更多</a> --></span>
+                    <h2>最新用户动态</h2>
+                </div>
+                <div class="content">
+                	
+                	<ul>
+                    	<!--{loadfeed(8,'',0,0,'user_talent','',0)}-->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="task">
+            	<div class="title">
+                    <span><a href="index.php?do=talent_list">&raquo;更多</a></span>
+                    <h2>人才分类</h2>
+                </div>
+              <div class="content">
+                	<dl>
+                	  {loop $indus_p_arr $key $values}
+						<dt>{$values[indus_name]}</dt>
+							<dd>
+							{loop $indus_c_arr $key $value}
+								{if $value[indus_pid]==$values[indus_id]}
+								<a href="index.php?do=talent_list&slt_indus_id={$value[indus_id]}">{$value[indus_name]}</a>
+								{/if}
+							{/loop}
+							</dd>
+					   {/loop}  
+                    </dl>
+                </div>
+            </div>
+            
+        </div>
+        <div class="clear"></div>
+        
+         <div class="hot_pep">
+        	<div class="title">
+                    <span><!-- <a href="#">&raquo;更多</a> --></span>
+                    <a id="tab_cont3_1" class="select" onClick="swaptab('cont3','select','',2,1)" href='javascript:void(0);'><span>优秀威客工作室</span></a>
+                    <a id="tab_cont3_2"  onClick="swaptab('cont3','select','',2,2)" href='javascript:void(0);'><span>优秀威客人才</span></a>             
+            </div>
+            <div class="content">
+            	<div id="div_cont3_1" style="display:block;">
+                	<ul>
+                	{loop $nd_t_studio_arr $s}
+                   	  	<li>
+                   	  	  <p><a target="_blank" href="index.php?do=space&view=studio_index&member_id={$s[uid]}"><img src="data/uploads/member/small_{$s[uid]}.jpg" width="80" height="112"/></a></p>
+                          <p><a target="_blank" href="index.php?do=space&view=studio_index&member_id={$s[uid]}">{$s[title]}</a></p>
+                        </li>
+                    {/loop}
+                    
+                    </ul>
+                </div>
+            	<div id="div_cont3_2" style="display:none;">
+                    {loop $nd_t_user_arr $s}
+                   	  	<li class="d2">
+                   	  	  <p><a target="_blank" href="index.php?do=space&member_id={$s[uid]}"><!--{userpic($task_info[uid],middle)}--></a></p>
+                          <p><a target="_blank" href="index.php?do=space&member_id={$s[uid]}">{$s[username]}</a></p>
+                        </li>
+                    {/loop}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".txt_box").focus(function(){
+			$(this).val('');
+		}).blur(function(){
+			if($(this).val()=='请输入关键字' || $(this).val()==''){
+				$(this).val('请输入关键字');
+			}
+		})
+	})
+	function show_indus(indus_pid){
+	$.post("index.php?do=ajax_indus",{indus_pid:indus_pid},function(data){
+		var str_data = data;
+		if(trim(str_data)==''){
+			$("#slt_indus_id").html('<option value="-1"> 请选择子行业 </option>');
+		}else{
+			$("#slt_indus_id").html(str_data);
+		}
+	});
+	}
+	
+	function swtab(obj){
+		 
+		indus_pid = $(obj).attr('fd');
+		sid = $(obj).attr('sid');
+		url = "index.php?do=talent&ajax=1&indus_pid="+indus_pid;
+		if($(obj).data('mydata') != null){ 
+			  sub_show($(obj).data('mydata'),sid);
+			  
+		}else{
+			$.getJSON(url,function(json){
+				$(obj).data('mydata',json.data);	
+				sub_show(json.data,sid);
+			})
+		 }
+		}
+	function sub_show(data,id){
+		
+		var obj = $("#div_cont_"+id);
+		indus_name=  $("#tab_cont_"+id).html();
+		shtml = "<dl class=\"margin_r_two\">";
+		shtml += "<dt class=\"title\">新创建的工作室</dt>";
+		$.each(data.studio_arr,function(i,n){
+			shtml+= "<dd><ul>";
+			shtml+= "<li class=\"img_box\">";
+			if(n.logo){
+				shtml+= "<img src=\""+n.logo+"\" width=\"55\" height=\"55\"/>";
+			}else{
+				shtml+="<img src=\"data/uploads/member/small_"+n.uid+".jpg\" title=\""+n.username+"\" width=\"55\" height=\"55\" class=\"pic_small\" onerror=\"this.src='resource/img/avgdefaultsmall.jpg'\" />";
+			}
+			shtml+= "<li><a href=\"index.php?do=space&view=studio_index&member_id="+n.uid+"\">"+n.title+"</a></li>";
+			shtml+="<li>用户成员 共有<b class=\"red\">"+n.members+"</b>人</li>";
+			shtml+="<li class=\"tech\">技能：<a href=\""+n.indus_id+"\">"+n.indus_name+"</a></li>";
+			shtml+="</ul></dd>";
+		})
+		shtml+="</dl>";
+		shtml+="<dl>";
+		shtml+="<dt class=\"title\">新加入的人才</dt>";
+		shtml+="<dd><ul>";
+		$.each(data.talent_arr,function(i,n){
+			shtml+= "<li>";
+            shtml+=" <a class=\"type\" href=\"index.php?do=space&member_id="+n.uid+"\">"+n.username+"</a>";
+            shtml+="  <span>"+indus_name+"/"+n.indus_name+"</span>";
+            shtml+=" </li>";
+		})					   
+            shtml+="</ul></dd>";
+			shtml+="</dl>";                
+            shtml+="<div class=\"clear\"></div>";            
+            shtml+="<div class=\"show_case\">";            
+            shtml+="<div class=\"title\">";
+			shtml+="<h2>新案例</h2>";            
+            shtml+="</div>";            	
+            shtml+="<div class=\"content\">";
+			shtml+="<ul>";                    
+            $.each(data.talent_top_arr,function(i,n){
+            	shtml+="<li><A class=\"hn\" hideFocus title=\""+n.task_title+"\" ";
+            	shtml+="style=\"FONT-WEIGHT: bold; COLOR: #390; hide-focus: true\" ";
+            	shtml+="href=\"index.php?do=task&task_id="+n.task_id+"\" ";
+            	shtml+="target=_blank>"+n.task_title+"</A>悬赏：<FONT ";
+            	shtml+="color=#ff0000>￥<B>"+n.task_cash+"</B></FONT><BR>中标威客：<A hideFocus style=\"hide-focus: true\" ";
+            	shtml+="href=\"index.php?do=space&member_id="+n.uid+"\" target=_blank><FONT ";
+            	shtml+="color=green>"+n.username+"</FONT></A><BR><A hideFocus title=\"index.php?do=task&task_id="+n.task_id+"\"";
+            	shtml+="href=\"index.php?do=task&task_id="+n.task_id+"\" target=_blank><FONT ";
+            	shtml+="color=#ff6600>点击查看详情&gt;&gt;</FONT></A> </li>";
+			})                
+            shtml+= "</ul>";               
+            shtml+= "</div>";
+			shtml+= "</div>";            
+           $(obj).html(shtml);              
+	}
+		
+		 
+	
+
+</script>
+<!--{template footer}-->

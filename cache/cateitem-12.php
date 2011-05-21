@@ -1,0 +1,1 @@
+<?php defined('IN_DESTOON') or exit('Access Denied'); return array (7 => '0',8 => '1',9 => '0',10 => '0',); ?>

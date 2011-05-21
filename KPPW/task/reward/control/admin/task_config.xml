@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+
+   <model_id>1</model_id>
+   <model_code>reward</model_code>
+   <model_name>悬赏任务</model_name>
+   <model_dir>reward</model_dir>
+   <model_dev>kekezu</model_dev>
+   <model_status>1</model_status>		
+
+ 
+</root>

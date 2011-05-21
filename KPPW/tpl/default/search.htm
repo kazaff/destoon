@@ -1,0 +1,129 @@
+<!--{eval $page_title = '高级搜索 - '.$_K['html_title']}--><!--{template header}-->
+<link href="{SKIN_PATH}/css/main.css" rel="stylesheet" type="text/css"/>
+
+<div id="content">
+    
+    <div class="task_con_tit">
+    	<dl><dt class="font14">高级搜索</dt><dd></dd></dl>
+    </div>
+    <div class="task_info_bg"><div class="task_info">
+    	<form action="index.php" id="search_adv_form" method="get">
+    		<input type="hidden" name="do" value="search_list">
+    	<table width="100%" border="0" cellpadding="0" cellspacing="0"> 
+        <tr> 
+          <td width="23%" height="38">项目标题：
+            <label> 
+            <input name="txt_search_title" id="txt_search_title" type="text" class="input_txt" id="tit" size="16" maxlength="30"  /> 
+            </label></td> 
+          <td width="19%">项目分类：
+            <label> 
+            <select name="slt_indus_pid" class="input_slt" id="fl" style="width:92px"> 
+              <option value="">全部</option> 
+				{loop $indus_p_arr $key $value}
+					<option value="{$value[indus_id]}">{$value[indus_name]}</option>
+				{/loop}
+            </select> 
+            </label></td> 
+          <td colspan="2">当前状态：
+            <select name="slt_task_status" class="input_slt" id="zt" style="width:82px"> 
+              <option value="">全部</option>
+			  {loop $task_status_arr $key $value} 
+			  	<option value="{$key}">$value</option> 
+			  {/loop}
+            </select> 
+            &nbsp; &nbsp;
+			任务类型：
+			 <select name="slt_task_type" class="input_slt" id="zt" style="width:82px"> 
+              <option value="">全部</option>
+			  {loop $model_list $model}
+              <option value="{$model[model_id]}">{$model[model_name]}</option>
+              {/loop}
+            </select> 
+			<span id="sp_task_cash">
+			 &nbsp; &nbsp;任务金额：
+			 <select name="slt_task_cash" class="input_slt" id="zt" style="width:122px"> 
+              <option value="">全部</option>
+			  {loop $reward_cove_arr $key $value}
+				<option value="{$key}" >{$value}</option>
+			  {/loop}
+            </select> 
+			</span>
+			<span id="sp_task_cash_cove" style="display:none;">
+			 &nbsp; &nbsp;任务金额：
+			 <select name="slt_task_cash_cove" class="input_slt" id="zt" style="width:122px"> 
+              <option value="">全部</option>
+			  {loop $cash_rule_arr $key $value}
+				<option value="{$value[cove_id]}">{$value[cove_desc]}</option>
+			  {/loop}
+            </select>
+			</span>
+			
+     </tr> 
+        <tr> 
+          <td height="38">项目编号：
+            <input type="text" name="txt_search_id" class="input_txt" size="16" maxlength="30" /></td> 
+          <td>中标模式：
+            <select name="moder" class="input_slt" id="moder" style="width:92px"> 
+              <option value="">全部</option> 
+              <option value="0">单人中标</option> 
+              <option value="1">多人中标</option> 
+              <option value="2">计件工资</option> 
+                                                </select></td> 
+          <td width="25%">排序方式：
+            <select name="slt_order" class="input_slt" id="px" style="width:144px">
+              <option value="">选择排序方式</option>
+              <option value="1">发布时间 从后到先</option> 
+              <option value="2">发布时间 从先到后</option> 
+              <option value="3">剩余时间 从少到多</option> 
+              <option value="4">剩余时间 从多到少</option> 
+              <option value="5">悬赏金额 从低到高</option> 
+              <option value="6">悬赏金额 从高到低</option> 
+			  <option value="7">浏览次数 从少到多</option> 
+			  <option value="8" >浏览次数 从多到少</option> 
+			  <option value="9">参与人数 从少到多</option> 
+			  <option value="10">参与人数 从多到少</option> 
+             </select>
+			</td> 
+          <td width="33%"><input name="sbt_search" type="submit" class="input_btn" value="搜 索" /> 
+            <input name="chongz" type="button" class="input_btn" value="重 置" /></td> 
+          </tr> 
+          <tr><td></td></tr>
+      </table>
+      <ul class="hotsearch">
+      <li>热门搜索：</li>
+      <!--{tag 搜索页热门搜索}-->
+      </ul>
+	  </form>
+    </div></div><!--task_info_bg_E-->
+    <script type="text/javascript">
+    function hotsearch_f(v){
+        $("#txt_search_title").val(v);
+        $("#search_adv_form").submit();
+    }
+    </script>
+    
+    <div class="task_con_tit">
+    	<dl><dt class="font14">项目分类</dt><dd></dd></dl>
+    </div>
+    <div class="task_info_bg"><div class="task_info">
+    	
+		{loop $indus_p_arr $keys $values}
+			
+			<dl class="task_adv_search">
+    		<dt>
+    			<a href="index.php?do=search_list&slt_indus_pid={$values[indus_id]}"><span class="font14 f52">{$values[indus_name]}</span></a>
+				</dt>
+        	<dd>
+				<!--{eval $kxxx = 0;}-->
+				{loop $indus_c_arr $key $value}
+					{if $value[indus_pid]==$values[indus_id]} {if $kxxx++}|{/if} <a href="index.php?do=search_list&indus_id={$value[indus_id]}">{$value[indus_name]}</a> 
+					{/if}
+				{/loop}
+			</dd>
+		</dl>
+		{/loop}  
+    </div></div><!--task_info_bg_E-->
+</div><!--content_E-->
+<div class="clear"></div>
+
+<!--{template footer}-->

@@ -1,0 +1,3 @@
+<?php Template_Class::subtplcheck('control/admin/tpl/template_tag_task_li_flr_date', '1303866330', 'control/admin/tpl/template_tag_task_li_flr_date');?><?php if(is_array($datalist)) { foreach($datalist as $value) { ?>
+<li><a href="<?=$value['url']?>"><?=$value['title']?></a><span class="c_999 fl_r"><?php echo date('Y-m-d',$value[endtime]); ?></span></li>
+<?php } } ?><?php Template_Class::ob_out();?>

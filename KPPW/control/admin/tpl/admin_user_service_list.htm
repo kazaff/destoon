@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>会员管理</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/common.js"></script>
+
+<body>
+<form method="get" action="index.php" id="frm_user_search">
+<input type="hidden" name="do" value="user">
+<input type="hidden" name="type" value="service">
+<input type="hidden" name="ord" value="{$ord}">
+<div class="main">
+	
+	<div class="v_search">
+		     显示条数：
+		<select name="slt_page_size">
+			<option value="10" {if $slt_page_size=='10'}selected="selected"{/if}>每页显示10</option>
+			<option value="20" {if $slt_page_size=='20'}selected="selected"{/if}>每页显示20</option>
+			<option value="30" {if $slt_page_size=='30'}selected="selected"{/if}>每页显示30</option>
+		</select>
+		
+		
+		用户id：<input type="text" class="input_t" size="4" name="txt_uid" value="{$txt_uid}" onkeyup="clearstr(this);">　
+		用户名：<input type="text" class="input_t" name='txt_username' value="{$txt_username}" onkeyup="clearspecial(this);">　
+		用户状态：<select name="slt_static" style="width:60px;">
+      		<option value="0" {if !$slt_static}selected="selected"{/if}> 全部 </option>
+			<option value="1" {if $slt_static=='1'}selected="selected"{/if}> 正常 </option>
+			<option value="2" {if $slt_static=='2'}selected="selected"{/if}> 禁用 </option>
+		</select>
+		
+		<input type="submit" name="sbt_search" value="查询" class="input_but" onmouseover="this.className='input_but_over'" onmouseout="this.className='input_but'"/>
+      
+	
+    </div>
+	
+ 	
+  <div id="change">
+  		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab_list t_c">
+          <tr>
+            <th align="left">UID( <a href="index.php?do=user&type=service&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=1"><img src="tpl/img/m_up.gif" /></a> / <a href="index.php?do=user&type=service&slt_static=$slt_static&txt_uid={$txt_uid}&txt_username={$txt_username}&slt_page_size={$slt_page_size}&ckb_isvip={$ckb_isvip}&ord=2"><img src="tpl/img/m_down.gif" /></a> )</th>
+            <th width="100" class="motif">用户名</th>
+			<th >用户组</th>
+			<th>电话</th>
+			<th>E-mail</th>
+			<th>QQ</th>
+			<th>编辑</th>
+			<th>删除</th>
+          </tr>
+		{loop $userlist_arr $key $value}
+        <tr>
+            <td align="left"><input type="checkbox" name="ckb[]" id="cbk_selected" value="{$value[uid]}"> {$value[uid]}</td>
+            <td class="motif"><a href="javascript:void(0)" >{$value[username]}</a></td>
+            <td>$grouplist_arr[$value[group_id]][groupname]</td>
+			<td>{$value[phone]}</td>
+			<td>{$value[email]}</td>
+			<td>{$value[qq]}</td>
+			<td><a href="index.php?do=user&type=front&op=add&edituid={$value['uid']}&&view=service"><img src="tpl/img/ico/edit.png" align="absmiddle"/>编辑</a> </td>
+			<td><a href="index.php?do=user&type=service&op=del&delid={$value['uid']}" onclick="return confirm('确认要删除吗?');"><img src="tpl/img/ico/delete.gif" align="absmiddle"/>删除</a></td>
+          </tr>
+		 {/loop}
+          <tr>
+            <th colspan="4" align="left"><input type="checkbox" id="checkbox" onclick="checkall()"> 
+			全选　
+			
+			<input type="submit" name="sbt_action" value="批量删除" onclick="return confirm('确认？');" class="input_but" />
+			
+			&nbsp;&nbsp;&nbsp;<input type="button" name="sbt_add" value="添加新客服" class="input_but" onclick="document.location.href='index.php?do=user&type=service&op=add'"/>
+			</th>
+			<th colspan="4">
+				<div class="page">
+					{$pages[page]}
+				</div>
+			</th>
+          </tr>
+        </table>
+	</div>
+    </div>
+</form>
+<script>
+	function showpl(){
+		$('#sbt_del').show();
+		$('#slt_action').show();
+	}
+</script>
+</body>
+</html>

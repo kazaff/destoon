@@ -1,0 +1,41 @@
+  <div id="top" class="w960">
+            <h3 class="logo"><a href="{$_K['siteurl']}"><img src="{$basic_config[web_logo]}" alt="{$_K['website_name']}"/></a></h3>
+            <div class="top_search">
+            	<form method="get" action="index.php">
+            		<input type="hidden" name="do" value="search_list" name="frm_search_list" id="frm_search_list">
+                <div class="searchIndex">
+                    <ul id="header_search">
+                        <li id="tab_search_1" onClick="swaptab('search','on','',2,1)" class="on">
+                            任务标题
+                        </li>
+                        <li id="tab_search_2" onClick="swaptab('search','on','',2,2)">
+                            任务编号
+                        </li>
+                    </ul>
+                </div>
+                <div class="s_area">
+                    <input type="text" class="s_a_txt" id="div_search_1" name="txt_search_title"  value="请输入任务标题" onfocus="this.value=''">
+					<input type="text" class="s_b_txt" id="div_search_2" name="txt_search_id"  value="请输入任务编号" onfocus="this.value=''" style="display:none;">
+					<input type="submit" class="s_a_sub" value="" onClick="frm_search_list.submit();"/>
+					<a href="index.php?do=search" target="_blank" class="s_a_adv c030">高级<br/>搜索</a>
+                </div>
+				</form>
+            </div>
+            <p class="top_phone">
+                <b>{$_K['kf_phone']}</b>7×24 小时免费服务热线
+            </p>
+        </div>
+<script type="text/javascript">
+	$(function(){
+		$("#div_search_1").click(function(){
+					if($(this).val()=="请输入任务标题") $(this).val("");
+				}).blur(function(){
+					if($(this).val()=='') $(this).val("请输入任务标题");
+				})
+				$("#div_search_2").click(function(){
+					if($(this).val()=="请输入任务编号") $(this).val("");
+				}).blur(function(){
+					if($(this).val()=='') $(this).val("请输入任务编号");
+				})
+	})
+</script>

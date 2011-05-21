@@ -1,0 +1,44 @@
+{template 'header'}
+<div class="m">
+	<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	<td valign="top" class="left_menu">
+		<ul>
+		<li><a href="{DT_PATH}">网站首页</a></li>
+		<li id="type_0"><a href="./">公告中心</a></li>
+		{loop $TYPE $t}
+		<li id="type_{$t[typeid]}"><a href="{rewrite('index.php?typeid='.$t['typeid'])}">{$t[typename]}</a></li>
+		{/loop}
+		</ul>
+	</td>
+	<td width="8"> </td>
+	<td valign="top">
+		<div class="left_box">		
+			<div class="pos">当前位置: <a href="{DT_PATH}">首页</a> &raquo; <a href="./">公告中心</a></div>
+			{if $itemid}
+			<div style="margin:5px 15px 5px 15px;line-height:36px;" class="t_c px14"><strong>{$title}</strong></div>
+			<div class="info f_gray"><span class="f_r"><script type="text/javascript">addFav('[收藏]');</script>&nbsp;<span class="jt" onclick="Print();">[打印]</span></span>添加时间：{$adddate}&nbsp;&nbsp;&nbsp;有效期：{$fromdate} 至 {$todate}&nbsp;&nbsp;&nbsp;浏览次数：<span id="hits">{$hits}</span></div>
+			<div class="content" id="content">{$content}</div>
+			{else}
+			<div class="b10">&nbsp;</div>
+			<table cellpadding="3" cellspacing="3" width="98%" align="center">
+			{loop $lists $k $v}
+			<tr>
+			<td>&middot; {if !$typeid}<a href="{rewrite('index.php?typeid='.$v['typeid'])}">[{$v[typename]}]</a>&nbsp;{/if}<a href="{$v[linkurl]}"{if $v[islink]} target="_blank"{/if}>{$v[title]}</a></td>
+			<td class="f_gray" width="120">浏览:{$v[hits]}</td>
+			<td class="f_gray" width="120" align="center">{$v[adddate]}</td>
+			</tr>
+			{/loop}
+			</table>
+			<div class="pages">{$pages}</div>
+			{/if}
+		<br/>
+		</div>
+	</td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript">
+try {$('type_{$typeid}').style.backgroundColor = '#CDDCE4';	}catch (e){}
+</script>
+{template 'footer'}

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}" />
+<title>main</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script src="tpl/js/common.js" type="text/javascript"></script>
+<div class="main">
+    <div class="S_info">收入指用户在线充值到本系统的金额，管理员编辑用户信息增加的不被统计，支出指提现金额，利润指网站抽成+认证等收入。</div>
+    <div class="S_info">
+    <div c1lass="S_list">&nbsp;&nbsp;
+	<strong>&nbsp;年统计：&nbsp;今年</strong><br>
+	
+	总收入：<font color="red">￥{$total_year_in}元</font>
+	
+	总支出：<font color="red">￥{$total_year_out}元</font>
+	
+	总毛利：<font color="red">￥{$total_year_profit}元</font>
+	
+	</div>
+	</div>
+	
+	<br>
+	<br>
+	<div class="S_info"></div>
+   <div class="S_info">
+    <div c1lass="S_list">&nbsp;&nbsp;
+	<strong>&nbsp;月统计：&nbsp;当前月</strong><br>
+	
+	总收入：<font color="red">￥{$total_month_in}元</font>
+	
+	总支出：<font color="red">￥{$total_month_out}元</font>
+	
+	总毛利：<font color="red">￥{$total_month_profit}元</font>
+	
+	</div>
+	</div>
+	<br>
+	<br>
+	<div class="S_info"></div>
+   <div class="S_info">
+    <div c1lass="S_list">&nbsp;&nbsp;
+	<strong>&nbsp;日统计：&nbsp;当天</strong><br>
+	
+	总收入：<font color="red">￥{$total_day_in}元</font>
+	
+	总支出：<font color="red">￥{$total_day_out}元</font>
+	
+	总毛利：<font color="red">￥{$total_day_profit}元</font>
+	</div>
+	</div>
+	<br>
+	<br>
+	<div class="S_info"></div>
+   <div class="S_info">
+    <div class="S_list">&nbsp;&nbsp;
+	<strong>&nbsp;当前有<font color="red">{$withdraw_count}</font>个提现申请未审核</strong><br>
+	
+	</div>
+	</div>
+</div>
+</body>
+</html>

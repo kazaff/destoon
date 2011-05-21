@@ -1,0 +1,111 @@
+ <div class="work_input_d">
+ 	<ul>
+ 		<li class="fl_l">
+	 	<input type="button" value="所有投标" class="input_btn3" onclick="location.href='index.php?do=task&task_id={$task_id}&view={$view}&bidtype=1#t_work_list'"/> 
+		<input type="button" value="VIP会员投标" class="input_btn3" onclick="location.href='index.php?do=task&task_id={$task_id}&view={$view}&bidtype=2#t_work_list'"/>
+		<input type="button" value="团队投标" class="input_btn3" onclick="location.href='index.php?do=task&task_id={$task_id}&view={$view}&bidtype=3#t_work_list'"/>
+		 </li>　
+		 <li class="fl_r">
+		 	<form action="index.php?do=task&view=bid&task_id=$task_id#t_work_list" method="post">
+		 		
+		 	<input type="text" name="txt_username" size="12" class="input_txt" /> 
+		 	<select>
+		 		<option>作者</option>
+			</select> 
+			  <select onchange="location.href=this.value">
+			  	<option value="index.php?do=task&task_id=$task_id&view=bid&bidtype=$bidtype&ord=asc#t_work_list">按时间升序</option>
+		 		<option {if $ord=='desc'}selected="selected"{/if} value="index.php?do=task&task_id=$task_id&view=bid&bidtype=$bidtype&ord=desc#t_work_list">按时间降序</option>
+			  </select>
+			  <input type="submit" value="搜索" class="input_btn" />
+			</form>
+		  </li>
+	  </ul>
+	</div>
+    <div class="task_info2 p_0">
+   	  <div class="task_work_d">
+   	  	
+		{loop $bid_arr $key $value}
+		
+       	<dl class="task_work_d_tit">
+       		<dt class="w20">
+       			<strong>投标编号：{$value[bid_id]}号</strong>
+			</dt>
+			<dt class="w80">
+				<strong>时间:</strong>
+				<span class="f60"> 
+				<!--{date('Y/m/d H:i:s',$value[bid_time])}-->
+				</span>
+				<!--
+				<strong>　　评论</strong>
+				<span class="f60"> 23 </span>条　　
+				<strong>投票</strong>
+				<span class="f60"> 56 </span>　　
+				<input type="button" value="选为入围" class="span_btn" /> -->
+				{if $uid == $task_info[uid]&&$task_info['task_status']==2}
+				<input type="button" value="选为中标" class="span_btn" onclick="location.href='index.php?do=task&task_id={$task_id}&view={$view}&ac=select_bid&bid_id={$value[bid_id]}'"  />
+				{/if}
+				 {if ($basic_config[mark_start_status]==1)||($basic_config[mark_start_status]==3&&$task_info[task_status]==7)}
+				  {if $value[bid_status]==1}
+					  {if $uid==$task_info[uid]}
+					  	{if !$value['mark_status']}
+					  		<input type="button" class="span_btn"  value="对投稿者评分" id="buyer_mark" onclick="showWindow('buyer_mark', 'index.php?do=mark&task_id={$task_info[task_id]}&work_id={$value[work_id]}&user_type=2&to_uid={$value[uid]}&task_type={$do}');" />
+					  	{/if}
+					  {elseif $uid==$value[uid]}
+						  {if !$value['mark_status']}
+						 	 <input type="button" class="span_btn"  value="对发布者评分" id="seller_mark" onclick="showWindow('seller_mark', 'index.php?do=mark&task_id={$task_info[task_id]}&work_id=0&user_type=1&to_uid={$task_info[uid]}&task_type={$do}');"/>
+				          {/if}
+					  {/if}
+				  {/if}
+			  {/if}
+			</dt>
+		</dl>
+          <dl class="task_work_d_bg {if $key==1}task_work_d_bgcf3{/if}">
+           	  <dd class="w20">
+               	  <ul><li>
+               	  	<img src="{SKIN_PATH}/img/task_work_p.gif"/>
+					<a href="index.php?do=space&member_id=$value[uid]">{$value[username]}</a>{if $value[title]}&nbsp;<a href="index.php?do=space&view=studio_index&member_id={$value[uid]}"><font color="#ff6600">[{$value[title]}工作室]</font></a>{/if}</li>
+                    <li class="t_c">
+						<!--{userpic($value[uid],middle)}-->
+					</li>
+                      <li>认证状态：{if $value[isvip]==1}<img src="{SKIN_PATH}/img/truename.gif" align="absmiddle" title="VIP认证已通过">{else}<img src="{SKIN_PATH}/img/untruename.gif" title="VIP认证未通过"/>{/if}&nbsp;
+				  {if $value[email_auth]==1}<img src="{SKIN_PATH}/img/mail.gif" align="absmiddle" title="Email认证已通过">{else}<img src="{SKIN_PATH}/img/unmail.gif" title="Email认证未通过"/>{/if}&nbsp;
+				  {if $value[enterprise_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_ent_1.gif" align="absmiddle" title="企业认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_ent_0.gif" title="企业认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $value[realname_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_name_1.gif" align="absmiddle" title="身份证认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_name_0.gif" title="身份证认证未通过"/>{/if}&nbsp;&nbsp;
+				  {if $value[bank_auth]==1}<img src="{SKIN_PATH}/img/ico_cert_bank_1.gif" align="absmiddle" title="银行认证已通过">{else}<img src="{SKIN_PATH}/img/ico_cert_bank_0.gif" title="银行认证未通过"/>{/if}&nbsp;&nbsp;</li>
+					
+                    <li>用户头衔：<!--{eval $exp_value = Func_comm_class::get_experience_level($value[experience_value]);echo $exp_value[title];}--></li>
+                    <li>经验等级：<!--{eval echo $exp_value[pic];}--></li>
+					<li>威客信誉：<!--{eval $w_m_score_value = Func_comm_class::get_mark_level($value[w_m_credit_value],1);echo $w_m_score_value[pic];}--></li>
+					<li>威客好评率：{if $value[buyer_good_rate]}{$value[buyer_good_rate]}{else}0{/if}</li>
+					<li>中标次数：{if $value['accepted_num']}$value['accepted_num']{else}0{/if}</li>
+				
+				 </ul>
+              </dd>
+              <dd class="w80">
+              	{if $value[bid_status]==1}
+              	<div class="task_4"></div>
+				{/if}
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="t_c tab_line">
+                  <tr>
+                    <th width="25%">报价</th>
+                    <th width="25%">工作周期</th>
+                    <th width="25%">所在地</th>
+                    <th width="25%">投标时间</th>
+                  </tr>
+                  <tr>
+                    <td><span class="f60"><strong> {$value[quote]} </strong></span>元</td>
+                    <td>{$value[cycle]}天</td>
+                    <td>{$value[area]}</td>
+                    <td><!--{date('Y-m-d H:i',$value[bid_time])}--></td>
+                  </tr>
+                </table>
+              <p>{$value[message]}</p>
+              </dd>
+          </dl>
+          {/loop}
+        </div>
+    </div>
+   <div class="Npage"><div class="fl_r">
+		          {$bid_pages[page]}
+		    </div>
+  </div>

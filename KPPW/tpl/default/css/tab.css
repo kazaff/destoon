@@ -1,0 +1,24 @@
+.ab_nav{ height:37px; line-height:37px; background:url(../img/ab_nav_bg.jpg) no-repeat; padding-left:20px; width:940px;}
+.ab_nav a{ font-size:14px; font-weight:bold; color:#fff; display:block; width:93px; float:left; text-align:center; margin:0 10px;}
+.ab_nav a:link{ color:#fff;}
+.ab_nav a:visited{color:#fff;}
+.ab_nav a:hover,.ab_nav_h{color:#333 !important;text-decoration:underline; background:url(../img/ab_nav_hbg.jpg) no-repeat;}
+.ab_nav2{ height:24px; line-height:24px; padding-left:200px; margin-bottom:10px; width:760px; margin:0 auto;}
+.ab_nav2 a{ margin:0 5px;}
+.td_25,.td_30{ border-collapse:collapse;}
+.td_25 th,.td_30 th{ background:#f2f2f2; font-weight:bold;}
+.td_25 th,.td_25 td,.td_30 th,.td_30 td{ border:1px solid #ccc;height:25px; line-height:25px; padding-left:2px;}
+.td_30 th,.td_30 td{ height:30px; line-height:30px;}
+.td_30 a{ color:#f60;}
+.tit_bg960{ height:28px; line-height:28px; background:url(../img/titbg_960.gif) no-repeat; padding-left:10px;}
+.ab_tab .tit{height:24px; line-height:24px;}
+.ab_tab .tit a{ color:#666; display:block; width:140px; height:24px; line-height:24px; float:left; text-align:center;background:url(../img/ab_tab_bg.jpg) no-repeat; margin:0 5px;}
+.ab_tab .tit a:link{ color:#666;}
+.ab_tab .tit a:visited{color:#666;}
+.ab_tab .tit a:hover,.ab_tab_h{color:#fff !important;text-decoration:underline; background:url(../img/ab_tab_h.jpg) no-repeat!important; text-decoration:none; font-weight:bold;}
+.ab_tab .gut{ border:1px solid #ccc; padding:10px;}
+.tip_box{ background:#FBFBFB; border:1px dashed #ccc; padding:10px; text-align:center; width:50%; margin:0 auto; font-size:14px; color:red;}
+.ab_sub_nav a{ display:block; height:30px; line-height:30px; font-size:14px; border-bottom:1px solid #C4D4E7; text-align:center; padding-top:5px;}
+.ab_sub_nav a.now{ color:#f60; font-weight:bold;}
+.s_logo{ border:1px solid #AECCE9; padding:10px; margin-bottom:10px; background:#F0F6FB;}
+.ab_s_line{border-bottom:1px solid #C4D4E7; line-height:30px;}

@@ -1,0 +1,1 @@
+<?php defined('IN_DESTOON') or exit('Access Denied'); return array (6 => array ('catid' => '6','catname' => '活动','style' => '','catdir' => 'huodong','domain' => '','linkurl' => 'list.php?catid=6','letter' => 'h','level' => '1','parentid' => '0','arrparentid' => '0','child' => '0','arrchildid' => '','listorder' => '6',),); ?>

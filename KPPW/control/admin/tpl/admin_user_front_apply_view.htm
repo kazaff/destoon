@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={$_K['charset']}">
+<title>查看资料</title>
+</head>
+<link href="tpl/css/style.css" rel="stylesheet" type="text/css" />
+<script src="tpl/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="tpl/js/css.js"></script>
+<script type="text/javascript" src="tpl/js/form_and_validation.js"></script>
+
+<body>
+<div class="main">
+		<div class="m_tit">
+			<ul><li class="m_tit_l"></li>
+			<li class="font14">查看资料</li><li class="m_tit_r"></li>
+			</ul>
+		</div>
+	<form action="index.php?do=user&type=front&op=add" method="post">
+    <table width="96%" height="200" border="0" cellspacing="0" cellpadding="0" class="tab_m t_l">
+	   <tr>
+        <td width="30%" class="bg1 t_r">用户名：</td>
+        <td>$memberinfo_arr[username]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">认证名称：</td>
+        <td>$memberinfo_arr[auth_name]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">QQ：</td>
+        <td>$memberinfo_arr[qq]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">MSN：</td>
+        <td>$memberinfo_arr[msn]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">固定电话：</td>
+        <td>$memberinfo_arr[phone]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">手机：</td>
+        <td>$memberinfo_arr[mobile]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">传真：</td>
+        <td>$memberinfo_arr[fax]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">地址：</td>
+        <td>$memberinfo_arr[address]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">证件号：</td>
+        <td>$memberinfo_arr[idcard]</td>
+      </tr>
+	  <tr>
+        <td width="30%" class="bg1 t_r">证件图：</td>
+        <td>{if $memberinfo_arr[idpic]}<a href="../../$memberinfo_arr[idpic]" target="_blank"><img border=0 width=270 height=160 src="../../$memberinfo_arr[idpic]"></a>{else}未提供{/if}</td>
+      </tr>
+	  
+	 <input type="hidden" name="is_submit" value="1"/>
+	  
+    </table>
+	
+	<p class="t_c mt_10">
+		{if $memberinfo_arr[is_auth]==1}<input type="button" name="sbt_edit" class="input_but" value="通过认证" onclick="window.location.href='index.php?do=user&type=front&op=allowapply&authuid={$memberinfo_arr['uid']}'"/>&nbsp;&nbsp;&nbsp;&nbsp;{/if}
+		<input type="button" name="sbt_edit" class="input_but" value="取消认证" onclick="window.location.href='index.php?do=user&type=front&op=dennyapply&authuid={$memberinfo_arr['uid']}'"/>
+	</p>
+ </form>
+ 	<br/>
+    </div>
+</body>
+</html>

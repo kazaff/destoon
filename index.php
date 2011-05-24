@@ -6,6 +6,9 @@
 //配置文件
 require 'common.inc.php';
 
+/*
+ * 这段代码的作用是为了实现后台的公司二级域名功能，如果开通了该功能，那么这段代码就会按要求定位到指定公司的首页
+ */
 $username = $domain = '';
 if(isset($homepage) && check_name($homepage)) {
 	$username = $homepage;
@@ -17,7 +20,7 @@ if(isset($homepage) && check_name($homepage)) {
 	} else {
 		$whost = $host;
 	}
-	if(strpos(DT_URL, $host) === false) {
+	if(strpos(DT_URL, $host) === false) {	//如果满足，则证明$host为二级域名格式(公司启用域名),如果请求的域名和后台定义的网站地址不同，那就说明该请求目的是查看某个公司信息
 		$www = str_replace($CFG['com_domain'], '', $host);
 		if(check_name($www)) {
 			$username = $homepage = $www;
@@ -30,13 +33,15 @@ if(isset($homepage) && check_name($homepage)) {
 		}
 	}
 }
-if($username) {
+
+
+if($username) {		//如果存在，就要打开指定公司页面
 	$moduleid = 4;
 	$module = 'company';
 	$MOD = cache_read('module-'.$moduleid.'.php');
 	require DT_ROOT.'/module/'.$module.'/common.inc.php';
 	include DT_ROOT.'/module/'.$module.'/init.inc.php';
-} else {
+} else {	//系统首页
 	if($DT['safe_domain']) {
 		$safe_domain = explode('|', $DT['safe_domain']);
 		$pass_domain = false;

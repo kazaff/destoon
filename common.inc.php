@@ -14,11 +14,11 @@ if(isset($_REQUEST['GLOBALS']) || isset($_FILES['GLOBALS'])) exit('Request Denie
 @set_magic_quotes_runtime(0);
 $MQG = get_magic_quotes_gpc();
 
-//因为后面会把POST和GET数组中的元素提取出来，所以这里先把已经存在的冲突的变量名下的内容unset，节省内存空间，避免垃圾数据
+//因为后面会把POST和GET数组中的元素提取出来
 foreach(array('_POST', '_GET') as $R) {
 	if($$R) { 
 		foreach($$R as $k=>$v) {
-			if(isset($$k) && $$k == $v)
+			if(isset($$k) && $$k == $v)		//后面的112行表明不会覆盖同名变量，所以这里把所有重名的变量先unset
 				unset($$k);
 		} 
 	}
@@ -142,7 +142,7 @@ if(!defined('DT_ADMIN')) {		//非管理员访问
 //清除重要数据
 unset($CACHE, $CFG['timezone'], $CFG['db_host'], $CFG['db_user'], $CFG['db_pass'], $db_class, $db_file);
 
-//
+//确定访问模块
 if(!isset($moduleid)) {
 	$moduleid = 1;
 	$module = 'destoon';
@@ -151,8 +151,8 @@ if(!isset($moduleid)) {
 } else {
 	$moduleid = intval($moduleid);
 	isset($MODULE[$moduleid]) or dheader(DT_PATH);		//如果访问的未定义模块，则跳转到定制的首页
-	$module = $MODULE[$moduleid]['module'];		//模块名，对应模块的文件夹名称
-	$MOD = cache_read('module-'.$moduleid.'.php');
+	$module = $MODULE[$moduleid]['module'];		//对应模块的文件夹名称
+	$MOD = cache_read('module-'.$moduleid.'.php');	//载入该模块的配置信息
 	include DT_ROOT.'/lang/'.DT_LANG.'/'.$module.'.inc.php';	//加载指定模块的语言配置文件
 }
 

@@ -1,9 +1,11 @@
 <?php 
 defined('IN_DESTOON') or exit('Access Denied');
-isset($file) or $file = 'homepage';
-if(isset($update) || isset($preview)) {
+
+isset($file) or $file = 'homepage';		//公司对应栏目，默认是首页homepage
+
+if(isset($update) || isset($preview)) {	//如果是更新或预览操作，就不检查缓存设置
 	$db->cids = 1;
-	$CACHE_HOME = '';
+	$CACHE_HOME = '';	//公司首页缓存文件
 } else {
 	$CACHE_HOME = $DT['cache_home'] ? DT_CACHE.'/com/'.substr($username, 0, 2).'/'.$username.'.php' : '';
 	if($file == 'homepage' && $CACHE_HOME && $DT_TIME - @filemtime($CACHE_HOME) < $DT['cache_home']) {
@@ -11,61 +13,83 @@ if(isset($update) || isset($preview)) {
 		exit;
 	}
 }
+
+//从数据库中取出用户和公司的相关数据,并缓存数据库结果
 $sql = "SELECT * FROM {$table_member} m,{$table} c WHERE m.userid=c.userid AND m.username='$username'";
 $COM = $db->get_one($sql, 'CACHE');
+
+//无效的用户名或者访问的公司用户组属于2禁止访问，3游客，4待审核会员时，
 if(!$COM || in_array($COM['groupid'], array(2, 3, 4))) {
+	//删除为这次创建的数据库查找缓存
 	$cid = md5($sql);
 	@unlink(DT_CACHE.'/sql/'.substr($cid, 0, 2).'/'.$cid.'.php');
+	
 	$head_title = $L['not_comapny'];
 	@header("HTTP/1.1 404 Not Found");
 	include template('com-notfound', 'message');
 	exit;
 }
+
+//如果用户还没有修改过公司信息，且公司模块没有开启显示资料未完善公司主页选项
 if(!$COM['edittime'] && !$MOD['openall']) {
 	$head_title = $COM['company'];
 	@header("HTTP/1.1 404 Not Found");
 	include template('com-opening', 'message');
 	exit;
 }
+
+//请求的URL和公司绑定的域名不同，就一定会跳转到绑定域名
 $domain = $COM['domain'];
 if($domain) {
-	if(strpos($DT_URL, $domain) === false && !isset($preview)) {
-		$subdomain = userurl($username);
-		if(strpos($DT_URL, $subdomain) === false) {
+	if(strpos($DT_URL, $domain) === false && !isset($preview)) {	//如果请求URL和公司绑定域名不同，且不是预览的情况下
+		$subdomain = userurl($username);	//生成公司二级域名
+		if(strpos($DT_URL, $subdomain) === false) {		//如果请求和公司二级域名也不相同，就跳转到公司绑定的域名
 			dheader('http://'.$domain.'/');
 		} else {
 			if($DT_URL == $subdomain.'index.php' || $DT_URL == $subdomain) dheader('http://'.$domain);
+			
+			//如果有请求URL中有参数，则跳转时带上
 			dheader(str_replace($subdomain, 'http://'.$domain.'/', $DT_URL));
 		}
 	}
+	
+	//请求的URL和公司绑定的域名相同时，才会运行到下面的代码
 	$DT['rewrite'] = intval($CFG['com_rewrite']);
 }
+
 $userid = $COM['userid'];
-$linkurl = userurl($username, '', $domain);
+
+$linkurl = userurl($username, '', $domain);	//生成公司的访问URL
 if($COM['linkurl'] != $linkurl) {
 	$COM['linkurl'] = $linkurl;
 	$db->query("UPDATE LOW_PRIORITY {$table} SET linkurl='$linkurl' WHERE userid=$userid", 'UNBUFFERED');
 }
+//如果VIP过期，更新数据库
 if($COM['vip'] && $COM['totime'] && $COM['totime'] < $DT_TIME) {//VIP Expired
 	$COM['vip'] = 0;
 	$COM['groupid'] = $gid = $COM['regid'];
 	$db->query("UPDATE {$table} SET groupid=$gid,vip=0 WHERE userid=$userid");
 	$db->query("UPDATE {$DT_PRE}member SET groupid=$gid WHERE userid=$userid");
 }
+//风格模板过期,更新数据库
 if($COM['styletime'] && $COM['styletime'] < $DT_TIME) {//SKIN Expired
 	$COM['skin'] = $COM['template'] = '';
 	$db->query("UPDATE {$table} SET styletime=0,skin='',template='' WHERE userid=$userid");
 }
-$COM['year'] = vip_year($COM['fromtime']);
-$COMGROUP = cache_read('group-'.$COM['groupid'].'.php');
+$COM['year'] = vip_year($COM['fromtime']);		//VIP的年数
+
+$COMGROUP = cache_read('group-'.$COM['groupid'].'.php');	//公司用户组
 if(!isset($COMGROUP['homepage']) || !$COMGROUP['homepage']) {
 	$head_title = $COM['company'];
 	$head_keywords = $COM['keyword'];
 	$head_description = $COM['introduce'];
 	$member = $COM;
+	//??
 	$content_table = content_table(4, $userid, is_file(DT_CACHE.'/4.part'), $DT_PRE.'company_data');
+	
 	$r = $db->get_one("SELECT content FROM {$content_table} WHERE userid=$userid", 'CACHE');
 	$content = $r['content'];
+	//形象图片
 	$member['thumb'] = $member['thumb'] ? $member['thumb'] : DT_SKIN.'image/company.jpg';
 	include template('show', $module);
 	exit;

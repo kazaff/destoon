@@ -379,7 +379,7 @@ function cache_clear($str, $type = '', $dir = '') {
 	}
 }
 
-//返回内容表名
+//返回内容表的表名
 function content_table($moduleid, $itemid, $split, $table_data = '') {
 	if($split) {
 		return split_table($moduleid, $itemid);
@@ -791,20 +791,22 @@ function imgurl($imgurl = '', $absurl = 0) {
 	return linkurl($imgurl, $absurl);
 }
 
-//
+//生成公司的url
 function userurl($username, $qstring = '', $domain = '') {
 	global $CFG, $DT, $MODULE;
 	$URL = '';
 	if($username) {
-		if($CFG['com_domain'] || $domain) {
-			$URL = $domain ? 'http://'.$domain.'/' : 'http://'.($DT['com_www'] ? 'www.' : '').$username.$CFG['com_domain'].'/';
-			if($qstring) {
-				parse_str($qstring, $q);
-				if(isset($q['file'])) {
+		if($CFG['com_domain'] || $domain) {		//公司主页绑定二级域名选项不为空，或该用户公司的domain(绑定域名 )不为空
+			$URL = $domain ? 'http://'.$domain.'/' : 'http://'.($DT['com_www'] ? 'www.' : '').$username.$CFG['com_domain'].'/';	//生成URL
+			if($qstring) {	//如果有请求参数
+				parse_str($qstring, $q);	//则把请求参数存在$q数组里
+				
+				if(isset($q['file'])) {		//如果参数中存在file,说明请求的是公司的某一个栏目页
 					$URL .= $CFG['com_dir'] ? $q['file'].'/' : 'company/'.$q['file'].'/';
 					unset($q['file']);
 				}
-				if($q) {
+				
+				if($q) {	//如果还有其他参数，就根据网站设置格式化成合适的字符串
 					if($DT['rewrite']) {
 						//$URL .= 'home-';
 						foreach($q as $k=>$v) {
@@ -843,7 +845,7 @@ function userurl($username, $qstring = '', $domain = '') {
 			if($qstring) $URL = $URL.'&'.$qstring;
 		}
 	} else {
-		$URL = linkurl($MODULE[4]['linkurl'], 1).'guest.php';
+		$URL = linkurl($MODULE[4]['linkurl'], 1).'guest.php';	//guest.php提示访问的公司尚未注册本站会员
 	}
 	return $URL;
 }

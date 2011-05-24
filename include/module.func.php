@@ -220,7 +220,7 @@ function fix_link($url) {
 	if(strlen($url) < 10) return '';
 	return strpos($url, '://') === false  ? 'http://'.$url : $url;
 }
-
+//计算vip的年数
 function vip_year($fromtime) {
 	global $DT_TIME;
 	return $fromtime ? intval(date('Y', $DT_TIME) - date('Y', $fromtime)) + 1 : 1;

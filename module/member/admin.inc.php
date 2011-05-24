@@ -11,7 +11,7 @@ if($_groupid == 1) {
 			if($user) {
 				$_userid = $userid;
 				extract($user, EXTR_PREFIX_ALL, '');
-				$MG = cache_read('group-'.$_groupid.'.php');	//和common.inc.php最后一行重复了？！
+				$MG = cache_read('group-'.$_groupid.'.php');
 				$admin_user = true;
 			}
 		}
